@@ -638,7 +638,7 @@ angular.module('viaggia.services.game', [])
       LoginService.getValidAACtoken().then(
         function (token) {
           gameService.getChallenge(token, 'PROPOSED').then(function (challenges) {
-            updateVariables(null,challenges);
+            updateVariables(null, challenges);
             deferred.resolve(challenges);
           }, function (err) {
             deferred.reject();
@@ -1066,22 +1066,6 @@ angular.module('viaggia.services.game', [])
     }
     gameService.getConfigureTemplate = function (challenge) {
       return 'templates/game/challengeConfigureTemplate/simpleText.html';
-      // switch (challenge.type) {
-      //     case type_challenges['groupCompetitiveTime'].id: {
-      //         return 'templates/game/challengeConfigureTemplate/groupTime.html';
-      //         break;
-      //     }
-      //     case type_challenges['groupCompetitivePerformance'].id: {
-      //         return 'templates/game/challengeConfigureTemplate/groupPerformance.html';
-      //         break;
-      //     }
-      //     case type_challenges['groupCooperative'].id: {
-      //         return 'templates/game/challengeConfigureTemplate/groupCoop.html';
-      //         break;
-      //     }
-      //     default:
-      //         return 'templates/game/challengeConfigureTemplate/default.html';
-      // }
     }
     gameService.getChallengeBarTemplate = function (challenge) {
       switch (challenge.type) {
@@ -1277,7 +1261,7 @@ angular.module('viaggia.services.game', [])
       );
 
       return deferred.promise;
-    } 
+    }
     gameService.validUserForGamificationLocal = function () {
       return 'true' == localStorage.userValid;
     }
