@@ -51,10 +51,6 @@ angular.module('viaggia.services.data', [])
                 console.log('DBOPEN ERROR');
                 errorcallback();
             });
-            //        db = cordovaSQLite.openDatabase(getDBFileName(), false,
-            //            _do,
-            //            errorcallback
-            //        );
         } else {
             successcallback();
         }
@@ -75,11 +71,6 @@ angular.module('viaggia.services.data', [])
         if (res.rows.length > 0) {
             rowsize = size(res.rows.item(0));
             for (var i = 0; i < res.rows.length; i++) {
-                //          var rowArray = [];
-                //          var row = res.rows.item(i);
-                //          for (var key in row) {
-                //            rowArray.p
-                //          }
                 var row = res.rows.item(i);
                 if (rowsize == 1) {
                     for (var k in row) data.push(row[k]);
@@ -96,10 +87,7 @@ angular.module('viaggia.services.data', [])
                 var data = convertData(res);
                 successcallback(data);
             }, errorcallback);
-            //                cordovaSQLite.execQueryArrayResult("select * from version", [],
-            //                    successcallback,
-            //                    errorcallback
-            //                );
+
         };
         doWithDB(_do, errorcallback);
 
@@ -170,8 +158,6 @@ angular.module('viaggia.services.data', [])
         for (var i = 0; i < arrayOfVersions.length; ++i) {
             returnVersions['' + arrayOfVersions[i].agencyID] = arrayOfVersions[i].version;
         }
-        //        for (var i = 0; i < arrayOfVersions.length; ++i)
-        //            returnVersions[arrayOfVersions[i][0]] = parseInt(arrayOfVersions[i][1]);
         return returnVersions;
     }
 
@@ -285,14 +271,6 @@ angular.module('viaggia.services.data', [])
                 }, function (err) {
                     deferred.reject(err);
                 });
-                //                  cordovaSQLite.execQuerySingleResult(query, params,
-                //                      function(result) {
-                //                        deferred.resolve(result);
-                //                      },
-                //                      function(err) {
-                //                        deferred.reject(err);
-                //                      }
-                //                  );
             };
             doWithDB(_do, function (e) {
                 console.error("!DB ERROR: " + e);

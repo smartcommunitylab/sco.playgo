@@ -246,7 +246,6 @@ angular.module('viaggia.controllers.game', [])
           }
           return deferred.resolve();
         }, function (err) {
-          //TODO
           return deferred.reject();
 
         }).finally(Config.loaded);
@@ -875,7 +874,6 @@ angular.module('viaggia.controllers.game', [])
 
     $scope.removeFromBlacklist = function (id) {
       Config.loading();
-      //TODO
       GameSrv.removeFromBlacklist(id).then(function () {
         //removed
         Config.loaded();
@@ -893,23 +891,16 @@ angular.module('viaggia.controllers.game', [])
         GameSrv.getBlacklist().then(
           function (blacklist) {
             Config.loaded();
-            // $scope.blacklist = $scope.blacklist.concat(blacklist);
-            // $scope.$broadcast('scroll.infiniteScrollComplete');
-            // Config.loaded();
+
             getBlacklist = false;
             $scope.blacklist = blacklist;
             if ($scope.blacklist && $scope.blacklist.length == 0) {
               $scope.noBlack = true
             }
-            // if (blacklist.length < $scope.rankingPerPage) {
-            // $scope.maybeMore = false;
-            // }
           },
           function (err) {
             Config.loaded();
-            // $scope.maybeMore = false;
             Toast.show($filter('translate')("pop_up_error_server_template"), "short", "bottom");
-            // $scope.$broadcast('scroll.infiniteScrollComplete');
             getBlacklist = false;
           }
         );

@@ -585,115 +585,12 @@ angular.module('viaggia.services.game', [])
       var deferred = $q.defer();
       LoginService.getValidAACtoken().then(
         function (token) {
-          //TODO
           gameService.getChallenge(token, 'OLD').then(function (challenges) {
             deferred.resolve(challenges);
           }, function (err) {
             deferred.reject();
           })
 
-          // deferred.resolve([{
-          //     id: 0,
-          //     type: "comp_time",
-          //     short_it: 'Sfida competitiva a tempo',
-          //     short_en: 'Sfida competitiva a tempo',
-          //     long_it: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum pellentesque sapien nulla. Cras in libero vehicula, dapibus sem ac, facilisis tortor. Cras sed fringilla libero, eu euismod mi. Integer non mi dapibus nunc convallis tempor. Morbi eget risus luctus, dapibus orci nec, vulputate diam. Pellentesque molestie nibh at sapien iaculis ultrices. Fusce quis libero sed turpis scelerisque semper. Morbi suscipit nisl nunc, a blandit elit egestas non. Vivamus posuere sem id pellentesque fringilla. Proin sit amet ante id elit vestibulum vehicula eget ut risus. Maecenas vulputate ipsum in ligula dapibus ultricies. ',
-          //     long_en: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum pellentesque sapien nulla. Cras in libero vehicula, dapibus sem ac, facilisis tortor. Cras sed fringilla libero, eu euismod mi. Integer non mi dapibus nunc convallis tempor. Morbi eget risus luctus, dapibus orci nec, vulputate diam. Pellentesque molestie nibh at sapien iaculis ultrices. Fusce quis libero sed turpis scelerisque semper. Morbi suscipit nisl nunc, a blandit elit egestas non. Vivamus posuere sem id pellentesque fringilla. Proin sit amet ante id elit vestibulum vehicula eget ut risus. Maecenas vulputate ipsum in ligula dapibus ultricies. ',
-          //     idOpponent: 0,
-          //     nicknameOpponent: "ciccio",
-          //     dataFinished: 1517529600000,
-          //     target: 100,
-          //     win: 0,
-          //     value: {
-          //         unit: "km",  //km or greenleaves or whatever
-          //         player: 50,
-          //         opponent: 60
-          //     }
-
-          // }, {
-          //     id: 1,
-          //     type: "comp_perf",
-          //     short_it: 'Sfida competitiva performance',
-          //     short_en: 'Sfida competitiva performance',
-          //     long_it: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum pellentesque sapien nulla. Cras in libero vehicula, dapibus sem ac, facilisis tortor. Cras sed fringilla libero, eu euismod mi. Integer non mi dapibus nunc convallis tempor. Morbi eget risus luctus, dapibus orci nec, vulputate diam. Pellentesque molestie nibh at sapien iaculis ultrices. Fusce quis libero sed turpis scelerisque semper. Morbi suscipit nisl nunc, a blandit elit egestas non. Vivamus posuere sem id pellentesque fringilla. Proin sit amet ante id elit vestibulum vehicula eget ut risus. Maecenas vulputate ipsum in ligula dapibus ultricies. ',
-          //     long_en: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum pellentesque sapien nulla. Cras in libero vehicula, dapibus sem ac, facilisis tortor. Cras sed fringilla libero, eu euismod mi. Integer non mi dapibus nunc convallis tempor. Morbi eget risus luctus, dapibus orci nec, vulputate diam. Pellentesque molestie nibh at sapien iaculis ultrices. Fusce quis libero sed turpis scelerisque semper. Morbi suscipit nisl nunc, a blandit elit egestas non. Vivamus posuere sem id pellentesque fringilla. Proin sit amet ante id elit vestibulum vehicula eget ut risus. Maecenas vulputate ipsum in ligula dapibus ultricies. ',
-          //     idOpponent: 0,
-          //     nicknameOpponent: "tizio",
-          //     dataFinished: 1517529600000,
-          //     target: null,
-          //     win: 1,
-          //     value: {
-          //         unit: "km",  //km or greenleaves or whatever
-          //         player: 80,
-          //         opponent: 60
-          //     }
-          // }, {
-          //     id: 2,
-          //     type: "coop",
-          //     short_it: 'Sfida cooperativa',
-          //     short_en: 'Sfida cooperativa',
-          //     long_it: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum pellentesque sapien nulla. Cras in libero vehicula, dapibus sem ac, facilisis tortor. Cras sed fringilla libero, eu euismod mi. Integer non mi dapibus nunc convallis tempor. Morbi eget risus luctus, dapibus orci nec, vulputate diam. Pellentesque molestie nibh at sapien iaculis ultrices. Fusce quis libero sed turpis scelerisque semper. Morbi suscipit nisl nunc, a blandit elit egestas non. Vivamus posuere sem id pellentesque fringilla. Proin sit amet ante id elit vestibulum vehicula eget ut risus. Maecenas vulputate ipsum in ligula dapibus ultricies. ',
-          //     long_en: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum pellentesque sapien nulla. Cras in libero vehicula, dapibus sem ac, facilisis tortor. Cras sed fringilla libero, eu euismod mi. Integer non mi dapibus nunc convallis tempor. Morbi eget risus luctus, dapibus orci nec, vulputate diam. Pellentesque molestie nibh at sapien iaculis ultrices. Fusce quis libero sed turpis scelerisque semper. Morbi suscipit nisl nunc, a blandit elit egestas non. Vivamus posuere sem id pellentesque fringilla. Proin sit amet ante id elit vestibulum vehicula eget ut risus. Maecenas vulputate ipsum in ligula dapibus ultricies. ',
-          //     idOpponent: 0,
-          //     nicknameOpponent: "ciccio",
-          //     dataFinished: 1517529600000,
-          //     target: 200,
-          //     win: 0,
-          //     value: {
-          //         unit: "km",  //km or greenleaves or whatever
-          //         player: 70,
-          //         opponent: 80
-          //     }
-          // }, {
-          //     id: 3,
-          //     type: "coop",
-          //     short_it: 'Sfida cooperativa',
-          //     short_en: 'Sfida cooperativa',
-          //     long_it: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum pellentesque sapien nulla. Cras in libero vehicula, dapibus sem ac, facilisis tortor. Cras sed fringilla libero, eu euismod mi. Integer non mi dapibus nunc convallis tempor. Morbi eget risus luctus, dapibus orci nec, vulputate diam. Pellentesque molestie nibh at sapien iaculis ultrices. Fusce quis libero sed turpis scelerisque semper. Morbi suscipit nisl nunc, a blandit elit egestas non. Vivamus posuere sem id pellentesque fringilla. Proin sit amet ante id elit vestibulum vehicula eget ut risus. Maecenas vulputate ipsum in ligula dapibus ultricies. ',
-          //     long_en: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum pellentesque sapien nulla. Cras in libero vehicula, dapibus sem ac, facilisis tortor. Cras sed fringilla libero, eu euismod mi. Integer non mi dapibus nunc convallis tempor. Morbi eget risus luctus, dapibus orci nec, vulputate diam. Pellentesque molestie nibh at sapien iaculis ultrices. Fusce quis libero sed turpis scelerisque semper. Morbi suscipit nisl nunc, a blandit elit egestas non. Vivamus posuere sem id pellentesque fringilla. Proin sit amet ante id elit vestibulum vehicula eget ut risus. Maecenas vulputate ipsum in ligula dapibus ultricies. ',
-          //     idOpponent: 0,
-          //     nicknameOpponent: "ciccio",
-          //     dataFinished: 1517529600000,
-          //     target: 200,
-          //     win: 0,
-          //     value: {
-          //         unit: "km",  //km or greenleaves or whatever
-          //         player: 50,
-          //         opponent: 60
-          //     }
-          // }, {
-          //     id: 4,
-          //     type: "racc",
-          //     short_it: 'Sfida singola',
-          //     short_en: 'Sfida singola',
-          //     long_it: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum pellentesque sapien nulla. Cras in libero vehicula, dapibus sem ac, facilisis tortor. Cras sed fringilla libero, eu euismod mi. Integer non mi dapibus nunc convallis tempor. Morbi eget risus luctus, dapibus orci nec, vulputate diam. Pellentesque molestie nibh at sapien iaculis ultrices. Fusce quis libero sed turpis scelerisque semper. Morbi suscipit nisl nunc, a blandit elit egestas non. Vivamus posuere sem id pellentesque fringilla. Proin sit amet ante id elit vestibulum vehicula eget ut risus. Maecenas vulputate ipsum in ligula dapibus ultricies. ',
-          //     long_en: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum pellentesque sapien nulla. Cras in libero vehicula, dapibus sem ac, facilisis tortor. Cras sed fringilla libero, eu euismod mi. Integer non mi dapibus nunc convallis tempor. Morbi eget risus luctus, dapibus orci nec, vulputate diam. Pellentesque molestie nibh at sapien iaculis ultrices. Fusce quis libero sed turpis scelerisque semper. Morbi suscipit nisl nunc, a blandit elit egestas non. Vivamus posuere sem id pellentesque fringilla. Proin sit amet ante id elit vestibulum vehicula eget ut risus. Maecenas vulputate ipsum in ligula dapibus ultricies. ',
-          //     dataFinished: 1517529600000,
-          //     target: 50,
-          //     win: 1,
-          //     value: {
-          //         unit: "km",  //km or greenleaves or whatever
-          //         player: 50
-          //     }
-          // }, {
-          //     id: 5,
-          //     type: "coop",
-          //     short_it: 'Sfida cooperativa',
-          //     short_en: 'Sfida cooperativa',
-          //     long_it: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum pellentesque sapien nulla. Cras in libero vehicula, dapibus sem ac, facilisis tortor. Cras sed fringilla libero, eu euismod mi. Integer non mi dapibus nunc convallis tempor. Morbi eget risus luctus, dapibus orci nec, vulputate diam. Pellentesque molestie nibh at sapien iaculis ultrices. Fusce quis libero sed turpis scelerisque semper. Morbi suscipit nisl nunc, a blandit elit egestas non. Vivamus posuere sem id pellentesque fringilla. Proin sit amet ante id elit vestibulum vehicula eget ut risus. Maecenas vulputate ipsum in ligula dapibus ultricies. ',
-          //     long_en: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum pellentesque sapien nulla. Cras in libero vehicula, dapibus sem ac, facilisis tortor. Cras sed fringilla libero, eu euismod mi. Integer non mi dapibus nunc convallis tempor. Morbi eget risus luctus, dapibus orci nec, vulputate diam. Pellentesque molestie nibh at sapien iaculis ultrices. Fusce quis libero sed turpis scelerisque semper. Morbi suscipit nisl nunc, a blandit elit egestas non. Vivamus posuere sem id pellentesque fringilla. Proin sit amet ante id elit vestibulum vehicula eget ut risus. Maecenas vulputate ipsum in ligula dapibus ultricies. ',
-          //     idOpponent: 0,
-          //     nicknameOpponent: "ciccio",
-          //     dataFinished: 1517529600000,
-          //     target: 80,
-
-          //     win: 1,
-          //     value: {
-          //         unit: "km",  //km or greenleaves or whatever
-          //         player: 80,
-          //         opponent: 60
-          //     }
-          // }]);
         });
       return deferred.promise;
     }
@@ -704,7 +601,6 @@ angular.module('viaggia.services.game', [])
       var deferred = $q.defer();
       LoginService.getValidAACtoken().then(
         function (token) {
-          //TODO
           $http({
               method: 'GET',
               url: Config.getServerURL() + '/gamificationweb/challenge/type/' + userId,
@@ -763,104 +659,6 @@ angular.module('viaggia.services.game', [])
       return deferred.promise;
     }
 
-
-    gameService.getInvitesChallenges = function (profile) {
-      var deferred = $q.defer();
-      LoginService.getValidAACtoken().then(
-        function (token) {
-          //TODO
-          deferred.resolve([]);
-          // deferred.resolve([{
-          //     id: 0,
-          //     idSender: 0,
-          //     nicknameSender: "pippo",
-          //     idReceiver: 0,
-          //     nickname: "pippo",
-          //     type: "coop",
-          //     short_it: 'Sfida competitiva a tempo',
-          //     short_eng: 'Sfida competitiva a tempo',
-          //     long_it: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum pellentesque sapien nulla. Cras in libero vehicula, dapibus sem ac, facilisis tortor. Cras sed fringilla libero, eu euismod mi. Integer non mi dapibus nunc convallis tempor. Morbi eget risus luctus, dapibus orci nec, vulputate diam. Pellentesque molestie nibh at sapien iaculis ultrices. Fusce quis libero sed turpis scelerisque semper. Morbi suscipit nisl nunc, a blandit elit egestas non. Vivamus posuere sem id pellentesque fringilla. Proin sit amet ante id elit vestibulum vehicula eget ut risus. Maecenas vulputate ipsum in ligula dapibus ultricies. ',
-          //     long_en: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum pellentesque sapien nulla. Cras in libero vehicula, dapibus sem ac, facilisis tortor. Cras sed fringilla libero, eu euismod mi. Integer non mi dapibus nunc convallis tempor. Morbi eget risus luctus, dapibus orci nec, vulputate diam. Pellentesque molestie nibh at sapien iaculis ultrices. Fusce quis libero sed turpis scelerisque semper. Morbi suscipit nisl nunc, a blandit elit egestas non. Vivamus posuere sem id pellentesque fringilla. Proin sit amet ante id elit vestibulum vehicula eget ut risus. Maecenas vulputate ipsum in ligula dapibus ultricies. ',
-          // }, {
-          //     id: 1,
-          //     idSender: 0,
-          //     nicknameSender: "pippo",
-          //     idReceiver: 0,
-          //     nickname: "pippo",
-          //     type: "comp_perf",
-          //     short_it: 'Sfida competitiva performance',
-          //     short_eng: 'Sfida competitiva performance',
-          //     long_it: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum pellentesque sapien nulla. Cras in libero vehicula, dapibus sem ac, facilisis tortor. Cras sed fringilla libero, eu euismod mi. Integer non mi dapibus nunc convallis tempor. Morbi eget risus luctus, dapibus orci nec, vulputate diam. Pellentesque molestie nibh at sapien iaculis ultrices. Fusce quis libero sed turpis scelerisque semper. Morbi suscipit nisl nunc, a blandit elit egestas non. Vivamus posuere sem id pellentesque fringilla. Proin sit amet ante id elit vestibulum vehicula eget ut risus. Maecenas vulputate ipsum in ligula dapibus ultricies. ',
-          //     long_en: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum pellentesque sapien nulla. Cras in libero vehicula, dapibus sem ac, facilisis tortor. Cras sed fringilla libero, eu euismod mi. Integer non mi dapibus nunc convallis tempor. Morbi eget risus luctus, dapibus orci nec, vulputate diam. Pellentesque molestie nibh at sapien iaculis ultrices. Fusce quis libero sed turpis scelerisque semper. Morbi suscipit nisl nunc, a blandit elit egestas non. Vivamus posuere sem id pellentesque fringilla. Proin sit amet ante id elit vestibulum vehicula eget ut risus. Maecenas vulputate ipsum in ligula dapibus ultricies. ',
-          // }, {
-          //     id: 2,
-          //     idUser: 0,
-          //     idSender: 0,
-          //     nicknameSender: "pippo",
-          //     idReceiver: 0,
-          //     nickname: "pippo",
-          //     type: "comp_time",
-          //     short_it: 'Sfida cooperativa',
-          //     short_eng: 'Sfida cooperativa',
-          //     long_it: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum pellentesque sapien nulla. Cras in libero vehicula, dapibus sem ac, facilisis tortor. Cras sed fringilla libero, eu euismod mi. Integer non mi dapibus nunc convallis tempor. Morbi eget risus luctus, dapibus orci nec, vulputate diam. Pellentesque molestie nibh at sapien iaculis ultrices. Fusce quis libero sed turpis scelerisque semper. Morbi suscipit nisl nunc, a blandit elit egestas non. Vivamus posuere sem id pellentesque fringilla. Proin sit amet ante id elit vestibulum vehicula eget ut risus. Maecenas vulputate ipsum in ligula dapibus ultricies. ',
-          //     long_en: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum pellentesque sapien nulla. Cras in libero vehicula, dapibus sem ac, facilisis tortor. Cras sed fringilla libero, eu euismod mi. Integer non mi dapibus nunc convallis tempor. Morbi eget risus luctus, dapibus orci nec, vulputate diam. Pellentesque molestie nibh at sapien iaculis ultrices. Fusce quis libero sed turpis scelerisque semper. Morbi suscipit nisl nunc, a blandit elit egestas non. Vivamus posuere sem id pellentesque fringilla. Proin sit amet ante id elit vestibulum vehicula eget ut risus. Maecenas vulputate ipsum in ligula dapibus ultricies. ',
-          // }]);
-          // $http({
-          //     method: 'GET',
-          //     url: Config.getServerURL() + '/gamification/blacklist?from=' + from + '&to=' + to,
-          //     headers: {
-          //         'Authorization': 'Bearer ' + token,
-          //         'appId': Config.getAppId(),
-          //     },
-          //     timeout: Config.getHTTPConfig().timeout
-          // })
-          //     .success(function (stats) {
-          //         deferred.resolve(stats);
-          //     })
-
-          //     .error(function (response) {
-          //         deferred.reject(response);
-          //     });
-        });
-      return deferred.promise;
-    }
-    gameService.getSentInviteChallenges = function (profile) {
-      var deferred = $q.defer();
-      LoginService.getValidAACtoken().then(
-        function (token) {
-          //TODO
-          deferred.resolve([]);
-          // deferred.resolve({
-          //     id: 0,
-          //     idSender: 0,
-          //     nicknameSender: "pippo",
-          //     idReceiver: 0,
-          //     nickName: "pippo",
-          //     type: "coop",
-          //     short_it: 'Sfida competitiva a tempo',
-          //     short_eng: 'Sfida competitiva a tempo',
-          //     long_it: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum pellentesque sapien nulla. Cras in libero vehicula, dapibus sem ac, facilisis tortor. Cras sed fringilla libero, eu euismod mi. Integer non mi dapibus nunc convallis tempor. Morbi eget risus luctus, dapibus orci nec, vulputate diam. Pellentesque molestie nibh at sapien iaculis ultrices. Fusce quis libero sed turpis scelerisque semper. Morbi suscipit nisl nunc, a blandit elit egestas non. Vivamus posuere sem id pellentesque fringilla. Proin sit amet ante id elit vestibulum vehicula eget ut risus. Maecenas vulputate ipsum in ligula dapibus ultricies. ',
-          //     long_en: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum pellentesque sapien nulla. Cras in libero vehicula, dapibus sem ac, facilisis tortor. Cras sed fringilla libero, eu euismod mi. Integer non mi dapibus nunc convallis tempor. Morbi eget risus luctus, dapibus orci nec, vulputate diam. Pellentesque molestie nibh at sapien iaculis ultrices. Fusce quis libero sed turpis scelerisque semper. Morbi suscipit nisl nunc, a blandit elit egestas non. Vivamus posuere sem id pellentesque fringilla. Proin sit amet ante id elit vestibulum vehicula eget ut risus. Maecenas vulputate ipsum in ligula dapibus ultricies. ',
-          // });
-          // $http({
-          //     method: 'GET',
-          //     url: Config.getServerURL() + '/gamification/blacklist?from=' + from + '&to=' + to,
-          //     headers: {
-          //         'Authorization': 'Bearer ' + token,
-          //         'appId': Config.getAppId(),
-          //     },
-          //     timeout: Config.getHTTPConfig().timeout
-          // })
-          //     .success(function (stats) {
-          //         deferred.resolve(stats);
-          //     })
-
-          //     .error(function (response) {
-          //         deferred.reject(response);
-          //     });
-        });
-      return deferred.promise;
-    }
 
     gameService.unlockChallenge = function (type) {
       var deferred = $q.defer();
@@ -1168,19 +966,6 @@ angular.module('viaggia.services.game', [])
             .error(function (response) {
               deferred.reject(response);
             });
-        });
-      return deferred.promise;
-    }
-    gameService.calculateTarget = function (challenge) {
-      var deferred = $q.defer();
-      LoginService.getValidAACtoken().then(
-        function (token) {
-          //TODO
-          deferred.resolve({
-            target: "20 Km bici",
-            leavesPlayer: 100,
-            leavesOpponent: 100,
-          });
         });
       return deferred.promise;
     }
