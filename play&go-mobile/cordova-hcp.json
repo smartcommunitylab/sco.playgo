@@ -1,0 +1,7 @@
+{
+  "name": "PlayGo",
+  "ios_identifier": "it.smartcommunitylab.viaggiatrento.playgo",
+  "android_identifier": "it.smartcommunitylab.viaggiatrento.playgo",
+  "update": "start",
+  "content_url": "https://tn.smartcommunitylab.it/cordova"
+}

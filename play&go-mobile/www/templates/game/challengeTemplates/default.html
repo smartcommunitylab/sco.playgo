@@ -1,0 +1,53 @@
+<div>
+    <!-- <div class="challenge-title">{{'challenge_single_player'|translate}}</div> -->
+    <div class="row">
+        <div class="col col-10 icon-chall-home">
+            <i class="icon ic_ch_single"></i>
+        </div>
+        <div class="col col-80">
+            {{challenge.challDesc}}
+        </div>
+        <div class="col col-10" ng-click="expand($index)">
+            <i class="icon" ng-class="isExpanded($index) ? 'ion-arrow-up-b' : 'ion-arrow-down-b'"></i>
+        </div>
+    </div>
+    <div class="row" ng-if="isExpanded($index)">
+        <div class="col col-10">
+        </div>
+        <div class="col col-90">
+            <div compile="challenge.challCompleteDesc"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-10">
+        </div>
+        <div class="col-80" ng-init="days = {days: challenge.daysToEnd}" ng-if="challenge.status<100 && challenge.daysToEnd>0">
+            <div class="float-left"><b>{{'game_tab_challenges_daysToEnd'+ (challenge.daysToEnd == 1 ? '_1' : '') |
+                    translate:days}}</b></div>
+        </div>
+        <div class="col-80" ng-init="days = {days: challenge.daysToEnd}" ng-if="challenge.status==100">
+            <div class="float-left"><b>{{'game_tab_challenge_success_true' | translate| uppercase}}</b></div>
+        </div>
+        <div class="col-80" ng-init="days = {days: challenge.daysToEnd}" ng-if="challenge.status<100 && challenge.daysToEnd<0">
+                <div class="float-left"><b>{{'game_tab_challenge_success_false' | translate| uppercase}}</b></div>
+            </div>
+        <div class="col-10">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-10">
+        </div>
+        <div class="col-80">
+            <div class="float-left single-user-color">{{getValueUser(challenge)}}</div>
+        </div>
+        <div class="col-10">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-10"></div>
+        <div class="col col-80 competitive-container">
+            <div class="challenge-bar-level" style="{{getWidthUser(challenge)}}"># green leaves to the next level</div>
+        </div>
+        <div class="col col-10"></div>
+    </div>
+</div>

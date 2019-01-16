@@ -1,0 +1,12 @@
+<ion-view id="notification" title="{{'notifications_detail_title' | translate}}">
+    <ion-content id="content" has-header="true" ng-class="{'margin-for-trackingbar':buttonMapNeed()}">
+        <div class="notification-container">
+            <div class="notification-title">
+                {{notification.title}}
+            </div>
+            <div class="notification-content" compile="notification.content._html">
+            </div>
+        </div>
+
+    </ion-content>
+</ion-view>

@@ -1,0 +1,76 @@
+<ion-view title="{{'home_gamification' | translate}} {{currentUser.nickName}}">
+    <ion-nav-buttons side="right">
+            <button ng-click="openNotifications()" class="button button-icon button-home ic_notification"><span class="badge badge-assertive header-badge"
+                ng-if="countNotification>0">{{getCountNotification(countNotification)}}</span></button>
+        <!-- <div class="profile-container">
+            <img class="bar-profile-img" ng-if="profileImg" ng-src="{{profileImg}}" ng-click="openProfile()">
+        </div> -->
+    </ion-nav-buttons>
+    <ion-content class="game-ranking" has-bouncing="false" scroll="false" ng-class="{'margin-for-trackingbar-tab':buttonMapNeed()}">
+        <!-- Filter -->
+        <div class="filter item-accordion" ng-if="!!filter.options">
+            <ion-item class="item-accordion-header item-icon-right" ng-click="filter.toggle()">
+                <div ng-if="!filter.open">{{!!filter.selected ? ('game_tab_ranking_filter_' + filter.selected) : '' | translate}}</div>
+                <i class="icon ion-arrow-down-b" ng-class="{'open': filter.open}"></i>
+            </ion-item>
+            <div class="item-accordion-content" ng-show="filter.open">
+                <ion-list>
+                    <ion-item ng-repeat="option in filter.options" ng-click="filter.filterBy(option)">
+                        <div ng-class="{ 'becomeblue' : filter.selected!=option}"> {{'game_tab_ranking_filter_' + option | translate}} </div>
+                    </ion-item>
+                </ion-list>
+            </div>
+        </div>
+        <div ng-if="!!status && singleRankStatus && rank">
+            <div class="listheader" ng-class="{hasprize: (filter.selected === 'now' && !!prize)}">
+                <div class="prize" ng-if="filter.selected === 'now' && !!prize">
+                    <div>{{'game_tab_ranking_listheader_price' | translate}}</div>
+                </div>
+                <div class="row">
+                    <div class="col col-20">{{'game_tab_ranking_listheader_position' | translate}}</div>
+
+                    <div class="col col-40">{{'game_tab_ranking_listheader_player' | translate}}</div>
+                    <div class="col col-40">{{'game_tab_ranking_listheader_points' | translate}}</div>
+                </div>
+            </div>
+            <div class="my-ranking">
+                <div class="row">
+                    <div class="col col-20">{{currentUser.position}}</div>
+                    <div class="col col-40">{{currentUser.nickName}}</div>
+                    <div class="col col-40">{{currentUser.score}}</div>
+                </div>
+            </div>
+
+            <ion-scroll class="ranking" ng-style="rankingStyle" delegate-handle="rankingScroll">
+                <ion-list>
+                    <div ng-repeat="rankingUser in ranking" ng-class="{'pos-even': ($index % 2 == 0)}" on-tap="openProfileOthers(rankingUser)">
+                        <div class="row" id="position-{{$index}}">
+                            <div class="col col-20 text-ranking">{{rankingUser.position}}</div>
+
+                            <div class="col col-40">
+                                <div>
+                                    <img class="profile-img" ng-src="{{getUserImg(rankingUser.playerId)}}">
+                                </div>
+                                <p>{{rankingUser.nickName}}</p>
+                            </div>
+                            <!-- <div class="col col-25">{{rankingUser.level}}</div> -->
+                            <div class="col col-40 text-ranking">{{rankingUser.score}}</div>
+                        </div>
+                    </div>
+                </ion-list>
+                <ion-infinite-scroll ng-if="maybeMore" on-infinite="loadMore()"></ion-infinite-scroll>
+            </ion-scroll>
+        </div>
+        <div ng-if="!rank">
+            <h4 class="label">{{'no_ranking' | translate}}</h4>
+        </div>
+        <div ng-if="!status">
+            <h4 class="label">{{'no_status' | translate}}</h4>
+        </div>
+        <div ng-if="status && !singleRankStatus">
+            <h4 class="label">{{'pop_up_error_server_template' | translate}}</h4>
+
+            <button ng-click="reloadRank()" class="button button-viaggia reload-rank">{{'ranking_reload' | translate}}</button>
+        </div>
+    </ion-content>
+</ion-view>

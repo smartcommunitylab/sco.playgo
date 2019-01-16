@@ -1,0 +1,39 @@
+<div>
+    <div class="row row-center map-stop-title">
+        <i class="icon popup-icon ic_bike"></i>
+        <div class="col">
+            <b class="parking-title"> {{'lbl_bike_station'|translate}}</b>
+        </div>
+        <!--        bookmark button-->
+        <button class="button button-icon button-clear bookmark-popup ic_bookmark-outline" ng-class="bookmarkStyle" ng-click="bookmark()"></button>
+    </div>
+    <div class="map-stop-hline"></div>
+    <div class="row map-stop-name">
+        <div class="col">
+            <h4>{{popupParking.name}}</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <p>{{popupParking.address}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <b><p ng-if="popupParking.distance">{{'bikesharings_distance' | translate}} {{popupParking.distance| number:1}}km</p></b>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-right">
+            <div class="row  text-center">
+                <div class="col text-left"><b>{{popupParking.bikes}} {{'bikesharings_bikes' | translate}}</b>
+                </div>
+
+            </div>
+            <div class="row text-center">
+                <div class="col text-left"><b>{{popupParking.slots}} {{'bikesharings_free_slots' | translate}}</b>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

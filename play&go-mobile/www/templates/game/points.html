@@ -1,0 +1,72 @@
+<ion-view title="{{'home_gamification' | translate}} {{currentUser.nickName}}">
+    <ion-nav-buttons side="left">
+        <button class="button button-clear" ng-click="goHome()">
+            <i class="ion-android-arrow-back" style="font-size:30px;"></i>
+        </button>
+    </ion-nav-buttons>
+    <ion-content class="padding-right padding-left game-points" ng-class="{'margin-for-trackingbar-tab':buttonMapNeed()}">
+        <div ng-if="!!status">
+
+            <p></p>
+            <div class="user-state card no-shadow">
+                <div class="row">
+                    <div class="col">
+                        <img class="profile-image-round" ng-if="profileImg" ng-src="{{profileImg}}">
+                        <div class="change-profile">
+                            <a class="button-icon icon ion-camera" ng-click="changeProfile()"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="profile-level">
+                        <img class="no-shadow" src="img/ic_level.png">
+                        <h4>{{level}}</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="profile-level">
+                        <i class="icon ion-leaf"></i>
+                        <h4>
+                            {{status['pointConcept'][0]['score']}} {{'green_leaves_points'|translate}}
+                        </h4>
+                    </div>
+                </div>
+                <!-- <div class="row">
+                    <div class="col col col-50" style="position: relative;">
+                        <img class="img-level" src="img/ic_level.png">
+                    </div>
+                    <div class="col home-level text-left">
+                        <h4>{{'user_level_label' | translate}} {{level}}</h4>
+                    </div>
+                </div> -->
+                <!-- <div class="row">
+                    <div class="col col-10 home-points text-center">
+                        <i class="icon ion-leaf"></i>
+                    </div>
+                    <div class="col home-points text-left">
+                        <h4>
+                            {{status['pointConcept'][0]['score']}} {{'green_leaves_points'|translate}}
+                        </h4>
+                    </div>
+                </div> -->
+
+            </div>
+        </div>
+        </div>
+        <div class="badge-container">
+            <div ng-repeat="badgeType in badgeTypes" ng-if="badges[badgeType].length > 0">
+                <!--badgeEarned-->
+                <h4 class="title">{{badgeType | translate}}</h4>
+                <ul class="badges">
+                    <li ng-repeat="badge in badges[badgeType]">
+                        <img class="game-badge-s" ng-src="{{badge.url}}" />
+                    </li>
+                </ul>
+            </div>
+        </div>
+        </div>
+        <div ng-if="!status">
+            <h4 class="label">{{'no_status' | translate}}</h4>
+        </div>
+    </ion-content>
+</ion-view>

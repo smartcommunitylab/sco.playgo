@@ -1,0 +1,182 @@
+<ion-view>
+    <ion-nav-title class="home-title">
+        Play&Go {{currentUser.nickName}}
+    </ion-nav-title>
+    <ion-nav-buttons side="right">
+        <button ng-click="openNotifications()" class="button button-icon button-home ic_notification"><span class="badge badge-assertive header-badge"
+                ng-if="countNotification>0">{{getCountNotification(countNotification)}}</span></button>
+
+        <!-- <div class="profile-container">
+            <img class="bar-profile-img" ng-if="profileImg" ng-src="{{profileImg}}" ng-click="openProfile()">
+        </div> -->
+    </ion-nav-buttons>
+    <ion-content ng-class="{'empty_bookmarks': primaryLinks.length == 0}" ng-init="showTutorial()">
+        <div class="user-state home-user-state card" ng-click="openProfile()">
+            <div class="row">
+                <div class="col col-20 vertical-center">
+                    <div class="profile-container">
+                        <img class="bar-profile-img" ng-if="profileImg" ng-src="{{profileImg}}">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <div class="col col-10" style="position: relative;">
+                            <img class="img-level" src="img/ic_level.png">
+
+                        </div>
+                        <div class="col col-50 home-level text-left">
+                            <h4>{{level}}</h4>
+                        </div>
+                        <div class="col home-points text-left">
+                            <h4>{{status['pointConcept'][0]['score']|number:0}}
+                                <i class="icon ion-leaf"></i>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col">
+                            <div class="row">
+                                <div class="col home-level text-left">
+                                        {{toNextLevel|number:0}} {{'user_next_level_label' | translate}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col container-level">
+                                    <div class="progress-bar-level" style="width: {{userProgress}}%;"># green leaves to
+                                        the
+                                        next level</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sponsor_banner" ng-if="weekly_sponsor!=null">
+            <div class="row">
+                <div class=" col col-center sponsor_text">
+                    <span>{{'sponsor_week' | translate}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-center">
+                    <img class="image center" ng-src="{{weekly_sponsor.img}}" width="100%" ng-click="openSponsorLink(weekly_sponsor.link)" />
+                </div>
+            </div>
+        </div>
+
+        <div class="tracking-dashboard card" ng-class="{'tracking-dashboard-on':trackingIsOn}">
+            <div ng-if="trackingIsOn">
+                <div class="row">
+                    <div class="col text-center">
+                        <h4>
+                            <i class="icon ion-leaf"></i>{{'play_is_on' | translate}}</h4>
+                        <div ng-if="trackingInfo.transport">
+                            <b>{{'play_is_on_for' | translate: trackingInfo}}</b>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="home-track-container">
+                        <div class="home-track-buttons">
+                            <button class="button button-map icon ion-map" ng-click="goToMap()"></button>
+                            <div ng-if="trackingMultimodal()">
+                                <button class="button button-map icon ic_foot" ng-class="{'actual-track':actualTracking('walk')}"
+                                    ng-click="changeTracking('walk')"></button>
+                                <button class="button button-map icon ic_bike" ng-class="{'actual-track':actualTracking('bike')}"
+                                    ng-click="changeTracking('bike')"></button>
+                                <button class="button button-map icon ic_urban-bus" ng-class="{'actual-track':actualTracking('bus')}"
+                                    ng-click="changeTracking('bus')"></button>
+                                <button class="button button-map icon ic_train" style="padding-right: 1rem;" ng-class="{'actual-track':actualTracking('train')}"
+                                    ng-click="changeTracking('train')"></button>
+                            </div>
+                        </div>
+                        <button class="button home-track-stop-map" ng-click="stopTrackingHome()">STOP</button>
+                    </div>
+                </div>
+
+            </div>
+            <div ng-if="!trackingIsOn">
+                <div class="row">
+                    <div class="col text-center">
+                        <h4>
+                            <i class="icon ion-leaf"></i>
+                            <span class="home-label-dashboard">{{'play_now' | translate}}</span>
+                        </h4>
+                        <div ng-if="!syncRunning">
+                            <b>{{'play_now_sub' | translate}}</b>
+                        </div>
+                        <div ng-if="syncRunning">
+                            <b>{{'wait_synch_running' | translate}}</b>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" ng-class="{'synch':syncRunning}">
+                    <div class="col">
+                        <a ng-click="trackAndMap('walk')">
+                            <div class="tracking-ds-button">
+                                <i class="icon ic_foot"></i>
+                                <!-- <span>{{'track_walk' | translate}}</span> -->
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a ng-click="trackAndMap('bike')">
+                            <div class="tracking-ds-button">
+                                <i class="icon ic_bike"></i>
+                                <!-- <span>{{'track_bike' | translate}}</span> -->
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a ng-click="trackAndMap('bus')">
+                            <div class="tracking-ds-button">
+                                <i class="icon ic_urban-bus"></i>
+                                <!-- <span>{{'menu_real_time_bus' | translate}}</span> -->
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a ng-click="trackAndMap('train')">
+                            <div class="tracking-ds-button">
+                                <i class="icon ic_train"></i>
+                                <!-- <span>{{'menu_real_time_train' | translate}}</span> -->
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <div class="home-challenges">
+            <div class="row" ng-if="buttonProposedEnabled">
+                <button class="button button-block button-block-active button-next-challenge" ng-click="programChallenge()">
+                    {{'home_next_challenge'|translate}} </button>
+            </div>
+            <div class="row" ng-if="buttonUnlockEnabled">
+                <button class="button button-block button-block-active button-unlock-challenge" ng-click="unlockChallenge()">
+                    {{'home_unlock_challenge'|translate}} </button>
+            </div>
+            <div class="row">
+                <div class="col home-your-challenges">
+                    <span>
+                        {{'home_your_challenges'|translate|uppercase}}
+                    </span>
+                </div>
+            </div>
+            <div ng-if="challenges.length>0">
+                <div class="challenge-block" ng-repeat="challenge in challenges track by $index">
+                    <ng-include src="getChallengeTemplate(challenge)"></ng-include>
+                </div>
+            </div>
+            <div class="home-no-challenge" ng-if="challenges.length==0">
+                {{'home_no_challenges'|translate}}
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
