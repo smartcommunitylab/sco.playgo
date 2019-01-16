@@ -9,7 +9,6 @@ angular.module('viaggia.services.taxi', [])
     return {
         getCompanies: function (appId, agencyId) {
             var deferred = $q.defer();
-            //            $http.get(Config.getServerURL() + '/bikesharing/' + agencyId,
             if (!cacheCompanies.length || cacheCompanies.length === 0) {
                 $http.get(Config.getServerURL() + '/getTaxiAgencyContacts/',
                         Config.getHTTPConfig())
