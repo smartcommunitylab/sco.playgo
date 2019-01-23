@@ -127,7 +127,9 @@ angular.module('viaggia.controllers.profile', [])
       $scope.profileStyle = {
         'height': window.innerHeight - (44 + 44) + 'px'
       };
-      $ionicScrollDelegate.$getByHandle('statisticScroll').resize();
+      document.getElementById("myStatistic").style.height =  window.innerHeight - (44 + 44) + 'px';
+
+      // $ionicScrollDelegate.$getByHandle('statisticScroll').resize();
     };
 
     $window.onresize = function (event) {
@@ -248,7 +250,7 @@ angular.module('viaggia.controllers.profile', [])
             $scope.previousStat = statistics.firstBefore;
             if (!$scope.previousStat) {
               $scope.maybeMore = false;
-              if ($scope.stats.length == 0) {
+                 if ($scope.stats.length == 0) {
                 $scope.noStats = true;
               } else {
                 $scope.noStats = true;
@@ -260,6 +262,8 @@ angular.module('viaggia.controllers.profile', [])
                   }
                 }
               }
+              generateRankingStyle();
+
             }
             $scope.nextStat = statistics.firstAfter;
           },
