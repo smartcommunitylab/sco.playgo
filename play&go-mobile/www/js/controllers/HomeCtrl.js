@@ -512,7 +512,7 @@ angular.module('viaggia.controllers.home', [])
     var getChallengeByUnit = function (challenge) {
       return GameSrv.getChallengeByUnit(challenge.unit)
     }
- 
+
 
     var isKm = function (unit) {
       if (unit != "Walk_Km" && unit != "Bike_Km")
