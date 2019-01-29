@@ -493,12 +493,17 @@ angular.module('viaggia.controllers.game', [])
     }
     $scope.getValueUser = function (challenge) {
       var labelChallenge = getChallengeByUnit(challenge);
-      return $filter('number')(challenge.row_status, 0) + " " + $filter('translate')(labelChallenge);
+      return $filter('number')(challenge.row_status, isKm(labelChallenge)?2:0) + " " + $filter('translate')(labelChallenge);
+    }
+    var isKm = function (unit) {
+      if (unit != "Walk_Km" && unit != "Bike_Km")
+        return false;
+      return true
     }
     $scope.getValueOther = function (challenge) {
       if (challenge.otherAttendeeData) {
         var labelChallenge = getChallengeByUnit(challenge);
-        return $filter('number')(challenge.otherAttendeeData.row_status, 0) + " " + $filter('translate')(labelChallenge);
+        return $filter('number')(challenge.otherAttendeeData.row_status, isKm(labelChallenge)?2:0) + " " + $filter('translate')(labelChallenge);
       }
       return "";
     }
