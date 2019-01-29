@@ -405,7 +405,7 @@
   },
   {
     "file": "js/controllers/HomeCtrl.js",
-    "hash": "df7a695cc80600812659f4754598717f"
+    "hash": "963bfa7b8c7ff830d73f35e08cd0bd92"
   },
   {
     "file": "js/controllers/InfoCtrl.js",
@@ -545,7 +545,7 @@
   },
   {
     "file": "js/services/ProfileSrv.js",
-    "hash": "641a3b8bf34e60db9313d42c11927ea1"
+    "hash": "785da516b225a617ade2b130f2017eb8"
   },
   {
     "file": "js/services/RegistrationSrv.js",
@@ -1125,11 +1125,11 @@
   },
   {
     "file": "templates/game/rules_en.html",
-    "hash": "02891857c0d962ca5ca308b801af40ef"
+    "hash": "a0ea59bd6bd1eb81a966d14f7896ae02"
   },
   {
     "file": "templates/game/rules_it.html",
-    "hash": "5d21c90b1c54f09a25a96775a751a2b3"
+    "hash": "92f99d8ef27e3e00d9f035cbfca66857"
   },
   {
     "file": "templates/game/statistics.html",
@@ -1241,7 +1241,7 @@
   },
   {
     "file": "templates/registrationForm.html",
-    "hash": "520b1f772e24d5c7c087c3965d20ee94"
+    "hash": "76026b55312b48ed7329c0c98badf900"
   },
   {
     "file": "templates/rulesModal.html",
