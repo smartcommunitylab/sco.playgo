@@ -25,7 +25,6 @@ angular.module('viaggia.services.conf', [])
         var DISTANCE_AUTOCOMPLETE = '25';
         var PARKING_METERS_RADIUS = '5';
         var PARKING_METERS_MAX_NUMBER = 5;
-
         var HTTP_CONFIG = {
             timeout: 10000
         };
