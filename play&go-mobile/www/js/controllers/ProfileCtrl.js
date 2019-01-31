@@ -127,7 +127,9 @@ angular.module('viaggia.controllers.profile', [])
       $scope.profileStyle = {
         'height': window.innerHeight - (44 + 44) + 'px'
       };
-      document.getElementById("myStatistic").style.height =  window.innerHeight - (44 + 44) + 'px';
+      if (document.getElementById("myStatistic")) {
+        document.getElementById("myStatistic").style.height = window.innerHeight - (44 + 44) + 'px';
+      }
 
       // $ionicScrollDelegate.$getByHandle('statisticScroll').resize();
     };
@@ -250,7 +252,7 @@ angular.module('viaggia.controllers.profile', [])
             $scope.previousStat = statistics.firstBefore;
             if (!$scope.previousStat) {
               $scope.maybeMore = false;
-                 if ($scope.stats.length == 0) {
+              if ($scope.stats.length == 0) {
                 $scope.noStats = true;
               } else {
                 $scope.noStats = true;
