@@ -122,11 +122,15 @@ angular.module('viaggia.services.tracking', [])
           timeout: 10, // 10 seconds timeout to fetch location
           maximumAge: 50000, // Accept the last-known-location if not older than 50 secs.
         }, function (location, taskId) {
-          if (location.coords.accuracy > ACCURACY) {
+          if ((!location) || (!location.coords)){
+            deferred.reject(Config.getErrorGPSNoSignal());
+            
+          } else if ((location.coords.accuracy > ACCURACY) ) {
             deferred.reject(Config.getErrorLowAccuracy());
+            
           } else {
             deferred.resolve(location.coords.accuracy);
-
+            
           }
         }, function (errorCode) {
           console.log(errorCode);
@@ -397,7 +401,9 @@ angular.module('viaggia.services.tracking', [])
       if (isAndroid && currentPlatformVersion < 4.4 || !bgGeo.reset) {
         bgGeo.getCurrentPosition(successFn, failFn, options)
       }
-      bgGeo.getCurrentPosition(options, successFn, failFn)
+      else {
+        bgGeo.getCurrentPosition(options, successFn, failFn)
+      }
 
     }
     var manageStartToServer = function (trip, idTrip, multimodalId, transportType, startTimestamp) {
@@ -433,20 +439,13 @@ angular.module('viaggia.services.tracking', [])
             }, function (err) {
               //in case of temporary journey, if start doesn't arrive, stop it
               deferred.resolve();
-
             })
-
           }, function (errorCode) {
-
             deferred.resolve();
-
           })
         }, function (err) {
-
           deferred.resolve();
-
         })
-
       } else {
         deferred.resolve();
       }
@@ -484,14 +483,10 @@ angular.module('viaggia.services.tracking', [])
           }
           startTimestamp = new Date(Number(localStorage.getItem(Config.getAppId() + '_startTimestamp'))).getTime();
         }
-
-
         endtime = endtimeDate.getTime() + Config.getThresholdEndTime();
         var duration = endtime - today.getTime();
-
         //configuro il plugin con i vari param
         trackingConfigure = Config.getTrackingConfig();
-
         var minutesOfRun = duration / 60000;
         trackingConfigure['stopAfterElapsedMinutes'] = Math.floor(minutesOfRun);
         trackingConfigure['notificationTitle'] = $filter('translate')('tracking_notification_title');
@@ -524,19 +519,15 @@ angular.module('viaggia.services.tracking', [])
         }
         //taggo la prima locazione con parametro extra
       }
-
       if (!bgGeo) {
         deferred.resolve();
         return;
       }
-
       bgGeo.configure(trackingConfigure, callbackFn, failureFn);
-
       timerTrack = $timeout(function () {
         trackService.stop();
         if (callback) callback();
       }, duration);
-
       bgGeo.start(function () {
         bgGeo.changePace(true);
 
