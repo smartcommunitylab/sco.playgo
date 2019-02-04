@@ -397,7 +397,7 @@
   },
   {
     "file": "js/controllers/CommonCtrl.js",
-    "hash": "66df7dda40a5e010eea94a6bc1b80ec8"
+    "hash": "3b659315db61471aaf866ff0a1e83161"
   },
   {
     "file": "js/controllers/GameCtrl.js",
@@ -413,11 +413,11 @@
   },
   {
     "file": "js/controllers/LoginController.js",
-    "hash": "0e54788bfbb63b9a66149b65c121e622"
+    "hash": "032267bd083342b986ea8e4d2917460e"
   },
   {
     "file": "js/controllers/MapTrackingCtrl.js",
-    "hash": "9e2d5bf0e03ff36e3c8b3de458b52ea5"
+    "hash": "d2b09a3ec09b838548b59d382027493b"
   },
   {
     "file": "js/controllers/MarketsCtrl.js",
@@ -557,7 +557,7 @@
   },
   {
     "file": "js/services/TrackSrv.js",
-    "hash": "a5ebd2f248ecdf7b15b8c3e72a689013"
+    "hash": "46c8d121f1a5c38493b003ed947b4cfa"
   },
   {
     "file": "js/services/TTSrv.js",
