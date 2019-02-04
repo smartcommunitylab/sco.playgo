@@ -17,7 +17,7 @@
   },
   {
     "file": "data/config.json",
-    "hash": "0ab11007bdfafcdf78ce99106a4e94a9"
+    "hash": "e597dee7fa5a03462764be825d933467"
   },
   {
     "file": "data/game/ranking.json",
@@ -557,7 +557,7 @@
   },
   {
     "file": "js/services/TrackSrv.js",
-    "hash": "46c8d121f1a5c38493b003ed947b4cfa"
+    "hash": "c07db4ac569a486c8e4a98075dc2cb19"
   },
   {
     "file": "js/services/TTSrv.js",
