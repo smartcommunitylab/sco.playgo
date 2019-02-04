@@ -96,13 +96,7 @@ angular.module('viaggia.controllers.mapTracking', [])
             $scope.pathLine.bus.latlngs = [];
             $scope.pathLine.train.latlngs = [];
         }
-
-        // $scope.stopTracking = function () {
-        //     trackService.stop();
-        //     $scope.goHome();
-
-        //     //clean also multimodal if present
-        // }
+        
         $scope.goHome = function () {
             $state.go('app.home');
             $ionicHistory.nextViewOptions({

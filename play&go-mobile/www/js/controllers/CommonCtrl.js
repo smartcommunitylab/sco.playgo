@@ -160,21 +160,6 @@ angular.module('viaggia.controllers.common', [])
         Config.loaded();
         var travelForDiary = GameSrv.getTravelForDiary()
         trackService.stop();
-        //Removed controls for minimum distance, control added server side
-
-        // if (Math.floor(data.dist < Config.getMinimumDistance()) && data.transport == 'walk') {
-
-        // Toast.show($filter('translate')("no_points"), "short", "bottom");
-        // $ionicPopup.alert({
-        //     title: $filter('translate')("no_points_title"),
-        //     template: $filter('translate')("no_points", {
-        //         points: data.points
-        //     }),
-        //     okText: $filter('translate')("btn_close"),
-        //     okType: 'button-cancel'
-        // })
-
-        // } else {
         if (data.valid && travelForDiary) {
           GameSrv.addTravelDiary(travelForDiary);
           $ionicPopup.confirm({
