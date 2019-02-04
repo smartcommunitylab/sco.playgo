@@ -122,15 +122,11 @@ angular.module('viaggia.services.tracking', [])
           timeout: 10, // 10 seconds timeout to fetch location
           maximumAge: 50000, // Accept the last-known-location if not older than 50 secs.
         }, function (location, taskId) {
-          if ((!location) || (!location.coords)){
-            deferred.reject(Config.getErrorGPSNoSignal());
-            
-          } else if ((location.coords.accuracy > ACCURACY) ) {
+          if (location.coords.accuracy > ACCURACY) {
             deferred.reject(Config.getErrorLowAccuracy());
-            
           } else {
             deferred.resolve(location.coords.accuracy);
-            
+
           }
         }, function (errorCode) {
           console.log(errorCode);
@@ -400,8 +396,7 @@ angular.module('viaggia.services.tracking', [])
       var returnObj = {};
       if (isAndroid && currentPlatformVersion < 4.4 || !bgGeo.reset) {
         bgGeo.getCurrentPosition(successFn, failFn, options)
-      }
-      else {
+      } else {
         bgGeo.getCurrentPosition(options, successFn, failFn)
       }
 
