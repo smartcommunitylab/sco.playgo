@@ -405,7 +405,7 @@
   },
   {
     "file": "js/controllers/HomeCtrl.js",
-    "hash": "963bfa7b8c7ff830d73f35e08cd0bd92"
+    "hash": "a85a794902e12bae6f78c86ef25de5fe"
   },
   {
     "file": "js/controllers/InfoCtrl.js",
@@ -557,7 +557,7 @@
   },
   {
     "file": "js/services/TrackSrv.js",
-    "hash": "af87eef6f6ac013038dc03643ba97c1a"
+    "hash": "f68d0c4520e57dfb5101a3f70a2baaed"
   },
   {
     "file": "js/services/TTSrv.js",
