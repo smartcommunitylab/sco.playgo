@@ -340,20 +340,16 @@ angular.module('viaggia.services.tracking', [])
             prev = tripLocs[i].timestamp;
           }
         }
-
         tripLocs = realTripLocs;
-
         tripLocs.sort(function (la, lb) {
           return la.timestamp - lb.timestamp;
         });
-
         var data = {
           dist: 0,
           transport: localStorage.getItem(Config.getAppId() + '_trackedTransport'),
           // points: 0,
           valid: true
         };
-
         var transLocs = GeoLocate.transform(tripLocs);
         var dist = 0;
         var maxSpeed = 0;
@@ -387,8 +383,6 @@ angular.module('viaggia.services.tracking', [])
       else if (mean == 'bike') return (speed * 3.6 < 65);
       else return true;
     }
-
-
 
     var launchGeoConfiguration = function (options, successFn, failFn) {
       var isAndroid = ionic.Platform.isAndroid();
