@@ -52,7 +52,6 @@ angular.module('viaggia.services.tracking', [])
       init();
       deferred.resolve();
       GeoLocate.initLocalization().then(function () {
-
         hasLocationPermission(function (status) {
           $rootScope.GPSAllow = status;
         });
