@@ -17,7 +17,7 @@
   },
   {
     "file": "data/config.json",
-    "hash": "0ab11007bdfafcdf78ce99106a4e94a9"
+    "hash": "819d79b8b77995caad619201e5d879bb"
   },
   {
     "file": "data/game/ranking.json",
@@ -405,7 +405,7 @@
   },
   {
     "file": "js/controllers/HomeCtrl.js",
-    "hash": "df7a695cc80600812659f4754598717f"
+    "hash": "8d03a0206fd25187d94ff2cbceb469b5"
   },
   {
     "file": "js/controllers/InfoCtrl.js",
@@ -449,7 +449,7 @@
   },
   {
     "file": "js/controllers/ProfileCtrl.js",
-    "hash": "ad66fdf56197e6abd2190a8d7f49ddb6"
+    "hash": "49f525d618b84fcc2b6dc8740dbb3e0c"
   },
   {
     "file": "js/controllers/RegistrationController.js",
@@ -501,7 +501,7 @@
   },
   {
     "file": "js/services/ConfigSrv.js",
-    "hash": "0411c952979578481e3216aeb2b9f3f6"
+    "hash": "3c6cd49658350024b679a7d792547203"
   },
   {
     "file": "js/services/DataSrv.js",
