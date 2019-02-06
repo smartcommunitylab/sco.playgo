@@ -218,10 +218,11 @@ angular.module('viaggia.controllers.home', [])
       Config.init().then(function () {
         localDataInit();
         if (window.BackgroundGeolocation) {
+          $rootScope.syncRunning = true;
           trackService.startup().then(function () {
             $scope.trackingIsOn = trackService.trackingIsGoingOn() && !trackService.trackingIsFinished();
             // $ionicLoading.hide();
-
+            $rootScope.syncRunning = false;
             if ($scope.trackingIsOn) {
               if ($rootScope.GPSAllow === true) {
                 updateTrackingInfo();
@@ -239,7 +240,7 @@ angular.module('viaggia.controllers.home', [])
           }, function (err) {
             //track service startup not worked.
             // $ionicLoading.hide();
-
+            $rootScope.syncRunning = false;
           });
 
         };
@@ -358,8 +359,10 @@ angular.module('viaggia.controllers.home', [])
     }
     $scope.trackAndMap = function (transportType) {
       //init multimodal id used for db 
-      $scope.startTracking(transportType);
-      $state.go('app.mapTracking');
+      if (!$rootScope.syncRunning) {
+        $scope.startTracking(transportType);
+        $state.go('app.mapTracking');
+      }
 
     }
     $scope.stopTrackingHome = function () {
