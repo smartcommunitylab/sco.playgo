@@ -1,0 +1,76 @@
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.thymeleaf.org"
+  th:with="lang=${#locale.language}" th:lang="${lang}">
+<head lang="it">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title th:text="#{survey.title}">Play&amp;Go - Questionario finale</title>
+<link href="../../../../css/bootstrap.min.css" rel="stylesheet" />
+<link href="../../../../css/bootstrap-theme.min.css" rel="stylesheet" />
+<link href="../../../../css/gg_style.css" rel="stylesheet" />
+<style type="text/css">
+  .panel {
+    background: url(../../../img/paginaAccesso-56-56-56.svg) no-repeat center center fixed;
+  }
+</style>
+</head>
+<body>
+<div class="container" >
+    <div id="big-privacy-page">
+      <div class="row" style="margin-top: 20px">
+        <div class="col-md-8 col-md-offset-2">
+          <div class="panel panel-default">
+              <div class="panel-body">
+              <div style="margin: 5px 3px 5px 3px">
+                <div class="row" style="font-size: 18px; color: red" align="center" id="cookies"></div>
+                <div style="margin: 50px 5px 5px 5px" align="center">
+                  <h1><strong>Viaggia Play&amp;Go</strong></h1>
+                  
+                  <p class="big-text" align="left" >
+                    <span th:if="${surveyComplete}" th:utext="#{survey.text_survey_ok}">Survey ok</span>
+                    <span th:if="${!surveyComplete}"  th:utext="#{survey.text_survey_ko}">Survey ko</span>
+                    <br /><br />
+                    <em  th:text="#{survey.text_staff_survey_page}">Staff Play&amp;Go</em>
+                  </p>
+                </div>
+                <div class="row" style="margin-right: 10px" align="right">
+                  &nbsp;
+                  <a id="btn_login_test" class="btn btn-success btn-lg" th:href="'../../../?lang=' + ${lang}" role="button"><strong>OK</strong></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="small-privacy-page">
+      <div class="row" style="margin-top: 20px">
+        <div class="col-sm-8 col-sm-offset-2">
+          <div class="panel panel-default">
+              <div class="panel-body">
+              <div style="margin: 5px 3px 5px 3px">
+                <div class="row" style="font-size: 18px; color: red" align="center" id="cookies"></div>
+                </div>
+                <div style="margin: 50px 5px 5px 5px" align="center">
+                  <h1><strong>Viaggia Play&amp;Go</strong></h1>
+                  
+                  <p class="big-text" align="left" >
+                    <span th:if="${surveyComplete}" th:utext="#{survey.text_survey_ok}">Survey ok</span>
+                    <span th:if="${!surveyComplete}"  th:utext="#{survey.text_survey_ko}">Survey ko</span>
+                    <br /><br />
+                    <em  th:text="#{survey.text_staff_survey_page}">Staff Play&amp;Go</em>
+                  </p>
+                </div>
+                <div class="row" style="margin-right: 10px" align="right">
+                  &nbsp;
+                  <a id="btn_login_test" class="btn btn-success btn-lg" th:href="'../../../?lang=' + ${lang}" role="button"><strong>OK</strong></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>

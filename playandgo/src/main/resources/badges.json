@@ -1,0 +1,1102 @@
+[{
+	"path": "img/mail/green/greenKingWeek.png",
+	"imageName": "greenKingWeek.png",
+	"imageType": "image/png",
+	"textId": "king_week_green",
+	"text": {
+		"it": "Re della Settimana - Green Leaves",
+		"en": "King of the Week - Green Leaves"
+	}
+},
+{
+	"path": "img/mail/green/greenLeaves50.png",
+	"imageName": "greenLeaves50.png",
+	"imageType": "image/png",
+	"textId": "50_point_green",
+	"text": {
+		"it": "50 Punti Green Leaves",
+		"en": "50 Green Leaves Points"
+	}
+},
+{
+	"path": "img/mail/green/greenLeaves100.png",
+	"imageName": "greenLeaves100.png",
+	"imageType": "image/png",
+	"textId": "100_point_green",
+	"text": {
+		"it": "100 Punti Green Leaves",
+		"en": "100 Green Leaves Points"
+	}
+},
+{
+	"path": "img/mail/green/greenLeaves200.png",
+	"imageName": "greenLeaves200.png",
+	"imageType": "image/png",
+	"textId": "200_point_green",
+	"text": {
+		"it": "200 Punti Green Leaves",
+		"en": "200 Green Leaves Points"
+	}
+},
+{
+	"path": "img/mail/green/greenLeaves400.png",
+	"imageName": "greenLeaves400.png",
+	"imageType": "image/png",
+	"textId": "400_point_green",
+	"text": {
+		"it": "400 Punti Green Leaves",
+		"en": "400 Green Leaves Points"
+	}
+},
+{
+	"path": "img/mail/green/greenLeaves800.png",
+	"imageName": "greenLeaves800.png",
+	"imageType": "image/png",
+	"textId": "800_point_green",
+	"text": {
+		"it": "800 Punti Green Leaves",
+		"en": "800 Green Leaves Points"
+	}
+},
+{
+	"path": "img/mail/green/greenLeaves1500.png",
+	"imageName": "greenLeaves1500.png",
+	"imageType": "image/png",
+	"textId": "1500_point_green",
+	"text": {
+		"it": "1500 Punti Green Leaves",
+		"en": "1500 Green Leaves Points"
+	}
+},
+{
+	"path": "img/mail/green/greenLeaves2500.png",
+	"imageName": "greenLeaves2500.png",
+	"imageType": "image/png",
+	"textId": "2500_point_green",
+	"text": {
+		"it": "2500 Punti Green Leaves",
+		"en": "2500 Green Leaves Points"
+	}
+},
+{
+	"path": "img/mail/green/greenLeaves5000.png",
+	"imageName": "greenLeaves5000.png",
+	"imageType": "image/png",
+	"textId": "5000_point_green",
+	"text": {
+		"it": "5000 Punti Green Leaves",
+		"en": "5000 Green Leaves Points"
+	}
+},
+{
+	"path": "img/mail/green/greenLeaves10000.png",
+	"imageName": "greenLeaves10000.png",
+	"imageType": "image/png",
+	"textId": "10000_point_green",
+	"text": {
+		"it": "10000 Punti Green Leaves",
+		"en": "10000 Green Leaves Points"
+	}
+},
+{
+	"path": "img/mail/green/greenLeaves20000.png",
+	"imageName": "greenLeaves20000.png",
+	"imageType": "image/png",
+	"textId": "20000_point_green",
+	"text": {
+		"it": "20000 Punti Green Leaves",
+		"en": "20000 Green Leaves Points"
+	}
+},
+{
+	"path": "img/mail/leaderboard/green/leaderboardGreen3.png",
+	"imageName": "leaderboardGreen3.png",
+	"imageType": "image/png",
+	"textId": "bronze-medal-green",
+	"text": {
+		"it": "Medaglia di Bronzo - Green Leaves",
+		"en": "Bronze Medal - Green Leaves"
+	}
+},
+{
+	"path": "img/mail/leaderboard/green/leaderboardGreen2.png",
+	"imageName": "leaderboardGreen2.png",
+	"imageType": "image/png",
+	"textId": "silver-medal-green",
+	"text": {
+		"it": "Medaglia d'Argento - Green Leaves",
+		"en": "Silver Medal - Green Leaves"
+	}
+},
+{
+	"path": "img/mail/leaderboard/green/leaderboardGreen1.png",
+	"imageName": "leaderboardGreen1.png",
+	"imageType": "image/png",
+	"textId": "gold-medal-green",
+	"text": {
+		"it": "Medaglia d'Oro - Green Leaves",
+		"en": "Gold Medal - Green Leaves"
+	}
+},
+{
+	"path": "img/mail/health/healthKingWeek.png",
+	"imageName": "healthKingWeek.png",
+	"imageType": "image/png",
+	"textId": "king_week_health",
+	"text": {
+		"it": "Re della Settimana - Salute",
+		"en": "King of the Week - Health"
+	}
+},
+{
+	"path": "img/mail/health/healthLeaves10.png",
+	"imageName": "healthLeaves10.png",
+	"imageType": "image/png",
+	"textId": "10_point_health",
+	"text": {
+		"it": "10 Punti Salute",
+		"en": "10 Health Points"
+	}
+},
+{
+	"path": "img/mail/health/healthLeaves25.png",
+	"imageName": "healthLeaves25.png",
+	"imageType": "image/png",
+	"textId": "25_point_health",
+	"text": {
+		"it": "25 Punti Salute",
+		"en": "25 Health Points"
+	}
+},
+{
+	"path": "img/mail/health/healthLeaves50.png",
+	"imageName": "healthLeaves50.png",
+	"imageType": "image/png",
+	"textId": "50_point_health",
+	"text": {
+		"it": "50 Punti Salute",
+		"en": "50 Health Points"
+	}
+},
+{
+	"path": "img/mail/health/healthLeaves100.png",
+	"imageName": "healthLeaves100.png",
+	"imageType": "image/png",
+	"textId": "100_point_health",
+	"text": {
+		"it": "100 Punti Salute",
+		"en": "100 Health Points"
+	}
+},
+{
+	"path": "img/mail/health/healthLeaves200.png",
+	"imageName": "healthLeaves200.png",
+	"imageType": "image/png",
+	"textId": "200_point_health",
+	"text": {
+		"it": "200 Punti Salute",
+		"en": "200 Health Points"
+	}
+},
+{
+	"path": "img/mail/health/healthBronzeMedal.png",
+	"imageName": "healthBronzeMedal.png",
+	"imageType": "image/png",
+	"textId": "bronze_medal_health",
+	"text": {
+		"it": "Medaglia di Bronzo - Salute",
+		"en": "Bronze Medal - Health"
+	}
+},
+{
+	"path": "img/mail/health/healthSilverMedal.png",
+	"imageName": "healthSilverMedal.png",
+	"imageType": "image/png",
+	"textId": "silver_medal_health",
+	"text": {
+		"it": "Medaglia d'Argento - Salute",
+		"en": "Silver Medal - Health"
+	}
+},
+{
+	"path": "img/mail/health/healthGoldMedal.png",
+	"imageName": "healthGoldMedal.png",
+	"imageType": "image/png",
+	"textId": "gold_medal_health",
+	"text": {
+		"it": "Medaglia d'Oro - Salute",
+		"en": "Gold Medal - Health"
+	}
+},
+{
+	"path": "img/mail/pr/prKingWeek.png",
+	"imageName": "prKingWeek.png",
+	"imageType": "image/png",
+	"textId": "king_week_pr",
+	"text": {
+		"it": "Re della Settimana - Park&Ride",
+		"en": "King of the Week - Park&Ride"
+	}
+},
+{
+	"path": "img/mail/pr/prLeaves10.png",
+	"imageName": "prLeaves10.png",
+	"imageType": "image/png",
+	"textId": "10_point_pr",
+	"text": {
+		"it": "10 Punti Park&Ride",
+		"en": "10 Park&Ride Points"
+	}
+},
+{
+	"path": "img/mail/pr/prLeaves20.png",
+	"imageName": "prLeaves20.png",
+	"imageType": "image/png",
+	"textId": "20_point_pr",
+	"text": {
+		"it": "20 Punti Park&Ride",
+		"en": "20 Park&Ride Points"
+	}
+},
+{
+	"path": "img/mail/pr/prLeaves50.png",
+	"imageName": "prLeaves50.png",
+	"imageType": "image/png",
+	"textId": "50_point_pr",
+	"text": {
+		"it": "50 Punti Park&Ride",
+		"en": "50 Park&Ride Points"
+	}
+},
+{
+	"path": "img/mail/pr/prLeaves100.png",
+	"imageName": "prLeaves100.png",
+	"imageType": "image/png",
+	"textId": "100_point_pr",
+	"text": {
+		"it": "100 Punti Park&Ride",
+		"en": "100 Park&Ride Points"
+	}
+},
+{
+	"path": "img/mail/pr/prLeaves200.png",
+	"imageName": "prLeaves200.png",
+	"imageType": "image/png",
+	"textId": "200_point_pr",
+	"text": {
+		"it": "200 Punti Park&Ride",
+		"en": "200 Park&Ride Points"
+	}
+},
+{
+	"path": "img/mail/pr/prBronzeMedal.png",
+	"imageName": "prBronzeMedal.png",
+	"imageType": "image/png",
+	"textId": "bronze_medal_pr",
+	"text": {
+		"it": "Medaglia di Bronzo - Park&Ride",
+		"en": "Bronze Medal - Park&Ride"
+	}
+},
+{
+	"path": "img/mail/pr/prSilverMedal.png",
+	"imageName": "prSilverMedal.png",
+	"imageType": "image/png",
+	"textId": "silver_medal_pr",
+	"text": {
+		"it": "Medaglia d'Argento - Park&Ride",
+		"en": "Silver Medal - Park&Ride"
+	}
+},
+{
+	"path": "img/mail/pr/prGoldMedal.png",
+	"imageName": "prGoldMedal.png",
+	"imageType": "image/png",
+	"textId": "gold_medal_pr",
+	"text": {
+		"it": "Medaglia d'Oro - Park&Ride",
+		"en": "Gold Medal - Park&Ride"
+	}
+},
+{
+	"path": "img/mail/pr/prPioneerManifattura.png",
+	"imageName": "prPioneerManifattura.png",
+	"imageType": "image/png",
+	"textId": "Manifattura_parking",
+	"text": {
+		"it": "Parcheggio Manifattura - Park&Ride",
+		"en": "Manifattura Park - Park&Ride"
+	}
+},
+{
+	"path": "img/mail/pr/prPioneerStadio.png",
+	"imageName": "prPioneerStadio.png",
+	"imageType": "image/png",
+	"textId": "Stadio_parking",
+	"text": {
+		"it": "Parcheggio Stadio - Park&Ride",
+		"en": "Stadio Park - Park&Ride"
+	}
+},
+{
+	"path": "img/mail/pr/park_ride-ragazzi99.png",
+	"imageName": "park_ride-ragazzi99.png",
+	"imageType": "image/png",
+	"textId": "Via Ragazzi del '99_parking",
+	"text": {
+		"it": "Via ragazzi del 99 - Park&Ride",
+		"en": "Via ragazzi del 99 Park - Park&Ride"
+	}
+},
+{
+	"path": "img/mail/pr/park_ride-lidorno.png",
+	"imageName": "park_ride-lidorno.png",
+	"imageType": "image/png",
+	"textId": "Via Lidorno_parking",
+	"text": {
+		"it": "Via Lidorno - Park&Ride",
+		"en": "Via Lidorno Park - Park&Ride"
+	}
+},
+{
+	"path": "img/mail/pr/park_ride-via-fersina.png",
+	"imageName": "park_ride-via-fersina.png",
+	"imageType": "image/png",
+	"textId": "Ghiaie via Fersina_parking",
+	"text": {
+		"it": "Ghiaie via Fersina - Park&Ride",
+		"en": "Ghiaie Park - Park&Ride"
+	}
+},
+{
+	"path": "img/mail/pr/park_ride-area-zuffo.png",
+	"imageName": "park_ride-area-zuffo.png",
+	"imageType": "image/png",
+	"textId": "Ex-Zuffo_parking",
+	"text": {
+		"it": "Ex Zuffo - Park&Ride",
+		"en": "Ex Zuffo Park - Park&Ride"
+	}
+},
+{
+	"path": "img/mail/pr/park_ride-monte-baldo.png",
+	"imageName": "park_ride-monte-baldo.png",
+	"imageType": "image/png",
+	"textId": "Monte Baldo_parking",
+	"text": {
+		"it": "Monte Baldo - Park&Ride",
+		"en": "Monte Baldo Park - Park&Ride"
+	}
+},
+{
+	"path": "img/mail/pr/park_ride-villazzano-stazioneFS.png",
+	"imageName": "park_ride-villazzano-stazioneFS.png",
+	"imageType": "image/png",
+	"textId": "Via Asiago, Stazione FS Villazzano_parking",
+	"text": {
+		"it": "Stazione FS Villazzano - Park&Ride",
+		"en": "Villazzano FS Station - Park&Ride"
+	}
+},
+{
+	"path": "img/mail/special/emotion.png",
+	"imageName": "emotion.png",
+	"imageType": "image/png",
+	"textId": "e-motion",
+	"text": {
+		"it": "E-Motion",
+		"en": "E-Motion"
+	}
+},
+{
+	"path": "img/mail/special/impatto_zero.png",
+	"imageName": "impatto_zero.png",
+	"imageType": "image/png",
+	"textId": "zero-impact",
+	"text": {
+		"it": "Impatto Zero",
+		"en": "Zero Impact"
+	}
+},
+{
+	"path": "img/mail/special/special_p_quercia.png",
+	"imageName": "special_p_quercia.png",
+	"imageType": "image/png",
+	"textId": "Stadio-park",
+	"text": {
+		"it": "Parcheggio Stadio Quercia",
+		"en": "Stadio Quercia Park"
+	}
+},
+{
+	"path": "img/mail/special/special_special_p_manifattura.png",
+	"imageName": "special_special_p_manifattura.png",
+	"imageType": "image/png",
+	"textId": "Ex Manifattura-park",
+	"text": {
+		"it": "Parcheggio Ex Manifattura",
+		"en": "Ex Manifattura Park"
+	}
+},
+{
+	"path": "img/mail/special/special_p_centro.storico.png",
+	"imageName": "special_p_centro.storico.png",
+	"imageType": "image/png",
+	"textId": "Centro Storico-park",
+	"text": {
+		"it": "Parcheggio Centro Storico",
+		"en": "Centro Storico Park"
+	}
+},
+{
+	"path": "img/mail/special/special_p_centro.png",
+	"imageName": "special_p_centro.png",
+	"imageType": "image/png",
+	"textId": "Parcheggio Centro-park",
+	"text": {
+		"it": "Parcheggio Centro",
+		"en": "Centro Park"
+	}
+},
+{
+	"path": "img/mail/special/special_p_p.le.a.leoni.png",
+	"imageName": "special_p_p.le.a.leoni.png",
+	"imageType": "image/png",
+	"textId": "P.le A.Leoni-park",
+	"text": {
+		"it": "Parcheggio Piazzale Leoni",
+		"en": "Piazzale Leoni Park"
+	}
+},
+{
+	"path": "img/mail/bike/bikeAficionado1.png",
+	"imageName": "bikeAficionado1.png",
+	"imageType": "image/png",
+	"textId": "1_bike_trip",
+	"text": {
+		"it": "1 Viaggio in Bici",
+		"en": "1 Bike Trip"
+	}
+},
+{
+	"path": "img/mail/bike/bikeAficionado5.png",
+	"imageName": "bikeAficionado5.png",
+	"imageType": "image/png",
+	"textId": "5_bike_trip",
+	"text": {
+		"it": "5 Viaggi in Bici",
+		"en": "5 Bike Trips"
+	}
+},
+{
+	"path": "img/mail/bike/bikeAficionado10.png",
+	"imageName": "bikeAficionado10.png",
+	"imageType": "image/png",
+	"textId": "10_bike_trip",
+	"text": {
+		"it": "10 Viaggi in Bici",
+		"en": "10 Bike Trips"
+	}
+},
+{
+	"path": "img/mail/bike/bikeAficionado25.png",
+	"imageName": "bikeAficionado25.png",
+	"imageType": "image/png",
+	"textId": "25_bike_trip",
+	"text": {
+		"it": "25 Viaggi in Bici",
+		"en": "25 Bike Trips"
+	}
+},
+{
+	"path": "img/mail/bike/bikeAficionado50.png",
+	"imageName": "bikeAficionado50.png",
+	"imageType": "image/png",
+	"textId": "50_bike_trip",
+	"text": {
+		"it": "50 Viaggi in Bici",
+		"en": "50 Bike Trips"
+	}
+},
+{
+	"path": "img/mail/bike/bikeAficionado100.png",
+	"imageName": "bikeAficionado100.png",
+	"imageType": "image/png",
+	"textId": "100_bike_trip",
+	"text": {
+		"it": "100 Viaggi in Bici",
+		"en": "100 Bike Trips"
+	}
+},
+{
+	"path": "img/mail/bike/bikeAficionado200.png",
+	"imageName": "bikeAficionado200.png",
+	"imageType": "image/png",
+	"textId": "200_bike_trip",
+	"text": {
+		"it": "200 Viaggi in Bici",
+		"en": "200 Bike Trips"
+	}
+},
+{
+	"path": "img/mail/bike/bikeAficionado500.png",
+	"imageName": "bikeAficionado500.png",
+	"imageType": "image/png",
+	"textId": "500_bike_trip",
+	"text": {
+		"it": "500 Viaggi in Bici",
+		"en": "500 Bike Trips"
+	}
+},
+{
+	"path": "img/mail/bike_sharing/bikeSharingPioneerBrione.png",
+	"imageName": "bikeSharingPioneerBrione.png",
+	"imageType": "image/png",
+	"textId": "Brione - Rovereto_BSstation",
+	"text": {
+		"it": "Parcheggio Bike Sharing Brione",
+		"en": "Brione Bike Sharing Park"
+	}
+},
+{
+	"path": "img/mail/bike_sharing/bikeSharingPioneerLizzana.png",
+	"imageName": "bikeSharingPioneerLizzana.png",
+	"imageType": "image/png",
+	"textId": "Lizzana - Rovereto_BSstation",
+	"text": {
+		"it": "Parcheggio Bike Sharing Lizzana",
+		"en": "Lizzana Bike Sharing Park"
+	}
+},
+{
+	"path": "img/mail/bike_sharing/bikeSharingPioneerMarco.png",
+	"imageName": "bikeSharingPioneerMarco.png",
+	"imageType": "image/png",
+	"textId": "Marco - Rovereto_BSstation",
+	"text": {
+		"it": "Parcheggio Bike Sharing Marco",
+		"en": "Marco Bike Sharing Park"
+	}
+},
+{
+	"path": "img/mail/bike_sharing/bikeSharingPioneerMunicipio.png",
+	"imageName": "bikeSharingPioneerMunicipio.png",
+	"imageType": "image/png",
+	"textId": "Municipio - Rovereto_BSstation",
+	"text": {
+		"it": "Parcheggio Bike Sharing Municipio",
+		"en": "Municipio Bike Sharing Park"
+	}
+},
+{
+	"path": "img/mail/bike_sharing/bikeSharingPioneerNoriglio.png",
+	"imageName": "bikeSharingPioneerNoriglio.png",
+	"imageType": "image/png",
+	"textId": "Noriglio - Rovereto_BSstation",
+	"text": {
+		"it": "Parcheggio Bike Sharing Noriglio",
+		"en": "Noriglio Bike Sharing Park"
+	}
+},
+{
+	"path": "img/mail/bike_sharing/bikeSharingPioneerOrsi.png",
+	"imageName": "bikeSharingPioneerOrsi.png",
+	"imageType": "image/png",
+	"textId": "Orsi - Rovereto_BSstation",
+	"text": {
+		"it": "Parcheggio Bike Sharing Piazzale Orsi",
+		"en": "Piazzale Orsi Bike Sharing Park"
+	}
+},
+{
+	"path": "img/mail/bike_sharing/bikeSharingPioneerOspedale.png",
+	"imageName": "bikeSharingPioneerOspedale.png",
+	"imageType": "image/png",
+	"textId": "Ospedale - Rovereto_BSstation",
+	"text": {
+		"it": "Parcheggio Bike Sharing Ospedale",
+		"en": "Ospedale Bike Sharing Park"
+	}
+},
+{
+	"path": "img/mail/bike_sharing/bikeSharingPioneerPaoli.png",
+	"imageName": "bikeSharingPioneerPaoli.png",
+	"imageType": "image/png",
+	"textId": "Via Paoli - Rovereto_BSstation",
+	"text": {
+		"it": "Parcheggio Bike Sharing Via Paoli",
+		"en": "Via Paoli Bike Sharing Park"
+	}
+},
+{
+	"path": "img/mail/bike_sharing/bikeSharingPioneerPRosmini.png",
+	"imageName": "bikeSharingPioneerPRosmini.png",
+	"imageType": "image/png",
+	"textId": "P. Rosmini - Rovereto_BSstation",
+	"text": {
+		"it": "Parcheggio Bike Sharing P. Rosmini",
+		"en": "P. Rosmini Bike Sharing Park"
+	}
+},
+{
+	"path": "img/mail/bike_sharing/bikeSharingPioneerQuercia.png",
+	"imageName": "bikeSharingPioneerQuercia.png",
+	"imageType": "image/png",
+	"textId": "Quercia - Rovereto_BSstation",
+	"text": {
+		"it": "Parcheggio Bike Sharing Quercia",
+		"en": "Quercia Bike Sharing Park"
+	}
+},
+{
+	"path": "img/mail/bike_sharing/bikeSharingPioneerSacco.png",
+	"imageName": "bikeSharingPioneerSacco.png",
+	"imageType": "image/png",
+	"textId": "Sacco - Rovereto_BSstation",
+	"text": {
+		"it": "Parcheggio Bike Sharing Sacco",
+		"en": "Sacco Bike Sharing Park"
+	}
+},
+{
+	"path": "img/mail/bike_sharing/bikeSharingPioneerStazione.png",
+	"imageName": "bikeSharingPioneerStazione.png",
+	"imageType": "image/png",
+	"textId": "Stazione FF.SS. - Rovereto_BSstation",
+	"text": {
+		"it": "Parcheggio Bike Sharing Stazione FF.SS.",
+		"en": "Stazione FF.SS. Bike Sharing Park"
+	}
+},
+{
+	"path": "img/mail/bike_sharing/bikeSharingPioneerZonaIndustriale.png",
+	"imageName": "bikeSharingPioneerZonaIndustriale.png",
+	"imageType": "image/png",
+	"textId": "Zona Industriale - Rovereto_BSstation",
+	"text": {
+		"it": "Parcheggio Bike Sharing Zona Industriale",
+		"en": "Zona Industriale Bike Sharing Park"
+	}
+},
+{
+	"path": "img/mail/bike_sharing/bikeSharingPioneerMART.png",
+	"imageName": "bikeSharingPioneerMART.png",
+	"imageType": "image/png",
+	"textId": "Mart - Rovereto_BSstation",
+	"text": {
+		"it": "Parcheggio Bike Sharing MART",
+		"en": "MART Bike Sharing Park"
+	}
+},
+{
+	"path": "img/mail/bike_sharing/bikeSharingPioneerFFSSOspedale.png",
+	"imageName": "bikeSharingPioneerFFSSOspedale.png",
+	"imageType": "image/png",
+	"textId": "Stazione FFSS - Ospedale - Trento_BSstation",
+	"text": {
+		"it": "Parcheggio Bike Sharing Stazione FF.SS. Ospedale",
+		"en": "Stazine FF.SS Ospedale Bike Sharing Park"
+	}
+},
+{
+	"path": "img/mail/bike_sharing/bikeSharingPioneerPiazzaVenezia.png",
+	"imageName": "bikeSharingPioneerPiazzaVenezia.png",
+	"imageType": "image/png",
+	"textId": "Piazza Venezia - Trento_BSstation",
+	"text": {
+		"it": "Parcheggio Bike Sharing Piazza Venezia",
+		"en": "Piazza Venezia Bike Sharing Park"
+	}
+},
+{
+	"path": "img/mail/bike_sharing/bikeSharingPioneerPiscina.png",
+	"imageName": "bikeSharingPioneerPiscina.png",
+	"imageType": "image/png",
+	"textId": "Piscina - Trento_BSstation",
+	"text": {
+		"it": "Parcheggio Bike Sharing Piscina",
+		"en": "Piscina Bike Sharing Park"
+	}
+},
+{
+	"path": "img/mail/bike_sharing/bikeSharingPioneerPiazzaMostra.png",
+	"imageName": "bikeSharingPioneerPiazzaMostra.png",
+	"imageType": "image/png",
+	"textId": "Piazza della Mostra - Trento_BSstation",
+	"text": {
+		"it": "Parcheggio Bike Sharing Piazza Mostra",
+		"en": "Piazza Mostra Bike Sharing Park"
+	}
+},
+{
+	"path": "img/mail/bike_sharing/bikeSharingPioneerCentroSantaChiara.png",
+	"imageName": "bikeSharingPioneerCentroSantaChiara.png",
+	"imageType": "image/png",
+	"textId": "Centro Santa Chiara - Trento_BSstation",
+	"text": {
+		"it": "Parcheggio Bike Sharing Centro S.Chiara",
+		"en": "Centro S.Chiara Bike Sharing Park"
+	}
+},
+{
+	"path": "img/mail/bike_sharing/bikeSharingPioneerPiazzaCenta.png",
+	"imageName": "bikeSharingPioneerPiazzaCenta.png",
+	"imageType": "image/png",
+	"textId": "Piazza di Centa - Trento_BSstation",
+	"text": {
+		"it": "Parcheggio Bike Sharing Piazza di Centa",
+		"en": "Piazza Centa Bike Sharing Park"
+	}
+},
+{
+	"path": "img/mail/bike_sharing/bikeSharingPioneerBiblioteca.png",
+	"imageName": "bikeSharingPioneerBiblioteca.png",
+	"imageType": "image/png",
+	"textId": "Biblioteca - Trento_BSstation",
+	"text": {
+		"it": "Parcheggio Bike Sharing Biblioteca",
+		"en": "Biblioteca Bike Sharing Park"
+	}
+},
+{
+	"path": "img/mail/bike_sharing/bikeSharingPioneerStazioneAutocorriere.png",
+	"imageName": "bikeSharingPioneerStazioneAutocorriere.png",
+	"imageType": "image/png",
+	"textId": "Stazione Autocorriere - Trento_BSstation",
+	"text": {
+		"it": "Parcheggio Bike Sharing Stazione Autocorriere",
+		"en": "Stazione Autocorriere Bike Sharing Park"
+	}
+},
+{
+	"path": "img/mail/bike_sharing/bikeSharingPioneerUniversita.png",
+	"imageName": "bikeSharingPioneerUniversita.png",
+	"imageType": "image/png",
+	"textId": "Università - Trento_BSstation",
+	"text": {
+		"it": "Parcheggio Bike Sharing Universita'",
+		"en": "Universita Bike Sharing Park"
+	}
+},
+{
+	"path": "img/mail/bike_sharing/bikeSharingPioneerBezzi.png",
+	"imageName": "bikeSharingPioneerBezzi.png",
+	"imageType": "image/png",
+	"textId": "Bezzi - Trento_BSstation",
+	"text": {
+		"it": "Parcheggio Bike Sharing Bezzi",
+		"en": "Bezzi Bike Sharing Park"
+	}
+},
+{
+	"path": "img/mail/bike_sharing/bikeSharingPioneerMuse.png",
+	"imageName": "bikeSharingPioneerMuse.png",
+	"imageType": "image/png",
+	"textId": "Muse - Trento_BSstation",
+	"text": {
+		"it": "Parcheggio Bike Sharing Muse",
+		"en": "Muse Bike Sharing Park"
+	}
+},
+{
+	"path": "img/mail/bike_sharing/bikeSharingPioneerAziendaSanitaria.png",
+	"imageName": "bikeSharingPioneerAziendaSanitaria.png",
+	"imageType": "image/png",
+	"textId": "Azienda Sanitaria - Trento_BSstation",
+	"text": {
+		"it": "Parcheggio Bike Sharing Azienda Sanitaria",
+		"en": "Azienda Sanitaria Bike Sharing Park"
+	}
+},
+{
+	"path": "img/mail/bike_sharing/bikeSharingPioneerTopCenter.png",
+	"imageName": "bikeSharingPioneerTopCenter.png",
+	"imageType": "image/png",
+	"textId": "Top Center - Trento_BSstation",
+	"text": {
+		"it": "Parcheggio Bike Sharing Top Center",
+		"en": "Top Center Bike Sharing Park"
+	}
+},
+{
+	"path": "img/mail/bike_sharing/bikeSharingPioneerBrenCenter.png",
+	"imageName": "bikeSharingPioneerBrenCenter.png",
+	"imageType": "image/png",
+	"textId": "Bren Center - Trento_BSstation",
+	"text": {
+		"it": "Parcheggio Bike Sharing Bren Center",
+		"en": "Bren Center Bike Sharing Park"
+	}
+},
+{
+	"path": "img/mail/bike_sharing/bikeSharingPioneerLidorno.png",
+	"imageName": "bikeSharingPioneerLidorno.png",
+	"imageType": "image/png",
+	"textId": "Lidorno - Trento_BSstation",
+	"text": {
+		"it": "Parcheggio Bike Sharing Lidorno",
+		"en": "Lidorno Bike Sharing Park"
+	}
+},
+{
+	"path": "img/mail/bike_sharing/bikeSharingPioneerGardolo.png",
+	"imageName": "bikeSharingPioneerGardolo.png",
+	"imageType": "image/png",
+	"textId": "Gardolo - Trento_BSstation",
+	"text": {
+		"it": "Parcheggio Bike Sharing Gardolo",
+		"en": "Gardolo Bike Sharing Park"
+	}
+},
+{
+	"path": "img/mail/bike_sharing/bikeSharingPioneerAeroporto.png",
+	"imageName": "bikeSharingPioneerAeroporto.png",
+	"imageType": "image/png",
+	"textId": "Aeroporto - Trento_BSstation",
+	"text": {
+		"it": "Parcheggio Bike Sharing Aeroporto",
+		"en": "Aeroporto Bike Sharing Park"
+	}
+},
+{
+	"path": "img/mail/recommendation/inviteFriends3.png",
+	"imageName": "inviteFriends3.png",
+	"imageType": "image/png",
+	"textId": "3_recommendations",
+	"text": {
+		"it": "3 Amici Invitati",
+		"en": "3 Friends recommendation"
+	}
+},
+{
+	"path": "img/mail/recommendation/inviteFriends5.png",
+	"imageName": "inviteFriends5.png",
+	"imageType": "image/png",
+	"textId": "5_recommendations",
+	"text": {
+		"it": "5 Amici Invitati",
+		"en": "5 Friends recommendation"
+	}
+},
+{
+	"path": "img/mail/recommendation/inviteFriends10.png",
+	"imageName": "inviteFriends10.png",
+	"imageType": "image/png",
+	"textId": "10_recommendations",
+	"text": {
+		"it": "10 Amici Invitati",
+		"en": "10 Friends recommendation"
+	}
+},
+{
+	"path": "img/mail/recommendation/inviteFriends25.png",
+	"imageName": "inviteFriends25.png",
+	"imageType": "image/png",
+	"textId": "25_recommendations",
+	"text": {
+		"it": "25 Amici Invitati",
+		"en": "25 Friends recommendation"
+	}
+},
+{
+	"path": "img/mail/public_transport/publicTransportAficionado5.png",
+	"imageName": "publicTransportAficionado5.png",
+	"imageType": "image/png",
+	"textId": "5_pt_trip",
+	"text": {
+		"it": "5 Viaggi Mezzi Pubblici",
+		"en": "5 Public Trasport Trips"
+	}
+},
+{
+	"path": "img/mail/public_transport/publicTransportAficionado10.png",
+	"imageName": "publicTransportAficionado10.png",
+	"imageType": "image/png",
+	"textId": "10_pt_trip",
+	"text": {
+		"it": "10 Viaggi Mezzi Pubblici",
+		"en": "10 Public Trasport Trips"
+	}
+},
+{
+	"path": "img/mail/public_transport/publicTransportAficionado25.png",
+	"imageName": "publicTransportAficionado25.png",
+	"imageType": "image/png",
+	"textId": "25_pt_trip",
+	"text": {
+		"it": "25 Viaggi Mezzi Pubblici",
+		"en": "25 Public Trasport Trips"
+	}
+},
+{
+	"path": "img/mail/public_transport/publicTransportAficionado50.png",
+	"imageName": "publicTransportAficionado50.png",
+	"imageType": "image/png",
+	"textId": "50_pt_trip",
+	"text": {
+		"it": "50 Viaggi Mezzi Pubblici",
+		"en": "50 Public Trasport Trips"
+	}
+},
+{
+	"path": "img/mail/public_transport/publicTransportAficionado100.png",
+	"imageName": "publicTransportAficionado100.png",
+	"imageType": "image/png",
+	"textId": "100_pt_trip",
+	"text": {
+		"it": "100 Viaggi Mezzi Pubblici",
+		"en": "100 Public Trasport Trips"
+	}
+},
+{
+	"path": "img/mail/public_transport/publicTransportAficionado200.png",
+	"imageName": "publicTransportAficionado200.png",
+	"imageType": "image/png",
+	"textId": "200_pt_trip",
+	"text": {
+		"it": "200 Viaggi Mezzi Pubblici",
+		"en": "200 Public Trasport Trips"
+	}
+},
+{
+	"path": "img/mail/public_transport/publicTransportAficionado500.png",
+	"imageName": "publicTransportAficionado500.png",
+	"imageType": "image/png",
+	"textId": "500_pt_trip",
+	"text": {
+		"it": "500 Viaggi Mezzi Pubblici",
+		"en": "500 Public Trasport Trips"
+	}
+},
+{
+	"path": "img/mail/zero_impact/zeroImpact1.png",
+	"imageName": "zeroImpact1.png",
+	"imageType": "image/png",
+	"textId": "1_zero_impact_trip",
+	"text": {
+		"it": "1 Viaggio Impatto Zero",
+		"en": "1 Zero Impact Trip"
+	}
+},
+{
+	"path": "img/mail/zero_impact/zeroImpact5.png",
+	"imageName": "zeroImpact5.png",
+	"imageType": "image/png",
+	"textId": "5_zero_impact_trip",
+	"text": {
+		"it": "5 Viaggi Impatto Zero",
+		"en": "5 Zero Impact Trips"
+	}
+},
+{
+	"path": "img/mail/zero_impact/zeroImpact10.png",
+	"imageName": "zeroImpact10.png",
+	"imageType": "image/png",
+	"textId": "10_zero_impact_trip",
+	"text": {
+		"it": "10 Viaggi Impatto Zero",
+		"en": "10 Zero Impact Trips"
+	}
+},
+{
+	"path": "img/mail/zero_impact/zeroImpact25.png",
+	"imageName": "zeroImpact25.png",
+	"imageType": "image/png",
+	"textId": "25_zero_impact_trip",
+	"text": {
+		"it": "25 Viaggi Impatto Zero",
+		"en": "25 Zero Impact Trips"
+	}
+},
+{
+	"path": "img/mail/zero_impact/zeroImpact50.png",
+	"imageName": "zeroImpact50.png",
+	"imageType": "image/png",
+	"textId": "50_zero_impact_trip",
+	"text": {
+		"it": "50 Viaggi Impatto Zero",
+		"en": "50 Zero Impact Trips"
+	}
+},
+{
+	"path": "img/mail/zero_impact/zeroImpact100.png",
+	"imageName": "zeroImpact100.png",
+	"imageType": "image/png",
+	"textId": "100_zero_impact_trip",
+	"text": {
+		"it": "100 Viaggi Impatto Zero",
+		"en": "100 Zero Impact Trips"
+	}
+},
+{
+	"path": "img/mail/zero_impact/zeroImpact200.png",
+	"imageName": "zeroImpact200.png",
+	"imageType": "image/png",
+	"textId": "200_zero_impact_trip",
+	"text": {
+		"it": "200 Viaggi Impatto Zero",
+		"en": "200 Zero Impact Trips"
+	}
+},
+{
+	"path": "img/mail/zero_impact/zeroImpact500.png",
+	"imageName": "zeroImpact500.png",
+	"imageType": "image/png",
+	"textId": "500_zero_impact_trip",
+	"text": {
+		"it": "500 Viaggi Impatto Zero",
+		"en": "500 Zero Impact Trips"
+	}
+},
+{
+	"path": "img/mail/leaderboard/leaderboard1.png",
+	"imageName": "leaderboard1.png",
+	"imageType": "image/png",
+	"textId": "1st_of_the_week",
+	"text": {
+		"it": "Primo della settimana",
+		"en": "First of the Week"
+	}
+},
+{
+	"path": "img/mail/leaderboard/leaderboard2.png",
+	"imageName": "leaderboard2.png",
+	"imageType": "image/png",
+	"textId": "2nd_of_the_week",
+	"text": {
+		"it": "Secondo della settimana",
+		"en": "Second of the Week"
+	}
+},
+{
+	"path": "img/mail/leaderboard/leaderboard3.png",
+	"imageName": "leaderboard3.png",
+	"imageType": "image/png",
+	"textId": "3rd_of_the_week",
+	"text": {
+		"it": "Terzo della settimana",
+		"en": "Third of the Week"
+	}
+},
+{
+	"path": "img/mail/pr/park_ride_manzoni.png",
+	"imageName": "park_ride_manzoni.png",
+	"imageType": "image/png",
+	"textId": "Parcheggio Centro_parking",
+	"text": {
+		"it": "Parcheggio Centro",
+		"en": "Centro Park"
+	}
+},
+{
+	"path": "img/mail/pr/park_ride_municipio.png",
+	"imageName": "park_ride_municipio.png",
+	"imageType": "image/png",
+	"textId": "Parcheggio Municipio_parking",
+	"text": {
+		"it": "Parcheggio Municipio",
+		"en": "Municipio Park"
+	}
+}
+
+]

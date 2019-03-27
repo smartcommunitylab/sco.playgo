@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}">
+<head lang="it" >
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title th:text="#{unsubscribe.title}">Play&amp;Go - Disattivazione Notifiche via Mail</title>
+		
+		<!-- Bootstrap core CSS -->
+		<link href="../../css/bootstrap.min.css" rel="stylesheet"/>
+		<!-- Custom styles for this template -->
+		<link href="../../css/gg_style.css" rel="stylesheet"/>
+		
+		<script type="text/javascript" th:inline="javascript">
+		/*<![CDATA[*/
+		  var cookieEnabled = (navigator.cookieEnabled) ? true : false; 
+		  if (typeof navigator.cookieEnabled == "undefined" && !cookieEnabled)
+		  { 
+		    document.cookie="testcookie";
+		    cookieEnabled = (document.cookie.indexOf("testcookie") != -1) ? true : false;
+		  }
+      function goToApp(){
+    	  window.location.href='../../gamificationweb';
+      }
+		  /*]]>*/
+		</script>
+		<style type="text/css">
+		  .panel {
+		    background: url(../../img/paginaAccesso-56-56-56.svg) no-repeat center center fixed;
+		  }
+		</style>
+</head>
+
+<body>
+  <div class="container" align="center" >
+    <div class="row" style="margin-top: 15px">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-default">
+            <div class="panel-body">
+            <div style="margin: 5px 3px 5px 3px">
+              <div class="row" style="font-size: 18px; color: red" align="center" id="cookies">
+              </div>
+              
+              <div style="margin: 50px 5px 5px 5px" align="center">
+                <h1>
+                  <font face="Raleway-bold" size="48" color="gray"><strong>Viaggia Play&amp;Go</strong></font>
+                </h1>
+                <p class="big-text" align="left">
+                <span th:utext="#{unsubscribe.p1}">La tua richiesta di disattivazione delle notifiche via mail</span>&nbsp;
+                 
+                <strong th:if="${wsresult}" th:utext="#{unsubscribe.oktext1}"> &egrave; andata a buon fine</strong>&nbsp; 
+                <span th:if="${wsresult}" th:utext="#{unsubscribe.oktext2}">Per tanto non riceverai pi&ugrave; alcuna notifica.</span><br />
+
+                <strong th:if="${!wsresult}" th:utext="#{unsubscribe.kotext1}">non &egrave; andata a buon fine</strong>&nbsp; 
+                <span th:if="${!wsresult}" th:utext="#{unsubscribe.kotext2}">Riprova pi&ugrave; tardi.</span><br />
+
+                <span th:utext="#{unsubscribe.p2}">Grazie per la tua partecipazione al gioco ViaggiaTrento Play&amp;Go, continua a muoverti in modo green e ad usare la app!</span><br /><br />
+                &emsp;
+                <em th:utext="#{unsubscribe.p3}">Lo staff di Play&amp;Go</em>
+                </p>
+              </div>
+              
+              <div class="row" style="margin-right: 10px" align="right">
+                &nbsp;
+                <a id="btn_login_test" class="btn btn-success btn-lg" onclick="goToApp()" role="button"><font face="Raleway" size="4"><strong>OK</strong></font></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <footer>
+        </footer>
+      </div>
+    </div>
+  </div>
+<!-- Codice per accettazione cookie - Inizio -->
+<script src="../../js/cookiechoices.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function(event) {
+    cookieChoices.showCookieConsentBar("I cookie ci aiutano ad erogare servizi di qualita'. Utilizzando i nostri servizi, l'utente accetta le nostre modalita' d'uso dei cookie.",
+      'OK', 'MAGGIORI INFORMAZIONI', 'cookie_licence');
+  });
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,310 @@
+package eu.trentorise.smartcampus.mobility.gamificationweb;
+
+import java.nio.charset.Charset;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.http.HttpHeaders;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.security.crypto.codec.Base64;
+import org.springframework.stereotype.Controller;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.support.RequestContextUtils;
+
+import eu.trentorise.smartcampus.mobility.gamification.model.ExecutionDataDTO;
+import eu.trentorise.smartcampus.mobility.gamificationweb.WebLinkUtils.PlayerIdentity;
+import eu.trentorise.smartcampus.mobility.gamificationweb.model.Player;
+import eu.trentorise.smartcampus.mobility.gamificationweb.model.WeekConfData;
+import eu.trentorise.smartcampus.mobility.security.AppInfo;
+import eu.trentorise.smartcampus.mobility.security.AppSetup;
+import eu.trentorise.smartcampus.mobility.security.BannedChecker;
+import eu.trentorise.smartcampus.mobility.security.GameInfo;
+import eu.trentorise.smartcampus.mobility.security.GameSetup;
+import eu.trentorise.smartcampus.mobility.storage.PlayerRepositoryDao;
+import eu.trentorise.smartcampus.mobility.util.ConfigUtils;
+import eu.trentorise.smartcampus.mobility.util.HTTPConnector;
+import eu.trentorise.smartcampus.network.JsonUtils;
+import eu.trentorise.smartcampus.profileservice.BasicProfileService;
+
+@Controller
+@EnableScheduling
+public class GamificationWebController {
+
+	private static transient final Logger logger = LoggerFactory.getLogger(GamificationWebController.class);
+
+	@Autowired
+	@Value("${gamification.url}")
+	private String gamificationUrl;
+	
+	@Autowired
+	@Value("${mobilityURL}")
+	private String mobilityUrl;	
+
+	@Autowired
+	private PlayerRepositoryDao playerRepositoryDao;
+
+	@Autowired
+	@Value("${aacURL}")
+	private String aacURL;
+	protected BasicProfileService profileService;
+
+	@Autowired
+	@Qualifier("mongoTemplate")
+	MongoTemplate template;	
+	
+	@Autowired
+	private AppSetup appSetup;
+	
+	@Autowired
+	private GameSetup gameSetup;	
+	
+	@Autowired
+	private WebLinkUtils linkUtils;
+	
+	@Autowired
+	private ConfigUtils configUtils;
+	
+	@Autowired
+	private BannedChecker bannedChecker;
+	
+	@RequestMapping(method = RequestMethod.GET, value = {"/gamificationweb","/gamificationweb/"})	///{socialId}
+	public 
+	ModelAndView web(HttpServletRequest request, HttpServletResponse response, @RequestParam(required=false, defaultValue="it") String lang) {
+		ModelAndView model = new ModelAndView("redirect:/gamificationweb/rules");
+		model.addObject("lang", lang);
+		return model;
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/gamificationweb/cookie_license")	///{socialId}
+	public 
+	ModelAndView cookieLicense(HttpServletRequest request, HttpServletResponse response, @RequestParam(required=false, defaultValue="it") String lang) {
+		ModelAndView model = new ModelAndView("web/cookie_license");
+		model.addObject("lang", lang);
+		return model;
+	}
+	@RequestMapping(method = RequestMethod.GET, value = "/gamificationweb/cookie_info")	///{socialId}
+	public 
+	ModelAndView cookieInfo(HttpServletRequest request, HttpServletResponse response, @RequestParam(required=false, defaultValue="it") String lang) {
+		ModelAndView model = new ModelAndView("web/cookie_info");
+		model.addObject("lang", lang);
+		return model;
+	}
+
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/gamificationweb/{page}")	///{socialId}
+	public 
+	ModelAndView webPage(HttpServletRequest request, HttpServletResponse response, @RequestParam(required=false, defaultValue="it") String lang, @PathVariable String page) {
+		RequestContextUtils.getLocaleResolver(request).setLocale(request, response, Locale.forLanguageTag(lang));
+
+		ModelAndView model = new ModelAndView("web/index");
+		model.addObject("lang", lang);
+		WeekConfData week = configUtils.getCurrentWeekConf();
+		if (week != null) {
+			model.addObject("week", week.getWeekNum());
+			model.addObject("weeklyPrizes", configUtils.getWeekPrizes(week.getWeekNum(), lang));
+		}
+		model.addObject("view", page);
+		return model;
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/gamificationweb/survey/{lang}/{survey}/{playerId:.*}")	///{socialId}
+	public 
+	ModelAndView survey(HttpServletRequest request, HttpServletResponse response, @PathVariable String lang, @PathVariable String survey, @PathVariable String playerId) throws Exception {
+		RequestContextUtils.getLocaleResolver(request).setLocale(request, response, Locale.forLanguageTag(lang));
+		
+		ModelAndView model = null;
+		try {
+			PlayerIdentity identity = linkUtils.decryptIdentity(playerId);
+			String sId = identity.playerId;
+			String gameId = identity.gameId;
+			if(!StringUtils.isEmpty(sId)){	// case of incorrect encrypted string
+				logger.info("Survey data. Found player : " + sId);
+				Player p = playerRepositoryDao.findByPlayerIdAndGameId(sId, gameId);
+				if (p.getSurveys().containsKey(survey)) {
+					model = new ModelAndView("web/survey_complete");
+					model.addObject("surveyComplete", true);
+					return model;
+				}
+				model = new ModelAndView("web/survey/"+survey);
+				model.addObject("language", lang);
+				model.addObject("key", playerId);
+				model.addObject("survey", survey);
+				return model;
+			} else {
+				logger.error("Unkonwn user data:" + playerId);
+				model = new ModelAndView("web/survey_complete");
+				model.addObject("surveyComplete", false);
+				return model;
+			}
+			
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			model = new ModelAndView("web/survey_complete");
+			model.addObject("surveyComplete", false);
+			return model;
+		}		
+	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "/gamificationweb/survey/{lang}/{survey}/{playerId:.*}")	///{socialId}
+	public 
+	ModelAndView sendSurvey(@RequestBody MultiValueMap<String,String> formData, @PathVariable String lang, @PathVariable String survey, @PathVariable String playerId) throws Exception {
+		ModelAndView model =  new ModelAndView("web/survey_complete");
+		try {
+			PlayerIdentity identity = linkUtils.decryptIdentity(playerId);
+			String sId = identity.playerId;
+			String gameId = identity.gameId;
+			if(!StringUtils.isEmpty(sId)){	// case of incorrect encrypted string
+				logger.info("Survey data. Found player : " + sId);
+					Player p = playerRepositoryDao.findByPlayerIdAndGameId(sId, gameId);
+					if (!p.getSurveys().containsKey(survey)) {
+						p.addSurvey(survey, toSurveyData(formData));
+						sendSurveyToGamification(sId, gameId, survey);
+						playerRepositoryDao.save(p);
+					}
+					model.addObject("surveyComplete", true);
+			}
+			
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			model.addObject("surveyComplete", false);
+			
+		}
+		return model;
+	}
+	
+	//Method used to send the survey call to gamification engine (if user complete the survey the engine need to be updated with this call)
+		private void sendSurveyToGamification(String playerId, String gameId, String survey) throws Exception{
+
+			ExecutionDataDTO ed = new ExecutionDataDTO();
+			ed.setGameId(gameId);
+			ed.setPlayerId(playerId);
+			ed.setActionId(survey+"_survey_complete");
+			ed.setData(Collections.emptyMap());
+
+			String content = JsonUtils.toJSON(ed);
+			GameInfo game = gameSetup.findGameById(gameId);
+			
+			if (bannedChecker.isBanned(playerId, gameId)) {
+				logger.info("Not sending for banned player " + playerId);
+				return;
+			}		
+			
+			HTTPConnector.doBasicAuthenticationPost(gamificationUrl + "/gengine/execute", content, "application/json", "application/json", game.getUser(), game.getPassword());		
+//			logger.info("Sent app survey data to gamification engine ");
+		}	
+	
+	/**
+	 * @param formData
+	 * @return
+	 */
+	private Map<String, Object> toSurveyData(MultiValueMap<String, String> formData) {
+		Map<String, Object> result = new HashMap<>();
+		formData.forEach((key, list) -> result.put(key, formData.getFirst(key)));
+		return result;
+	}
+
+	// Method used to unsubscribe user to mailing list
+	@RequestMapping(method = RequestMethod.GET, value = "/gamificationweb/unsubscribeMail/{playerId:.*}")	///{socialId}
+	public 
+	ModelAndView unsubscribeMail(HttpServletRequest request, HttpServletResponse response, @PathVariable String playerId) throws Exception {
+		ModelAndView model = new ModelAndView("web/unsubscribe");
+		String user_language = "it";
+		Player p = null;
+		if(!StringUtils.isEmpty(playerId)) { // && playerId.length() >= 16){
+			logger.debug("WS-GET. Method unsubscribeMail. Passed data : " + playerId);
+			try {
+				PlayerIdentity identity = linkUtils.decryptIdentity(playerId);
+				String sId = identity.playerId;
+				String gameId = identity.gameId;
+				if(!StringUtils.isEmpty(sId)){	// case of incorrect encrypted string
+					logger.info("WS-GET. Method unsubscribeMail. Found player : " + sId);
+					p = playerRepositoryDao.findByPlayerIdAndGameId(sId, gameId);
+					user_language = (p.getLanguage() != null && !p.getLanguage().isEmpty()) ? p.getLanguage() : "it";
+				}
+			} catch (Exception ex){
+				logger.error("Error in mail unsubscribtion " + ex.getMessage());
+				p = null;
+			}
+		}
+		boolean res = (p != null) ? true : false;
+		model.addObject("wsresult", res);
+		
+		RequestContextUtils.getLocaleResolver(request).setLocale(request, response, Locale.forLanguageTag(user_language));
+		return model;
+	}	
+	@RequestMapping(method = RequestMethod.POST, value = "/gamificationweb/unsubscribeMail/{playerId:.*}")	///{socialId}
+	public 
+	ModelAndView sendUnsubscribeMail(HttpServletRequest request, HttpServletResponse response, @PathVariable String playerId) throws Exception {
+		ModelAndView model = new ModelAndView("web/unsubscribesuccess");
+		String user_language = "it";
+		Player p = null;
+		if(!StringUtils.isEmpty(playerId)) { // && playerId.length() >= 16){
+			logger.debug("WS-GET. Method sendUnsubscribeMail. Passed data : " + playerId);
+			try {
+				PlayerIdentity identity = linkUtils.decryptIdentity(playerId);
+				String sId = identity.playerId;
+				String gameId = identity.gameId;
+				if(!StringUtils.isEmpty(sId)){	// case of incorrect encrypted string
+					logger.info("WS-GET. Method sendUnsubscribeMail. Found player : " + sId);
+					p = playerRepositoryDao.findByPlayerIdAndGameId(sId, gameId);
+					p.setSendMail(false);
+					playerRepositoryDao.save(p);
+					user_language = (p.getLanguage() != null && !p.getLanguage().isEmpty()) ? p.getLanguage() : "it";
+				}
+			} catch (Exception ex){
+				logger.error("Error in mail unsubscribtion " + ex.getMessage());
+				p = null;
+			}
+		}
+		boolean res = (p != null) ? true : false;
+		model.addObject("wsresult", res);
+		
+		RequestContextUtils.getLocaleResolver(request).setLocale(request, response, Locale.forLanguageTag(user_language));
+		return model;
+	}	
+
+	@SuppressWarnings("serial")
+	HttpHeaders createHeaders(String appId) {
+		return new HttpHeaders() {
+			{
+				AppInfo app = appSetup.findAppById(appId);
+				GameInfo game = gameSetup.findGameById(app.getGameId());
+				String auth = game.getUser() + ":" + game.getPassword();
+				byte[] encodedAuth = Base64.encode(auth.getBytes(Charset.forName("UTF-8")));
+				String authHeader = "Basic " + new String(encodedAuth);
+				set("Authorization", authHeader);
+			}
+		};
+	}
+
+	private String getGameId(String appId) {
+		if (appId != null) {
+			AppInfo ai = appSetup.findAppById(appId);
+			if (ai == null) {
+				return null;
+			}
+			String gameId = ai.getGameId();
+			return gameId;
+		}
+		return null;
+	}	
+	
+}

@@ -1,0 +1,246 @@
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.thymeleaf.org"
+  th:with="lang=${#locale.language}" th:lang="${lang}">
+<head lang="it">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title th:text="#{surveyend.title}">Play&amp;Go - Questionario finale</title>
+<link href="../../../../css/bootstrap.min.css" rel="stylesheet" />
+<link href="../../../../css/bootstrap-theme.min.css" rel="stylesheet" />
+<link href="../../../../css/gg_style.css" rel="stylesheet" />
+<style type="text/css">
+  textarea {
+    width: 100%;
+    border: 1px solid #ddd;
+  }
+</style>
+<!-- required libraries -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="../../../../lib/bootstrap.min.js"></script>
+</head>
+<body>
+  <div class="container">
+  <h3 th:text="#{surveyend.head}" style="text-align:center;">Questionario Finale Play&amp;Go</h3>
+  <p th:utext="#{surveyend.message}"></p>
+  <form id="form" role="form" name="form" method="POST" class="" style="max-width: 600px;">
+    
+    <div class="form-group">
+      <label for="q1" th:text="#{surveyend.q1}">Come valuteresti la tua esperienza di gioco in queste settimane?*</label>
+      <div>
+        <small th:text="#{surveyend.q1.1}">Molto negativa</small>  
+        <small class="pull-right" th:text="#{surveyend.q1.2}">Molto positiva</small>            
+      </div>  
+	    <div class="text-center">
+				<label class="radio-inline"><input type="radio" name="q1" id="q11" value="1" />&nbsp;</label>      
+		    <label class="radio-inline"><input type="radio" name="q1" id="q12" value="2" />&nbsp;</label>      
+		    <label class="radio-inline"><input type="radio" name="q1" id="q13" value="3" />&nbsp;</label>      
+		    <label class="radio-inline"><input type="radio" name="q1" id="q14" value="4" />&nbsp;</label>      
+		    <label class="radio-inline"><input type="radio" name="q1" id="q15" value="5" />&nbsp;</label>      
+		    <label class="radio-inline"><input type="radio" name="q1" id="q16" value="6" />&nbsp;</label>
+	    </div>
+    </div> 
+
+    <div class="form-group">
+      <label for="q2" th:text="#{surveyend.q2}">In quale misura il gioco ti ha indotto a cambiare le tue abitudini di mobilità?*</label>
+      <div>
+        <small th:text="#{surveyend.q2.1}">Per nulla</small>  
+        <small class="pull-right" th:text="#{surveyend.q2.2}">Molto</small>            
+      </div>  
+      <div class="text-center">
+        <label class="radio-inline"><input type="radio" name="q2" id="q21" value="1" />&nbsp;</label>      
+        <label class="radio-inline"><input type="radio" name="q2" id="q22" value="2" />&nbsp;</label>      
+        <label class="radio-inline"><input type="radio" name="q2" id="q23" value="3" />&nbsp;</label>      
+        <label class="radio-inline"><input type="radio" name="q2" id="q24" value="4" />&nbsp;</label>      
+        <label class="radio-inline"><input type="radio" name="q2" id="q25" value="5" />&nbsp;</label>      
+        <label class="radio-inline"><input type="radio" name="q2" id="q26" value="6" />&nbsp;</label>
+      </div>
+    </div> 
+
+    <div class="form-group" id="inflgroup">
+      <label for="q3" th:text="#{surveyend.q3}"></label>
+      <div>
+        <small th:text="#{surveyend.q3.1}"></small>  
+        <small class="pull-right" th:text="#{surveyend.q3.2}"></small>            
+      </div>  
+      <div class="text-center">
+        <label class="radio-inline"><input type="radio" name="q3" id="q31" value="6" />&nbsp;</label>      
+        <label class="radio-inline"><input type="radio" name="q3" id="q32" value="5" />&nbsp;</label>      
+        <label class="radio-inline"><input type="radio" name="q3" id="q33" value="4" />&nbsp;</label>      
+        <label class="radio-inline"><input type="radio" name="q3" id="q34" value="3" />&nbsp;</label>      
+        <label class="radio-inline"><input type="radio" name="q3" id="q35" value="2" />&nbsp;</label>      
+        <label class="radio-inline"><input type="radio" name="q3" id="q36" value="1" />&nbsp;</label>
+      </div>
+    </div> 
+    <div class="form-group">
+      <label for="q4" th:text="#{surveyend.q4}"></label>
+      <div class="checkbox"><label><input type="checkbox" name="q4" value="bike"/><span th:text="#{surveyend.q41}"></span></label></div>
+      <div class="checkbox"><label><input type="checkbox" name="q4" value="public_transport"/><span th:text="#{surveyend.q42}"></span></label></div>
+      <div class="checkbox"><label><input type="checkbox" name="q4" value="bike_sharing"/><span th:text="#{surveyend.q43}"></span></label></div>
+      <div class="checkbox"><label><input type="checkbox" name="q4" value="parkandride"/><span th:text="#{surveyend.q44}"></span></label></div>
+      <div class="checkbox"><label><input type="checkbox" name="q4" value="no"/><span th:text="#{surveyend.q45}"></span></label></div>
+    </div>
+
+    <div class="form">
+      <label for="q5" th:text="#{surveyend.q5}"></label>
+		  <div class="form-group">
+		    <label for="q51" th:text="#{surveyend.q51}"></label>
+		    <select id="q51" name="q51" class="form-control pull-right" style="display:inline;max-width: 120px;">
+		      <option value="" th:text="#{survey.empty}"></option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option>
+		    </select>
+		  </div>
+      <div class="form-group">
+        <label for="q52" th:text="#{surveyend.q52}"></label>
+        <select id="q52" name="q52" class="form-control pull-right" style="display:inline;max-width: 120px;">
+          <option value="" th:text="#{survey.empty}"></option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="q53" th:text="#{surveyend.q53}"></label>
+        <select id="q53" name="q53" class="form-control pull-right" style="display:inline;max-width: 120px;">
+          <option value="" th:text="#{survey.empty}"></option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="q54" th:text="#{surveyend.q54}"></label>
+        <select id="q54" name="q54" class="form-control pull-right" style="display:inline;max-width: 120px;">
+          <option value="" th:text="#{survey.empty}"></option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="q55" th:text="#{surveyend.q55}"></label>
+        <select id="q55" name="q55" class="form-control pull-right" style="display:inline;max-width: 120px;">
+          <option value="" th:text="#{survey.empty}"></option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="q56" th:text="#{surveyend.q56}"></label>
+        <select id="q56" name="q56" class="form-control pull-right" style="display:inline;max-width: 120px;">
+          <option value="" th:text="#{survey.empty}"></option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option>
+        </select>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="q6" th:text="#{surveyend.q6}"></label>
+      <textarea id="q6" name="q6" rows="3"></textarea>
+    </div>    
+    <div class="form-group">
+      <label for="q7" th:text="#{surveyend.q7}"></label>
+      <textarea id="q7" name="q7" rows="3"></textarea>
+    </div>    
+    <div class="form-group">
+      <label for="q8" th:text="#{surveyend.q8}"></label>
+      <textarea id="q8" name="q8" rows="3"></textarea>
+    </div>    
+
+    <div class="form-group">
+      <label for="q9" th:text="#{surveyend.q9}"></label>
+      <div>
+      </div>  
+      <div class="text-center">
+        <label class="radio-inline"><input type="radio" name="q9" id="q91" value="yes" th:text="#{surveyend.q91}"/>&nbsp;</label>      
+        <label class="radio-inline"><input type="radio" name="q9" id="q92" value="no" th:text="#{surveyend.q92}"/>&nbsp;</label>      
+        <label class="radio-inline"><input type="radio" name="q9" id="q93" value="dontknow" th:text="#{surveyend.q93}"/>&nbsp;</label>      
+      </div>
+    </div>     
+
+    <div class="form-group">
+      <label for="q10" th:text="#{surveyend.q10}"></label>
+      <div>
+      </div>  
+      <div class="text-center">
+        <label class="radio-inline"><input type="radio" name="q10" id="q101" value="yes" th:text="#{surveyend.q101}"/>&nbsp;</label>      
+        <label class="radio-inline"><input type="radio" name="q10" id="q102" value="no" th:text="#{surveyend.q102}"/>&nbsp;</label>      
+        <label class="radio-inline"><input type="radio" name="q10" id="q103" value="dontknow" th:text="#{surveyend.q103}"/>&nbsp;</label>      
+      </div>
+    </div>     
+
+    <hr/>
+    <div class="form-group">
+      <label for="q11" th:text="#{surveyend.q11}"></label>
+    </div>
+    <br/>
+    
+    <div class="form-group" th:each="i : ${#numbers.sequence( 1, 44)}">
+      <label th:text="#{${'surveyend.q11'+i}}"></label>
+      <div>
+        <small th:text="#{surveyend.q11.1}"></small>  
+        <small class="pull-right" th:text="#{surveyend.q11.2}"></small>            
+      </div>  
+      <div class="text-center">
+        <label class="radio-inline"><input type="radio" th:attr="name=${'q11'+i}, id=${'q11'+i+'1'}" value="1" />&nbsp;</label>      
+        <label class="radio-inline"><input type="radio" th:attr="name=${'q11'+i}, id=${'q11'+i+'2'}"  value="2" />&nbsp;</label>      
+        <label class="radio-inline"><input type="radio" th:attr="name=${'q11'+i}, id=${'q11'+i+'3'}"  value="3" />&nbsp;</label>      
+        <label class="radio-inline"><input type="radio" th:attr="name=${'q11'+i}, id=${'q11'+i+'4'}"  value="4" />&nbsp;</label>      
+        <label class="radio-inline"><input type="radio" th:attr="name=${'q11'+i}, id=${'q11'+i+'5'}"  value="5" />&nbsp;</label>      
+        <label class="radio-inline"><input type="radio" th:attr="name=${'q11'+i}, id=${'q11'+i+'6'}"  value="6" />&nbsp;</label>
+        <label class="radio-inline"><input type="radio" th:attr="name=${'q11'+i}, id=${'q11'+i+'7'}"  value="7" />&nbsp;</label>
+      </div>
+    </div> 
+
+
+    <div class="form-group"><i th:text="#{survey.required}"></i></div>
+    
+    <div class="form-group">
+      <button id="send" type="button" class="btn btn-primary" th:text="#{survey.submit}" >Submit</button>
+    </div> 
+     
+  </form>
+  </div>
+
+
+<script>
+/*<![CDATA[*/
+  function changePart() {
+    if ($('#prev').val() == 'yes') {
+        $('#inflgroup').show();     
+    } else {
+          $('#inflgroup').hide();      
+    }
+  }
+ 
+  $('#send').click(function() {
+    if (!checkData()) {
+      $('form').submit();     
+    }
+  });
+  
+  function checkSelections(from, to) {
+	  var res = false;
+	  for (var i = from; i <= to; i++) {
+		  res = res || !$("input[name='q11"+i+"']:checked").val()
+	  }
+	  return res;
+  }
+  
+  function checkData() {
+	  if ($("input[name='q2']:checked").val() && !$('#q21').is(':checked')) {
+	        $('#inflgroup').show();     
+    } else {
+          $('#inflgroup').hide();      
+	  }
+	  
+	  var disabled = false;
+    if (   !$("input[name='q1']:checked").val()
+    		|| !$("input[name='q2']:checked").val()
+    		|| $("input[name='q2']:checked").val() && !$('#q21').is(':checked') && !$("input[name='q3']:checked").val()
+        || !$("input[name='q4']:checked").val() 
+        || !$('#q51').val() || !$('#q52').val() || !$('#q53').val() || !$('#q54').val() || !$('#q55').val() || !$('#q56').val()
+        || !$("input[name='q9']:checked").val()
+        || !$("input[name='q10']:checked").val()
+        || checkSelections(1,44)
+    ) {
+        disabled = true;
+    }
+    $('#send').prop('disabled', disabled);
+    return disabled;
+  }
+  $('input').change(checkData);
+  $('select').change(checkData);
+  $('textarea').on('change keyup paste', checkData);
+  checkData();
+/*]]>*/
+</script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+  <div id="console" class="console" >
+     <div class="container">
+
+     
+     <div class="form-group">
+       <label class="form-check"> <input type="checkbox" ng-click="data.all=!data.all" class="navbar-btn btn-sm">All users</label>                   
+     </div>
+     <div class="form-group">
+     <input class="form-control" type="text" id="filter" ng-model="data.subject" placeholder="Subject"/>
+    </div>
+     <div class="form-group">
+       <textarea class="form-control" rows="1" id="emails" ng-model="data.emails" placeholder="Comma-separated emails"></textarea>
+     </div>
+
+     <div class=" form-group">
+       <label> HTML message: </label>
+       <div text-angular ng-model="data.html"></div>
+     </div>
+     
+     <div class="row">
+      <div class="col-md-12">                
+        <button class="btn btn-primary btn-sm" ng-click="send()">Send</button>
+      </div>
+     </div>
+     
+     </div>
+  </div>
+    <div id="confirmModalSend" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Confirm sending emails to {{data.all ? ' all users' : data.emails}}?</h4>
+          </div>
+          <div class="modal-body">
+            <form id="notification-form">
+              <div class="form-group">
+                <button class="btn btn-primary" type="button" ng-click="doSend()" data-dismiss="modal">Yes</button>
+                <button class="btn btn-primary right" type="button" data-dismiss="modal">No</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+      <div id="confirmModalSent" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Mail has been sent!</h4>
+          </div>
+          <div class="modal-body">
+            <form id="notification-form">
+              <div class="form-group">
+                <button class="btn btn-primary right" type="button" data-dismiss="modal">OK</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  
