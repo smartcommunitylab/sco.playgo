@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.SortedSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -40,9 +41,11 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.LinkedHashMultimap;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Multimaps;
+import com.google.common.collect.Sets;
 
 import eu.trentorise.smartcampus.mobility.gamification.TrackValidator;
 import eu.trentorise.smartcampus.mobility.util.GamificationHelper;
@@ -184,24 +187,13 @@ public class TTDescriptor {
 		
 		if (occurences.size() > MAX_DESCRIPTORS) {
 			List<TTLineDescriptor> list = new ArrayList<>(occurences.keySet());
-			sortOccurences(list, occurences);
 			
-			descriptors = list.subList(0, MAX_DESCRIPTORS);
-			int maxOccur = occurences.get(list.get(0))[2];
-			if (maxOccur == 0) {
-				descriptors = list.subList(0, MAX_DESCRIPTORS);
-			} else {
-				int count = 0;
-				for (TTLineDescriptor d : list) if (occurences.get(d)[2] == maxOccur) count++;
-				if (count < MAX_DESCRIPTORS) descriptors = list.subList(0, MAX_DESCRIPTORS);
-				else descriptors = list.subList(0, count);
-			}
+			descriptors = filterOccurences(list,occurences,MAX_DESCRIPTORS);
+			
 		} else {
 			descriptors = occurences.keySet();
 		}
-//		descriptors.forEach(d -> {
-//		System.err.println(d + " --- "+routeMap.get(d.route)+" : "+Arrays.toString(occurences.get(d)));
-//	});
+
 		
 		return descriptors.stream().map(d -> shapeMap.get(d.shape)).collect(Collectors.toList());
 	}
@@ -260,18 +252,8 @@ public class TTDescriptor {
 		
 		if (occurences.size() > MAX_DESCRIPTORS) {
 			List<TTLineDescriptor> list = new ArrayList<>(occurences.keySet());
-			sortOccurences(list, occurences);
 			
-			descriptors = list.subList(0, MAX_DESCRIPTORS);
-			int maxOccur = occurences.get(list.get(0))[2];
-			if (maxOccur == 0) {
-				descriptors = list.subList(0, MAX_DESCRIPTORS);
-			} else {
-				int count = 0;
-				for (TTLineDescriptor d : list) if (occurences.get(d)[2] == maxOccur) count++;
-				if (count < MAX_DESCRIPTORS) descriptors = list.subList(0, MAX_DESCRIPTORS);
-				else descriptors = list.subList(0, count);
-			}
+			descriptors = filterOccurences(list,occurences,MAX_DESCRIPTORS);
 		} else {
 			descriptors = occurences.keySet();
 		}
@@ -284,6 +266,28 @@ public class TTDescriptor {
 		return polys;
 	}	
 	
+	
+	private List<TTLineDescriptor> filterOccurences(List<TTLineDescriptor> list, Map<TTLineDescriptor, int[]> occurences, int max) {
+		List<TTLineDescriptor> result = Lists.newArrayList();
+		
+		Multimap<Integer, TTLineDescriptor> sorted = ArrayListMultimap.create();
+		for (TTLineDescriptor tt: list) {
+			sorted.put(occurences.get(tt)[0], tt);
+		}
+		
+		SortedSet<Integer> scores = Sets.newTreeSet(Collections.reverseOrder());
+		scores.addAll(sorted.keySet());
+		
+		sorted.clear();
+		for (TTLineDescriptor tt: list) {
+			sorted.put(occurences.get(tt)[2], tt);
+		}
+		scores.addAll(sorted.keySet());		
+		
+		scores.stream().limit(max).forEach(x -> result.addAll(sorted.get(x)));
+		
+		return result;
+	}
 	
 	private void sortOccurences(List<TTLineDescriptor> list, Map<TTLineDescriptor, int[]> occurences) {
 		Map<TTLineDescriptor, Integer> score = Maps.newHashMap();
@@ -306,6 +310,7 @@ public class TTDescriptor {
 		});
 
 	}
+	
 	
 	/**
 	 * @param shape

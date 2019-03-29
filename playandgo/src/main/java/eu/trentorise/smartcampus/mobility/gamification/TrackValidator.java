@@ -154,6 +154,8 @@ public class TrackValidator {
 		points = removeStarredClusters(points);
 		points = preprocessTrack(points);
 		
+//		System.err.println(GamificationHelper.encodePoly(points));
+		
 		Collections.sort(points, (o1, o2) -> (int)(o1.getRecorded_at().getTime() - o2.getRecorded_at().getTime()));
 		status.updateMetrics(points);
 
@@ -188,6 +190,7 @@ public class TrackValidator {
 
 		int start = 1;
 		boolean removed = false;
+		int n = 0;
 		do {
 			removed = false;
 			Integer min = null;
@@ -198,11 +201,9 @@ public class TrackValidator {
 				if (t > 0) {
 					double speed = (1000.0 * d / ((double) t / 1000)) * 3.6;
 //					System.err.println((i - 1) + " -> " + i + " = " + speed + " / " + points.get(i - 1) + " -> " + points.get(i));
-					if (speed > 30 && speed > prevSpeed * 10 && prevSpeed != 0) {
+					if (speed > 30 && speed > prevSpeed * 2 && prevSpeed > 1) {
+//						System.err.println("prev " + prevSpeed);
 						Integer found = findReachableBySpeed(i - 1, speed, points);
-						// if (found != null) {
-						// ranges.put(i - 1, found);
-						// }
 						if (found != null) { // && found - i < 50) {
 //							System.err.println("[" + (i) + "," + found + "]");
 							min = i;
@@ -214,8 +215,8 @@ public class TrackValidator {
 				}
 			}
 
-			if (min != null) {
-				start = min;
+			if (min != null) {// && max - min < 5) {
+				start = min + 1;
 				for (int j = 0; j <= max - min ; j++) {
 					int m = min.intValue();
 //					System.err.println("removing " + (j + min));
@@ -224,32 +225,28 @@ public class TrackValidator {
 				removed = true;
 			}
 			
+			n++;
 		} while (removed);
 
 	}
 	
 	private static Integer findReachableBySpeed(int index, double prevSpeed, List<Geolocation> points) {
 		Integer found = null;
-//		System.err.println(index);
+		double d0 = GamificationHelper.harvesineDistance(points.get(index), points.get(index - 1));
 		for (int i = index; i < points.size(); i++) {
 			double d = GamificationHelper.harvesineDistance(points.get(i), points.get(index));
 			long t = points.get(i).getRecorded_at().getTime() - points.get(index).getRecorded_at().getTime();
 			if (t > 0) {
 				double speed = (1000.0 * d / ((double) t / 1000)) * 3.6;
-//				System.err.println((speed < 30) + " / " + (speed < (prevSpeed / 10)));
-//				System.err.println("\t" + i + " / " + speed);
-//				if (speed < 30 || speed < (prevSpeed * 10)) {
-				if (speed <= (prevSpeed / 10)) {
-//					System.err.println("\t\t" + index + " -> " + i + " = " + speed + " (" + prevSpeed + ")");
-//					System.err.println("\t\t\t" + points.get(index) + " -> " + points.get(i) + " = " + speed + " (" + prevSpeed + ")");
-//					System.err.println("\t\t" +index + " -> " + i + " = " + speed + " / " + points.get(index) + " -> " + points.get(i));
+//				System.err.println("\t" + i + " / " + speed + " / " + d);
+				if (d < d0) {
+//					System.err.println("\t\t" +index + " -> " + i + " = " + speed + " / " + d);
 					found = i - 1;
 					break;
 				}
 			}
 		}
 
-		// System.err.println(points.size() + " //// " + found);
 		if (found != null && found == points.size() - 1) {
 			found = null;
 		}
@@ -524,7 +521,8 @@ public class TrackValidator {
 	public static ValidationStatus validateFreeWalk(Collection<Geolocation> track, List<Shape> areas) {
 
 		MODE_TYPE mode = MODE_TYPE.WALK; 
-		double speedThreshold = WALK_SPEED_THRESHOLD, timeThreshold = 30*1000, minTrackThreshold = 60*1000, avgSpeedThreshold = WALK_AVG_SPEED_THRESHOLD, guaranteedAvgSpeedThreshold = WALK_GUARANTEED_AVG_SPEED_THRESHOLD; 
+		// TODO timeThreshold = 10 * 1000
+		double speedThreshold = WALK_SPEED_THRESHOLD, timeThreshold = 30 * 1000, minTrackThreshold = 60*1000, avgSpeedThreshold = WALK_AVG_SPEED_THRESHOLD, guaranteedAvgSpeedThreshold = WALK_GUARANTEED_AVG_SPEED_THRESHOLD; 
 
 		
 		return validateFreeMode(track, areas, mode, speedThreshold, timeThreshold, minTrackThreshold, avgSpeedThreshold, guaranteedAvgSpeedThreshold, DISTANCE_THRESHOLD);
