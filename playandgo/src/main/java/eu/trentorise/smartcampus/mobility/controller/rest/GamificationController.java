@@ -823,9 +823,9 @@ public class GamificationController {
 					
 					if (o.getValidationResult().getValidationStatus().getPolyline() == null) {
 						List<Geolocation> points = Lists.newArrayList(o.getGeolocationEvents());
-						TrackValidator.shortenByHighSpeed(points);
 						points = TrackValidator.removeStarredClusters(points);
 						points = TrackValidator.preprocessTrack(points);
+						TrackValidator.shortenByHighSpeed(points);
 						String polyline = GamificationHelper.encodePoly(points);
 						logger.debug("Generated polyline for " + o.getId() + " = " + polyline);
 						o.getValidationResult().getValidationStatus().setPolyline(polyline);

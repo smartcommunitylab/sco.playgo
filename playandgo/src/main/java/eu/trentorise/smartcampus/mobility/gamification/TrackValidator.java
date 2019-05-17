@@ -76,6 +76,7 @@ public class TrackValidator {
 	public static final double BIKE_DISTANCE_THRESHOLD = 100;// meters 
 	private static final double MAX_AVG_SPEED_THRESHOLD = 200; // km/h
 	
+	public static final int PENDING_COVERAGE_THRESHOLD = 60;
 	public static final int COVERAGE_THRESHOLD = 80; // %
 	public static final int CERTIFIED_COVERAGE_THRESHOLD_VALID = 70;
 	public static final int CERTIFIED_COVERAGE_THRESHOLD_PENDING = 50;	
@@ -150,9 +151,9 @@ public class TrackValidator {
 		
 		// preprocess
 		status.computeAccuracy(points);
-		TrackValidator.shortenByHighSpeed(points);
 		points = removeStarredClusters(points);
 		points = preprocessTrack(points);
+		TrackValidator.shortenByHighSpeed(points);
 		
 //		System.err.println(GamificationHelper.encodePoly(points));
 		
@@ -201,7 +202,7 @@ public class TrackValidator {
 				if (t > 0) {
 					double speed = (1000.0 * d / ((double) t / 1000)) * 3.6;
 //					System.err.println((i - 1) + " -> " + i + " = " + speed + " / " + points.get(i - 1) + " -> " + points.get(i));
-					if (speed > 30 && speed > prevSpeed * 2 && prevSpeed > 1) {
+					if (speed > 30 && speed > prevSpeed * 10 && prevSpeed > 1) {
 //						System.err.println("prev " + prevSpeed);
 						Integer found = findReachableBySpeed(i - 1, speed, points);
 						if (found != null) { // && found - i < 50) {
@@ -495,6 +496,13 @@ public class TrackValidator {
 				} else {
 					status.setValidationOutcome(TravelValidity.INVALID);				
 				}
+//				status.setValidationOutcome(TravelValidity.INVALID);	
+//				if (coverage > PENDING_COVERAGE_THRESHOLD) {
+//					status.setValidationOutcome(TravelValidity.PENDING);	
+//				}
+//				if (coverage > COVERAGE_THRESHOLD) {
+//					status.setValidationOutcome(TravelValidity.VALID);	
+//				}
 			}
 			return status;
 		} else {

@@ -177,7 +177,7 @@ public class PlayerController {
 	}		
 	
 	
-	@Scheduled(fixedDelay = 1 * 60 * 1000) 
+	@Scheduled(fixedDelay = 5 * 60 * 1000) 
 	public synchronized void checkRecommendations() throws Exception {
 		for (AppInfo appInfo : appSetup.getApps()) {
 			try {

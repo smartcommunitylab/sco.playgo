@@ -198,8 +198,9 @@ public class GeolocationsProcessor {
 
 				// discard event older than 2 days
 				if (now - 2 * 24 * 3600 * 1000 > location.getTimestamp().getTime()) {
+					logger.info("Skipped point at time " + location.getTimestamp().getTime());
 					skippedOld++;
-					continue;
+//					continue;
 				}
 
 				Geolocation geolocation = buildGeolocation(location, userId, locationTravelId, device, now);
@@ -222,7 +223,8 @@ public class GeolocationsProcessor {
 			}
 			
 			if (skippedOld > 0) {
-				logger.warn("Timestamps too old, skipped " + skippedOld + " locations.");
+//				logger.warn("Timestamps too old, skipped " + skippedOld + " locations.");
+				logger.warn("Found " + skippedOld + " locations to old.");
 			}
 			if (skippedNoId > 0) {
 				logger.warn("Locations without idTrip, skipped " + skippedNoId + " locations.");

@@ -150,13 +150,19 @@ public class ReportEmailSender {
 		}
 	}	
 	
-//	@Scheduled(cron="0 45 15 14 3 ?")
+	@Scheduled(cron="0 30 15 14 5 ?")
 	public void sendPDFReportMail() throws Exception {
-		logger.info("Sending PDF email");
+		logger.info("Sending PDF certificates");
 		for (AppInfo appInfo : appSetup.getApps()) {
 			logger.info("Sending PDF for app " + appInfo.getAppId());
 			try {
 				if (appInfo.getGameId() != null && !appInfo.getGameId().isEmpty()) {
+					GameInfo game = gameSetup.findGameById(appInfo.getGameId());
+					if (game.getSend() == null || !game.getSend()) {
+						logger.info("Skipping certificates for " + appInfo.getAppId() + ", " + game.getId());
+						continue;
+					}
+					logger.info("Sending certificates for " + appInfo.getAppId() + ", " + game.getId());
 					sendPDFReportMail(appInfo.getAppId());
 				}
 			} catch (Exception e) {

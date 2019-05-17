@@ -131,6 +131,7 @@ public class MobilityConfig implements WebMvcConfigurer {
 		template.indexOps("trackedInstances").ensureIndex(new Index("time", Direction.ASC));
 		template.indexOps("trackedInstances").ensureIndex(new Index("userId", Direction.ASC));
 		template.indexOps("trackedInstances").ensureIndex(new Index("appId", Direction.ASC));
+		template.indexOps("trackedInstances").ensureIndex(new Index("clientId", Direction.ASC));
 		
 		template.indexOps("trackedInstances").ensureIndex(new Index("changedValidity", Direction.ASC));
 		template.indexOps("trackedInstances").ensureIndex(new Index("validationResult.validationStatus.validationOutcome", Direction.ASC));
@@ -210,17 +211,6 @@ public class MobilityConfig implements WebMvcConfigurer {
 		return new CheckHeaderFilter();
 	}		
 	
-//	 @Bean
-//	    public Executor taskExecutor() {
-//	        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-//	        executor.setCorePoolSize(2);
-//	        executor.setMaxPoolSize(2);
-//	        executor.setQueueCapacity(500);
-//	        executor.setThreadNamePrefix("hystrix-");
-//	        executor.initialize();
-//	        return executor;
-//	    }	
-	
 	private class CheckHeaderFilter extends OncePerRequestFilter {
 
 		@Override
@@ -233,7 +223,8 @@ public class MobilityConfig implements WebMvcConfigurer {
 					response.sendError(HttpServletResponse.SC_FORBIDDEN);
 				} else if (app.getGameId() != null) {
 					GameInfo game = gameSetup.findGameById(app.getGameId());
-					if (game == null || game.getSend() == null || !game.getSend()) {
+					// allow for data retrieval even if game is finished
+					if (game == null/* || game.getSend() == null || !game.getSend() */) {
 						response.sendError(HttpServletResponse.SC_FORBIDDEN);
 					}
 				}

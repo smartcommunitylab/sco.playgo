@@ -6,7 +6,7 @@ import javax.annotation.PostConstruct;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
-import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -69,8 +69,10 @@ public class TokenHelper extends RemoteConnector {
 			if (!aacURL.endsWith("/"))
 				aacURL += "/";
 			String url = aacURL + PATH_TOKEN + "?grant_type=client_credentials&client_id=" + clientId + "&client_secret=" + clientSecret;
-			final HttpGet get = new HttpGet(url);
-			get.setHeader("Accept", "application/json");
+//			final HttpGet get = new HttpGet(url);
+// TODO: was get
+			final HttpPost get = new HttpPost(url);
+//			get.setHeader("Accept", "application/json");
 			try {
 				resp = getHttpClient().execute(get);
 				final String response = EntityUtils.toString(resp.getEntity());

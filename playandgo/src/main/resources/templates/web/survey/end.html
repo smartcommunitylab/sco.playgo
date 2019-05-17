@@ -119,7 +119,18 @@
           <option value="" th:text="#{survey.empty}"></option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option>
         </select>
       </div>
+      <div class="form-group">
+        <label for="q57" th:text="#{surveyend.q57}"></label>
+        <select id="q57" name="q57" class="form-control pull-right" style="display:inline;max-width: 120px;">
+          <option value="" th:text="#{survey.empty}"></option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option>
+        </select>
+      </div>      
     </div>
+    
+    <div class="form-group">
+      <button id="clear5x" type="button" class="btn btn-primary" th:text="#{surveyend.clear5x}" onClick="clearSorting()" >Clear</button>
+    </div>     
+    
     
     <div class="form-group">
       <label for="q6" th:text="#{surveyend.q6}"></label>
@@ -156,6 +167,7 @@
       </div>
     </div>     
 
+<!-- 
     <hr/>
     <div class="form-group">
       <label for="q11" th:text="#{surveyend.q11}"></label>
@@ -178,7 +190,7 @@
         <label class="radio-inline"><input type="radio" th:attr="name=${'q11'+i}, id=${'q11'+i+'7'}"  value="7" />&nbsp;</label>
       </div>
     </div> 
-
+ -->
 
     <div class="form-group"><i th:text="#{survey.required}"></i></div>
     
@@ -215,6 +227,8 @@
   }
   
   function checkData() {
+	  dynamicDropdown()
+	  
 	  if ($("input[name='q2']:checked").val() && !$('#q21').is(':checked')) {
 	        $('#inflgroup').show();     
     } else {
@@ -222,20 +236,57 @@
 	  }
 	  
 	  var disabled = false;
-    if (   !$("input[name='q1']:checked").val()
-    		|| !$("input[name='q2']:checked").val()
-    		|| $("input[name='q2']:checked").val() && !$('#q21').is(':checked') && !$("input[name='q3']:checked").val()
-        || !$("input[name='q4']:checked").val() 
-        || !$('#q51').val() || !$('#q52').val() || !$('#q53').val() || !$('#q54').val() || !$('#q55').val() || !$('#q56').val()
-        || !$("input[name='q9']:checked").val()
-        || !$("input[name='q10']:checked").val()
-        || checkSelections(1,44)
-    ) {
-        disabled = true;
-    }
+	    if (   !$("input[name='q1']:checked").val()
+	    		|| !$("input[name='q2']:checked").val()
+	    		|| $("input[name='q2']:checked").val() && !$('#q21').is(':checked') && !$("input[name='q3']:checked").val()
+	        || !$("input[name='q4']:checked").val() 
+	        || !$('#q51').val() || !$('#q52').val() || !$('#q53').val() || !$('#q54').val() || !$('#q55').val() || !$('#q56').val() || !$('#q57').val()
+	        || !$("input[name='q9']:checked").val()
+	        || !$("input[name='q10']:checked").val()
+	    ) {
+	        disabled = true;
+	    }
     $('#send').prop('disabled', disabled);
     return disabled;
   }
+  
+  function dynamicDropdown() {
+	  var vals = []
+		for (var i = 1; i <= 7; i++) {
+			var p = $( "#q5" + i)
+			var vp = p.val()
+			if ($.isNumeric(vp)) { 
+				var vvp = parseInt(vp)
+				vals.push(vvp)
+			}
+		}
+		
+	  for (var i = 1; i <= 7; i++) {
+			var o = $( "#q5" + i)
+			var vo = o.val()
+		  for (var j = 0; j < o.children().length; j++) {
+			  if (vals.includes(j)) {
+			  	o.children()[j].hidden = true
+			  } else {
+				o.children()[j].hidden = false  
+			  }
+		  }
+	  }
+  }
+  
+  
+  function clearSorting() {
+	  for (var i = 1; i <= 7; i++) {
+		  var p = $( "#q5" + i)
+		  for (var j = 0; j < p.children().length; j++) {
+			  p.children()[j].hidden = false
+		  }
+		  // p.selectedIndex = -1
+		  p.val(null)
+		  //console.log(p.length + " / " + p.value)
+	  }
+  }
+  
   $('input').change(checkData);
   $('select').change(checkData);
   $('textarea').on('change keyup paste', checkData);

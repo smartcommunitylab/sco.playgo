@@ -372,7 +372,7 @@ public class DiaryController {
 		}
 
 		if (notsMap.containsKey("LevelGainedNotification")) {
-			nots = mapper.convertValue(notsMap.get("LevelGainedNotification"), List.class);
+			nots = (List) mapper.convertValue(notsMap.get("LevelGainedNotification"), List.class);
 		} else {
 			nots = Collections.EMPTY_LIST;
 		}
