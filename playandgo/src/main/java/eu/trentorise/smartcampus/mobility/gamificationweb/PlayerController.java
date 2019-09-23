@@ -102,8 +102,8 @@ public class PlayerController {
 	private String gamificationUrl;
 	
 	@Autowired
-	@Value("${mobilityURL}")
-	private String mobilityUrl;	
+	@Value("${playgoURL}")
+	private String playgoURL;	
 
 	@Autowired
 	private PlayerRepositoryDao playerRepositoryDao;
@@ -296,7 +296,7 @@ public class PlayerController {
 
 		String data = gamificationCache.getPlayerState(userId, appId);
 		
-		PlayerStatus ps =  statusUtils.convertPlayerData(data, userId, gameId, nickName, mobilityUrl, 1, language);
+		PlayerStatus ps =  statusUtils.convertPlayerData(data, userId, gameId, nickName, playgoURL, 1, language);
 		
 		return ps;
 	}
@@ -467,7 +467,7 @@ public class PlayerController {
 		Multimap<String, BadgeConcept> conceptMaps = ArrayListMultimap.create();
 		
 		badges.forEach(x -> {
-			conceptMaps.put(x.getCollectionName(), new BadgeConcept(x.getBadge(), statusUtils.getUrlFromBadgeName(mobilityUrl, x.getBadge())));
+			conceptMaps.put(x.getCollectionName(), new BadgeConcept(x.getBadge(), statusUtils.getUrlFromBadgeName(playgoURL, x.getBadge())));
 		});
 		
 		List<BadgeCollectionConcept> result = Lists.newArrayList();

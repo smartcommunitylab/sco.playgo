@@ -1,7 +1,6 @@
 package eu.trentorise.smartcampus.mobility.security;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Map;
 
 
@@ -14,12 +13,7 @@ public class AppInfo implements Serializable {
     private String messagingAppId;
     private String gcmSenderApiKey;
     private String gcmSenderId;
-    private List<String> agencyIds;
     private String gameId;
-    private String routesDB;
-
-    private String servicesUser;
-    private String servicesPassword;
 
     private Map<String,Object> extra;
 
@@ -63,14 +57,6 @@ public class AppInfo implements Serializable {
 		this.gcmSenderId = gcmSenderId;
 	}
 
-	public List<String> getAgencyIds() {
-		return agencyIds;
-	}
-
-	public void setAgencyIds(List<String> agencyIds) {
-		this.agencyIds = agencyIds;
-	}
-	
 	public String getGameId() {
 		return gameId;
 	}
@@ -79,29 +65,6 @@ public class AppInfo implements Serializable {
 		this.gameId = gameId;
 	}
 
-	public String getRoutesDB() {
-		return routesDB;
-	}
-
-	public void setRoutesDB(String routesDB) {
-		this.routesDB = routesDB;
-	}
-
-	public String getServicesUser() {
-		return servicesUser;
-	}
-
-	public void setServicesUser(String servicesUser) {
-		this.servicesUser = servicesUser;
-	}
-
-	public String getServicesPassword() {
-		return servicesPassword;
-	}
-
-	public void setServicesPassword(String servicesPassword) {
-		this.servicesPassword = servicesPassword;
-	}
 
 	public Map<String, Object> getExtra() {
 		return extra;

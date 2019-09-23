@@ -1,6 +1,5 @@
 package eu.trentorise.smartcampus.mobility.controller.rest;
 
-import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -16,7 +15,6 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.time.FastDateFormat;
@@ -94,15 +92,6 @@ public class GamificationController {
 	@Autowired
 	private PlayerRepositoryDao playerRepo;
 	
-	
-	@Autowired
-	@Value("${geolocations.db.dir}")
-	private String geolocationsDBDir;
-
-	@Autowired
-	@Value("${geolocations.db.name}")
-	private String geolocationsDB;
-
 	@Autowired
 	@Value("${aacURL}")
 	private String aacURL;
@@ -146,14 +135,6 @@ public class GamificationController {
 
 	private ObjectMapper mapper = new ObjectMapper();
 	
-	@PostConstruct
-	public void init() throws Exception {
-		File f = new File(geolocationsDBDir);
-		if (!f.exists()) {
-			f.mkdir();
-		}
-		
-	}
 
 	@PostMapping("/gamification/geolocations")
 	public @ResponseBody String storeGeolocationEvent(@RequestBody(required = false) GeolocationsEvent geolocationsEvent, @RequestHeader(required = true, value = "appId") String appId,

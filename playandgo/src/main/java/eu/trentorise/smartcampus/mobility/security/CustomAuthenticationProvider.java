@@ -27,37 +27,13 @@ public class CustomAuthenticationProvider extends AbstractUserDetailsAuthenticat
 		AppInfo app = appSetup.findAppById(username);
 		AppDetails ad;
 		if (app == null) {
-			app = appSetup.findAppByServiceUser(username);
-			if (app == null) {
-				throw new UsernameNotFoundException(username);
-			} else if (!app.getServicesPassword().equals(authentication.getCredentials().toString())) {
-				throw new BadCredentialsException("Incorrect password");
-			} else {
-				ad = new AppDetails(app);
-				ad.getAuthorities().add(new SimpleGrantedAuthority("ROLE_SERVICE"));
-			}
+			throw new BadCredentialsException("Incorrect username");
 		} else if (!app.getPassword().equals(authentication.getCredentials().toString())) {
 			throw new BadCredentialsException("Incorrect password");
 		} else {
 			ad = new AppDetails(app);
 			ad.getAuthorities().add(new SimpleGrantedAuthority("ROLE_CONSOLE"));
 		}
-
-		// if
-		// (((WebAuthenticationDetails)authentication.getDetails()).getSessionId()
-		// == null) {
-		// if
-		// (!app.getServicesPassword().equals(authentication.getCredentials().toString()))
-		// {
-		// throw new BadCredentialsException("Incorrect password");
-		// }
-		// } else {
-		// if
-		// (!app.getPassword().equals(authentication.getCredentials().toString()))
-		// {
-		// throw new BadCredentialsException("Incorrect password");
-		// }
-		// }
 
 		return ad;
 	}

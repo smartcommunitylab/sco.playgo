@@ -127,25 +127,9 @@ public class SynchronizationManager {
 
 		timer.schedule(tt, 1000);
 	}
-	
-//	@Scheduled(fixedDelay = 1000 * 10)
-	public void test() throws Exception {
-		SynchronizationMessage msg = new SynchronizationMessage();
-		msg.setFrom(id.toHexString());
-		msg.setTimestamp(System.currentTimeMillis());
-		System.err.println("Sending ping from " + id.toHexString());
-		sendMessage("PING", msg);
-	}
-	
+
 	private void processMessage(String topic, String body) throws Exception {
 		System.err.println(topic + " => " + body);
-	}
-	
-	private void sendMessage(String topic, SynchronizationMessage message) throws Exception {
-		byte[] messageBodyBytes = mapper.writeValueAsBytes(message);
-		AMQP.BasicProperties.Builder propsBuilder = new AMQP.BasicProperties.Builder();
-		propsBuilder.deliveryMode(2); // persistent message			
-		rabbitMQChannel.basicPublish(EXCHANGE_NAME, topic, propsBuilder.build(), messageBodyBytes);	
 	}
 	
 }

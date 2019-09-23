@@ -72,8 +72,8 @@ public class ReportEmailSender {
 	@Value("${gamification.url}")
 	private String gamificationUrl;
 	@Autowired
-	@Value("${mobilityURL}")
-	private String mobilityUrl;
+	@Value("${playgoURL}")
+	private String playgoURL;
 
 	@Value("${mail.send}")
 	private boolean mailSend;
@@ -289,7 +289,7 @@ public class ReportEmailSender {
 				mailPrizeActualData = configUtils.getWeekPrizes(nextWeekConfData.getWeekNum(), ITA_LANG);
 			}
 
-			PlayerStatus completePlayerStatus = statusUtils.convertPlayerData(completeState, p.getPlayerId(), gameId, p.getNickname(), mobilityUrl + "/gamificationweb/", 0, language);
+			PlayerStatus completePlayerStatus = statusUtils.convertPlayerData(completeState, p.getPlayerId(), gameId, p.getNickname(), playgoURL + "/gamificationweb/", 0, language);
 			List<PointConcept> states = completePlayerStatus.getPointConcept();
 			int point_green = 0;
 			int point_green_w = 0;

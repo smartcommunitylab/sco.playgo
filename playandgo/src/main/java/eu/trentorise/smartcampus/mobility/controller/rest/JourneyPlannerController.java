@@ -53,7 +53,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import eu.trentorise.smartcampus.mobility.gamification.GamificationValidator;
 import eu.trentorise.smartcampus.mobility.gamification.model.SavedTrip;
-import eu.trentorise.smartcampus.mobility.logging.StatLogger;
 import eu.trentorise.smartcampus.mobility.model.BasicItinerary;
 import eu.trentorise.smartcampus.mobility.model.BasicRecurrentJourney;
 import eu.trentorise.smartcampus.mobility.model.RouteMonitoring;
@@ -69,20 +68,9 @@ import it.sayservice.platform.smartplanner.data.message.journey.SingleJourney;
 @Controller
 public class JourneyPlannerController {
 
-	@Value("${mobility.server}")
-	private String viaggiaServer;
-
-	@Value("${mobility.port}")
-	private String viaggiaPort;	
-	
-//	@Value("${viaggiaURL}")
-//	private String viaggiaURL;		
-	
 	@Value("${mobilityURL}")
 	private String mobilityURL;
 	
-	@Autowired
-	private StatLogger statLogger;
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired

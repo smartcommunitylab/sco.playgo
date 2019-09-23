@@ -55,10 +55,6 @@ public class GamificationWebController {
 	private String gamificationUrl;
 	
 	@Autowired
-	@Value("${mobilityURL}")
-	private String mobilityUrl;	
-
-	@Autowired
 	private PlayerRepositoryDao playerRepositoryDao;
 
 	@Autowired

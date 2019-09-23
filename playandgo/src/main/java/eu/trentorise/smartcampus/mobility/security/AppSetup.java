@@ -8,7 +8,6 @@ import java.util.TimerTask;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
-import javax.naming.ConfigurationException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -43,7 +42,6 @@ public class AppSetup {
 	
 	private List<AppInfo> apps;
 	private Map<String, AppInfo> appsMap;
-	private Map<String, AppInfo> servicesMap;	
 	
 	private static Log logger = LogFactory.getLog(AppSetup.class);
 
@@ -57,25 +55,12 @@ public class AppSetup {
 		AppSetup data = (AppSetup) yaml.load(resource.getInputStream());
 		this.apps = data.apps;
 
-		for (AppInfo app : apps) {
-			if (app.getAppId().equals(app.getServicesUser())) {
-				throw new ConfigurationException("AppId and servicesUser must not be equal: " + app.getAppId());
-			}
-		}
-		
 		if (appsMap == null) {
 			appsMap = new HashMap<String, AppInfo>();
 			for (AppInfo app : apps) {
 				appsMap.put(app.getAppId(), app);
 			}
 		}		
-		if (servicesMap == null) {
-			servicesMap = new HashMap<String, AppInfo>();
-			for (AppInfo app : apps) {
-				servicesMap.put(app.getServicesUser(), app);
-			}
-		}			
-		
 		registerApps();
 	}
 	
@@ -101,22 +86,22 @@ public class AppSetup {
 					signature.setAppId(cred.getMessagingAppId());
 
 					boolean ok = true;
-
-//					do {
-//						try {
-//							communicator.registerApp(signature, cred.getMessagingAppId(), token);
-//							ok = true;
-//						} catch (CommunicatorConnectorException e) {
-//							ok = false;
-//							try {
-//								Thread.sleep(10000);
-//							} catch (InterruptedException e1) {
-//							}
-//							logger.warn("Failed to register app" + signature.getAppId());
-//							e.printStackTrace();
-//						}
-//					} while (!ok);
 					
+					do {
+						try {
+							communicator.registerApp(signature, cred.getMessagingAppId(), token);
+							ok = true;
+						} catch (CommunicatorConnectorException e) {
+							ok = false;
+							try {
+								Thread.sleep(10000);
+							} catch (InterruptedException e1) {
+							}
+							logger.warn("Failed to register app" + signature.getAppId());
+							e.printStackTrace();
+						}
+					} while (!ok);
+
 					logger.info("Registered app " + signature.getAppId());
 					
 				}
@@ -155,9 +140,5 @@ public class AppSetup {
 	public AppInfo findAppById(String username) {
 		return appsMap.get(username);
 	}
-	
-	public AppInfo findAppByServiceUser(String username) {
-		return servicesMap.get(username);
-	}	
 	
 }

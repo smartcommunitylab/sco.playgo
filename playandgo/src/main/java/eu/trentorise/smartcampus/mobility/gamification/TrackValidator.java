@@ -546,7 +546,7 @@ public class TrackValidator {
 	public static ValidationStatus validateFreeBike(Collection<Geolocation> track, List<Shape> areas) {
 
 		MODE_TYPE mode = MODE_TYPE.BIKE; 
-		double speedThreshold = BIKE_SPEED_THRESHOLD, timeThreshold = 30*1000, minTrackThreshold = 60*1000, avgSpeedThreshold = BIKE_AVG_SPEED_THRESHOLD, guaranteedAvgSpeedThreshold = BIKE_GUARANTEED_AVG_SPEED_THRESHOLD; 
+		double speedThreshold = BIKE_SPEED_THRESHOLD, timeThreshold = 10 * 1000, minTrackThreshold = 60*1000, avgSpeedThreshold = BIKE_AVG_SPEED_THRESHOLD, guaranteedAvgSpeedThreshold = BIKE_GUARANTEED_AVG_SPEED_THRESHOLD; 
 		ValidationStatus status = validateFreeMode(track, areas, mode, speedThreshold, timeThreshold, minTrackThreshold, avgSpeedThreshold, guaranteedAvgSpeedThreshold, BIKE_DISTANCE_THRESHOLD);
 
 		if (TravelValidity.INVALID.equals(status.getValidationOutcome()) && ERROR_TYPE.TOO_SHORT.equals(status.getError())) {

@@ -81,15 +81,15 @@ public class ChallengeController {
 	
 	@Autowired
 	@Value("${gamification.url}")
-	private String gamificationUrl;
+	private String gamificationUrl;	
 	
 	@Autowired
 	@Value("${aacURL}")
 	private String aacURL;
 	
 	@Autowired
-	@Value("${mobilityURL}")
-	private String mobilityUrl;		
+	@Value("${playgoURL}")
+	private String playgoURL;		
 	
 	@Autowired
 	private AppSetup appSetup;
@@ -214,7 +214,7 @@ public class ChallengeController {
 		String statusUrl = "state/" + gameId + "/" + userId;
 		String allData = getAll(statusUrl, appId);
 		
-		PlayerStatus ps =  statusUtils.convertPlayerData(allData, userId, gameId, nickName, mobilityUrl, 1, language);
+		PlayerStatus ps =  statusUtils.convertPlayerData(allData, userId, gameId, nickName, playgoURL, 1, language);
 		if (filter != null) {
 			ps.getChallengeConcept().getChallengeData().entrySet().removeIf(x -> !filter.equals(x.getKey()));
 		}

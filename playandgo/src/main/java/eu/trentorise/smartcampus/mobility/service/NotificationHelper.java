@@ -16,10 +16,7 @@
 
 package eu.trentorise.smartcampus.mobility.service;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -29,11 +26,9 @@ import org.springframework.stereotype.Component;
 
 import eu.trentorise.smartcampus.communicator.CommunicatorConnector;
 import eu.trentorise.smartcampus.communicator.CommunicatorConnectorException;
-import eu.trentorise.smartcampus.communicator.model.EntityObject;
 import eu.trentorise.smartcampus.communicator.model.Notification;
 import eu.trentorise.smartcampus.mobility.util.TokenHelper;
 import eu.trentorise.smartcampus.network.RemoteConnector;
-import it.sayservice.platform.smartplanner.data.message.alerts.Alert;
 
 /**
  * @author raman
@@ -41,8 +36,6 @@ import it.sayservice.platform.smartplanner.data.message.alerts.Alert;
  */
 @Component
 public class NotificationHelper extends RemoteConnector {
-
-	private static final String PATH_TOKEN = "oauth/token";
 
 	public static final String MS_APP = "core.mobility";
 	
@@ -81,39 +74,6 @@ public class NotificationHelper extends RemoteConnector {
 				e.printStackTrace();
 				logger .error("Failed to send notifications: "+e.getMessage(), e);
 			}
-	}
-	
-	public void notify(Notification n, String appId) {
-		long when = System.currentTimeMillis();
-		n.setTimestamp(when);
-		try {
-			connector().sendAppNotification(n, appId, Collections.EMPTY_LIST, tokenHelper.getToken());
-		} catch (CommunicatorConnectorException e) {
-			e.printStackTrace();
-			logger .error("Failed to send notifications: "+e.getMessage(), e);
-		}
-}	
-
-	private Notification prepareMessage(String name, Alert alert, Map<String, Object> content, String clientId) {
-		Notification not = new Notification();
-//		not.setTitle(title + " Alert for journey '" + name + "'");
-		not.setTitle(name);
-		not.setDescription(alert.getNote());
-
-		content.put("creatorType", alert.getCreatorType().toString());
-		content.put("from", alert.getFrom());
-		content.put("to", alert.getTo());
-
-		List<EntityObject> eos = new ArrayList<EntityObject>();
-		EntityObject eo = new EntityObject();
-		eo.setId(clientId);
-		eo.setType("journey");
-		eo.setTitle(name);
-		eos.add(eo);
-		not.setEntities(eos);
-		not.setContent(content);
-		
-		return not;
 	}
 	
 }

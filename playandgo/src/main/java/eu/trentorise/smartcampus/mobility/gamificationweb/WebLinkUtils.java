@@ -34,8 +34,8 @@ import org.springframework.stereotype.Component;
 public class WebLinkUtils {
 
 	@Autowired
-	@Value("${mobilityURL}")
-	private String mobilityUrl;
+	@Value("${playgoURL}")
+	private String playgoURL;
 	@Autowired
 	@Value("${gamification.secretKey1}")
 	private String secretKey1;
@@ -63,7 +63,7 @@ public class WebLinkUtils {
 	 */
 	public  String createSurveyUrl(String playerId, String gameId, String survey, String lang) throws Exception {
 		String id = cryptUtils.encrypt(playerId+":"+gameId);
-		String compileSurveyUrl = String.format(SURVEY_URL, mobilityUrl, lang, survey, id);
+		String compileSurveyUrl = String.format(SURVEY_URL, playgoURL, lang, survey, id);
 		return compileSurveyUrl;
 	}
 	
@@ -77,7 +77,7 @@ public class WebLinkUtils {
 	 */
 	public  String createUnsubscribeUrl(String playerId, String gameId) throws Exception {
 		String id = cryptUtils.encrypt(playerId + ":" + gameId);
-		String compileSurveyUrl = String.format(UNSUBSCRIBE_URL, mobilityUrl, id);
+		String compileSurveyUrl = String.format(UNSUBSCRIBE_URL, playgoURL, id);
 		return compileSurveyUrl;
 	}
 	

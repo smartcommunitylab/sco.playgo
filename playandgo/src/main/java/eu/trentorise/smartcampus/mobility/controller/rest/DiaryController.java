@@ -305,39 +305,6 @@ public class DiaryController {
 			result.add(de);
 		}
 		
-//		if (challUtils.getChallLongDescriptionList() == null || challUtils.getChallLongDescriptionList().isEmpty()) {
-//			challUtils.setChallLongDescriptionList(challDescriptionSetup.getDescriptions());
-//		}
-//		
-//		StatusUtils statusUtils = new StatusUtils();
-//		PlayerStatus ps = statusUtils.correctPlayerData(allData, p.getId(), gameId, p.getNickname(), challUtils, mobilityUrl, 1, language);
-//
-//		if (ps.getChallengeConcept() != null) {
-//			List<ChallengesData> cds = Lists.newArrayList();
-//			cds.addAll(ps.getChallengeConcept().getActiveChallengeData());
-//			cds.addAll(ps.getChallengeConcept().getOldChallengeData());
-//			for (ChallengesData cd : cds) {
-//				DiaryEntry de = new DiaryEntry();
-//				de.setEntityId(cd.getChallId());
-//				de.setType(DiaryEntryType.CHALLENGE);
-//				de.setTimestamp(cd.getStartDate());
-//				de.setChallengeName(cd.getChallDesc());
-//				de.setChallengeBonus(cd.getBonus());
-//				if (cd.getChallCompletedDate() != 0) {
-//					DiaryEntry de2 = new DiaryEntry();
-//					de2.setEntityId(cd.getChallId());
-//					de2.setType(DiaryEntryType.CHALLENGE_WON);
-//					de2.setChallengeName(cd.getChallDesc());
-//					de2.setChallengeBonus(cd.getBonus());					
-//					de2.setTimestamp(cd.getChallCompletedDate());
-//					result.add(de2);
-//				}
-//				de.setChallengeEnd(cd.getEndDate());
-//				
-//				result.add(de);
-//			}
-//		}
-
 		return result;
 	}
 
