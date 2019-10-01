@@ -63,12 +63,15 @@ import eu.trentorise.smartcampus.mobility.security.GameSetup;
 import eu.trentorise.smartcampus.mobility.service.NotificationHelper;
 import eu.trentorise.smartcampus.mobility.storage.PlayerRepositoryDao;
 
+@SuppressWarnings("deprecation")
 @Component
 public class NotificationsManager {
 
+	@SuppressWarnings("rawtypes")
 	private static final List<Class> notificationClasses = Lists.newArrayList(new Class[] 
 	{ LevelGainedNotification.class, ChallengeInvitationAcceptedNotification.class, ChallengeInvitationRefusedNotification.class, ChallengeInvitationCanceledNotification.class,
 		ChallengeAssignedNotification.class, ChallengeCompletedNotication.class, ChallengeFailedNotication.class });
+	@SuppressWarnings("rawtypes")
 	private Map<String, Class> notificationClassesMap;
 	
 	private static transient final Logger logger = LoggerFactory.getLogger(NotificationsManager.class);
@@ -169,7 +172,6 @@ public class NotificationsManager {
 						DefaultConsumer consumer = new DefaultConsumer(rabbitMQChannel) {
 							@Override
 							public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] b) throws IOException {
-								long deliveryTag = envelope.getDeliveryTag();
 
 								String body = new String(b);
 								try {
@@ -194,7 +196,7 @@ public class NotificationsManager {
 							rabbitMQChannel.queueBind(queueName, rabbitMQExchangeName, rabbitMQroutingKeyPrefix + "-" + gameId);
 
 							boolean autoAck = true;
-							String consumerTag = rabbitMQChannel.basicConsume(queueName, autoAck, "", consumer);
+							rabbitMQChannel.basicConsume(queueName, autoAck, "", consumer);
 							queues.add(queueName);
 						}
 						ok = true;
@@ -256,7 +258,6 @@ public class NotificationsManager {
 	private void checkProposedPending(AppInfo appInfo) throws Exception {
 		logger.info("Sending notifications for app " + appInfo.getAppId());
 
-		List<eu.trentorise.smartcampus.communicator.model.Notification> nots = Lists.newArrayList();
 
 		List<Player> players = playerRepository.findAllByGameId(appInfo.getGameId());
 		for (Player p : players) {
@@ -294,6 +295,7 @@ public class NotificationsManager {
 		}
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void processNotification(String body) throws Exception {
 		Map<String, Object> map = (Map<String, Object>) mapper.readValue(body, Map.class);
 		String type = (String) map.get("type");
@@ -595,18 +597,7 @@ public class NotificationsManager {
 		return result;
 	}
 	
-	private String getGameId(String appId) {
-		if (appId != null) {
-			AppInfo ai = appSetup.findAppById(appId);
-			if (ai == null) {
-				return null;
-			}
-			String gameId = ai.getGameId();
-			return gameId;
-		}
-		return null;
-	}	
-	
+	@SuppressWarnings({ "serial" })
 	HttpHeaders createHeaders(String appId) {
 		return new HttpHeaders() {
 			{

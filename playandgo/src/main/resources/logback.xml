@@ -10,13 +10,13 @@
 		</encoder>
 	</appender>
 	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>/home/dev/logs/mobility.log</file>
+		<file>mobility.log</file>
 		<encoder>
 			<pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
 		</encoder>
  
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>/home/dev/logs/mobility.%d.log</fileNamePattern>
+			<fileNamePattern>mobility.%d.log</fileNamePattern>
 		</rollingPolicy>
 	</appender>	
 	

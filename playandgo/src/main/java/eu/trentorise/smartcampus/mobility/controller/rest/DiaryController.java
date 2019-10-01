@@ -1,7 +1,6 @@
 package eu.trentorise.smartcampus.mobility.controller.rest;
 
 import java.nio.charset.Charset;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
@@ -72,6 +71,7 @@ import eu.trentorise.smartcampus.mobility.util.ErrorInfo;
 import eu.trentorise.smartcampus.mobility.util.GamificationHelper;
 import it.sayservice.platform.smartplanner.data.message.Leg;
 
+@SuppressWarnings("deprecation")
 @Controller
 public class DiaryController {
 
@@ -308,6 +308,7 @@ public class DiaryController {
 		return result;
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private List<DiaryEntry> getBadgeNotifications(Player player, String appId) throws Exception {
 		List<DiaryEntry> result = Lists.newArrayList();
 
@@ -452,6 +453,7 @@ public class DiaryController {
 		return groupByMultimodalId(result);
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private List<DiaryEntry> groupByMultimodalId(List<DiaryEntry> instances) throws Exception {
 		Multimap<String, DiaryEntry> grouped = ArrayListMultimap.create();
 		
@@ -520,6 +522,7 @@ public class DiaryController {
 		return null;
 	}	
 	
+	@SuppressWarnings("serial")
 	HttpHeaders createHeaders(String appId) {
 		return new HttpHeaders() {
 			{

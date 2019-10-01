@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.apache.commons.math3.stat.regression.SimpleRegression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -26,8 +25,6 @@ import eu.trentorise.smartcampus.mobility.gamification.model.GameStatistics;
 import eu.trentorise.smartcampus.mobility.gamificationweb.StatusUtils;
 import eu.trentorise.smartcampus.mobility.gamificationweb.model.PointConcept;
 import eu.trentorise.smartcampus.mobility.gamificationweb.model.PointConceptPeriod;
-import eu.trentorise.smartcampus.mobility.security.AppInfo;
-import eu.trentorise.smartcampus.mobility.security.AppSetup;
 
 @Component
 public class TargetPrizeChallengesCalculator {
@@ -47,15 +44,10 @@ public class TargetPrizeChallengesCalculator {
 	
 	private LocalDate lastMonday = LocalDate.now().minusDays(7).with(ChronoField.DAY_OF_WEEK, 1);
 	
-	private static double FAKE = 0.0;
-
 	private ObjectMapper mapper = new ObjectMapper();
 	{
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 	}
-
-	@Autowired
-	private AppSetup appSetup;
 
 	private GameStatistics gs;
 
@@ -226,7 +218,7 @@ public class TargetPrizeChallengesCalculator {
         return i;
     }
 
-    public Pair<Double, Double> forecastModeSimple(String state, String counter) throws Exception {
+    private Pair<Double, Double> forecastModeSimple(String state, String counter) throws Exception {
 
     	LocalDate date = lastMonday;
         Double currentValue = getWeeklyContentMode(state, counter, date);
@@ -246,68 +238,6 @@ public class TargetPrizeChallengesCalculator {
         return new Pair<Double, Double>(value, currentValue);
     }
 
-    // old approach
-    private Pair<Double, Double> forecastOld(Map<String, Double> res, String nm, String state, String counter) throws Exception {	
-//	private Pair<Double, Double> forecast(Map<String, Double> res, String nm, String state, String counter) throws Exception {
-
-		// Last 3 values?
-		int v = 3;
-		double[][] d = new double[v][];
-
-		double wma = 0;
-		int wma_d = 0;
-
-		for (int i = 0; i < v; i++) {
-			int ix = v - (i + 1);
-			d[ix] = new double[2];
-			Double c = getWeeklyContentMode(state, counter, lastMonday);
-			d[ix][1] = c;
-			d[ix][0] = ix + 1;
-			lastMonday = lastMonday.minusDays(7);
-			res.put(nm + "_base_" + ix, c);
-
-			wma += (v - i) * c;
-			wma_d += (v - i);
-		}
-
-		wma /= wma_d;
-
-		SimpleRegression simpleRegression = new SimpleRegression(true);
-		simpleRegression.addData(d);
-
-		double slope = simpleRegression.getSlope();
-		double intercept = simpleRegression.getIntercept();
-		double pv;
-		if (slope < 0)
-			pv = wma * 1.1;
-		else
-			pv = intercept + slope * (v + 1) * 0.9;
-
-		pv = checkMinTarget(counter, pv);
-
-		res.put(nm + "_tgt", pv);
-
-		return new Pair<Double, Double>(pv, wma);
-	}
-
-	// public Double getWeeklyContentMode(Player cnt, String mode, DateTime execDate) {
-	//
-	// for (PointConcept pc : cnt.getState().getPointConcept()) {
-	//
-	// String m = pc.getName();
-	// if (!m.equals(mode))
-	// continue;
-	//
-	// return pc.getPeriodScore("weekly", execDate);
-	// }
-	//
-	// return 0.0;
-	// }
-
-	/*
-	 * private GameStatistics getGameStatistics(Set<GameStatistics> stats, String mode) { for (GameStatistics gs: stats) { if (gs.getPointConceptName().equals(mode)) return gs; } pf("ERROR COUNTER '%s' NOT FOUND", mode); return null; }
-	 */
-
 	public Double evaluate(Double target, Double baseline, String counter, Map<Integer, Double> quantiles) {
 		if (baseline == 0) {
 			return 100.0;
@@ -324,6 +254,7 @@ public class TargetPrizeChallengesCalculator {
         return Math.min(bonus, 300);
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Double getWeeklyContentMode(String status, String mode, LocalDate execDate) throws Exception {
 		Map<String, Object> stateMap = mapper.readValue(status, Map.class);
 		Map<String, Object> state = (Map<String, Object>) stateMap.get("state");
@@ -352,32 +283,6 @@ public class TargetPrizeChallengesCalculator {
 	private List<GameStatistics> getStatistics(String appId, String counter) throws Exception {
 		List<GameStatistics> stats = gamificationCache.getStatistics(appId);
 		return stats.stream().filter(x -> counter.equals(x.getPointConceptName())).collect(Collectors.toList());
-	}
-
-//	private static double roundTarget(String mode, double improvementValue) {
-//		if (mode.endsWith("_Trips")) {
-//			improvementValue = Math.ceil(improvementValue);
-//		} else {
-//			if (improvementValue > 1000)
-//				improvementValue = Math.ceil(improvementValue / 100) * 100;
-//			else if (improvementValue > 100)
-//				improvementValue = Math.ceil(improvementValue / 10) * 10;
-//			else
-//				improvementValue = Math.ceil(improvementValue);
-//		}
-//		return improvementValue;
-//	}
-
-	private String getGameId(String appId) {
-		if (appId != null) {
-			AppInfo ai = appSetup.findAppById(appId);
-			if (ai == null) {
-				return null;
-			}
-			String gameId = ai.getGameId();
-			return gameId;
-		}
-		return null;
 	}
 
 }

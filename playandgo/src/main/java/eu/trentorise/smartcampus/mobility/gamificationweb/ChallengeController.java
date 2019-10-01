@@ -245,7 +245,7 @@ public class ChallengeController {
 		RestTemplate restTemplate = new RestTemplate();
 		String partialUrl = "game/" + gameId + "/player/" + userId + "/challenges/" + challengeId + "/accept";
 		ResponseEntity<String> tmp_res = restTemplate.exchange(gamificationUrl + "data/" + partialUrl, HttpMethod.POST, new HttpEntity<Object>(null, createHeaders(appId)), String.class);
-		logger.info("Sent player registration to gamification engine(mobile-access) " + tmp_res.getStatusCode());		
+		logger.info("Sent player challenge choice to gamification engine(mobile-access) " + tmp_res.getStatusCode());		
 	}
 	
 	@PostMapping("/gamificationweb/invitation")

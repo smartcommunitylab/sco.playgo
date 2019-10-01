@@ -157,10 +157,6 @@ public class ChallengesConfig {
         return playerIds;
     }
 
-    public Set<String> getModeKeySet() {
-        return modeConfiguration.getModeKeySet();
-    }
-
     public static SingleModeConfig getModeConfig(String mode) {
         if (null == modeConfiguration) {
             init();
@@ -174,10 +170,6 @@ public class ChallengesConfig {
 
     public boolean isSelecttoptwo() {
         return selectTopTwo;
-    }
-
-    public ChallengesModeConfiguration getModeConfiguration() {
-        return modeConfiguration;
     }
 
     public static String[] getDefaultMode() {

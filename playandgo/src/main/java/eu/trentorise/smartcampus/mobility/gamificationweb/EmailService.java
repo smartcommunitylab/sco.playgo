@@ -133,12 +133,7 @@ public class EmailService {
         message.setTo(recipientEmail);
 
         // Create the HTML body using Thymeleaf
-        String htmlContent = "";
-//        if(isFirstMail){
-//        	htmlContent = (locale == Locale.ITALIAN) ? this.templateEngine.process("mail/email-gamification2016-startgame-tn", ctx) : this.templateEngine.process("mail/email-gamification2016-startgame-tn-eng", ctx);
-//        } else {
-        	htmlContent = (locale == Locale.ITALIAN) ? this.templateEngine.process("mail/email-gamification2018-tn", ctx) : this.templateEngine.process("mail/email-gamification2018-tn-eng", ctx);
-//        }
+        String htmlContent = (locale == Locale.ITALIAN) ? this.templateEngine.process("mail/email-gamification-tn", ctx) : this.templateEngine.process("mail/email-gamification-tn-eng", ctx);
         message.setText(htmlContent, true /* isHtml */);
         
         final InputStreamSource imageSourceFoglia03 = new ByteArrayResource(standardImages.get(0).getImageByte());
@@ -263,7 +258,7 @@ public class EmailService {
         message.setTo(recipientEmail);
 
         // Create the HTML body using Thymeleaf
-        final String htmlContent = (locale == Locale.ITALIAN) ? this.templateEngine.process("mail/email-gamification2016-winners-tn", ctx) : this.templateEngine.process("mail/email-gamification2016-winners-tn-eng", ctx);
+        final String htmlContent = (locale == Locale.ITALIAN) ? this.templateEngine.process("mail/email-gamification-winners-tn", ctx) : this.templateEngine.process("mail/email-gamification-winners-tn-eng", ctx);
         message.setText(htmlContent, true /* isHtml */);
         
         // Add the inline titles image, referenced from the HTML code as "cid:${imageResourceName}"
@@ -320,7 +315,7 @@ public class EmailService {
         message.setFrom(mailFrom);
         message.setTo(recipientEmail);
 
-        final String htmlContent = (locale == Locale.ITALIAN) ? this.templateEngine.process("mail/email-gamification2018-module-tn", ctx) : this.templateEngine.process("mail/email-gamification2018-module-tn-eng", ctx);
+        final String htmlContent = (locale == Locale.ITALIAN) ? this.templateEngine.process("mail/email-gamification-module-tn", ctx) : this.templateEngine.process("mail/email-gamification-module-tn-eng", ctx);
         message.setText(htmlContent, true /* isHtml */);
         
         final InputStreamSource imageSourceFoglia03 = new ByteArrayResource(standardImages.get(0).getImageByte());

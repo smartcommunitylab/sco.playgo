@@ -59,6 +59,7 @@ import eu.trentorise.smartcampus.mobility.storage.PlayerRepositoryDao;
 import eu.trentorise.smartcampus.mobility.util.HTTPConnector;
 import eu.trentorise.smartcampus.network.JsonUtils;
 
+@SuppressWarnings("deprecation")
 @Component
 public class GamificationManager {
 
@@ -72,9 +73,6 @@ public class GamificationManager {
 	@Autowired
 	private GameSetup gameSetup;	
 	
-	@Autowired
-	private PlayerRepositoryDao playerRepositoryDao;	
-
 	@Autowired
 	private ExecutorService executorService;	
 	
@@ -321,6 +319,7 @@ public class GamificationManager {
 		}
 	}	
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Map<String, Double> getScoreNotification(String appId, String userId) throws Exception {
 		Map<String, Double> result = Maps.newTreeMap();
 		
@@ -340,7 +339,7 @@ public class GamificationManager {
 			nots = (List)mapper.convertValue(notsMap.get("MessageNotification"), new TypeReference<List<MessageNotification>>() {
 			});
 		} else {
-			nots = Collections.EMPTY_LIST;
+			nots = Collections.emptyList();
 		}
 
 		for (MessageNotification msg: nots) {
@@ -362,6 +361,7 @@ public class GamificationManager {
 	}
 	
 
+	@SuppressWarnings("serial")
 	HttpHeaders createHeaders(String appId) {
 		return new HttpHeaders() {
 			{
