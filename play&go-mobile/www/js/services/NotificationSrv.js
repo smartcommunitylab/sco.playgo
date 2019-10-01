@@ -158,6 +158,36 @@ angular.module('viaggia.services.notification', [])
       });
 
       // Get notified when the user opens a notification
+      if (window.FirebasePlugin && window.FirebasePlugin.onMessageReceived)
+      window.FirebasePlugin.onMessageReceived(function (notification) {
+        if ($ionicPopup._popupStack.length == 0) {
+          $ionicPopup.show({
+            title: notification.title,
+            template: notification.description,
+            buttons: [{
+              text: $filter('translate')("btn_close"),
+              type: 'button-custom',
+              onTap: function () {
+                if (notification["content.type"] && typeOfChallenges[notification["content.type"]]) {
+                  // localStorage.removeItem(Config.getAppId() +typeOfChallenges[notification["content.type"]].cache);
+                  $ionicHistory.clearCache().then(function () {
+                    $state.go(typeOfChallenges[notification["content.type"]].state, typeOfChallenges[notification["content.type"]].params, {
+                      reload: true
+                    })
+                  }, function (err) {
+                    $state.go(typeOfChallenges[notification["content.type"]].state, typeOfChallenges[notification["content.type"]].params, {
+                      reload: true
+                    })
+                  })
+                }
+              }
+            }]
+          });
+        }
+      }, function (error) {
+        console.error(error);
+      });
+      if (window.FirebasePlugin && window.FirebasePlugin.onNotificationOpen)
       window.FirebasePlugin.onNotificationOpen(function (notification) {
         if ($ionicPopup._popupStack.length == 0) {
           $ionicPopup.show({

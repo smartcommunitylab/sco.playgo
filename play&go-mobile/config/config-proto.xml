@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-    <widget id="*widget_id*" version="*version*" android-versionCode="*version_code*" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <widget id="*widget_id*" version="*version*" android-versionCode="*version_code*" xmlns:android="http://schemas.android.com/apk/res/android" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
         <name>*app_name*</name>
         <description>*app_name*</description>
         <author email="info@smartcommunitylab.it" href="http://www.smartcommunitylab.it/">Smart Community Lab</author>
       <plugin name="cordova-background-geolocation">
-    <variable name="LICENSE" value="6af31309a1796013f00927f4c396b898ac881efac6d398a165301e06e0a6a9c7" />
+    <variable name="LICENSE" value="1cfd7941328121fc95223f24f1f8535efd9b716900d5f250d5e153fb5bef4355" />
     <variable name="GOOGLE_API_VERSION" value="11.6.0" />
-    <variable name="APPCOMPAT_VERSION" value="27.0.0" />
+    <variable name="APPCOMPAT_VERSION" value="28.0.0" />
     <variable name="LOCATION_ALWAYS_AND_WHEN_IN_USE_USAGE_DESCRIPTION" value="Always use is required for background location tracking" />
     <variable name="LOCATION_ALWAYS_USAGE_DESCRIPTION" value="Background location-tracking is required" />
     <variable name="LOCATION_WHEN_IN_USE_USAGE_DESCRIPTION" value="Background location-tracking is required" />
@@ -39,7 +39,10 @@
         <preference name="SplashScreen" value="screen" />
         <preference name="SplashScreenDelay" value="3000" />
         <preference name="android-minSdkVersion" value="19" />
-        <preference name="android-targetSdkVersion" value="26" />
+        <preference name="android-targetSdkVersion" value="28" />
+          <plugin name="cordova-android-support-gradle-release">
+      <variable name="ANDROID_SUPPORT_VERSION" value="28.+" />
+  </plugin>
         <preference name="FadeSplashScreen" value="false" />
         <preference name="ShowSplashScreenSpinner" value="false" />
         <preference name="StatusBarOverlaysWebView" value="false" />
@@ -47,6 +50,11 @@
             <param name="ios-package" value="CDVStatusBar" onload="true" />
         </feature>
         <platform name="android">
+         <config-file parent="/manifest/application" target="app/src/main/AndroidManifest.xml">
+          <meta-data
+            android:name="com.transistorsoft.locationmanager.license_key"
+            android:value="1cfd7941328121fc95223f24f1f8535efd9b716900d5f250d5e153fb5bef4355" />
+      </config-file>
             <icon src="*resource_folder*/resources/android/icon/drawable-ldpi-icon.png" density="ldpi" />
             <icon src="*resource_folder*/resources/android/icon/drawable-mdpi-icon.png" density="mdpi" />
             <icon src="*resource_folder*/resources/android/icon/drawable-hdpi-icon.png" density="hdpi" />
@@ -65,9 +73,9 @@
             <splash src="*resource_folder*/resources/android/splash/drawable-port-xhdpi-screen.png" density="port-xhdpi" />
             <splash src="*resource_folder*/resources/android/splash/drawable-port-xxhdpi-screen.png" density="port-xxhdpi" />
             <splash src="*resource_folder*/resources/android/splash/drawable-port-xxxhdpi-screen.png" density="port-xxxhdpi" />
-            <config-file target="AndroidManifest.xml" parent="/*">
+            <!-- <config-file target="AndroidManifest.xml" parent="/*">
                 <uses-feature android:name="android.hardware.location.gps" android:required="false" />
-            </config-file>
+            </config-file> -->
               <preference name="android-manifest/application/@android:allowBackup" value="false" />
 
         </platform>
