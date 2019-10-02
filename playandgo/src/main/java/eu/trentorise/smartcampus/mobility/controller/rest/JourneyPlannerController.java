@@ -101,7 +101,7 @@ public class JourneyPlannerController {
 			}			
 			
 			for (Itinerary itinerary : result) {
-				gamificationValidator.computeEstimatedGameScore(appName, itinerary, null, false);
+				gamificationValidator.computeEstimatedGameScore(appName, userId, itinerary, null, false);
 			}			
 			
 			return result;

@@ -414,7 +414,7 @@ public class GeolocationsProcessor {
 			res.setValidationResult(vr);
 
 			if (vr != null && !TravelValidity.INVALID.equals(vr.getTravelValidity())) {
-				Map<String, Object> trackingData = gamificationValidator.computePlannedJourneyScore(appId, res.getItinerary().getData(), res.getGeolocationEvents(), vr.getValidationStatus(),
+				Map<String, Object> trackingData = gamificationValidator.computePlannedJourneyScore(appId, userId, res.getItinerary().getData(), res.getGeolocationEvents(), vr.getValidationStatus(),
 						res.getOverriddenDistances(), false);
 				res.setScoreStatus(ScoreStatus.COMPUTED);
 				if (trackingData.containsKey("estimatedScore")) {
@@ -447,7 +447,7 @@ public class GeolocationsProcessor {
 			res.setValidationResult(vr);
 			if (vr != null && !TravelValidity.INVALID.equals(vr.getTravelValidity())) {
 				// canSave =
-				Map<String, Object> trackingData = gamificationValidator.computeFreeTrackingScore(appId, res.getGeolocationEvents(), res.getFreeTrackingTransport(), vr.getValidationStatus(),
+				Map<String, Object> trackingData = gamificationValidator.computeFreeTrackingScore(appId, userId, res.getGeolocationEvents(), res.getFreeTrackingTransport(), vr.getValidationStatus(),
 						res.getOverriddenDistances());
 				res.setScoreStatus(ScoreStatus.COMPUTED);
 				if (trackingData.containsKey("estimatedScore")) {

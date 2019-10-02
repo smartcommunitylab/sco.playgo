@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -39,12 +40,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.common.primitives.Doubles;
 
 import eu.trentorise.smartcampus.mobility.gamification.model.TrackedInstance;
+import eu.trentorise.smartcampus.mobility.gamificationweb.model.PointConcept;
 import eu.trentorise.smartcampus.mobility.geolocation.model.Geolocation;
 import eu.trentorise.smartcampus.mobility.geolocation.model.TTDescriptor;
 import eu.trentorise.smartcampus.mobility.geolocation.model.ValidationResult;
@@ -72,6 +75,28 @@ public class GamificationValidator {
 //	private static final String EMPTY = "unknown";
 //	private static final double SPACE_ERROR = 0.1;
 	
+	/**
+	 * 
+	 */
+	private static final String TRAIN = "Train_Km";
+
+	/**
+	 * 
+	 */
+	private static final String BUS = "Bus_Km";
+
+	/**
+	 * 
+	 */
+	private static final String BIKE = "Bike_Km";
+
+	/**
+	 * 
+	 */
+	private static final String WALK = "Walk_Km";
+
+	private static final Set<String> TYPES = Sets.newHashSet(WALK, BIKE, BUS, TRAIN);
+	
 	public static final int SAME_TRIP_INTERVAL = 5 * 60 * 1000; // 5 minutes
 
 	private static final Logger logger = LoggerFactory.getLogger(GamificationValidator.class);
@@ -84,7 +109,9 @@ public class GamificationValidator {
 	
 	@Autowired
 	private GameSetup gameSetup;	
-	
+	@Autowired
+	private GamificationCache gamificationCache;
+
 	@Autowired
 	@Qualifier("mongoTemplate")
 	MongoTemplate template;	
@@ -138,7 +165,8 @@ public class GamificationValidator {
 		}
 	}
 
-	public Map<String, Object> computeEstimatedPlannedJourneyScore(String appId, Itinerary itinerary, Collection<Geolocation> geolocations, boolean log) {
+	private Map<String, Object> computeEstimatedPlannedJourneyScore(String appId, String userId, Itinerary itinerary, Collection<Geolocation> geolocations, boolean log) {
+		Map<String, Double> userDayData = getUserDayData(appId, userId);
 //		if (geolocations != null) {
 //			String ttype = GamificationHelper.getFreetrackingTransportForItinerary(itinerary);
 //			if (ttype != null && "walk".equals(ttype) || "bike".equals(ttype)) {
@@ -148,6 +176,7 @@ public class GamificationValidator {
 //		}
 //		
 //		
+		// TODO consider user state
 		Map<String, Object> data = Maps.newTreeMap();
 
 		String parkName = null; // name of the parking
@@ -211,53 +240,25 @@ public class GamificationValidator {
 		}
 
 		Double score = 0.0;
-		// score += (walkDist < 0.1 ? 0 : Math.min(3.5, walkDist)) * 10; Rovereto
-		score += (walkDist < 0.25 ? 0 : Math.min(10, walkDist)) * 10;
-//		score += (walkDist < 0.25 ? 0 : walkDist) * 15;
-		score += Math.min(30, bikeDist) * 5;
-//		score += bikeDist * 7;
+		score += (walkDist < 0.25 ? 0 : getScore(WALK, walkDist, userDayData.get(WALK)));
+		score += getScore(BIKE, bikeDist, userDayData.get(BIKE));
 
-//		double busTrainTransitDist = busDist + trainDist;
-//		if (busTrainTransitDist > 0) {
-//			score += (busTrainTransitDist > 0 && busTrainTransitDist < 1) ? 10 : ((busTrainTransitDist > 1 && busTrainTransitDist < 5) ? 15 : (busTrainTransitDist >= 5 && busTrainTransitDist < 10) ? 20
-//					: (busTrainTransitDist >= 10 && busTrainTransitDist < 30) ? 30 : 40);
-//		}
 		
 		if (busDist > 0) {
-			score += (busDist > 0 && busDist < 1) ? 10 : ((busDist > 1 && busDist < 5) ? 15 : 20);
+			score += getScore(BUS, busDist, userDayData.get(BUS));
 		}		
 		if (trainDist > 0) {
-			score += (trainDist > 0 && trainDist < 1) ? 10 : ((trainDist > 1 && trainDist < 5) ? 15 : 20);
+			score += getScore(TRAIN, trainDist, userDayData.get(TRAIN));
 		}				
 		
-		
-		// Trento only
-		if (transitDist > 0) {
-//			score += 25;
-			score += 15;
-		}
-
-		boolean zeroImpact = (busDist + carDist + trainDist + transitDist == 0 && walkDist + bikeDist > 0);
-//		Rovereto
-//		if (zeroImpact && itinerary.isPromoted()) {
-//			score *= 1.7;
-//		} else {
-//			if (zeroImpact) {
-//				score *= 1.5;
-//			}
-//			if (itinerary.isPromoted()) {
-//				score *= 1.2;
-//			}
-//		}
-		
-		
 		if (pnr) {
-//			score += 10;
 			score += 15;
 		}
-		if (zeroImpact) {
-			score *= 1.5;
-		}
+		
+//		boolean zeroImpact = (busDist + carDist + trainDist + transitDist == 0 && walkDist + bikeDist > 0);
+//		if (zeroImpact) {
+//			score *= 1.5;
+//		}
 
 		if (bikeDist > 0) {
 			data.put("bikeDistance", bikeDist);
@@ -293,14 +294,13 @@ public class GamificationValidator {
 			data.put("p+r", pnr);
 		}
 		data.put("sustainable", itinerary.isPromoted());
-//		data.put("zeroimpact", zeroImpact);
 		data.put("estimatedScore", Math.round(score));
 
 		return data;
 	}	
 	
 
-	public Map<String, Object> computePlannedJourneyScore(String appId, Itinerary itinerary, Collection<Geolocation> geolocations, ValidationStatus vs, Map<String, Double> overriddenDistances, boolean log) {
+	public Map<String, Object> computePlannedJourneyScore(String appId, String userId, Itinerary itinerary, Collection<Geolocation> geolocations, ValidationStatus vs, Map<String, Double> overriddenDistances, boolean log) {
 		boolean asFreetracking = false;
 		
 		logger.info("Computing planned score");
@@ -414,52 +414,26 @@ public class GamificationValidator {
 			logger.debug("Bikesharing = " + startBikesharingName + " / " + endBikesharingName);
 		}
 
+		Map<String, Double> userDayData = getUserDayData(appId, userId);
 		Double score = 0.0;
-		// score += (walkDist < 0.1 ? 0 : Math.min(3.5, walkDist)) * 10; Rovereto
-		score += (walkDist < 0.25 ? 0 : Math.min(10, walkDist)) * 10;
-		// score += (walkDist < 0.25 ? 0 : walkDist) * 15;
-		score += Math.min(30, bikeDist) * 5;
-		// score += bikeDist * 7;
-
-//		double busTrainTransitDist = busDist + trainDist;
-		// if (busTrainTransitDist > 0) {
-		// score += (busTrainTransitDist > 0 && busTrainTransitDist < 1) ? 10 : ((busTrainTransitDist > 1 && busTrainTransitDist < 5) ? 15 : (busTrainTransitDist >= 5 && busTrainTransitDist < 10) ? 20
-		// : (busTrainTransitDist >= 10 && busTrainTransitDist < 30) ? 30 : 40);
-		// }
+		score += (walkDist < 0.25 ? 0 : getScore(WALK, walkDist, userDayData.get(WALK)));
+		score += getScore(BIKE, bikeDist, userDayData.get(BIKE));
 
 		if (busDist > 0) {
-			score += (busDist > 0 && busDist < 1) ? 10 : ((busDist > 1 && busDist < 5) ? 15 : 20);
+			score += getScore(BUS, busDist, userDayData.get(BUS));
 		}
 		if (trainDist > 0) {
-			score += (trainDist > 0 && trainDist < 1) ? 10 : ((trainDist > 1 && trainDist < 5) ? 15 : 20);
+			score += getScore(TRAIN, trainDist, userDayData.get(TRAIN));
 		}
-
-		// Trento only
-		if (transitDist > 0) {
-			// score += 25;
-			score += 15;
-		}
-
-		boolean zeroImpact = (busDist + carDist + trainDist + transitDist == 0 && walkDist + bikeDist > 0);
-		// Rovereto
-		// if (zeroImpact && itinerary.isPromoted()) {
-		// score *= 1.7;
-		// } else {
-		// if (zeroImpact) {
-		// score *= 1.5;
-		// }
-		// if (itinerary.isPromoted()) {
-		// score *= 1.2;
-		// }
-		// }
 
 		if (pnr) {
-			// score += 10;
 			score += 15;
 		}
-		if (zeroImpact) {
-			score *= 1.5;
-		}
+
+//		boolean zeroImpact = (busDist + carDist + trainDist + transitDist == 0 && walkDist + bikeDist > 0);
+//		if (zeroImpact) {
+//			score *= 1.5;
+//		}
 
 		if (bikeDist > 0) {
 			data.put("bikeDistance", bikeDist);
@@ -501,7 +475,7 @@ public class GamificationValidator {
 		return data;
 	}
 	
-	public Map<String, Object> computeFreeTrackingScore(String appId, Collection<Geolocation> geolocationEvents, String ttype, ValidationStatus vs, Map<String, Double> overriddenDistances) throws Exception {
+	public Map<String, Object> computeFreeTrackingScore(String appId, String userId, Collection<Geolocation> geolocationEvents, String ttype, ValidationStatus vs, Map<String, Double> overriddenDistances) throws Exception {
 		Map<String, Object> result = Maps.newTreeMap();
 		Double score = 0.0;
 		double distance = 0; 		
@@ -519,7 +493,8 @@ public class GamificationValidator {
 				overriddenDistances = Maps.newTreeMap();
 			}
 
-			boolean zeroImpact = false;
+			Map<String, Double> userDayData = getUserDayData(appId, userId);
+//			boolean zeroImpact = false;
 			if ("walk".equals(ttype)) {
 				if (overriddenDistances.containsKey("walk")) {
 					distance = overriddenDistances.get("walk") / 1000.0;
@@ -528,10 +503,8 @@ public class GamificationValidator {
 					distance = vs.getEffectiveDistances().get(MODE_TYPE.WALK) / 1000.0; 
 				}
 				result.put("walkDistance", distance);
-//				score = (distance < 0.25 ? 0 : Math.min(3.5, distance)) * 10;
-//				score = (distance < 0.25 ? 0 : distance) * 15;
-				score += (distance < 0.25 ? 0 : Math.min(10, distance)) * 10;
-				zeroImpact = true;
+				score += (distance < 0.25 ? 0 : getScore(WALK, distance, userDayData.get(WALK)));
+//				zeroImpact = true;
 			}
 			if ("bike".equals(ttype)) {
 				if (overriddenDistances.containsKey("bike")) {
@@ -541,10 +514,8 @@ public class GamificationValidator {
 					distance = vs.getEffectiveDistances().get(MODE_TYPE.BIKE) / 1000.0;
 				}
 				result.put("bikeDistance", distance);
-//				score += Math.min(7, distance) * 5;
-//				score += distance * 7;
-				score += Math.min(30, distance) * 5;
-				zeroImpact = true;
+				score += getScore(BIKE, distance, userDayData.get(BIKE));
+//				zeroImpact = true;
 			} if ("bus".equals(ttype)) {
 				if (overriddenDistances.containsKey("bus")) {
 					distance = overriddenDistances.get("bus") / 1000.0;
@@ -553,7 +524,7 @@ public class GamificationValidator {
 					distance = vs.getEffectiveDistances().get(MODE_TYPE.BUS) / 1000.0;
 				}
 				result.put("busDistance", distance);
-				score += (distance > 0 && distance < 1) ? 10 : ((distance > 1 && distance < 5) ? 15 : 20);
+				score += getScore(BUS, distance, userDayData.get(BUS));
 			} if ("train".equals(ttype)) {
 				if (overriddenDistances.containsKey("train")) {
 					distance = overriddenDistances.get("train") / 1000.0;
@@ -562,12 +533,12 @@ public class GamificationValidator {
 					distance = vs.getEffectiveDistances().get(MODE_TYPE.TRAIN) / 1000.0;
 				}
 				result.put("trainDistance", distance);
-				score += (distance > 0 && distance < 1) ? 10 : ((distance > 1 && distance < 5) ? 15 : 20);
+				score += getScore(TRAIN, distance, userDayData.get(TRAIN));
 			}
 			
-			if (zeroImpact) {
-				score *= 1.5;
-			}
+//			if (zeroImpact) {
+//				score *= 1.5;
+//			}
 		} else {
 			logger.info("Skipping");
 		}
@@ -578,8 +549,8 @@ public class GamificationValidator {
 	
 
 	// TODO: remove?
-	public long computeEstimatedGameScore(String appId, Itinerary itinerary, Collection<Geolocation> geolocations, boolean log) {
-		Long score = (Long) (computeEstimatedPlannedJourneyScore(appId, itinerary, geolocations, log).get("estimatedScore"));
+	public long computeEstimatedGameScore(String appId, String userId, Itinerary itinerary, Collection<Geolocation> geolocations, boolean log) {
+		Long score = (Long) (computeEstimatedPlannedJourneyScore(appId, userId, itinerary, geolocations, log).get("estimatedScore"));
 		itinerary.getCustomData().put("estimatedScore", score);
 		return score;
 	}
@@ -795,5 +766,99 @@ public class GamificationValidator {
 //			e.printStackTrace();
 //		}
 //	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private Map<String, Double> getUserDayData(String appId, String userId) {
+		String data = gamificationCache.getPlayerState(userId, appId);
+		if (data != null) {
+			Map<String, Double> res = new LinkedHashMap<>();
+			ObjectMapper mapper = new ObjectMapper();
+			try {
+				Map<String,?> playerMap = mapper.readValue(data, Map.class);
+				if (playerMap.containsKey("state")) {
+					Map stateMap = mapper.convertValue(playerMap.get("state"), Map.class);
+					if (stateMap.containsKey("PointConcept")) {
+						List<?> conceptList = mapper.convertValue(stateMap.get("PointConcept"), List.class);
+						for (Object o : conceptList) {
+							PointConcept concept = mapper.convertValue(o, PointConcept.class);
+							updateValues(concept, res);
+						}
+					}
+				}
+				return res;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return Collections.emptyMap();
+			}
+		}
+		return Collections.emptyMap();
+	}
+
+	/**
+	 * @param concept
+	 * @param res
+	 */
+	private void updateValues(PointConcept concept, Map<String, Double> res) {
+		if ("daily".equals(concept.getPeriodType())) {
+			if (TYPES.contains(concept.getName())) {
+				res.put(concept.getName(), concept.getScore());
+			}
+		}
+	}
+	
+	private static double getScore(String mode, double distance, Double prevDistance) {
+	    double limit = getModeLimit(mode);
+	    if (prevDistance != null && prevDistance >= limit) return 0d;
+	    
+	    double point = getModePoint(mode);
+	    double score = 0.0, scorePrev = 0.0;
+	    double dPrev = prevDistance != null ? prevDistance : 0.0;
+	    double d = dPrev + distance;
+	    
+	    int index = 0;
+	  	while(index < 8) {
+	  		limit /= 2;
+	  		if (d >= 0) {
+	  			score += Math.min(d, limit) * point;
+	  		}
+	  		if (dPrev >= 0) {
+	  			scorePrev += Math.min(dPrev, limit) * point;
+	  		}
+	        d -= limit;
+	        dPrev -= limit;
+	        point /= 2;
+	        index++;
+	  	}
+	    return score - scorePrev;
+	}
+
+	private static double getModeLimit(String mode) {
+		switch(mode) {
+			case WALK:
+				return 10.0;
+			case BIKE:
+				return 25.0;
+			case BUS:
+				return 50.0;
+			case TRAIN:
+				return 100.0;
+			default:
+				return 0.0;	
+		}	
+	}
+	private static double getModePoint(String mode) {
+		switch(mode) {
+		case WALK:
+			return 15.0;
+		case BIKE:
+			return 5.0;
+		case BUS:
+			return 2.0;
+		case TRAIN:
+			return 1.0;
+		default:
+			return 0.0;	
+		}	
+	}
 
 }
