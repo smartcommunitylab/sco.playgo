@@ -89,7 +89,7 @@ angular.module('viaggia.controllers.game', [])
     $scope.getImage = function () {
       if ($scope.$parent.$parent.$parent.status)
         profileService.getProfileImage($scope.$parent.$parent.$parent.status.playerData.playerId).then(function (image) {
-          $rootScope.profileImg = profileService.getAvatarUrl() + $scope.$parent.$parent.$parent.status.playerData.playerId + '/big?' + (localStorage.getItem(Config.getAppId() + '_timestampImg'));
+          $rootScope.profileImg = profileService.getAvatarUrl() + $scope.$parent.$parent.$parent.status.playerData.playerId + '/big?' + (localStorage.getItem(Config.getAppGameId() + '_timestampImg'));
         }, function (error) {
           $rootScope.profileImg = 'img/game/generic_user.png' + '/big?' + (localStorage.getItem(Config.getAppId() + '_timestampImg'));
         })

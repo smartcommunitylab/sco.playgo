@@ -17,7 +17,7 @@
   },
   {
     "file": "data/config.json",
-    "hash": "e597dee7fa5a03462764be825d933467"
+    "hash": "cd9fe5fb80c4769e3220125b92535756"
   },
   {
     "file": "data/game/ranking.json",
@@ -397,15 +397,15 @@
   },
   {
     "file": "js/controllers/CommonCtrl.js",
-    "hash": "3b659315db61471aaf866ff0a1e83161"
+    "hash": "716bfbd75ddc7a4b5a678552273fb8ab"
   },
   {
     "file": "js/controllers/GameCtrl.js",
-    "hash": "976a2691c8468bd9ab712814e2d25c03"
+    "hash": "4dfc0f07e19356f5b98eb201c62e16ee"
   },
   {
     "file": "js/controllers/HomeCtrl.js",
-    "hash": "94111c85d79360ed9140868ba1b36113"
+    "hash": "4d4979b590a09fe6d11452c46c940460"
   },
   {
     "file": "js/controllers/InfoCtrl.js",
@@ -449,7 +449,7 @@
   },
   {
     "file": "js/controllers/ProfileCtrl.js",
-    "hash": "ad66fdf56197e6abd2190a8d7f49ddb6"
+    "hash": "49f525d618b84fcc2b6dc8740dbb3e0c"
   },
   {
     "file": "js/controllers/RegistrationController.js",
@@ -501,7 +501,7 @@
   },
   {
     "file": "js/services/ConfigSrv.js",
-    "hash": "6b2130b82bf245326c645948bddaa0f2"
+    "hash": "96c1b4f598e3fe969f5ff129f609d7c8"
   },
   {
     "file": "js/services/DataSrv.js",
@@ -509,11 +509,11 @@
   },
   {
     "file": "js/services/DiaryDbSrv.js",
-    "hash": "4016341047e35c48b0174f677ffd4fa6"
+    "hash": "793654e7d231f503493593c5f7248d77"
   },
   {
     "file": "js/services/GameSrv.js",
-    "hash": "bc799bc4eb255c381d13fa543664e990"
+    "hash": "88ad9a8c7cd6f61c47bc34111f6e6ac5"
   },
   {
     "file": "js/services/GeoSrv.js",
@@ -537,19 +537,19 @@
   },
   {
     "file": "js/services/NotificationSrv.js",
-    "hash": "0723b64bf78ab239000077430c8153d3"
+    "hash": "e5db625f3b8a2c884163201f9c80ba37"
   },
   {
     "file": "js/services/PlanSrv.js",
-    "hash": "564e81d021d5d9090b9379364d84a3bb"
+    "hash": "7ed1eff9527bf64d32d3562f96fed97b"
   },
   {
     "file": "js/services/ProfileSrv.js",
-    "hash": "785da516b225a617ade2b130f2017eb8"
+    "hash": "e4167d754dae305dd54800da73fce537"
   },
   {
     "file": "js/services/RegistrationSrv.js",
-    "hash": "00d3d52cb7f1a894a7d410a848149008"
+    "hash": "76104ac8a0eceeb8354775e4ae71adcd"
   },
   {
     "file": "js/services/TaxiSrv.js",
@@ -557,7 +557,7 @@
   },
   {
     "file": "js/services/TrackSrv.js",
-    "hash": "e94b8f1d900902e113790e321704e6d7"
+    "hash": "b395968aa3950cc4b8f3fff4f7eb7c02"
   },
   {
     "file": "js/services/TTSrv.js",

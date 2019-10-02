@@ -149,7 +149,7 @@ angular.module('viaggia.services.diaryDb', [])
     //all diary
     var getRemoteData = function (timestamp) {
       var deferred = $q.defer();
-      var url = Config.getServerURL() + '/diary'
+      var url = Config.getServerGamificationURL() + '/diary'
       if (timestamp) {
         url = url + '?from=' + timestamp + '&to=' + new Date().getTime();
       }
@@ -160,7 +160,7 @@ angular.module('viaggia.services.diaryDb', [])
               url: url,
               headers: {
                 'Authorization': 'Bearer ' + token,
-                'appId': Config.getAppId(),
+                'appId': Config.getAppGameId(),
               },
               timeout: Config.getHTTPConfig().timeout
             })
@@ -205,7 +205,7 @@ angular.module('viaggia.services.diaryDb', [])
     }
     //return url of diary
     var getDataURL = function () {
-      return Config.getServerURL() + '/diary/' + Config.getAppId();
+      return Config.getServerGamificationURL() + '/diary/' + Config.getAppGameId();
     }
 
 
@@ -245,7 +245,7 @@ angular.module('viaggia.services.diaryDb', [])
     }
 
     var syncStops = function () {
-      $http.get(Config.getServerURL() + '/versions')
+      $http.get(Config.getServerGamificationURL() + '/versions')
         .success(function (remoteversion) {
           syncStopsForVersions(remoteversion);
         })

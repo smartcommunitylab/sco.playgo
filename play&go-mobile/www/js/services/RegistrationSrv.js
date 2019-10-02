@@ -6,7 +6,7 @@ angular.module('viaggia.services.registration', [])
     registrationService.register = function (user) {
         var deferred = $q.defer();
         LoginService.getValidAACtoken().then(function (validToken) {
-            var urlReg = Config.getGamificationURL() + "/register?"+
+            var urlReg = Config.getServerGamificationURL() + "/gamificationweb/register?"+
                 "nickname=" + user.nickname +
                 "&email="+user.mail +
                 "&language=" + Config.getLang();
@@ -17,7 +17,7 @@ angular.module('viaggia.services.registration', [])
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                      'Authorization': 'Bearer ' + validToken,
-                    'appId': Config.getAppId()
+                    'appId': Config.getAppGameId()
                                 },
                 data: {
                     "nick_recommandation": user.nick_recommandation

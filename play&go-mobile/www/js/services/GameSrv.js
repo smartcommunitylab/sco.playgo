@@ -510,10 +510,10 @@ angular.module('viaggia.services.game', [])
         function (token) {
           $http({
               method: 'GET',
-              url: Config.getServerURL() + '/gamification/statistics/global/player',
+              url: Config.getServerGamificationURL() + '/gamification/statistics/global/player',
               headers: {
                 'Authorization': 'Bearer ' + token,
-                'appId': Config.getAppId(),
+                'appId': Config.getAppGameId(),
               },
               timeout: Config.getHTTPConfig().timeout
             })
@@ -542,10 +542,10 @@ angular.module('viaggia.services.game', [])
         function (token) {
           $http({
               method: 'GET',
-              url: Config.getServerURL() + '/gamification/statistics/player?granularity=' + how + '&from=' + from + '&to=' + to,
+              url: Config.getServerGamificationURL() + '/gamification/statistics/player?granularity=' + how + '&from=' + from + '&to=' + to,
               headers: {
                 'Authorization': 'Bearer ' + token,
-                'appId': Config.getAppId(),
+                'appId': Config.getAppGameId(),
               },
               timeout: Config.getHTTPConfig().timeout
             })
@@ -564,10 +564,10 @@ angular.module('viaggia.services.game', [])
       var deferred = $q.defer();
       $http({
           method: 'GET',
-          url: Config.getServerURL() + '/gamificationweb/challenges?filter=' + type,
+          url: Config.getServerGamificationURL() + '/gamificationweb/challenges?filter=' + type,
           headers: {
             'Authorization': 'Bearer ' + token,
-            'appId': Config.getAppId(),
+            'appId': Config.getAppGameId(),
           },
           timeout: Config.getHTTPConfig().timeout
         })
@@ -603,10 +603,10 @@ angular.module('viaggia.services.game', [])
         function (token) {
           $http({
               method: 'GET',
-              url: Config.getServerURL() + '/gamificationweb/challenge/type/' + userId,
+              url: Config.getServerGamificationURL() + '/gamificationweb/challenge/type/' + userId,
               headers: {
                 'Authorization': 'Bearer ' + token,
-                'appId': Config.getAppId(),
+                'appId': Config.getAppGameId(),
               },
               timeout: Config.getHTTPConfig().timeout
             })
@@ -666,10 +666,10 @@ angular.module('viaggia.services.game', [])
         function (token) {
           $http({
               method: 'PUT',
-              url: Config.getServerURL() + '/gamificationweb/challenge/unlock/' + type,
+              url: Config.getServerGamificationURL() + '/gamificationweb/challenge/unlock/' + type,
               headers: {
                 'Authorization': 'Bearer ' + token,
-                'appId': Config.getAppId(),
+                'appId': Config.getAppGameId(),
               },
               timeout: Config.getHTTPConfig().timeout
             })
@@ -695,10 +695,10 @@ angular.module('viaggia.services.game', [])
         function (token) {
           $http({
               method: 'GET',
-              url: Config.getServerURL() + '/gamificationweb/blacklist',
+              url: Config.getServerGamificationURL() + '/gamificationweb/blacklist',
               headers: {
                 'Authorization': 'Bearer ' + token,
-                'appId': Config.getAppId(),
+                'appId': Config.getAppGameId(),
               },
               timeout: Config.getHTTPConfig().timeout
             })
@@ -719,10 +719,10 @@ angular.module('viaggia.services.game', [])
         function (token) {
           $http({
               method: 'GET',
-              url: Config.getServerURL() + '/gamificationweb/blacklist',
+              url: Config.getServerGamificationURL() + '/gamificationweb/blacklist',
               headers: {
                 'Authorization': 'Bearer ' + token,
-                'appId': Config.getAppId(),
+                'appId': Config.getAppGameId(),
               },
               timeout: Config.getHTTPConfig().timeout
             })
@@ -744,10 +744,10 @@ angular.module('viaggia.services.game', [])
         function (token) {
           $http({
               method: 'DELETE',
-              url: Config.getServerURL() + '/gamificationweb/blacklist/' + id,
+              url: Config.getServerGamificationURL() + '/gamificationweb/blacklist/' + id,
               headers: {
                 'Authorization': 'Bearer ' + token,
-                'appId': Config.getAppId(),
+                'appId': Config.getAppGameId(),
               },
               timeout: Config.getHTTPConfig().timeout
             })
@@ -770,10 +770,10 @@ angular.module('viaggia.services.game', [])
         function (token) {
           $http({
               method: 'POST',
-              url: Config.getServerURL() + '/gamificationweb/blacklist/' + id,
+              url: Config.getServerGamificationURL() + '/gamificationweb/blacklist/' + id,
               headers: {
                 'Authorization': 'Bearer ' + token,
-                'appId': Config.getAppId(),
+                'appId': Config.getAppGameId(),
               },
               timeout: Config.getHTTPConfig().timeout
             })
@@ -801,10 +801,10 @@ angular.module('viaggia.services.game', [])
         function (token) {
           $http({
               method: 'PUT',
-              url: Config.getServerURL() + '/gamificationweb/challenge/choose/' + challenge.challId,
+              url: Config.getServerGamificationURL() + '/gamificationweb/challenge/choose/' + challenge.challId,
               headers: {
                 'Authorization': 'Bearer ' + token,
-                'appId': Config.getAppId(),
+                'appId': Config.getAppGameId(),
               },
               timeout: Config.getHTTPConfig().timeout
             })
@@ -824,10 +824,10 @@ angular.module('viaggia.services.game', [])
         function (token) {
           $http({
               method: 'POST',
-              url: Config.getServerURL() + '/gamificationweb/invitation/status/' + challenge.challId + '/accept',
+              url: Config.getServerGamificationURL() + '/gamificationweb/invitation/status/' + challenge.challId + '/accept',
               headers: {
                 'Authorization': 'Bearer ' + token,
-                'appId': Config.getAppId(),
+                'appId': Config.getAppGameId(),
               },
               timeout: Config.getHTTPConfig().timeout
             })
@@ -848,10 +848,10 @@ angular.module('viaggia.services.game', [])
         function (token) {
           $http({
               method: 'POST',
-              url: Config.getServerURL() + '/gamificationweb/invitation/status/' + challenge.challId + '/refuse',
+              url: Config.getServerGamificationURL() + '/gamificationweb/invitation/status/' + challenge.challId + '/refuse',
               headers: {
                 'Authorization': 'Bearer ' + token,
-                'appId': Config.getAppId(),
+                'appId': Config.getAppGameId(),
               },
               timeout: Config.getHTTPConfig().timeout
             })
@@ -877,10 +877,10 @@ angular.module('viaggia.services.game', [])
         function (token) {
           $http({
               method: 'POST',
-              url: Config.getServerURL() + '/gamificationweb/invitation/status/' + challenge.challId + '/cancel',
+              url: Config.getServerGamificationURL() + '/gamificationweb/invitation/status/' + challenge.challId + '/cancel',
               headers: {
                 'Authorization': 'Bearer ' + token,
-                'appId': Config.getAppId(),
+                'appId': Config.getAppGameId(),
               },
               timeout: Config.getHTTPConfig().timeout
             })
@@ -901,10 +901,10 @@ angular.module('viaggia.services.game', [])
         function (token) {
           $http({
               method: 'GET',
-              url: Config.getServerURL() + '/gamificationweb/challenges/rewards',
+              url: Config.getServerGamificationURL() + '/gamificationweb/challenges/rewards',
               headers: {
                 'Authorization': 'Bearer ' + token,
-                'appId': Config.getAppId(),
+                'appId': Config.getAppGameId(),
               },
               timeout: Config.getHTTPConfig().timeout
             })
@@ -924,10 +924,10 @@ angular.module('viaggia.services.game', [])
         function (token) {
           $http({
               method: 'GET',
-              url: Config.getServerURL() + '/gamificationweb/challenges/rewards',
+              url: Config.getServerGamificationURL() + '/gamificationweb/challenges/rewards',
               headers: {
                 'Authorization': 'Bearer ' + token,
-                'appId': Config.getAppId(),
+                'appId': Config.getAppGameId(),
               },
               timeout: Config.getHTTPConfig().timeout
             })
@@ -952,10 +952,10 @@ angular.module('viaggia.services.game', [])
         function (token) {
           $http({
               method: 'GET',
-              url: Config.getServerURL() + '/gamificationweb/challengables',
+              url: Config.getServerGamificationURL() + '/gamificationweb/challengables',
               headers: {
                 'Authorization': 'Bearer ' + token,
-                'appId': Config.getAppId(),
+                'appId': Config.getAppGameId(),
               },
               timeout: Config.getHTTPConfig().timeout
             })
@@ -981,10 +981,10 @@ angular.module('viaggia.services.game', [])
 
           $http({
               method: 'POST',
-              url: Config.getServerURL() + '/gamificationweb/invitation/preview',
+              url: Config.getServerGamificationURL() + '/gamificationweb/invitation/preview',
               headers: {
                 'Authorization': 'Bearer ' + token,
-                'appId': Config.getAppId(),
+                'appId': Config.getAppGameId(),
               },
               data: dataChallenge,
               timeout: Config.getHTTPConfig().timeout
@@ -1010,10 +1010,10 @@ angular.module('viaggia.services.game', [])
         function (token) {
           $http({
               method: 'POST',
-              url: Config.getServerURL() + '/gamificationweb/invitation',
+              url: Config.getServerGamificationURL() + '/gamificationweb/invitation',
               headers: {
                 'Authorization': 'Bearer ' + token,
-                'appId': Config.getAppId(),
+                'appId': Config.getAppGameId(),
               },
               data: dataChallenge,
               timeout: Config.getHTTPConfig().timeout
@@ -1096,10 +1096,10 @@ angular.module('viaggia.services.game', [])
         function (token) {
           $http({
               method: 'GET',
-              url: Config.getGamificationURL() + '/status',
+              url: Config.getServerGamificationURL() + '/gamificationweb/status',
               headers: {
                 'Authorization': 'Bearer ' + token,
-                'appId': Config.getAppId(),
+                'appId': Config.getAppGameId(),
               },
               timeout: Config.getHTTPConfig().timeout
             })
@@ -1214,11 +1214,11 @@ angular.module('viaggia.services.game', [])
 
           $http({
               method: 'GET',
-              url: Config.getGamificationURL() + '/classification',
+              url: Config.getServerGamificationURL() + '/gamificationweb/classification',
               params: config.params,
               headers: {
                 'Authorization': 'Bearer ' + token,
-                'appId': Config.getAppId(),
+                'appId': Config.getAppGameId(),
               },
               timeout: Config.getHTTPConfig().timeout
             })
@@ -1240,11 +1240,14 @@ angular.module('viaggia.services.game', [])
     gameService.validUserForGamification = function (profile) {
       var deferred = $q.defer();
       //check if user (profile.userId) is valid or not
-      var url = Config.getGamificationURL() + "/checkuser/" + profile.userId;
+      var url = Config.getServerGamificationURL() + "/gamificationweb/checkuser/" + profile.userId;
       $http({
         method: 'GET',
         url: url,
-        timeout: Config.getHTTPConfig().timeout
+        timeout: Config.getHTTPConfig().timeout,
+        headers: {
+          'appId': Config.getAppGameId(),
+        },
       }).then(
         function (response) {
           if (!response.data.registered) {
@@ -1275,7 +1278,7 @@ angular.module('viaggia.services.game', [])
             url: Config.getGamificationURL() + "/status/other/" + profileId,
             headers: {
               'Authorization': 'Bearer ' + token,
-              'appId': Config.getAppId(),
+              'appId': Config.getAppGameId(),
             },
             timeout: Config.getHTTPConfig().timeout
           }).then(

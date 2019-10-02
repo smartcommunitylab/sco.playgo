@@ -73,25 +73,25 @@ angular.module('viaggia.services.tracking', [])
       info.appVersion = appVersion();
       var url = "";
       if (transportType) {
-        url = (Config.getServerURL() + '/gamification/freetracking/' + transportType + '/' + tripId);
+        url = (Config.getServerGamificationURL() + '/gamification/freetracking/' + transportType + '/' + tripId);
       } else if (tripId.indexOf("temporary") == -1) {
-        url = (Config.getServerURL() + '/gamification/journey/' + tripId);
+        url = (Config.getServerGamificationURL() + '/gamification/journey/' + tripId);
         trip = {};
       } else {
-        url = (Config.getServerURL() + '/gamification/temporary')
+        url = (Config.getServerGamificationURL() + '/gamification/temporary')
       }
       $http({
         method: 'PUT',
         url: url,
         data: {
           clientId: tripId,
-          appId: Config.getAppId(),
+          appId: Config.getAppGameId(),
           userId: LoginService.getUserProfile().userId,
           data: trip
         },
         headers: {
           'Authorization': 'Bearer ' + token,
-          'appId': Config.getAppId(),
+          'appId': Config.getAppGameId(),
           'deviceInfo': JSON.stringify(info)
         },
         timeout: Config.getHTTPConfig().timeout

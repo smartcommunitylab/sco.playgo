@@ -624,17 +624,17 @@ angular.module('viaggia.controllers.common', [])
     var changePrifileImage = function () {
       if (profileService.getProfileStatus())
         profileService.getProfileImage(profileService.getProfileStatus().playerData.playerId).then(function (image) {
-          $rootScope.profileImg = profileService.getAvatarUrl() + profileService.getProfileStatus().playerData.playerId + '/big?' + (localStorage.getItem(Config.getAppId() + '_timestampImg'));
+          $rootScope.profileImg = profileService.getAvatarUrl() + profileService.getProfileStatus().playerData.playerId + '/big?' + (localStorage.getItem(Config.getAppGameId() + '_timestampImg'));
           // $scope.refreshProfileImage();
         }, function (error) {
           $rootScope.profileImg = 'img/game/generic_user.png' + '/big?' + (localStorage.getItem(Config.getAppId() + '_timestampImg'));
         })
     }
     $scope.getUserImgBig = function (id) {
-      return Config.getServerURL() + '/gamificationweb/player/avatar/' + Config.getAppId() + '/' + id + '/big';
+      return Config.getServerGamificationURL() + '/gamificationweb/player/avatar/' + Config.getAppGameId() + '/' + id + '/big';
     }
     $scope.getUserImg = function (id) {
-      return Config.getServerURL() + '/gamificationweb/player/avatar/' + Config.getAppId() + '/' + id
+      return Config.getServerGamificationURL() + '/gamificationweb/player/avatar/' + Config.getAppGameId() + '/' + id
     }
     $scope.uploadFileImage = function (files) {
       Config.loading();

@@ -26,7 +26,7 @@ angular.module('viaggia.services.conf', [])
         var PARKING_METERS_RADIUS = '5';
         var PARKING_METERS_MAX_NUMBER = 5;
         var HTTP_CONFIG = {
-            timeout: 10000
+            timeout: 30000
         };
         var CACHE_REFRESH = 60000;
         var TRACKING_MINIMUM_DISTANCE = 250;
@@ -273,6 +273,9 @@ angular.module('viaggia.services.conf', [])
             getServerURL: function () {
                 return mapJsonConfig['serverURL'];
             },
+            getServerGamificationURL:function() {
+                return mapJsonConfig['serverGamificationURL'];
+            },
             getMetroparcoServerURL: function () {
                 return mapJsonConfig['metroparco'];
             },
@@ -355,6 +358,9 @@ angular.module('viaggia.services.conf', [])
 
             getAppId: function () {
                 return mapJsonConfig["appid"];
+            },
+            getAppGameId: function () {
+                return mapJsonConfig["appGameId"];
             },
             getDaysRec: function () {
                 return DAYS_REC;
