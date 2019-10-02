@@ -17,7 +17,7 @@
   },
   {
     "file": "data/config.json",
-    "hash": "cd9fe5fb80c4769e3220125b92535756"
+    "hash": "be9f0c99599726f3040c9533ac78c93d"
   },
   {
     "file": "data/game/ranking.json",
@@ -501,7 +501,7 @@
   },
   {
     "file": "js/services/ConfigSrv.js",
-    "hash": "96c1b4f598e3fe969f5ff129f609d7c8"
+    "hash": "08b485e7a94247edfb7e67e630f332b7"
   },
   {
     "file": "js/services/DataSrv.js",
@@ -537,7 +537,7 @@
   },
   {
     "file": "js/services/NotificationSrv.js",
-    "hash": "e5db625f3b8a2c884163201f9c80ba37"
+    "hash": "10981f9f83ada9a0e4413e4a9a81da8f"
   },
   {
     "file": "js/services/PlanSrv.js",
