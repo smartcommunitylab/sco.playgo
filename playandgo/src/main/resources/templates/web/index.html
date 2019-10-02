@@ -1,0 +1,211 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.thymeleaf.org"
+	th:with="lang=${#locale.language}" th:lang="${lang}">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Viaggia Play&amp;Go</title>
+
+<!-- Bootstrap core CSS -->
+<link href="../css/bootstrap.min.css" rel="stylesheet" />
+<!-- Custom styles for this template -->
+<link href="../css/gg_style.css" rel="stylesheet" />
+
+<!-- required libraries -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="../lib/bootstrap.min.js"></script>
+
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+      var cookieEnabled = (navigator.cookieEnabled) ? true : false; 
+      if (typeof navigator.cookieEnabled == "undefined" && !cookieEnabled)
+      { 
+        document.cookie="testcookie";
+        cookieEnabled = (document.cookie.indexOf("testcookie") != -1) ? true : false;
+      }
+      function setLang(lang){
+    	  window.location.search = '?lang='+lang;
+      }
+      /*]]>*/
+    </script>
+</head>
+
+<body>
+	<div id="myBody">
+		<div id="my-big-menu" class="navbar navbar-default navbar-fixed-top"
+			role="navigation">
+			<div class="container">
+				<div class="row" align="center">
+					<div class="col-md-8 col-md-offset-2">
+						<div class="collapse navbar-collapse">
+							<ul class="nav navbar-nav">
+								<li><a> <img height="22" src="../img/foglia.svg"/> </a></li>
+
+								<li th:class="${view == 'prizes' ? 'active' :''}"><a th:href="|./prizes?lang=${lang}|"  th:text="#{web.prizes}">Premi</a></li>
+								<li th:class="${view == 'rules' ? 'active' :''}"><a th:href="|./rules?lang=${lang}|"  th:text="#{web.rules}">Regole</a></li>
+								<li th:class="${view == 'privacy' ? 'active' :''}"><a th:href="|./privacy?lang=${lang}|"  th:text="#{web.privacy}">Privacy</a></li>
+                <li th:class="${view == 'faq' ? 'active' :''}"><a th:href="|./faq?lang=${lang}|"  th:text="#{web.faq}">FAQ</a></li>
+
+							</ul>
+							<ul class="nav navbar-nav navbar-right">
+							  <li th:class="${lang == 'it' ? 'active' :''}"><a href="#" onclick="setLang('it')">IT</a></li>
+								<li th:class="${lang == 'en' ? 'active' :''}"><a href="#" onclick="setLang('en')">EN</a></li>
+							</ul>
+						</div>
+						<!-- /.nav-collapse -->
+					</div>
+				</div>
+			</div>
+			<!-- /.container -->
+		</div>
+		<!-- /.navbar -->
+    <div id="my-small-menu" class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+          <div class="navbar-header"> 
+            <ul class="nav navbar-nav">
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" >
+                      <img height="22" src="../img/navMobile.svg"/>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+			                <li th:class="${view == 'prizes' ? 'active' :''}"><a href="./prizes"  th:text="#{web.prizes}">Premi</a></li>
+			                <li th:class="${view == 'rules' ? 'active' :''}"><a href="./rules"  th:text="#{web.rules}">Regole</a></li>
+			                <li th:class="${view == 'privacy' ? 'active' :''}"><a href="./privacy"  th:text="#{web.privacy}">Privacy</a></li>
+                      <li th:class="${view == 'faq' ? 'active' :''}"><a href="./faq"  th:text="#{web.faq}">FAQ</a></li>
+                    
+			                <li class="divider"></li>
+			                <li th:class="${lang == 'it' ? 'active' :''}"><a href="#" onclick="setLang('it')">IT</a></li>
+			                <li th:class="${lang == 'en' ? 'active' :''}"><a href="#" onclick="setLang('en')">EN</a></li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+               </ul>
+          </div>
+        </div>
+      </div>
+      </div><!-- /.container -->
+    </div><!-- /.navbar -->
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2 nopadding">
+					<div class="panel panel-default homepanel">
+						<div class="panel-body nopadding">
+							<div class="view_body_wrapper">
+							
+							<!-- PREMI -->
+							 <div th:if="${view == 'prizes'}">
+						      <div class="row">
+						        <div class="col-xs-12">
+						          <div id="my-rules-head-title" align="center">
+						            <span th:text="#{web.prizes.left_menu}">PREMI</span>
+						          </div>
+						          <div class="panel panel-success-trasparent" align="justify" th:if="${weeklyPrizes != null}">
+						             <div class="panel-body">
+						            <h4 th:text="#{web.prizes.week_prize_title}">Premi settimanali</h4>
+						            <div align="justify">
+						              <span th:text="#{web.prizes.week_prize_text(${week})}">I premi della X^a settimana sono:</span><br/>
+						              <ul>
+						                <li th:each="prize : ${weeklyPrizes}"><b th:text="${prize.prize}">prize</b>: <span th:text="${prize.target}">classification</span>;</li>
+						              </ul>
+						            </div>
+						             </div>   
+						          </div>
+						          <div class="panel panel-success-trasparent" align="justify">
+						             <div class="panel-body">
+						            <h4  th:text="#{web.prizes.global_prize_title}" ></h4>
+						            <div align="justify" th:utext="#{web.prizes.global_prize_text}">
+						            </div>
+						             </div>   
+						          </div>  
+						        </div>
+						      </div>
+						    </div>
+              <!-- REGOLE -->
+               <div th:if="${view == 'rules'}">
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <div id="my-rules-head-title" align="center">
+                        <span th:text="#{web.rules.left_menu}">PREMI</span>
+                      </div>
+                      <div class="panel panel-success-trasparent" align="justify">
+                         <div class="panel-body">
+	                        <h4  th:text="#{web.rules.title1}" ></h4>
+	                        <div align="justify" th:utext="#{web.rules.text1}">
+	                        </div>
+                          <h4  th:text="#{web.rules.title2}" ></h4>
+                          <div align="justify" th:utext="#{web.rules.text2}">
+                          </div>
+                          <h4  th:text="#{web.rules.title3}" ></h4>
+                          <div align="justify">
+                            <span  th:utext="#{web.rules.text3}"></span>
+                          </div>
+                         </div>   
+                      </div>  
+                    </div>
+                  </div>
+               </div>
+                							
+              <!-- PRIVACY -->
+               <div th:if="${view == 'privacy'}">
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <div id="my-rules-head-title" align="center">
+                        <span th:text="#{web.privacy.left_menu}">PRIVACY</span>
+                      </div>
+                      <div class="panel panel-success-trasparent" align="justify">
+                         <div class="panel-body">
+                          <h4  th:text="#{web.privacy.title1}" ></h4>
+                          <div align="justify">
+                            <span  th:utext="#{web.privacy.text1}"></span>
+                          </div>
+                         </div>   
+                      </div>  
+                    </div>
+                  </div>
+               </div>
+
+              <!-- FAQ -->
+               <div th:if="${view == 'faq'}">
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <div id="my-rules-head-title" align="center">
+                        <span th:text="#{web.faq.left_menu}">FAQ</span>
+                      </div>
+                      <div class="panel panel-success-trasparent" align="justify">
+                         <div class="panel-body">
+                          <h4  th:text="#{web.faq.title1}" ></h4>
+                          <div align="justify">
+                            <span  th:utext="#{web.faq.text1}"></span>
+                          </div>
+                          <h4  th:text="#{web.faq.title2}" ></h4>
+                          <div align="justify">
+                            <span  th:utext="#{web.faq.text2}"></span>
+                          </div>                          
+                         </div>   
+                      </div>  
+                    </div>
+                  </div>
+               </div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+  <script src="../js/cookiechoices.js"></script>
+	<script>
+  document.addEventListener('DOMContentLoaded', function(event) {
+    cookieChoices.showCookieConsentBar("I cookie ci aiutano ad erogare servizi di qualita'. Utilizzando i nostri servizi, l'utente accetta le nostre modalita' d'uso dei cookie.",
+      'OK', 'MAGGIORI INFORMAZIONI', 'cookie_licence');
+  });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+{
+	"tooltip-Avanzata" : {
+		"text" : "Abilita/disabilita la modalita avanzata, che permette di modificare direttamente il codice generato.",
+		"url" : "http://localhost"
+	},
+	"tooltip-Nome" : {
+		"text" : "Nome della regola.",
+		"url" : "http://localhost"
+	},
+	"tooltip-Condizione" : {
+		"text" : "Condizione che la richiesta originale deve soddisfare.<br />Esempi:<br /><p><i>ttype == TType.CAR</i></p><p><i>ttype == TType.TRANSIT || ttype == TType.BUS || ttype == TType.TRAIN </i></p>",
+		"url" : "http://localhost"
+	},
+		"tooltip-Accessibili" : {
+		"text" : "Itinerari accessibili dai portatori di handicap.",
+		"url" : "http://localhost"
+	},
+		"tooltip-Ttype" : {
+		"text" : "Mezzo(i) di trasporto usato(i) durante l'itinerario (autobus, a piedi...).",
+		"url" : "http://localhost"
+	},
+		"tooltip-Rtype" : {
+		"text" : "Tipo di viaggio (più veloce, con meno cambi...).",
+		"url" : "http://localhost"
+	},
+		"tooltip-NRisultati" : {
+		"text" : "Numero di risultati che si vuole ottenere.",
+		"url" : "http://localhost"
+	},
+		"tooltip-MaxWalkDistance" : {
+		"text" : "Massima distanza a piedi (in metri) di un singolo tratto di itinerario.",
+		"url" : "http://localhost"
+	},
+		"tooltip-MaxTotalWalkDistance" : {
+		"text" : "Massima distanza a piedi (in metri) di tutto un itinerario.",
+		"url" : "http://localhost"
+	},
+		"tooltip-MaxChanges" : {
+		"text" : "Numero massimo di cambio di mezzi di trasporto.",
+		"url" : "http://localhost"
+	},
+		"tooltip-ExtraTransport" : {
+		"text" : "Mezzo di trasporto utilizzabile una volta parcheggiata l'automobile/bicicletta per lasciare il parcheggio.",
+		"url" : "http://localhost"
+	},
+		"tooltip-Sostenibili" : {
+		"text" : "Considera gli itinerari come sostenibili.",
+		"url" : "http://localhost"
+	},
+		"tooltip-Gruppo" : {
+		"text" : "Associa l'insieme di risultati ad un gruppo.",
+		"url" : "http://localhost"
+	},
+		"tooltip-NomeGruppo" : {
+		"text" : "Nome del gruppo.",
+		"url" : "http://localhost"
+	},	
+		"tooltip-NRisultatiGruppo" : {
+		"text" : "Numero di risultati da mantenere del gruppo.",
+		"url" : "http://localhost"
+	},	
+		"tooltip-OrdinaGruppo" : {
+		"text" : "Criterio per la scelta dei migliori elementi del gruppo (più veloce, con meno cambi...).",
+		"url" : "http://localhost"
+	}
+}

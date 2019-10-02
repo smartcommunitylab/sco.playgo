@@ -1,0 +1,281 @@
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-bottom: 60px;
+}
+/*
+ * Sidebar
+ */
+
+/* Hide for mobile, show later */
+.sidebar {
+  display: none;
+}
+@media (min-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: #f5f5f5;
+    border-right: 1px solid #eee;
+  }
+}
+
+/* Sidebar navigation */
+.nav-sidebar {
+  margin-right: -21px; /* 20px padding + 1px border */
+  margin-bottom: 20px;
+  margin-left: -20px;
+}
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+  color: #fff;
+  background-color: #428bca;
+}
+
+
+/*
+ * Main content
+ */
+
+.main {
+  padding: 20px;
+}
+@media (min-width: 768px) {
+  .main {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}
+.main .page-header {
+  margin-top: 0;
+}
+
+.nav, .pagination, .carousel, .panel-title a { 
+  cursor: pointer; 
+}
+
+#map {
+    height:470px;
+}
+
+.checkbox-condensed {
+  display: block;
+  position: relative;
+  min-height: 20px;
+  margin-top: 0px;
+  margin-bottom: 5px;
+}
+
+.progress {
+    margin-bottom: 0px;
+}
+
+.labels {
+     color: white;
+     background-color: red;
+     font-family: "Lucida Grande", "Arial", sans-serif;
+     font-size: 10px;
+     text-align: center;
+     width: 10px;     
+     white-space: nowrap;
+   }
+   
+.gly-spin {
+  -webkit-animation: spin 2s infinite linear;
+  -moz-animation: spin 2s infinite linear;
+  -o-animation: spin 2s infinite linear;
+  animation: spin 2s infinite linear;
+}
+@-moz-keyframes spin {
+  0% {
+    -moz-transform: rotate(0deg);
+  }
+  100% {
+    -moz-transform: rotate(359deg);
+  }
+}
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+  }
+}
+@-o-keyframes spin {
+  0% {
+    -o-transform: rotate(0deg);
+  }
+  100% {
+    -o-transform: rotate(359deg);
+  }
+}
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+.gly-rotate-90 {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+.gly-rotate-180 {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+.gly-rotate-270 {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+  -webkit-transform: rotate(270deg);
+  -moz-transform: rotate(270deg);
+  -ms-transform: rotate(270deg);
+  -o-transform: rotate(270deg);
+  transform: rotate(270deg);
+}
+.gly-flip-horizontal {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1);
+  -webkit-transform: scale(-1, 1);
+  -moz-transform: scale(-1, 1);
+  -ms-transform: scale(-1, 1);
+  -o-transform: scale(-1, 1);
+  transform: scale(-1, 1);
+}
+.gly-flip-vertical {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);
+  -webkit-transform: scale(1, -1);
+  -moz-transform: scale(1, -1);
+  -ms-transform: scale(1, -1);
+  -o-transform: scale(1, -1);
+  transform: scale(1, -1);
+}
+
+.tt {
+	margin-bottom: 0px !important;
+	padding: 0px !important;
+	border: 0px !important;
+	background-color: transparent !important;
+}
+
+.itinerary-selected {
+  border: 1px solid black;
+}
+
+.green-header {
+	background-color: #009933;
+	color: white;
+	padding: 5px;
+}
+
+.leg {
+	min-height: 40px;
+	border-bottom: 1px solid #eee;
+  border-top: 1px solid #eee;
+}
+
+.inter-leg > p {
+	margin-bottom: 4px !important;
+  margin-top: 4px !important;
+}
+
+.end-leg {
+/*	min-height: 40px;
+	padding-bottom:5px;*/
+}
+
+.end-leg > img {
+/*	position: absolute;
+	bottom: 5px;*/
+}
+
+
+.loading {
+	font-size: 28px !important;
+	margin: 8px;
+}
+
+.loading > span {
+	padding: 4px;
+}
+
+.modal-sm > div {
+	display: inline-block;
+}
+
+.popover {
+	max-width: 500px !important;
+}
+
+.notification-ok {
+	color : LimeGreen;
+	font-weight : bold;
+}
+.notification-error {
+	color : Red;
+	font-weight : bold;
+}
+
+.btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus {
+    outline: 0;
+}
+
+
+/* tab color */
+.nav-tabs>li>a {
+  color:#000000;
+}
+
+/* active tab color */
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+  color: #000000;
+  border: 1px solid #888888;
+  background-color: #FFFFFF;
+}
+
+/* hover tab color */
+.nav-tabs>li>a:hover {
+  border-color: #DDDDDD;
+  border: 1px solid #DDDDDD;
+  background-color: #FFFFFF;
+}
+
+.bootbox {
+  position:absolute;
+  top:33% !important;
+}
+
+.incomplete {
+  color: #999999
+}
+
+.tooltip-wide + .tooltip > .tooltip-inner {
+    width: 320px;
+}
+
+/*
+.tab-pane {
+	border:solid 1px #888888;
+}
+*/

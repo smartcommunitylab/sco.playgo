@@ -1,0 +1,17 @@
+/target
+/.settings
+/.classpath
+/.project
+/.metadata/*
+RemoteSystemsTempFiles/*
+.tern-project
+/tmp/
+/.springBeans
+/db/
+/~/
+
+src/main/resources/application.yml
+
+src/main/resources/apps-info.yml
+
+src/main/resources/games-info.yml

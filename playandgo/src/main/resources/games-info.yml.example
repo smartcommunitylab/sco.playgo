@@ -1,0 +1,9 @@
+games:
+  - id: 
+    user: 
+    password: 
+    start: 25/08/2014
+    areas:
+      - !circle
+        center: [46.066945, 11.121524]
+        radius: 75

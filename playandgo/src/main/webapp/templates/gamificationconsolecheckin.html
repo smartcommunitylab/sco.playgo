@@ -1,0 +1,53 @@
+  <div id="console" class="console" >
+     <div class="container">
+     
+     <div class="form-group">
+     <select class="form-control" ng-model="event" ng-change="changeEvent()">
+		  <option ng-repeat="e in events" ng-value="e">{{e}}</option>
+		</select>
+		</div>
+     
+     <div class="form-group">
+     <input class="form-control" type="text" id="filter" ng-model="filter.nickname" placeholder="Filter by nickname"/>
+    </div>
+     
+     <table class="table">
+       <thead>
+         <tr>
+           <th>ID</th>
+           <th>Nickname</th>
+           <!-- <th>Email</th>
+           <th>Name</th> -->
+           <th>Check In</th>
+         </tr>
+       </thead>
+       <tbody>
+         <tr ng-repeat="u in users | filter:filter">
+           <td>{{u.id}}</td>
+           <td>{{u.nickname}}</td>
+           <!-- <td>{{u.mail}}</td
+           ><td>{{u.name}} {{u.surname}}</td> -->
+           <td class="text-right"><button ng-if="!u.checkedIn" ng-click="checkIn(u)">Check in</button></td>
+         </tr>
+       </tbody>
+     </table> 
+     </div>
+  </div>
+    <div id="confirmModalCheckin" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Confirm checkin for user {{currentPlayer.nickname}} ({{currentPlayer.id}}) at {{event}} ?</h4>
+          </div>
+          <div class="modal-body">
+            <form id="notification-form">
+              <div class="form-group">
+                <button class="btn btn-primary" type="button" ng-click="doCheckIn()" data-dismiss="modal">Yes</button>
+                <button class="btn btn-primary right" type="button" data-dismiss="modal">No</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  

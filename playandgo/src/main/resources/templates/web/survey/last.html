@@ -1,0 +1,92 @@
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.thymeleaf.org"
+  th:with="lang=${#locale.language}" th:lang="${lang}">
+<head lang="it">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title th:text="#{surveylast.title}">Play&amp;Go - Ultimo Questionario</title>
+<link href="../../../../css/bootstrap.min.css" rel="stylesheet" />
+<link href="../../../../css/bootstrap-theme.min.css" rel="stylesheet" />
+<link href="../../../../css/gg_style.css" rel="stylesheet" />
+<style type="text/css">
+  textarea {
+    width: 100%;
+    border: 1px solid #ddd;
+  }
+</style>
+<!-- required libraries -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="../../../../lib/bootstrap.min.js"></script>
+</head>
+<body>
+  <div class="container">
+  <h3 th:text="#{surveylast.head}" style="text-align:center;">Questionario Finale Play&amp;Go</h3>
+  <p th:utext="#{surveylast.message}"></p>
+  <form id="form" role="form" name="form" method="POST" class="" style="max-width: 600px;">
+     
+    <div class="form-group">
+      <label for="q1" th:text="#{surveylast.q1}"></label>
+    </div>
+    <br/>
+    
+    <div class="form-group" th:each="i : ${#numbers.sequence( 1, 14)}">
+      <label th:text="#{${'surveylast.q1'+i}}"></label>
+      <div>
+        <small th:text="#{surveylast.q1.1}"></small>  
+        <small class="pull-right" th:text="#{surveylast.q1.2}"></small>            
+      </div>  
+      <div class="text-center">
+        <label class="radio-inline"><input type="radio" th:attr="name=${'q1'+i}, id=${'q1'+i+'1'}" value="1" />&nbsp;</label>      
+        <label class="radio-inline"><input type="radio" th:attr="name=${'q1'+i}, id=${'q1'+i+'2'}"  value="2" />&nbsp;</label>      
+        <label class="radio-inline"><input type="radio" th:attr="name=${'q1'+i}, id=${'q1'+i+'3'}"  value="3" />&nbsp;</label>      
+        <label class="radio-inline"><input type="radio" th:attr="name=${'q1'+i}, id=${'q1'+i+'4'}"  value="4" />&nbsp;</label>      
+        <label class="radio-inline"><input type="radio" th:attr="name=${'q1'+i}, id=${'q1'+i+'5'}"  value="5" />&nbsp;</label>      
+        <label class="radio-inline"><input type="radio" th:attr="name=${'q1'+i}, id=${'q1'+i+'6'}"  value="6" />&nbsp;</label>
+        <label class="radio-inline"><input type="radio" th:attr="name=${'q1'+i}, id=${'q1'+i+'7'}"  value="7" />&nbsp;</label>
+      </div>
+    </div> 
+
+
+    <div class="form-group"><i th:text="#{survey.required}"></i></div>
+    
+    <div class="form-group">
+      <button id="send" type="button" class="btn btn-primary" th:text="#{survey.submit}" >Submit</button>
+    </div> 
+     
+  </form>
+  </div>
+
+
+<script>
+/*<![CDATA[*/
+ 
+  $('#send').click(function() {
+    if (!checkData()) {
+      $('form').submit();     
+    }
+  });
+  
+  function checkSelections(from, to) {
+	  var res = false;
+	  for (var i = from; i <= to; i++) {
+		  res = res || !$("input[name='q1"+i+"']:checked").val()
+	  }
+	  return res;
+  }
+  
+  function checkData() {
+	  var disabled = false;
+    if (checkSelections(1,14)
+    ) {
+        disabled = true;
+    }
+    $('#send').prop('disabled', disabled);
+    return disabled;
+  }
+  $('input').change(checkData);
+  checkData();
+/*]]>*/
+</script>
+</body>
+</html>

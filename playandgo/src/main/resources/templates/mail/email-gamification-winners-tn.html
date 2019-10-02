@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+<!--     	<link href="../../webapp/css/bootstrap.css" rel="stylesheet" /> -->
+<!-- 		<link href="../../webapp/css/bootstrap-theme.min.css" rel="stylesheet" /> -->
+        <title th:remove="all">Play&amp;Go Premiazione</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+    	<div class="container-fluid">
+    		<div class="row" style="width:700px">
+    			<div class="col-md-6" >
+				    <div style="margin: 50px 5px 5px 5px" align="center">
+				    	<table style="padding: 20px;">
+				    		<tr>
+				    			<td valign="middle" align="center">
+				    				<img src="img/foglie03.png" th:src="'cid:' + ${imageRNFoglie03}" width="60px" alt="" title="" />
+				    			</td>
+				    			<td rowspan="2" valign="middle" align="center">
+									<h1>
+										<font face="Raleway-bold" size="48" color="gray"><strong>Play&amp;Go</strong></font>
+									</h1>
+									<h2>
+										<font face="Raleway">con ViaggiaTrento</font>
+									</h2>
+								</td>
+				    			<td></td>
+				    		</tr>
+				    		<tr>
+				    			<td></td>		
+								<td valign="middle" align="center">
+									<img src="img/foglie04.png" th:src="'cid:' + ${imageRNFoglie04}" width="60px" alt="" title="" />
+				    			</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+	    	</div>
+	    	<div class="row" style="width:700px">
+	    		<div class="col-md-6 col-md-offset-1">
+			        <!-- <h3 th:text="#{greeting(${name})}">
+			            Caro Utente,
+			        </h3>
+			        <h3>
+			        	stiamo per entrare nella <strong th:text="${next_week_num}">X+1</strong>^a settimana di gioco.<br/>
+			        	Nel seguito le sfide di questa settimana e i tuoi risultati recenti.
+			        </h3>
+			        <div th:if="${n_challenges ne null}">
+				        <h3 th:text="#{week_desc(${next_week_theme})}">
+				            Questa sar&agrave; la settimana DELLA BICI
+				        </h3>
+				        <h3 th:if="${are_challenges}">
+				            Ecco le tue CHALLENGE per questa settimana, mettiti alla prova per superarle:
+				        </h3>
+				        <table th:if="${n_challenges ne null}">
+						    <tr th:each="ch : ${n_challenges}">
+						        <td><font size="2"><strong>CH<span th:text="${ch.challId}">id</span></strong></font></td>
+						       	<td><font size="2"><strong> - <span th:text="${ch.challDesc}">Descrizione challenge</span></strong></font></td>
+						    </tr>
+					    </table>
+			        </div>
+			        <div th:if="${n_prizes ne null and are_prizes}">
+				        <h3>
+				            I premi in palio per la <strong th:text="${next_week_num}">X+1</strong>^a settimana sono i seguenti:
+				        </h3>
+				        <table th:if="${n_prizes ne null}" width="85%">
+				        	<tr align="left">
+				        		<th width="25%">Premio</th>
+				        		<th width="50%">Traguardo</th>
+				        		<th width="25%">Offerto da</th>
+				        	</tr>
+						    <tr th:each="p : ${n_prizes}">
+						        <td><font size="2" ><strong> - <span th:text="${p.prize}">tessera mitt</span></strong></font></td>
+						        <td><font size="2" ><span th:text="${p.target}">primo posto green point</span></font></td>
+						       	<td><font size="2" ><span th:text="${p.sponsor}">AMR</span></font></td>
+						    </tr>
+					    </table>
+			        </div>
+			        <br/>
+			        <h3>
+				    	Risultati della <strong th:text="${week_num}">X</strong>^a settimana di gioco
+				    </h3> -->
+<!-- 			        <div> -->
+<!-- 				        <h3> -->
+<!-- 				        	VINCITORI DELLA SCORSA SETTIMANA -->
+<!-- 				        </h3> -->
+<!-- 				        <h3> -->
+<!-- 				        	Complimenti ai vincitori dei premi della scorsa settimana: -->
+<!-- 				        </h3> -->
+<!-- 				        <table th:if="${n_winners ne null}" width="95%"> -->
+<!-- 				        	<tr align="left"> -->
+<!-- 				        		<th width="20%">Giocatore</th> -->
+<!-- 				        		<th width="25%">Premio</th> -->
+<!-- 				        		<th width="55%">Traguardo</th> -->
+<!-- 				        	</tr> -->
+<!-- 						    <tr th:each="w : ${n_winners}"> -->
+<!-- 						        <td><font size="2" > - <strong th:text="${w.nickPlayer}">Nick giocatore</strong></font></td> -->
+<!-- 						        <td><font size="2" ><span th:text="${w.prizesDesc}">1 ingresso al MART</span></font></td> -->
+<!-- 						       	<td><font size="2" ><span th:text="${w.prizesTarget}">Primo posto green leaves</span></font></td> -->
+<!-- 						    </tr> -->
+<!-- 					    </table> -->
+<!-- 			        </div> -->
+<!-- 			        <h3> -->
+<!-- 			        	IL TUO STATO DI GIOCO -->
+<!-- 			        </h3> -->
+			        <h3 th:text="#{greeting(${name})}">
+			            Gentile Utente,
+			        </h3>
+			        <!-- <p style="font-size: 1.17em">
+			        	le sfide stanno ormai per concludersi, ti rimane ancora qualche giorno per raccogliere gli ultimi punti!
+			        </p>
+			        <p style="font-size: 1.17em">
+			        	Se non lo hai gia' fatto contribuisci a migliorare Play&amp;Go compilando il <b>QUESTIONARIO</b> che trovi cliccando  <u><b><a href="https://tn.smartcommunitylab.it/gamificationweb" th:href="${surveyLink}" target="_blank">QUI</a></b></u>. 
+			        	Per ringraziarti del tuo feedback ti verranno assegnati <span th:style="'color: green'"><b>350 PUNTI GREEN LEAVES</b></span>.
+			        </p> -->
+			        <p style="font-size: 1.17em">
+			        	ti ricordiamo l’appuntamento di domani con la premiazione finale e l’estrazione di ulteriori premi fra tutti i partecipanti:<br/>
+			        	<!-- Ti invitiamo inoltre a mettere in agenda l'appuntamento finale del gioco:<br/> -->
+						<b>marted&igrave; 6 dicembre 2016 - ore 17.00 presso la sala stampa comunale, al piano terra di Palazzo Geremia in via Belenzani 20</b> si terr&agrave; la PREMIAZIONE CONCLUSIVA del Gioco durante la quale saranno consegnati i premi della classifica globale e dell'ultima settimana di gioco.
+			        </p>
+			        <p style="font-size: 1.17em">
+			        	Inoltre, fra tutti i giocatori che arriveranno all'appuntamento con un mezzo sostenibile e utilizzando l'App Viaggia Trento Play&amp;Go verranno <b>estratti ulteriori premi</b> messi a disposizione dagli sponsor.
+			        </p>
+			        <p style="font-size: 1.17em">
+			        	ATTENZIONE!<br/>
+			        	<b>Questa &egrave; l'ultima occasione per il ritiro dei premi!</b><br/>
+						E' consentito delegare al ritiro del premio su presentazione di apposita delega sottoscritta dal vincitore e corredata di fotocopia del documento di identit&agrave;.
+			        </p>
+			        <p style="font-size: 1.17em">
+			        	L'evento si concluder&agrave; alle ore 18.00 circa con un momento conviviale e un piccolo rinfresco.
+			        </p>
+			        <p style="font-size: 1.17em">
+			            <b>TI ASPETTIAMO!!!</b><br/><br/>
+						&emsp;<em>Lo staff di Play&amp;Go</em>
+			        </p>
+		        </div>
+	        </div>
+        </div>
+        <footer>
+        	<br />
+        	<br />
+        	<br />
+        	<div class="row">
+	    		<div class="col-md-6 col-md-offset-1">
+					<img src="img/footer.png" width="650px" th:src="'cid:' + ${imageResourceName}" alt="" title="" />
+				</div>
+			</div>
+		</footer>
+    </body>
+</html>

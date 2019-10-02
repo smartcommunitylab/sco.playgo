@@ -1,0 +1,285 @@
+[
+	{
+		"id": "LevelGainedNotification",
+		"type": "level",
+		"title": {
+			"it": "Livello",
+			"en": "Level"
+		},
+		"description": {
+			"it": "Complimenti: hai raggiunto il livello <levelName>.",
+			"en": "Great news: you reached the level <levelName>."
+		},
+		"extras": {
+			"it": [
+				{
+					"type": "REPLACE",
+					"key": "levelName",
+					"value": null,
+					"string": "levelName"
+				},
+				{
+					"type": "APPEND",
+					"key": "levelIndex",
+					"value": "1",
+					"string": " Hai sbloccato le sfide settimanali!"
+				},
+				{
+					"type": "APPEND",
+					"key": "levelIndex",
+					"value": "2",
+					"string": " Ora puoi scegliere fra DUE sfide a settimana!"
+				},
+				{
+					"type": "APPEND",
+					"key": "levelIndex",
+					"value": "3",
+					"string": " Ora puoi scegliere fra TRE sfide a settimana!"
+				},
+				{
+					"type": "APPEND",
+					"key": "levelIndex",
+					"value": "4",
+					"string": " Hai sbloccato le sfide di coppia!"
+				},
+				{
+					"type": "APPEND",
+					"key": "levelIndex",
+					"value": "5",
+					"string": " Hai sbloccato una nuova tipologia di sfida di coppia!"
+				},
+				{
+					"type": "APPEND",
+					"key": "levelIndex",
+					"value": "6",
+					"string": " Hai sbloccato una nuova tipologia di sfida di coppia!"
+				}
+			],
+			"en": [
+				{
+					"type": "REPLACE",
+					"key": "levelName",
+					"value": null,
+					"string": "levelName"
+				},
+				{
+					"type": "APPEND",
+					"key": "levelIndex",
+					"value": "1",
+					"string": " You unlocked weekly challenges!"
+				},
+				{
+					"type": "APPEND",
+					"key": "levelIndex",
+					"value": "2",
+					"string": " Now you can choose between TWO challenges per week!"
+				},
+				{
+					"type": "APPEND",
+					"key": "levelIndex",
+					"value": "3",
+					"string": " Now you can choose between THREE challenges per week!"
+				},
+				{
+					"type": "APPEND",
+					"key": "levelIndex",
+					"value": "4",
+					"string": " You have unlocked multi-player challenges!"
+				},
+				{
+					"type": "APPEND",
+					"key": "levelIndex",
+					"value": "5",
+					"string": " You have unlocked a new type of multi-player challenge!"
+				},
+				{
+					"type": "APPEND",
+					"key": "levelIndex",
+					"value": "6",
+					"string": " You have unlocked a new type of multi-player challenge!"
+				}
+			]
+
+		}
+	},
+	{
+		"id": "PROPOSED",
+		"type": "program_challenge",
+		"title": {
+			"it": "Sfide",
+			"en": "Challenges"
+		},
+		"description": {
+			"it": "Puoi scegliere la sfida per la prossima settimana!",
+			"en": "You can choose the challenge for next week!"
+		}
+	},
+	{
+		"id": "INVITATION",
+		"type": "new_invite",
+		"title": {
+			"it": "Invito",
+			"en": "Invitation"
+		},
+		"description": {
+			"it": "<opponent> ti ha invitato ad una sfida di coppia. Cosa rispondi?",
+			"en": "<opponent> invited you to a multi-player challenge. What's your answer?"
+		},
+		"extras": {
+			"it": [
+				{
+					"type": "REPLACE",
+					"key": "opponent",
+					"value": null,
+					"string": "opponent"
+				}
+			],
+			"en": [
+				{
+					"type": "REPLACE",
+					"key": "opponent",
+					"value": null,
+					"string": "opponent"
+				}
+			]
+		}
+	},
+	{
+		"id": "ChallengeInvitationAcceptedNotification",
+		"type": "reply_accepted",
+		"title": {
+			"it": "Accettazione",
+			"en": "Acceptance"
+		},
+		"description": {
+			"it": "<assigneeName> ha accettato il tuo invito. Che vinca il migliore!",
+			"en": "<assigneeName> accepted your invitation. May the best player win!"
+		},
+		"extras": {
+			"it": [
+				{
+					"type": "REPLACE",
+					"key": "assigneeName",
+					"value": null,
+					"string": "assigneeName"
+				}
+			],
+			"en": [
+				{
+					"type": "REPLACE",
+					"key": "assigneeName",
+					"value": null,
+					"string": "assigneeName"
+				}
+			]
+		}
+	},
+	{
+		"id": "ChallengeInvitationRefusedNotification",
+		"type": "reply_denied",
+		"title": {
+			"it": "Rifiuto",
+			"en": "Refusal"
+		},
+		"description": {
+			"it": "<assigneeName> ha rifiutato il tuo invito. Affrettati a scegliere un'altra sfida!",
+			"en": "<assigneeName> rejected your invitation. Choose another challenge!"
+		},
+		"extras": {
+			"it": [
+				{
+					"type": "REPLACE",
+					"key": "assigneeName",
+					"value": null,
+					"string": "assigneeName"
+				}
+			],
+			"en": [
+				{
+					"type": "REPLACE",
+					"key": "assigneeName",
+					"value": null,
+					"string": "assigneeName"
+				}
+			]
+		}
+},
+	{
+		"id": "ChallengeInvitationCanceledNotification",
+		"type": "challenge_cancel",
+		"title": {
+			"it": "Cancellazione",
+			"en": "Cancellation"
+		},
+		"description": {
+			"it": "<challengerName> ha cancellato il suo invito. Affrettati a scegliere un'altra sfida!",
+			"en": "<challengerName> cancelled the challenge invitation. Choose another challenge!"
+		},
+		"extras": {
+			"it": [
+				{
+					"type": "REPLACE",
+					"key": "challengerName",
+					"value": null,
+					"string": "challengerName"
+				}
+			],
+			"en": [
+				{
+					"type": "REPLACE",
+					"key": "challengerName",
+					"value": null,
+					"string": "challengerName"
+				}
+			]
+		}
+	},
+	
+	{
+		"id": "ChallengeAssignedNotification",
+		"type": "challenge_assigned",
+		"title": {
+			"it": "Nuova sfida",
+			"en": "New challenge"
+		},
+		"description": {
+			"it": "Ti è stata assegnata una nuova sfida!",
+			"en": "You have been assigned a new challenge!"
+		},
+		"extras": {
+		}
+	},	
+	{
+		"id": "ChallengeCompletedNotication",
+		"type": "challenge_complete",
+		"title": {
+			"it": "Vittoria",
+			"en": "Victory"
+		},
+		"description": {
+			"it": "Hai vinto una sfida!",
+			"en": "You won a challenge!"
+		},
+		"extras": {
+		}
+	},
+	{
+		"id": "ChallengeFailedNotication",
+		"type": "challenge_failed",
+		"title": {
+			"it": "Sconfitta",
+			"en": "Defeat"
+		},
+		"description": {
+			"it": "Hai perso una sfida!",
+			"en": "You lost a challenge!"
+		},
+		"extras": {
+		}
+	}			
+	
+	
+	
+		
+		
+]

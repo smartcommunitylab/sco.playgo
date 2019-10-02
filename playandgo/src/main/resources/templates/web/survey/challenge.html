@@ -1,0 +1,139 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.thymeleaf.org"
+	th:with="lang=${#locale.language}" th:lang="${lang}">
+<head lang="it">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title th:text="#{survey.title}">Play&amp;Go - Questionario
+	sfide coppia</title>
+<link href="../../../../css/bootstrap.min.css" rel="stylesheet" />
+<link href="../../../../css/bootstrap-theme.min.css" rel="stylesheet" />
+<link href="../../../../css/gg_style.css" rel="stylesheet" />
+
+<!-- required libraries -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+<script src="../../../../lib/jquery.min.js"></script>
+<script src="../../../../lib/bootstrap.min.js"></script>
+</head>
+<body onload="highlightIncomplete()">
+	<div class="container">
+		<h3 th:text="#{surveychallenge.head}" style="text-align: center;">Questionario sull'esperienza di gioco</h3>
+		<form id="form" role="form" name="form" method="POST">
+
+			<div class="first-page">
+
+				<label th:text="#{survey.acc1}">acc1</label> <br />
+				<ol>
+					<p th:each="prod: ${#numbers.sequence(1, 15)}">
+						<!-- <p th:text="${prod}"></p> -->
+					<fieldset th:id="|fs${prod}|">
+						<li th:text="#{surveychallenge.q + ${prod}}" >?</li> <span
+							style="font-size: 12px" th:text="#{survey.acc2.1}"></span> <span
+							style="font-size: 12px" th:text="#{survey.acc2.2}"></span><br />
+						<span th:id="|el${prod}|" class="small_b"
+							th:each="val: ${#numbers.sequence(1, 7)}"> <input 
+							type="radio" th:id="|r${prod}-${val}|" th:name="|q${prod}|"
+							th:value="${val}" /> <label th:for="|r${prod}-${val}|" th:text="${val}">1</label>
+						</span>
+					</fieldset>
+					</p>
+				</ol>
+
+				<div class="form-group">
+					<label for="q16" th:text="#{surveychallenge.q16}"></label>
+					<br/>
+					<textarea id="q16" name="q16" rows="3" cols="30"></textarea>
+				</div>
+
+
+			<div class="form-group">
+				<button id="send" type="button" class="btn btn-primary"
+					th:text="#{survey.submit}" onClick="highlightIncomplete()">Submit</button>
+			</div>
+				
+			</div>
+
+		</form>
+
+	</div>
+
+
+	<script th:inline="javascript">
+/*<![CDATA[*/
+	var first = true;
+	
+	
+  function changePart() {
+    if ($('#prev').val() == 'yes') {
+        $('#inflgroup').show();     
+    } else {
+          $('#inflgroup').hide();      
+    }
+  }
+ 
+  $('#send').click(function() {
+	    if (!checkData()) {
+	      $('form').submit();     
+	    }
+  });
+  
+  function highlightIncomplete() {
+	  var qsn = $('fieldset').length;
+	  
+		for (i = 1; i <= qsn; i++) {
+			var v = $("input[name='q" + i + "']:checked")
+			var inp = $("span[id=el" + i + "]");
+			if (v.val() === undefined) {
+				inp.each(function() {
+				$(this).attr("style", "color:red;");
+				});
+			} else {
+				inp.attr("style", "color:black;");
+			}
+		} 		  
+	  
+		$('select:visible').each(function() {
+			if ($(this).val().length === 0) {
+				$(this).attr("style", "color:red;");
+			} else {
+				$(this).attr("style", "color:black;");
+			}
+		});			
+	  
+		checkData()
+  }
+  
+  function checkData() {
+	var qsn = $('fieldset').length;
+	
+	var disabled = false;
+	  
+	for (i = 1; i <= qsn; i++) {
+		var v = $("input[name='q" + i + "']:checked").val();
+		if (v === undefined) {
+			disabled = true;
+			break;
+		}
+	}  
+	
+	if (disabled === false) {
+		$('select:visible').each(function() {
+			if ($(this).val().length === 0) {
+				disabled = true;
+				return;
+			}	
+		});	
+	}
+	
+    $('#send').prop('disabled', disabled);
+    return disabled;
+  }
+  
+  $('select').change(highlightIncomplete);
+  $('input').change(highlightIncomplete);
+
+/*]]>*/
+</script>
+</body>
+</html>

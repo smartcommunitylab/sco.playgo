@@ -1,0 +1,241 @@
+[
+	{
+		"name": "repetitiveBehaviour",
+		"filter": "green leaves",
+		"periodName": "daily",
+		"description": {
+			"it": "Ottieni almeno <target> punti <counterNameA> al giorno per <periodTarget> giorni e avrai un bonus di <bonusScore> punti <bonusPointType>.",
+			"en": "Get at least <target> <counterNameA> points daily for <periodTarget> days and you will get a bonus of <bonusScore> <bonusPointType> points."
+		}
+	},
+	{
+		"name": "repetitiveBehaviour",
+		"filter": "_Km",
+		"periodName": "daily",
+		"description": {
+			"it": "Fai almeno <target> km <counterNameA> al giorno per <periodTarget> giorni e avrai un bonus di <bonusScore> punti <bonusPointType>.",
+			"en": "Do at least <target> km <counterNameA> daily for <periodTarget> days and you will get a bonus of <bonusScore> <bonusPointType> points."
+		}
+	},
+	{
+		"name": "repetitiveBehaviour",
+		"filter": "_Trips",
+		"periodName": "daily",
+		"description": {
+			"it": "Fai almeno <target> viaggi <counterNameA> al giorno per <periodTarget> giorni e avrai un bonus di <bonusScore> punti <bonusPointType>.",
+			"en": "Do at least <target> trips <counterNameA> daily for <periodTarget> days and you will get a bonus of <bonusScore> <bonusPointType> points."
+		}
+	},
+	{
+		"name": "repetitiveBehaviour",
+		"filter": "_NoTrips",
+		"periodName": "daily",
+		"description": {
+			"it": "Fai almeno <target> viaggi al giorno senza usare <counter> per <periodTarget> giorni e avrai un bonus di <bonusScore> punti <bonusPointType>.",
+			"en": "Do at least <target> trips daily without <counter> for <periodTarget> days and you will get a bonus of <bonusScore> <bonusPointType> points."
+		}
+	},
+	{
+		"name": "repetitiveBehaviour",
+		"filter": "Recommendations",
+		"periodName": "daily",
+		"description": {
+			"it": "Raccomanda la App ad almeno <target> utenti <counter> al giorno per <periodTarget> giorni e avrai un bonus di <bonusScore> punti <bonusPointType>.",
+			"en": "Recommend the app to at least <target> users daily for <periodTarget> days and you will get a bonus of <bonusScore> <bonusPointType> points."
+		}
+	},
+	{
+		"name": "absoluteIncrement",
+		"filter": "_Km",
+		"description": {
+			"it": "Fai almeno <target> km <counterNameA> e avrai un bonus di <bonusScore> punti <bonusPointType>.",
+			"en": "Do at least <target> km <counterNameA> and you will get a bonus of <bonusScore> <bonusPointType> points."
+		}
+	},
+	{
+		"name": "absoluteIncrement",
+		"filter": "_Trips",
+		"description": {
+			"it": "Fai almeno <target> viaggi <counterNameA> e avrai un bonus di <bonusScore> punti <bonusPointType>.",
+			"en": "Do at least <target> trips <counterNameA> and you will get a bonus of <bonusScore> <bonusPointType> points."
+		}
+	},
+	{
+		"name": "absoluteIncrement",
+		"filter": "_NoTrips",
+		"description": {
+			"it": "Fai almeno <target> viaggi senza usare <counterNameA> e avrai un bonus di <bonusScore> punti <bonusPointType>.",
+			"en": "Do at least <target> trips without <counterNameA> and you will get a bonus of <bonusScore> <bonusPointType> points."
+		}
+	},
+	{
+		"name": "absoluteIncrement",
+		"filter": "green leaves",
+		"description": {
+			"it": "Ottieni almeno <target> punti <counterNameA> e avrai <bonusScore> punti <bonusPointType> in bonus.",
+			"en": "Get at least <target> <counterNameA> points and you will have <bonusScore> additional <bonusPointType> bonus points."
+		}
+	},
+	{
+		"name": "absoluteIncrement",
+		"filter": "Recommendations",
+		"description": {
+			"it": "Raccomanda la App ad almeno <target> utenti e guadagni <bonusScore> punti <bonusPointType>.",
+			"en": "Recommend the app to at least <target> users and you will gain a bonus of <bonusScore> <bonusPointType> points."
+		}
+	},
+	{
+		"name": "percentageIncrement",
+		"filter": "_Km",
+		"description": {
+			"it": "Fai almeno altri <target> km <counterNameA> e avrai un bonus di <bonusScore> punti <bonusPointType>.",
+			"en": "Do at least <target> more km <counterNameA> and you will get a bonus of <bonusScore> <bonusPointType> points."
+		}
+	},
+	{
+		"name": "percentageIncrement",
+		"filter": "_Trips",
+		"description": {
+			"it": "Fai almeno altri <target> viaggi <counterNameA> e avrai un bonus di <bonusScore> punti <bonusPointType>.",
+			"en": "Do at least <target> more trips <counterNameA> and you will get a bonus of <bonusScore> <bonusPointType> points."
+		}
+	},
+	{
+		"name": "percentageIncrement",
+		"filter": "_NoTrips",
+		"description": {
+			"it": "Fai almeno <target> viaggi senza usare <counterNameA> e avrai un bonus di <bonusScore> punti <bonusPointType>.",
+			"en": "Do at least <target> trips without <counterNameA> and you will get a bonus of <bonusScore> <bonusPointType> points."
+		}
+	},
+	{
+		"name": "percentageIncrement",
+		"filter": "green leaves",
+		"description": {
+			"it": "Ottieni almeno altri <target> punti <counterNameA> e avrai ulteriori <bonusScore> punti <bonusPointType> in bonus.",
+			"en": "Get at least <target> more <counterNameA> points and you will get <bonusScore> additional <bonusPointType> bonus points."
+		}
+	},
+	{
+		"name": "nextBadge",
+		"description": {
+			"it": "Ottieni almeno <target> badge nella Badge Collection \"<badgeCollectionName>\" e vinci un bonus di <bonusScore> punti <bonusPointType>.",
+			"en": "Get at least <target> badges in \"<badgeCollectionName>\" Badge Collection and you will get a bonus of <bonusScore> <bonusPointType> points."
+		}
+	},
+	{
+		"name": "leaderboardPosition",
+		"description": {
+			"it": "Raggiungi una posizione compresa tra il <posMin>° e il <posMax>° posto nella classifica finale di questa settimana e vinci un bonus di <bonusScore> punti <bonusPointType>.",
+			"en": "Rank in between place <posMin> and place <posMax> in the final leaderboard of the current week and you will win a bonus of <bonusScore> <bonusPointType> points."
+		}
+	},
+	{
+		"name": "survey",
+		"description": {
+			"it": "Compila il questionario e guadagna <bonusScore> punti <bonusPointType>.",
+			"en": "Fill out the survey and gain a bonus of <bonusScore> <bonusPointType> points."
+		}
+	},
+	{
+		"name": "poiCheckin",
+		"filter": "Fai la cosa giusta",
+		"description": {
+			"it": "Sabato 29 o domenica 30 ottobre visita lo stand ViaggiaTrento Play&Go a \"Fa' la cosa giusta!\" ( TrentoFiere - Via di Briamasco, 2) usando una modalita' di trasporto sostenibile e vinci un bonus di <bonusScore> punti <bonusPointType>.",
+			"en": "On Saturday Oct. 29 or Sunday Oct. 30, visit the ViaggiaTrento Play&Go booth in the \"Fa' la cosa giusta!\" fair (TrentoFiere - Via di Briamasco, 2) using a sustainable transport mode, and you will win a bonus of <bonusScore> <bonusPointType> points."
+		}
+	},
+	{
+		"name": "checkin",
+		"filter": "notte_dei_ricercatori",
+		"description": {
+			"it": "Vieni a trovarci Venerdi' 29 settembre alla Notte dei Ricercatori al MUSE (Corso del Lavoro e della Scienza, 3, Trento) e vinci un bonus di <bonusScore> punti <bonusPointType>.",
+			"en": "Come and visit us on Friday September 29 at the Researchers’ Night at MUSE (Corso del Lavoro e della Scienza, 3, Trento) and you will win a bonus of <bonusScore> <bonusPointType> points."
+		}
+	},
+	{
+		"name": "groupCompetitivePerformance",
+		"filter": "green leaves",
+		"description": {
+			"it": "Guadagna più punti green leaves del tuo avversario <opponent>. Otterrai un bonus del <rewardPercentage>% sul totale dei punti guadagnati in settimana.",
+			"en": "To win this challenge, gain more green leaves point than your opponent <opponent>. The winner will get a <rewardPercentage>% bonus of all the points got during the week."
+		}
+	},
+	{
+		"name": "groupCompetitivePerformance",
+		"filter": "Bike_Km",
+		"description": {
+			"it": "Fai più kilometri in bici del tuo avversario <opponent>. Otterrai un bonus del <rewardPercentage>% sul totale dei punti guadagnati in settimana.",
+			"en": "Do more bike km than your opponent <opponent>. The winner will get a <rewardPercentage>% bonus of all the points got during the week."
+		}
+	},
+	{
+		"name": "groupCompetitivePerformance",
+		"filter": "Walk_Km",
+		"description": {
+			"it": "Fai più kilometri a piedi del tuo avversario <opponent>. Otterrai un bonus del <rewardPercentage>% sul totale dei punti guadagnati in settimana.",
+			"en": "Walk more km than your opponent <opponent>. The winner will get a <rewardPercentage>% bonus of all the points got during the week."
+		}
+	},
+	
+	
+	{
+		"name": "groupCompetitiveTime",
+		"filter": "green leaves",
+		"description": {
+			"it": "Guadagna <challengeTarget> green leaves prima del tuo avversario <opponent>. Se vinci otterrai un bonus di <rewardBonusScore> green leaves, se vince <opponent> otterrà <challengerBonusScore> green leaves.",
+			"en": "Gain <challengeTarget> green leaves point faster than your opponent <opponent>. If you win, you'll get <rewardBonusScore> green leaves. If you lose, <opponent> will get <challengerBonusScore> green leaves."
+		}
+	},
+	
+	{
+		"name": "groupCompetitiveTime",
+		"filter": "Bike_Km",
+		"description": {
+			"it": "Fai <challengeTarget> km in bici prima del tuo avversario <opponent>. Se vinci otterrai un bonus di <rewardBonusScore> green leaves, se vince <opponent> otterrà <challengerBonusScore> green leaves.",
+			"en": "Bike <challengeTarget> km before your opponent <opponent>. If you win, you'll get <rewardBonusScore> green leaves. If you lose, <opponent> will get <challengerBonusScore> green leaves."
+		}
+	},
+	{
+		"name": "groupCompetitiveTime",
+		"filter": "Walk_Km",
+		"description": {
+			"it": "Fai <challengeTarget> km a piedi prima del tuo avversario <opponent>. Se vinci otterrai un bonus di <rewardBonusScore> green leaves, se vince <opponent> otterrà <challengerBonusScore> green leaves.",
+			"en": "Walk <challengeTarget> km before your opponent <opponent>. If you win, you'll get <rewardBonusScore> green leaves. If you lose, <opponent> will get <challengerBonusScore> green leaves."
+		}
+	},
+	
+	
+	{
+		"name": "groupCooperative",
+		"filter": "green leaves",
+		"description": {
+			"it": "Unite le forze e guadagnate almeno <target> green leaves. Se vincete la sfida, sia tu che <opponent> otterrete un bonus di <reward> green leaves.",
+			"en": "Join the forces: gain at least <target> green leaves together with <opponent>. If you win, you'll both get <reward> green leaves."
+		}
+	},
+	{
+		"name": "groupCooperative",
+		"filter": "Bike_Km",
+		"description": {
+			"it": "Unite le forze e fate almeno <target> km in bici. Se vincete la sfida, sia tu che <opponent> otterrete un bonus di <reward> green leaves.",
+			"en": "Join forces: bike at least <target> km between you and <opponent>. If you win, you'll both get <reward> green leaves."
+		}
+	},
+	{
+		"name": "groupCooperative",
+		"filter": "Walk_Km",
+		"description": {
+			"it": "Unite le forze e fate almeno <target> km a piedi. Se vincete la sfida, sia tu che <opponent> otterrete un bonus di <reward> green leaves.",
+			"en": "Join forces: walk at least <target> km between you and <opponent>. If you win, you'll both get <reward> green leaves."
+		}
+	},
+	{
+		"name": "incentiveGroupChallengeReward",
+		"periodName": "daily",
+		"description": {
+			"it": "Vinci una sfida di coppia di qualsiasi tipo ed ottieni <bonusScore> punti green leaves addizionali.",
+			"en": "Win one multiplayer challenge of any kind to obtain additional <bonusScore> green leaves points."
+		}
+	}	
+]

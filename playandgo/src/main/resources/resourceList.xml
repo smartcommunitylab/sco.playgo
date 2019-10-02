@@ -1,0 +1,151 @@
+<?xml version="1.0" standalone="yes"?>
+<!-- Copyright 2012-2013 Trento RISE Licensed under the Apache License, Version 
+	2.0 (the "License"); you may not use this file except in compliance with 
+	the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 
+	Unless required by applicable law or agreed to in writing, software distributed 
+	under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES 
+	OR CONDITIONS OF ANY KIND, either express or implied. See the License for 
+	the specific language governing permissions and limitations under the License. -->
+<service xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../../../../resource.api/src/main/resources/jaxb/binding/resourceTemplateSchema.xsd">
+
+	<!-- generic data -->
+	<resourceMapping uri="mobilityservice.data"
+		pathPattern="/getroutes/{agencyId}" method="GET" />
+	<resourceMapping uri="mobilityservice.data"
+		pathPattern="/getstops/{agencyId}/{routeId}" method="GET" />
+	<resourceMapping uri="mobilityservice.data"
+		pathPattern="/getstops/{agencyId}/{routeId}/{latitude}/{longitude}/{radius:.+}"
+		method="GET" />
+	<resourceMapping uri="mobilityservice.data"
+		pathPattern="/getTaxiStation/{latitude}/{longitude}/{radius}" method="GET" />
+	<resourceMapping uri="mobilityservice.data"
+		pathPattern="/getTaxiStation" method="GET" />
+	<resourceMapping uri="mobilityservice.data"
+		pathPattern="/getTaxiAgencyContacts" method="GET" />		
+	<resourceMapping uri="mobilityservice.data"
+		pathPattern="/geostops/{agencyId}" method="GET" />
+	<resourceMapping uri="mobilityservice.data"
+		pathPattern="/gettimetable/{agencyId}/{routeId}/{stopId:.*}" method="GET" />
+	<resourceMapping uri="mobilityservice.data"
+		pathPattern="/getlimitedtimetable/{agencyId}/{stopId}/{maxResults:.*}"
+		method="GET" />
+	<resourceMapping uri="mobilityservice.data"
+		pathPattern="/gettransittimes/{routeId}/{from}/{to}" method="GET" />
+	<resourceMapping uri="mobilityservice.data"
+		pathPattern="/timetable/{agencyId}/{routeId}" method="GET" />
+	<resourceMapping uri="mobilityservice.data"
+		pathPattern="/gettransitdelays/{routeId}/{from}/{to}" method="GET" />
+	<resourceMapping uri="mobilityservice.data"
+		pathPattern="/getroadinfobyagency/{agencyId}/{from}/{to}" method="GET" />
+	<resourceMapping uri="mobilityservice.data"
+		pathPattern="/getparkingsbyagency/{agencyId}" method="GET" />
+	<resourceMapping uri="mobilityservice.data"
+		pathPattern="/getbikesharingbyagency/{agencyId}" method="GET" />
+	<resourceMapping uri="mobilityservice.data"
+		pathPattern="/getcachestatus" method="POST" />
+	<resourceMapping uri="mobilityservice.data"
+		pathPattern="/cachestatus" method="POST" />
+	<resourceMapping uri="mobilityservice.data"
+		pathPattern="/partialcachestatus" method="POST" />
+	<resourceMapping uri="mobilityservice.data"
+		pathPattern="/getcacheupdate/{agencyId}/{fileName}" method="GET" />
+	<resourceMapping uri="mobilityservice.data"
+		pathPattern="/routesDB/{appId}" method="GET" />
+	<resourceMapping uri="mobilityservice.data"
+		pathPattern="/versions" method="GET" />
+	<resourceMapping uri="mobilityservice.data"
+		pathPattern="/gtfs/{agencyId}" method="GET" />		
+
+	<!-- planning -->
+	<resourceMapping uri="mobilityservice.plan"
+		pathPattern="/plansinglejourney" method="POST" />
+	<resourceMapping uri="mobilityservice.plan"
+		pathPattern="/planrecurrent" method="POST" />
+
+	<!-- user data read -->
+	<resourceMapping uri="mobilityservice.user.itinerary.read"
+		pathPattern="/itinerary" method="GET" />
+	<resourceMapping uri="mobilityservice.user.itinerary.read"
+		pathPattern="/itinerary/{itineraryId}" method="GET" />
+	<resourceMapping uri="mobilityservice.user.itinerary.read"
+		pathPattern="/recurrent" method="GET" />
+	<resourceMapping uri="mobilityservice.user.itinerary.read"
+		pathPattern="/recurrent/{itineraryId}" method="GET" />
+	<resourceMapping uri="mobilityservice.user.itinerary.read"
+		pathPattern="/monitorroute" method="GET" />		
+
+	<!-- user data write -->
+	<resourceMapping uri="mobilityservice.user.itinerary.write"
+		pathPattern="/itinerary" method="POST" />
+	<resourceMapping uri="mobilityservice.user.itinerary.write"
+		pathPattern="/itinerary/{itineraryId}" method="PUT,DELETE" />
+	<resourceMapping uri="mobilityservice.user.itinerary.write"
+		pathPattern="/recurrent" method="POST" />
+	<resourceMapping uri="mobilityservice.user.itinerary.write"
+		pathPattern="/recurrent/{itineraryId}" method="PUT,DELETE" />
+	<resourceMapping uri="mobilityservice.user.itinerary.write"
+		pathPattern="/itinerary/{itineraryId}/monitor/{monitor}" />
+	<resourceMapping uri="mobilityservice.user.itinerary.write"
+		pathPattern="/recurrent/replan/{itineraryId}" />
+	<resourceMapping uri="mobilityservice.user.itinerary.write"
+		pathPattern="/recurrent/{itineraryId}/monitor/{monitor}" />
+	<resourceMapping uri="mobilityservice.user.itinerary.write"
+		pathPattern="/monitorroute" method="POST" />
+	<resourceMapping uri="mobilityservice.user.itinerary.write"
+		pathPattern="/monitorroute/{clientId}" method=",PUT,DELETE" />		
+		
+
+	<!-- user alert -->
+	<resourceMapping uri="mobilityservice.user.alert"
+		pathPattern="/alert/user" />
+	<!-- user alert -->
+	<resourceMapping uri="mobilityservice.service.alert"
+		pathPattern="/alert/service" />
+
+	<!-- announcement -->
+	<resourceMapping uri="mobilityservice.data"
+		pathPattern="/announcements/news/{appId}" />
+	<resourceMapping uri="mobilityservice.data"
+		pathPattern="/announcements/notifications/{appId}" />
+
+	<!-- geolocation -->
+	<resourceMapping uri="mobilityservice.data"
+		pathPattern="/gamification/geolocations" />
+
+	<!-- gamification -->
+	<resourceMapping uri="mobilityservice.data"
+		pathPattern="/gamification/journey/{itineraryId}" />
+  <resourceMapping uri="mobilityservice.data"
+    pathPattern="/gamification/freetracking/{transport}/{itineraryId}" />
+		<resourceMapping uri="mobilityservice.data"
+		pathPattern="/gamification/r353nd" />		
+
+	<!-- planning policies -->
+	<resourceMapping uri="mobilityservice.data"
+		pathPattern="/policies/compiled" />	
+	
+	
+	<resourceMapping uri="mobilityservice.data"
+		pathPattern="/policies/parametric" />
+	<resourceMapping uri="mobilityservice.data"
+		pathPattern="/policies/scripted" />
+	<resourceMapping uri="mobilityservice.data"
+		pathPattern="/policies/" />
+	<resourceMapping uri="mobilityservice.data"
+		pathPattern="/policies/{name}" />						
+
+	<resourceMapping uri="mobilityservice.data"
+		pathPattern="/servicedata/publishAlertParkings/" method="POST"/>
+	<resourceMapping uri="mobilityservice.data"
+		pathPattern="/servicedata/publishAlertDelays/" method="POST"/>
+	<resourceMapping uri="mobilityservice.data"
+		pathPattern="/servicedata/publishAlertRoads/" method="POST"/>	
+	<resourceMapping uri="mobilityservice.data"
+		pathPattern="/servicedata/publishBikeStations/{comune}/{agencyId}/" method="POST"/>	
+
+
+</service>
+
+
+
