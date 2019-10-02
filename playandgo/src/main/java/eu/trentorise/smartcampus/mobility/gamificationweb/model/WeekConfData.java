@@ -3,10 +3,8 @@ package eu.trentorise.smartcampus.mobility.gamificationweb.model;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalField;
-import java.time.temporal.WeekFields;
 import java.util.Date;
-import java.util.Locale;
+
 import org.apache.commons.lang3.time.FastDateFormat;
 
 public class WeekConfData {
@@ -142,8 +140,6 @@ public class WeekConfData {
 		WeekConfData current = new WeekConfData();
 
 		LocalDate now = LocalDate.now().minusWeeks(deltaWeeks);
-		TemporalField tf = WeekFields.of(Locale.ITALY).dayOfWeek();
-		
 		int day = now.getDayOfWeek().getValue(); 
 		LocalDate start = null;
 		LocalDate end = null;

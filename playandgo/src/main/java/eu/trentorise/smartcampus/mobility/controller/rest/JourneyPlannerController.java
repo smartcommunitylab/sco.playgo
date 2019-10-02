@@ -85,6 +85,7 @@ public class JourneyPlannerController {
 	}
 
 	// no crud
+	@SuppressWarnings("unchecked")
 	@PostMapping("/plansinglejourney")
 	public @ResponseBody List<Itinerary> planSingleJourney(HttpServletRequest request, HttpServletResponse response, @RequestBody(required=false) SingleJourney journeyRequest, @RequestParam(required = false, defaultValue="default") String policyId,
 			@RequestHeader(required = false, value = "UserID") String userId, @RequestHeader(required = false, value = "AppName") String appName) throws Exception {
@@ -168,6 +169,7 @@ public class JourneyPlannerController {
 			}
 	}
 
+	@SuppressWarnings("unchecked")
 	@GetMapping("/itinerary")
 	public @ResponseBody List<ItineraryObject> getItineraries(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		List<ItineraryObject> result = null;
@@ -282,6 +284,7 @@ public class JourneyPlannerController {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@GetMapping("/recurrent")
 	public @ResponseBody List<RecurrentJourneyObject> getRecurrentJourneys(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		List<RecurrentJourneyObject> result = null;
@@ -368,6 +371,7 @@ public class JourneyPlannerController {
 	}	
 	
 	
+	@SuppressWarnings("unchecked")
 	@GetMapping("/monitorroute")
 	public @ResponseBody List<RouteMonitoring> getMonitorRoutes(HttpServletRequest request, HttpServletResponse response,  @RequestParam(required = false, value = "active") Boolean active) throws Exception {
 		List<RouteMonitoring> result = null;

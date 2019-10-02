@@ -1,6 +1,5 @@
 package eu.trentorise.smartcampus.mobility.gamificationweb;
 
-import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Locale;
@@ -16,9 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.http.HttpHeaders;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.security.crypto.codec.Base64;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,8 +30,6 @@ import eu.trentorise.smartcampus.mobility.gamification.model.ExecutionDataDTO;
 import eu.trentorise.smartcampus.mobility.gamificationweb.WebLinkUtils.PlayerIdentity;
 import eu.trentorise.smartcampus.mobility.gamificationweb.model.Player;
 import eu.trentorise.smartcampus.mobility.gamificationweb.model.WeekConfData;
-import eu.trentorise.smartcampus.mobility.security.AppInfo;
-import eu.trentorise.smartcampus.mobility.security.AppSetup;
 import eu.trentorise.smartcampus.mobility.security.BannedChecker;
 import eu.trentorise.smartcampus.mobility.security.GameInfo;
 import eu.trentorise.smartcampus.mobility.security.GameSetup;
@@ -65,9 +60,6 @@ public class GamificationWebController {
 	@Autowired
 	@Qualifier("mongoTemplate")
 	MongoTemplate template;	
-	
-	@Autowired
-	private AppSetup appSetup;
 	
 	@Autowired
 	private GameSetup gameSetup;	
@@ -275,32 +267,6 @@ public class GamificationWebController {
 		
 		RequestContextUtils.getLocaleResolver(request).setLocale(request, response, Locale.forLanguageTag(user_language));
 		return model;
-	}	
-
-	@SuppressWarnings("serial")
-	HttpHeaders createHeaders(String appId) {
-		return new HttpHeaders() {
-			{
-				AppInfo app = appSetup.findAppById(appId);
-				GameInfo game = gameSetup.findGameById(app.getGameId());
-				String auth = game.getUser() + ":" + game.getPassword();
-				byte[] encodedAuth = Base64.encode(auth.getBytes(Charset.forName("UTF-8")));
-				String authHeader = "Basic " + new String(encodedAuth);
-				set("Authorization", authHeader);
-			}
-		};
-	}
-
-	private String getGameId(String appId) {
-		if (appId != null) {
-			AppInfo ai = appSetup.findAppById(appId);
-			if (ai == null) {
-				return null;
-			}
-			String gameId = ai.getGameId();
-			return gameId;
-		}
-		return null;
 	}	
 	
 }

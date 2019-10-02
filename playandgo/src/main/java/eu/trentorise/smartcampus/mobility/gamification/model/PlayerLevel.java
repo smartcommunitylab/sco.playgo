@@ -3,7 +3,6 @@ package eu.trentorise.smartcampus.mobility.gamification.model;
 public class PlayerLevel {
     private String levelName;
     private String levelValue;
-    private int levelIndex;
     private String pointConcept;
     private double startLevelScore;
     private double endLevelScore;

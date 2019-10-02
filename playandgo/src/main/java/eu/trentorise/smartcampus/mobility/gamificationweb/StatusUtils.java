@@ -1,7 +1,5 @@
 package eu.trentorise.smartcampus.mobility.gamificationweb;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -11,8 +9,6 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,11 +21,9 @@ import com.google.common.collect.Maps;
 import eu.trentorise.smartcampus.mobility.gamification.model.Inventory;
 import eu.trentorise.smartcampus.mobility.gamification.model.PlayerLevel;
 import eu.trentorise.smartcampus.mobility.gamificationweb.model.BadgeCollectionConcept;
-import eu.trentorise.smartcampus.mobility.gamificationweb.model.BadgeConcept;
 import eu.trentorise.smartcampus.mobility.gamificationweb.model.BadgesData;
 import eu.trentorise.smartcampus.mobility.gamificationweb.model.ChallengeConcept;
 import eu.trentorise.smartcampus.mobility.gamificationweb.model.ClassificationData;
-import eu.trentorise.smartcampus.mobility.gamificationweb.model.Player;
 import eu.trentorise.smartcampus.mobility.gamificationweb.model.PlayerClassification;
 import eu.trentorise.smartcampus.mobility.gamificationweb.model.PlayerStatus;
 import eu.trentorise.smartcampus.mobility.gamificationweb.model.PointConcept;
@@ -40,14 +34,12 @@ public class StatusUtils {
 
 
 
-	private static final Logger logger = LoggerFactory.getLogger(StatusUtils.class);
-
 	private static final String STATE = "state";
 	private static final String PLAYER_ID = "playerId";
-	private static final String BADGE_COLLECTION_CONCEPT = "BadgeCollectionConcept";
-	private static final String LEVELS = "levels";
-	private static final String BC_NAME = "name";
-	private static final String BC_BADGE_EARNED = "badgeEarned";
+//	private static final String BADGE_COLLECTION_CONCEPT = "BadgeCollectionConcept";
+//	private static final String LEVELS = "levels";
+//	private static final String BC_NAME = "name";
+//	private static final String BC_BADGE_EARNED = "badgeEarned";
 	private static final String POINT_CONCEPT = "PointConcept";
 	private static final String PC_GREEN_LEAVES = "green leaves";
 	private static final String PC_NAME = "name";
@@ -56,12 +48,12 @@ public class StatusUtils {
 	private static final String PC_PERIODS = "periods";
 	private static final String PC_START = "start";
 	private static final String PC_WEEKLY = "weekly";	
-	private static final String PC_PERIOD_DURATION = "period";
+//	private static final String PC_PERIOD_DURATION = "period";
 	private static final String PC_IDENTIFIER = "identifier";
 	private static final String PC_INSTANCES = "instances";
 	private static final String PC_END = "end";
-	private static final String PARK_RIDE_PIONEER = "park and ride pioneer";
-	private static final String BIKE_SHARING_PIONEER = "bike sharing pioneer";
+//	private static final String PARK_RIDE_PIONEER = "park and ride pioneer";
+//	private static final String BIKE_SHARING_PIONEER = "bike sharing pioneer";
 	// private static final String PC_CLASSIFICATION_WEEK =
 	// "green leaves week ";
 	// private static final String PC_CLASSIFICATION_WEEK_TEST =
@@ -100,7 +92,6 @@ public class StatusUtils {
 		List<Map> gePointsMap = mapper.convertValue(state.get("PointConcept"), new TypeReference<List<Map>>() {});
 		List<PointConcept> points = convertGEPointConcept(gePointsMap);
 		
-		List<BadgeCollectionConcept> geChallenges = mapper.convertValue(state.get("ChallengeConcept"), new TypeReference<List<ChallengeConcept>>() {});		
 		ChallengeConcept challenges = challUtils.convertChallengeData(playerId, gameId, profile, challType, language, points, badges);
 		ps.setChallengeConcept(challenges);
 	
@@ -119,6 +110,7 @@ public class StatusUtils {
 		return ps;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public List<PointConcept> convertGEPointConcept(List<Map> gePointsMap) {
 		List<PointConcept> result = Lists.newArrayList();
 		
@@ -149,32 +141,33 @@ public class StatusUtils {
 	
 	// Method cleanFromGenericBadges: useful method used to remove from the
 	// badges list the generic badge (used in P&R and bikeSharing)
-	private List<BadgeCollectionConcept> cleanFromGenericBadges(List<BadgeCollectionConcept> inputBadges) {
-		List<BadgeCollectionConcept> correctedBadges = null;
-		if (inputBadges != null) {
-			for (BadgeCollectionConcept bcc : inputBadges) {
-				if (bcc.getName().compareTo(PARK_RIDE_PIONEER) == 0) {
-					List<BadgeConcept> badgeList = bcc.getBadgeEarned();
-					for (int i = badgeList.size() - 1; i >= 0; i--) {
-						if (badgeList.get(i).getUrl().contains("/img/gamification/pr/p&rLeaves.png")) {
-							badgeList.remove(i);
-						}
-					}
-				}
-				if (bcc.getName().compareTo(BIKE_SHARING_PIONEER) == 0) {
-					List<BadgeConcept> badgeList = bcc.getBadgeEarned();
-					for (int i = badgeList.size() - 1; i >= 0; i--) {
-						if (badgeList.get(i).getUrl().contains("/img/gamification/bike_sharing/bikeSharingPioneer.png")) {
-							badgeList.remove(i);
-						}
-					}
-				}
-			}
-			correctedBadges = inputBadges;
-		}
-		return correctedBadges;
-	};
+//	private List<BadgeCollectionConcept> cleanFromGenericBadges(List<BadgeCollectionConcept> inputBadges) {
+//		List<BadgeCollectionConcept> correctedBadges = null;
+//		if (inputBadges != null) {
+//			for (BadgeCollectionConcept bcc : inputBadges) {
+//				if (bcc.getName().compareTo(PARK_RIDE_PIONEER) == 0) {
+//					List<BadgeConcept> badgeList = bcc.getBadgeEarned();
+//					for (int i = badgeList.size() - 1; i >= 0; i--) {
+//						if (badgeList.get(i).getUrl().contains("/img/gamification/pr/p&rLeaves.png")) {
+//							badgeList.remove(i);
+//						}
+//					}
+//				}
+//				if (bcc.getName().compareTo(BIKE_SHARING_PIONEER) == 0) {
+//					List<BadgeConcept> badgeList = bcc.getBadgeEarned();
+//					for (int i = badgeList.size() - 1; i >= 0; i--) {
+//						if (badgeList.get(i).getUrl().contains("/img/gamification/bike_sharing/bikeSharingPioneer.png")) {
+//							badgeList.remove(i);
+//						}
+//					}
+//				}
+//			}
+//			correctedBadges = inputBadges;
+//		}
+//		return correctedBadges;
+//	};
 
+	@SuppressWarnings("unchecked")
 	public ClassificationData correctPlayerClassificationData(String profile, String playerId, String nickName, Long timestamp, String type) throws JSONException {
 		ClassificationData playerClass = new ClassificationData();
 		if (profile != null && !profile.isEmpty()) {
@@ -202,7 +195,6 @@ public class StatusUtils {
 							if (pc_name != null && pc_name.compareTo(PC_GREEN_LEAVES) == 0) {
 								JSONObject pc_period = (!point.isNull(PC_PERIODS)) ? point.getJSONObject(PC_PERIODS) : null;
 								if (pc_period != null) {
-									@SuppressWarnings("unchecked")
 									Iterator<String> keys = pc_period.keys();
 									while (keys.hasNext()) {
 										String key = keys.next();
@@ -243,6 +235,7 @@ public class StatusUtils {
 		return playerClass;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<ClassificationData> correctClassificationData(String allStatus, Map<String, String> allNicks, Long timestamp, String type) throws JSONException {
 		List<ClassificationData> playerClassList = new ArrayList<ClassificationData>();
 		if (allStatus != null && !allStatus.isEmpty()) {
@@ -278,7 +271,6 @@ public class StatusUtils {
 									if (pc_name != null && pc_name.compareTo(PC_GREEN_LEAVES) == 0) {
 										JSONObject pc_period = (!point.isNull(PC_PERIODS)) ? point.getJSONObject(PC_PERIODS) : null;
 										if (pc_period != null) {
-											@SuppressWarnings("unchecked")
 											Iterator<String> keys = pc_period.keys();
 											while (keys.hasNext()) {
 												String key = keys.next();
@@ -475,26 +467,26 @@ public class StatusUtils {
 	 * private int getActualWeek(long timestamp, String type){ int currWeek = 0; long millisFromGameStart = (type.compareTo("test") == 0) ? timestamp - GAME_STARTING_TIME_TEST : timestamp - GAME_STARTING_TIME; currWeek = (int)Math.ceil((float)millisFromGameStart / MILLIS_IN_WEEK); if(type.compareTo("test") == 0){ currWeek = 2; // forced actual week to 2 week in dev test } return currWeek; }
 	 */
 
-	private String getPlayerNameById(List<Player> allNicks, String id) throws JSONException {
-		boolean find = false;
-		String name = "";
-		if (allNicks != null && !allNicks.isEmpty()) {
-			// JSONObject playersData = new JSONObject(allNickJson);
-			// JSONArray allNicksObjects = (!playersData.isNull("players")) ?
-			// playersData.getJSONArray("players") : null;
-			for (int i = 0; (i < allNicks.size()) && !find; i++) {
-				Player player = allNicks.get(i);
-				if (player != null) {
-					String socialId = player.getPlayerId();
-					if (socialId.compareTo(id) == 0) {
-						name = player.getNickname();
-						find = true;
-					}
-				}
-			}
-		}
-		return name;
-	}
+//	private String getPlayerNameById(List<Player> allNicks, String id) throws JSONException {
+//		boolean find = false;
+//		String name = "";
+//		if (allNicks != null && !allNicks.isEmpty()) {
+//			// JSONObject playersData = new JSONObject(allNickJson);
+//			// JSONArray allNicksObjects = (!playersData.isNull("players")) ?
+//			// playersData.getJSONArray("players") : null;
+//			for (int i = 0; (i < allNicks.size()) && !find; i++) {
+//				Player player = allNicks.get(i);
+//				if (player != null) {
+//					String socialId = player.getPlayerId();
+//					if (socialId.compareTo(id) == 0) {
+//						name = player.getNickname();
+//						find = true;
+//					}
+//				}
+//			}
+//		}
+//		return name;
+//	}
 
 	private String getPlayerNickNameById(Map<String, String> allNicks, String id) {
 		String name = "";

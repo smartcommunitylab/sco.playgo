@@ -1,6 +1,5 @@
 package eu.trentorise.smartcampus.mobility.gamificationweb;
 
-import java.nio.charset.Charset;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -21,11 +20,9 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.codec.Base64;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -64,8 +61,6 @@ import eu.trentorise.smartcampus.mobility.gamificationweb.model.PlayerStatus;
 import eu.trentorise.smartcampus.mobility.security.AppInfo;
 import eu.trentorise.smartcampus.mobility.security.AppSetup;
 import eu.trentorise.smartcampus.mobility.security.CustomTokenExtractor;
-import eu.trentorise.smartcampus.mobility.security.GameInfo;
-import eu.trentorise.smartcampus.mobility.security.GameSetup;
 import eu.trentorise.smartcampus.mobility.storage.PlayerRepositoryDao;
 import eu.trentorise.smartcampus.profileservice.BasicProfileService;
 import eu.trentorise.smartcampus.profileservice.model.BasicProfile;
@@ -93,9 +88,6 @@ public class ChallengeController {
 	
 	@Autowired
 	private AppSetup appSetup;
-	
-	@Autowired
-	private GameSetup gameSetup;	
 	
 	@Autowired
 	private PlayerRepositoryDao playerRepositoryDao;
@@ -138,7 +130,7 @@ public class ChallengeController {
 		String gameId = getGameId(appId);
 		
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<String> result = restTemplate.exchange(gamificationUrl + "data/game/" + gameId + "/player/" + playerId + "/inventory", HttpMethod.GET, new HttpEntity<Object>(createHeaders(appId)), String.class);
+		ResponseEntity<String> result = restTemplate.exchange(gamificationUrl + "data/game/" + gameId + "/player/" + playerId + "/inventory", HttpMethod.GET, new HttpEntity<Object>(appSetup.createAuthHeaders(appId)), String.class);
 		
 		String res = result.getBody();
 		
@@ -171,7 +163,7 @@ public class ChallengeController {
 		ItemChoice choice = new ItemChoice(ChoiceType.CHALLENGE_MODEL, type);
 		
 		try {
-		ResponseEntity<String> result = restTemplate.exchange(gamificationUrl + "data/game/" + gameId + "/player/" + userId + "/inventory/activate", HttpMethod.POST, new HttpEntity<Object>(choice, createHeaders(appId)), String.class);
+		ResponseEntity<String> result = restTemplate.exchange(gamificationUrl + "data/game/" + gameId + "/player/" + userId + "/inventory/activate", HttpMethod.POST, new HttpEntity<Object>(choice, appSetup.createAuthHeaders(appId)), String.class);
 		
 		String res = result.getBody();
 		
@@ -244,7 +236,7 @@ public class ChallengeController {
 		
 		RestTemplate restTemplate = new RestTemplate();
 		String partialUrl = "game/" + gameId + "/player/" + userId + "/challenges/" + challengeId + "/accept";
-		ResponseEntity<String> tmp_res = restTemplate.exchange(gamificationUrl + "data/" + partialUrl, HttpMethod.POST, new HttpEntity<Object>(null, createHeaders(appId)), String.class);
+		ResponseEntity<String> tmp_res = restTemplate.exchange(gamificationUrl + "data/" + partialUrl, HttpMethod.POST, new HttpEntity<Object>(null, appSetup.createAuthHeaders(appId)), String.class);
 		logger.info("Sent player challenge choice to gamification engine(mobile-access) " + tmp_res.getStatusCode());		
 	}
 	
@@ -318,7 +310,7 @@ public class ChallengeController {
 		
 		try {
 			logger.info("Sending invitation " + mapper.writeValueAsString(ci));
-		result = restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<Object>(ci, createHeaders(appId)), String.class);
+		result = restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<Object>(ci, appSetup.createAuthHeaders(appId)), String.class);
 		
 		if (result.getStatusCode() == HttpStatus.OK) {
 			Map<String, String> extraData = Maps.newTreeMap();
@@ -376,7 +368,6 @@ public class ChallengeController {
 		if (invitation.getChallengeModelName().isCustomPrizes()) {
 			Map<String, Double> prizes = tpcc.targetPrizeChallengesCompute(userId, invitation.getAttendeeId(), appId, invitation.getChallengePointConcept(), invitation.getChallengeModelName().toString());
 			logger.info("Calculated prize for preview " + userId + "/" + invitation.getAttendeeId() + ": " + prizes);
-			Map<String, Double> bonusScore = Maps.newTreeMap();
 			pars.put("rewardBonusScore", prizes.get(TargetPrizeChallengesCalculator.PLAYER1_PRZ));
 			pars.put("reward", prizes.get(TargetPrizeChallengesCalculator.PLAYER1_PRZ));
 			pars.put("challengerBonusScore", prizes.get(TargetPrizeChallengesCalculator.PLAYER2_PRZ));
@@ -423,7 +414,7 @@ public class ChallengeController {
 		}		
 		
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<String> result = restTemplate.exchange(gamificationUrl + "data/game/" + gameId + "/player/" + userId + "/invitation/" + status + "/" + challengeName, HttpMethod.POST, new HttpEntity<Object>(null, createHeaders(appId)), String.class);
+		restTemplate.exchange(gamificationUrl + "data/game/" + gameId + "/player/" + userId + "/invitation/" + status + "/" + challengeName, HttpMethod.POST, new HttpEntity<Object>(null, appSetup.createAuthHeaders(appId)), String.class);
 	}	
 	
 	@GetMapping("/gamificationweb/blacklist")
@@ -450,7 +441,7 @@ public class ChallengeController {
 		}
 
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<String> result = restTemplate.exchange(gamificationUrl + "data/game/" + gameId + "/player/" + userId + "/blacklist", HttpMethod.GET, new HttpEntity<Object>(createHeaders(appId)), String.class);		
+		ResponseEntity<String> result = restTemplate.exchange(gamificationUrl + "data/game/" + gameId + "/player/" + userId + "/blacklist", HttpMethod.GET, new HttpEntity<Object>(appSetup.createAuthHeaders(appId)), String.class);		
 		
 		PlayerBlackList pbl = mapper.readValue(result.getBody(), PlayerBlackList.class);
 		
@@ -499,7 +490,7 @@ public class ChallengeController {
 		}		
 		
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<String> result = restTemplate.exchange(gamificationUrl + "data/game/" + gameId + "/player/" + userId + "/block/" + otherPlayerId, HttpMethod.POST, new HttpEntity<Object>(null, createHeaders(appId)), String.class);		
+		restTemplate.exchange(gamificationUrl + "data/game/" + gameId + "/player/" + userId + "/block/" + otherPlayerId, HttpMethod.POST, new HttpEntity<Object>(null, appSetup.createAuthHeaders(appId)), String.class);		
 	}	
 	
 	@DeleteMapping("/gamificationweb/blacklist/{otherPlayerId}")
@@ -533,9 +524,10 @@ public class ChallengeController {
 		}			
 		
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<String> result = restTemplate.exchange(gamificationUrl + "data/game/" + gameId + "/player/" + userId + "/unblock/" + otherPlayerId, HttpMethod.POST, new HttpEntity<Object>(null, createHeaders(appId)), String.class);		
+		restTemplate.exchange(gamificationUrl + "data/game/" + gameId + "/player/" + userId + "/unblock/" + otherPlayerId, HttpMethod.POST, new HttpEntity<Object>(null, appSetup.createAuthHeaders(appId)), String.class);		
 	}		
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@GetMapping("/gamificationweb/challengables")
 	public @ResponseBody List<Map<String, String>> getChallengables(@RequestHeader(required = true, value = "appId") String appId, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String token = tokenExtractor.extractHeaderToken(request);
@@ -560,7 +552,7 @@ public class ChallengeController {
 		}
 		
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<String> result = restTemplate.exchange(gamificationUrl + "data/game/" + gameId + "/player/" + userId + "/challengers", HttpMethod.GET, new HttpEntity<Object>(createHeaders(appId)), String.class);		
+		ResponseEntity<String> result = restTemplate.exchange(gamificationUrl + "data/game/" + gameId + "/player/" + userId + "/challengers", HttpMethod.GET, new HttpEntity<Object>(appSetup.createAuthHeaders(appId)), String.class);		
 		
 		List<String> ps = mapper.readValue(result.getBody(), List.class);
 		
@@ -597,7 +589,7 @@ public class ChallengeController {
 		String result = "";
 		ResponseEntity<String> res = null;
 		try {
-			res = restTemplate.exchange(gamificationUrl + "gengine/" + urlWS, HttpMethod.GET, new HttpEntity<Object>(createHeaders(appId)), String.class);
+			res = restTemplate.exchange(gamificationUrl + "gengine/" + urlWS, HttpMethod.GET, new HttpEntity<Object>(appSetup.createAuthHeaders(appId)), String.class);
 		} catch (Exception ex) {
 			logger.error(String.format("Exception in proxyController get ws. Method: %s. Details: %s", urlWS, ex.getMessage()));
 		}
@@ -618,19 +610,6 @@ public class ChallengeController {
 		}
 		return null;
 	}	
-	
-	HttpHeaders createHeaders(String appId) {
-		return new HttpHeaders() {
-			{
-				AppInfo app = appSetup.findAppById(appId);
-				GameInfo game = gameSetup.findGameById(app.getGameId());
-				String auth = game.getUser() + ":" + game.getPassword();
-				byte[] encodedAuth = Base64.encode(auth.getBytes(Charset.forName("UTF-8")));
-				String authHeader = "Basic " + new String(encodedAuth);
-				set("Authorization", authHeader);
-				set("Content-Type", "application/json");
-			}
-		};
-	}		
+
 	
 }

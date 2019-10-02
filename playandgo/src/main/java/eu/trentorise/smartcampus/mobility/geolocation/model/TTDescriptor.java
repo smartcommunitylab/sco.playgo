@@ -289,27 +289,27 @@ public class TTDescriptor {
 		return result;
 	}
 	
-	private void sortOccurences(List<TTLineDescriptor> list, Map<TTLineDescriptor, int[]> occurences) {
-		Map<TTLineDescriptor, Integer> score = Maps.newHashMap();
-		
-		list.sort((a,b) -> {
-			return    (occurences.get(b)[0] - occurences.get(a)[0]) != 0 
-					? (occurences.get(b)[0] - occurences.get(a)[0]) 
-					: (occurences.get(b)[2] - occurences.get(a)[2]); 
-		});
-		list.stream().forEach(x -> score.put(x, list.indexOf(x)));
-		list.sort((a,b) -> {
-			return    (occurences.get(b)[2] - occurences.get(a)[2]) != 0 
-					? (occurences.get(b)[2] - occurences.get(a)[2]) 
-					: (occurences.get(b)[0] - occurences.get(a)[0]); 
-		});
-		list.stream().forEach(x -> score.put(x, score.get(x) + list.indexOf(x)));
-		
-		list.sort((a,b) -> {
-			return score.get(a) - score.get(b);
-		});
-
-	}
+//	private void sortOccurences(List<TTLineDescriptor> list, Map<TTLineDescriptor, int[]> occurences) {
+//		Map<TTLineDescriptor, Integer> score = Maps.newHashMap();
+//		
+//		list.sort((a,b) -> {
+//			return    (occurences.get(b)[0] - occurences.get(a)[0]) != 0 
+//					? (occurences.get(b)[0] - occurences.get(a)[0]) 
+//					: (occurences.get(b)[2] - occurences.get(a)[2]); 
+//		});
+//		list.stream().forEach(x -> score.put(x, list.indexOf(x)));
+//		list.sort((a,b) -> {
+//			return    (occurences.get(b)[2] - occurences.get(a)[2]) != 0 
+//					? (occurences.get(b)[2] - occurences.get(a)[2]) 
+//					: (occurences.get(b)[0] - occurences.get(a)[0]); 
+//		});
+//		list.stream().forEach(x -> score.put(x, score.get(x) + list.indexOf(x)));
+//		
+//		list.sort((a,b) -> {
+//			return score.get(a) - score.get(b);
+//		});
+//
+//	}
 	
 	
 	/**

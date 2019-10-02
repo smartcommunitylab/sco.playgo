@@ -1,6 +1,5 @@
 package eu.trentorise.smartcampus.mobility.controller.rest;
 
-import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
@@ -21,10 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.codec.Base64;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -63,15 +60,12 @@ import eu.trentorise.smartcampus.mobility.gamificationweb.model.PointConcept;
 import eu.trentorise.smartcampus.mobility.geolocation.model.ValidationStatus.MODE_TYPE;
 import eu.trentorise.smartcampus.mobility.security.AppInfo;
 import eu.trentorise.smartcampus.mobility.security.AppSetup;
-import eu.trentorise.smartcampus.mobility.security.GameInfo;
-import eu.trentorise.smartcampus.mobility.security.GameSetup;
 import eu.trentorise.smartcampus.mobility.storage.DomainStorage;
 import eu.trentorise.smartcampus.mobility.storage.PlayerRepositoryDao;
 import eu.trentorise.smartcampus.mobility.util.ErrorInfo;
 import eu.trentorise.smartcampus.mobility.util.GamificationHelper;
 import it.sayservice.platform.smartplanner.data.message.Leg;
 
-@SuppressWarnings("deprecation")
 @Controller
 public class DiaryController {
 
@@ -97,9 +91,6 @@ public class DiaryController {
 	@Autowired
 	private AppSetup appSetup;
 
-	@Autowired
-	private GameSetup gameSetup;	
-	
 	@Autowired
 	private GamificationManager gamificationManager;
 	
@@ -522,19 +513,6 @@ public class DiaryController {
 		return null;
 	}	
 	
-	@SuppressWarnings("serial")
-	HttpHeaders createHeaders(String appId) {
-		return new HttpHeaders() {
-			{
-				AppInfo app = appSetup.findAppById(appId);
-				GameInfo game = gameSetup.findGameById(app.getGameId());
-				String auth = game.getUser() + ":" + game.getPassword();
-				byte[] encodedAuth = Base64.encode(auth.getBytes(Charset.forName("UTF-8")));
-				String authHeader = "Basic " + new String(encodedAuth);
-				set("Authorization", authHeader);
-			}
-		};
-	}
 
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	@ExceptionHandler(Exception.class)

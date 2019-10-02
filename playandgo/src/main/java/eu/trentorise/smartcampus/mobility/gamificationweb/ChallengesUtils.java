@@ -37,6 +37,7 @@ import eu.trentorise.smartcampus.mobility.gamificationweb.model.PointConceptPeri
 import eu.trentorise.smartcampus.mobility.storage.PlayerRepositoryDao;
 
 @Component
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class ChallengesUtils {
 	
 	@Autowired
@@ -44,11 +45,11 @@ public class ChallengesUtils {
 	
 	// challange fields
 	private static final String CHAL_FIELDS_PERIOD_NAME = "periodName";
-	private static final String CHAL_FIELDS_BONUS_POINT_TYPE = "bonusPointType";
+//	private static final String CHAL_FIELDS_BONUS_POINT_TYPE = "bonusPointType";
 	private static final String CHAL_FIELDS_COUNTER_NAME = "counterName";
 //	private static final String CHAL_FIELDS_BADGE_COLLECTION_NAME = "badgeCollectionName";
 	private static final String CHAL_FIELDS_BONUS_SCORE = "bonusScore";
-	private static final String CHAL_FIELDS_BASELINE = "baseline";
+//	private static final String CHAL_FIELDS_BASELINE = "baseline";
 	private static final String CHAL_FIELDS_TARGET = "target";
 	private static final String CHAL_FIELDS_PERIOD_TARGET = "periodTarget";
 	private static final String CHAL_FIELDS_INITIAL_BADGE_NUM = "initialBadgeNum";
@@ -96,7 +97,6 @@ public class ChallengesUtils {
 	@Autowired
 	private PlayerRepositoryDao playerRepository;
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@PostConstruct
 	private void init() throws Exception {
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -127,7 +127,6 @@ public class ChallengesUtils {
 		challengeReplacements = mapper.readValue(Resources.getResource("challenges/challenges_replacements.json"), Map.class);
 	}
 
-	@SuppressWarnings("rawtypes")
 	public List<ChallengeConcept> parse(String data) throws Exception {
 		List<ChallengeConcept> concepts = Lists.newArrayList();
 
@@ -147,11 +146,7 @@ public class ChallengesUtils {
 	
 	
 	// Method correctChallengeData: used to retrieve the challenge data objects from the user profile data
-	@SuppressWarnings("rawtypes")
 	public eu.trentorise.smartcampus.mobility.gamificationweb.model.ChallengeConcept convertChallengeData(String playerId, String gameId, String profile, int type, String language, List<PointConcept> pointConcept, List<BadgeCollectionConcept> bcc_list) throws Exception {
-		List<ChallengesData> challenges = Lists.newArrayList();
-    	List<ChallengesData> oldChallenges = Lists.newArrayList();
-    	List<ChallengesData> proposedChallenges = Lists.newArrayList();
     	ListMultimap<ChallengeDataType, ChallengesData> challengesMap = ArrayListMultimap.create();
     	
     	eu.trentorise.smartcampus.mobility.gamificationweb.model.ChallengeConcept result = new eu.trentorise.smartcampus.mobility.gamificationweb.model.ChallengeConcept();
@@ -570,7 +565,6 @@ public class ChallengesUtils {
 	}
 	
 	private int retrieveRepeatitiveStatusFromCounterName(String cName, String periodType, List<PointConcept> pointConcept, Long chalStart, Long chalEnd, double target){
-		Range<Long> challengeRange = Range.open(chalStart, chalEnd);
 		int countSuccesses = 0; // km or trips
 		if(cName != null && !cName.isEmpty()){
 			for(PointConcept pt : pointConcept){
@@ -578,7 +572,7 @@ public class ChallengesUtils {
 					List<PointConceptPeriod> allPeriods = pt.getInstances();
 					for(PointConceptPeriod pcp : allPeriods){
 						if(chalStart != null && chalEnd != null){
-							Range<Long> pcpRange = Range.open(pcp.getStart(), pcp.getEnd()); 
+							Range.open(pcp.getStart(), pcp.getEnd()); 
 //							if(chalStart <= pcp.getStart() && chalEnd >= pcp.getEnd()){	// Now I check only using starting time
 							if(chalStart != null && chalEnd != null) {
 								countSuccesses += pcp.getScore() >= target ? 1 : 0;

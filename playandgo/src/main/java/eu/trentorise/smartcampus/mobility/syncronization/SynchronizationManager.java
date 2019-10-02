@@ -1,13 +1,11 @@
 package eu.trentorise.smartcampus.mobility.syncronization;
 
 import java.io.IOException;
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.annotation.PostConstruct;
 
-import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -53,12 +51,8 @@ public class SynchronizationManager {
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 	}	
 	
-	private ObjectId id;
-	
 	@PostConstruct
 	public void init() throws Exception {
-		Random rnd = new Random();
-		id = new ObjectId();
 		initRabbitMQ();
 	}
 	
@@ -98,8 +92,6 @@ public class SynchronizationManager {
 						DefaultConsumer consumer = new DefaultConsumer(rabbitMQChannel) {
 							@Override
 							public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] b) throws IOException {
-								long deliveryTag = envelope.getDeliveryTag();
-
 								String body = new String(b);
 								try {
 									 processMessage(envelope.getRoutingKey(), body);
@@ -109,7 +101,7 @@ public class SynchronizationManager {
 							}
 						};
 						
-						String consumerTag = rabbitMQChannel.basicConsume(queueName, true, "",  consumer);
+						rabbitMQChannel.basicConsume(queueName, true, "",  consumer);
 
 						ok = true;
 						logger.info("Connected to RabbitMQ topics");

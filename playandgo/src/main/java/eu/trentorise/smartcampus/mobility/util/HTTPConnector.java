@@ -15,15 +15,11 @@
  ******************************************************************************/
 package eu.trentorise.smartcampus.mobility.util;
 
-import java.io.InputStream;
 import java.util.Map;
 import java.util.TreeMap;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.collections4.MapUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.core.io.Resource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -33,46 +29,9 @@ import org.springframework.web.client.RestTemplate;
 
 public class HTTPConnector {
 	
-	private static final Logger logger = LoggerFactory.getLogger(HTTPConnector.class);
-	
-	public static String doGet(String address, String req, String accept, String contentType, String encoding) throws Exception {
-		RestTemplate restTemplate = buildRestTemplate();
-		String url = address + ((req != null) ? ("?" + req) : "");
-
-		// logger.info("doGet " + url);
-		
-		ResponseEntity<String> res = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<Object>(null, createHeaders(MapUtils.putAll(new TreeMap<String, String>(), new String[][] {{"Accept", accept}, {"Content-Type", contentType}}))), String.class);
-
-		if (!res.getStatusCode().is2xxSuccessful()) {
-			throw new ConnectorException("Failed : HTTP error code : " + res.getStatusCode(), res.getStatusCode().value());
-		}
-
-		return res.getBody();
-	}	
-	
-	public static InputStream doStreamGet(String address, String req, String accept, String contentType) throws Exception {
-		RestTemplate restTemplate = buildRestTemplate();
-		String url = address + ((req != null) ? ("?" + req) : "");
-		
-		// logger.info("doStreamGet " + url);
-		
-		ResponseEntity<Resource> res = restTemplate.exchange(url, HttpMethod.GET, 
-				new HttpEntity<Object>(null, createHeaders(MapUtils.putAll(new TreeMap<String, String>(), new String[][] {{"Accept", accept}, {"Content-Type", contentType}}))),
-				Resource.class);
-
-		if (!res.getStatusCode().is2xxSuccessful()) {
-			throw new ConnectorException("Failed : HTTP error code : " + res.getStatusCode(), res.getStatusCode().value());
-		}		
-		
-		// TODO check
-		return res.getBody().getInputStream();
-	}	
-	
 	public static String doBasicAuthenticationPost(String address, String req, String accept, String contentType, String user, String password) throws Exception {
 		RestTemplate restTemplate = buildRestTemplate();
 
-		// logger.info("doBasicAuthenticationPost " + address);
-		
 		String s = user + ":" + password;
 		byte[] b = Base64.encodeBase64(s.getBytes());
 		String es = new String(b);
@@ -90,8 +49,6 @@ public class HTTPConnector {
 	public static String doTokenAuthenticationPost(String address, String req, String accept, String contentType, String token) throws Exception {
 		RestTemplate restTemplate = buildRestTemplate();
 
-		// logger.info("doTokenAuthenticationPost " + address);
-		
 		ResponseEntity<String> res = restTemplate.exchange(address, HttpMethod.POST, new HttpEntity<Object>(req, createHeaders(MapUtils.putAll(new TreeMap<String, String>(), new String[][] {{"Accept", accept}, {"Content-Type", contentType}, {"Authorization", "Bearer " + token}}))), String.class);
 
 		if (!res.getStatusCode().is2xxSuccessful()) {
@@ -101,29 +58,15 @@ public class HTTPConnector {
 		return res.getBody();		
 	}	
 	
-	public static String doPost(String address, String req, String accept, String contentType) throws Exception {
-		RestTemplate restTemplate = buildRestTemplate();
-
-		// logger.info("doPost " + address);
-		
-		ResponseEntity<String> res = restTemplate.exchange(address, HttpMethod.POST, new HttpEntity<Object>(req, createHeaders(MapUtils.putAll(new TreeMap<String, String>(), new String[][] {{"Accept", accept}, {"Content-Type", contentType}}))),
-				String.class);
-
-		if (!res.getStatusCode().is2xxSuccessful()) {
-			throw new ConnectorException("Failed : HTTP error code : " + res.getStatusCode(), res.getStatusCode().value());
-		}
-
-		return res.getBody();			
-	}
 	
-	
-	static RestTemplate buildRestTemplate() {
+	private static RestTemplate buildRestTemplate() {
 		SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
 		factory.setConnectTimeout(5000);
 		factory.setReadTimeout(15000);
 		return new RestTemplate(factory);
 	}
 
+	@SuppressWarnings("serial")
 	static HttpHeaders createHeaders(Map<String, String> pars) {
 		return new HttpHeaders() {
 			{
@@ -135,5 +78,4 @@ public class HTTPConnector {
 			}
 		};
 	}	
-	
 }

@@ -3,16 +3,13 @@ package eu.trentorise.smartcampus.mobility.gamificationweb;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.charset.Charset;
 import java.security.NoSuchAlgorithmException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -23,10 +20,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpHeaders;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.security.crypto.codec.Base64;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.common.collect.Lists;
@@ -39,12 +34,10 @@ import eu.trentorise.smartcampus.mobility.gamificationweb.model.ChallengeConcept
 import eu.trentorise.smartcampus.mobility.gamificationweb.model.ChallengeConcept.ChallengeDataType;
 import eu.trentorise.smartcampus.mobility.gamificationweb.model.ChallengesData;
 import eu.trentorise.smartcampus.mobility.gamificationweb.model.MailImage;
-import eu.trentorise.smartcampus.mobility.gamificationweb.model.Notification;
 import eu.trentorise.smartcampus.mobility.gamificationweb.model.Player;
 import eu.trentorise.smartcampus.mobility.gamificationweb.model.PlayerStatus;
 import eu.trentorise.smartcampus.mobility.gamificationweb.model.PointConcept;
 import eu.trentorise.smartcampus.mobility.gamificationweb.model.PointConceptPeriod;
-import eu.trentorise.smartcampus.mobility.gamificationweb.model.Summary;
 import eu.trentorise.smartcampus.mobility.gamificationweb.model.WeekConfData;
 import eu.trentorise.smartcampus.mobility.gamificationweb.model.WeekPrizeData;
 import eu.trentorise.smartcampus.mobility.security.AppInfo;
@@ -116,7 +109,7 @@ public class ReportEmailSender {
 
 	private static final Logger logger = LoggerFactory.getLogger(ReportEmailSender.class);
 
-	private Map<String, List<WeekPrizeData>> weekPrizeData = new HashMap<>();
+//	private Map<String, List<WeekPrizeData>> weekPrizeData = new HashMap<>();
 	
 //	@GetMapping("/gamificationweb/test1")
 //	public void sendNotification() throws Exception {
@@ -224,9 +217,9 @@ public class ReportEmailSender {
 	}
 
 	public void sendWeeklyNotification(String appId) throws Exception {
-		LocalDate now = LocalDate.now();
-		List<Summary> summaryMail = Lists.newArrayList();
-		long millis = System.currentTimeMillis() - (7 * 24 * 60 * 60 * 1000); // Delta in millis of one week //long millis = 1415660400000L; //(for test)
+//		LocalDate now = LocalDate.now();
+//		List<Summary> summaryMail = Lists.newArrayList();
+//		long millis = System.currentTimeMillis() - (7 * 24 * 60 * 60 * 1000); // Delta in millis of one week //long millis = 1415660400000L; //(for test)
 
 		URL resource = getClass().getResource("/public/");
 		String path = resource.getPath();
@@ -264,7 +257,7 @@ public class ReportEmailSender {
 
 			String compileSurveyUrl = utils.createSurveyUrl(p.getPlayerId(), gameId, START_SURVEY, getPlayerLang(p));
 			String unsubcribeLink = utils.createUnsubscribeUrl(p.getPlayerId(), gameId);
-			List<Notification> notifications = null;
+//			List<Notification> notifications = null;
 			List<BadgesData> someBadge = null;
 			List<ChallengesData> challenges = null;
 			List<ChallengesData> lastWeekChallenges = null;
@@ -408,7 +401,7 @@ public class ReportEmailSender {
 						mailto = mailTo;
 					}
 					// TODO FIXME !! should be dynamic but for which survey
-					Boolean surveyCompiled = false;// (p.getSurveyData() != null) ? true : false;
+//					Boolean surveyCompiled = false;// (p.getSurveyData() != null) ? true : false;
 
 					if (mailSend && playerName != null && !playerName.isEmpty()) { // && !noMailingPlayers.contains(p.getSocialId())
 						try {
@@ -433,15 +426,15 @@ public class ReportEmailSender {
 		return badgesCache.getAllBadges();
 	}
 
-	private List<BadgesData> checkCorrectBadges(List<BadgesData> allB, List<Notification> notifics) throws IOException {
-		List<BadgesData> correctBadges = Lists.newArrayList();
-
-		for (Notification n: notifics) {
-			correctBadges.addAll(allB.stream().filter(x -> n.getBadge().equals(x.getTextId())).collect(Collectors.toList()));
-		}
-		
-		return correctBadges;
-	}
+//	private List<BadgesData> checkCorrectBadges(List<BadgesData> allB, List<Notification> notifics) throws IOException {
+//		List<BadgesData> correctBadges = Lists.newArrayList();
+//
+//		for (Notification n: notifics) {
+//			correctBadges.addAll(allB.stream().filter(x -> n.getBadge().equals(x.getTextId())).collect(Collectors.toList()));
+//		}
+//		
+//		return correctBadges;
+//	}
 
 	private List<BadgesData> filterBadges(List<BadgesData> allB, PlayerStatus status) throws IOException {
 		List<BadgesData> correctBadges = Lists.newArrayList();
@@ -454,20 +447,6 @@ public class ReportEmailSender {
 		
 		return correctBadges;
 	}	
-	
-	@SuppressWarnings("serial")
-	HttpHeaders createHeaders(String appId) {
-		return new HttpHeaders() {
-			{
-				AppInfo app = appSetup.findAppById(appId);
-				GameInfo game = gameSetup.findGameById(app.getGameId());
-				String auth = game.getUser() + ":" + game.getPassword();
-				byte[] encodedAuth = Base64.encode(auth.getBytes(Charset.forName("UTF-8")));
-				String authHeader = "Basic " + new String(encodedAuth);
-				set("Authorization", authHeader);
-			}
-		};
-	}
 
 	private String getGameId(String appId) {
 		if (appId != null) {

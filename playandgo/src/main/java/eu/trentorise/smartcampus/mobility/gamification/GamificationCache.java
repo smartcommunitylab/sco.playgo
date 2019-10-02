@@ -1,6 +1,5 @@
 package eu.trentorise.smartcampus.mobility.gamification;
 
-import java.nio.charset.Charset;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -13,10 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.codec.Base64;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -32,8 +29,6 @@ import com.google.common.util.concurrent.ListenableFutureTask;
 import eu.trentorise.smartcampus.mobility.gamification.model.GameStatistics;
 import eu.trentorise.smartcampus.mobility.security.AppInfo;
 import eu.trentorise.smartcampus.mobility.security.AppSetup;
-import eu.trentorise.smartcampus.mobility.security.GameInfo;
-import eu.trentorise.smartcampus.mobility.security.GameSetup;
 
 @Component
 public class GamificationCache {
@@ -45,9 +40,6 @@ public class GamificationCache {
 	@Autowired
 	private AppSetup appSetup;
 
-	@Autowired
-	private GameSetup gameSetup;	
-	
 	private LoadingCache<String, String> playerState;
 	private LoadingCache<String, String> playerNotifications;
 	private LoadingCache<String, List<GameStatistics>> statistics;
@@ -207,7 +199,7 @@ public class GamificationCache {
 		RestTemplate restTemplate = new RestTemplate();
 		String url = gamificationUrl + "gengine/state/" + gameId + "/" + playerId;
 		logger.debug("Player state: " + url);
-		ResponseEntity<String> res = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<Object>(null, createHeaders(appId)),
+		ResponseEntity<String> res = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<Object>(null, appSetup.createAuthHeaders(appId)),
 				String.class);
 		String data = res.getBody();		
 		
@@ -227,7 +219,7 @@ public class GamificationCache {
 		RestTemplate restTemplate = new RestTemplate();
 		String url = gamificationUrl + "/notification/game/" + gameId + "/player/" + playerId + "/grouped?size=10000";
 		logger.debug("Notifications: " + url);
-		ResponseEntity<String> res = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<Object>(null, createHeaders(appId)),
+		ResponseEntity<String> res = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<Object>(null, appSetup.createAuthHeaders(appId)),
 				String.class);
 		String data = res.getBody();		
 		
@@ -247,28 +239,12 @@ public class GamificationCache {
 		RestTemplate restTemplate = new RestTemplate();
 		String url = gamificationUrl + "data/game/" + gameId + "/statistics";
 		logger.debug("Statistics: " + url);
-		ResponseEntity<String> result = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<Object>(createHeaders(appId)), String.class);		
+		ResponseEntity<String> result = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<Object>(appSetup.createAuthHeaders(appId)), String.class);		
 		
 		List<GameStatistics> stats = mapper.readValue(result.getBody(),  new TypeReference<List<GameStatistics>>() {});
 		
 		return stats;
 	}	
-	
-	
-	
-	HttpHeaders createHeaders(String appId) {
-		return new HttpHeaders() {
-			{
-				AppInfo app = appSetup.findAppById(appId);
-				GameInfo game = gameSetup.findGameById(app.getGameId());
-				String auth = game.getUser() + ":" + game.getPassword();
-				byte[] encodedAuth = Base64.encode(auth.getBytes(Charset.forName("UTF-8")));
-				String authHeader = "Basic " + new String(encodedAuth);
-				set("Authorization", authHeader);
-			}
-		};
-	}
-	
 	
 	
 }

@@ -153,7 +153,7 @@ public class FileController {
 	}
 
 	@GetMapping(value = "/gamificationweb/player/avatar/{appId}/{playerId}") //, produces = org.springframework.http.MediaType.APPLICATION_OCTET_STREAM_VALUE)
-	public ResponseEntity getPlayerAvatarDataSmall(@PathVariable String appId, @PathVariable String playerId, HttpServletResponse response) throws Exception {
+	public ResponseEntity<?> getPlayerAvatarDataSmall(@PathVariable String appId, @PathVariable String playerId, HttpServletResponse response) throws Exception {
 		Avatar avatar = avatarRepository.findByPlayerIdAndGameId(playerId, findGameId(appId));
 		if (avatar == null || avatar.getAvatarDataSmall() == null) {
 			avatar = avatarRepository.findById(DEFAULT_USER).orElse(null);
@@ -167,7 +167,7 @@ public class FileController {
 	}	
 	
 	@GetMapping(value = "/gamificationweb/player/avatar/{appId}/{playerId}/big") //, produces = org.springframework.http.MediaType.APPLICATION_OCTET_STREAM_VALUE)
-	public ResponseEntity getPlayerAvatarData(@PathVariable String appId, @PathVariable String playerId, HttpServletResponse response) throws Exception {
+	public ResponseEntity<?> getPlayerAvatarData(@PathVariable String appId, @PathVariable String playerId, HttpServletResponse response) throws Exception {
 		Avatar avatar = avatarRepository.findByPlayerIdAndGameId(playerId, findGameId(appId));
 		if (avatar == null || avatar.getAvatarData() == null) {
 			avatar = avatarRepository.findById(DEFAULT_USER).orElse(null);

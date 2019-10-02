@@ -1,7 +1,6 @@
 package eu.trentorise.smartcampus.mobility.gamification;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;

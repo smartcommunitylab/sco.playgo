@@ -28,10 +28,6 @@ import it.sayservice.platform.smartplanner.data.message.journey.SingleJourney;
 @Component
 public class DomainStorage {
 
-	private static final String ITINERARY = "itinerary";
-	private static final String RECURRENT = "recurrent";
-	private static final String DATA = "data";
-	private static final String NEWS = "news";
 	private static final String GEOLOCATIONS = "geolocations";
 	private static final String TRACKED = "trackedInstances";
 	private static final String SAVED = "savedtrips";
@@ -66,7 +62,6 @@ public class DomainStorage {
 				new Criteria("clientId").is(tracked.getClientId())
 				.and("day").is(tracked.getDay())
 				.and("userId").is(tracked.getUserId()));
-		TrackedInstance trackedDB = searchDomainObject(query, TrackedInstance.class);
 		template.remove(query, TrackedInstance.class, TRACKED);
 	}
 	

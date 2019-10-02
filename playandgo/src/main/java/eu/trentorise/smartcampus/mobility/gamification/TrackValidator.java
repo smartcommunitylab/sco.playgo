@@ -30,12 +30,9 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 
 import eu.trentorise.smartcampus.mobility.geolocation.model.Geolocation;
@@ -57,11 +54,11 @@ import it.sayservice.platform.smartplanner.data.message.Leg;
  */
 public class TrackValidator {
 
-	private static final int WALK_SPEED_THRESHOLD = 12; // km/h
-	private static final int BIKE_SPEED_THRESHOLD = 30; // km/h
+	private static final int WALK_SPEED_THRESHOLD = 7; // km/h
+	private static final int WALK_AVG_SPEED_THRESHOLD = 8; // km/h
+	private static final double WALK_GUARANTEED_AVG_SPEED_THRESHOLD = 5; // km/h
 
-	private static final int WALK_AVG_SPEED_THRESHOLD = 15; // km/h
-	private static final double WALK_GUARANTEED_AVG_SPEED_THRESHOLD = 7; // km/h
+	private static final int BIKE_SPEED_THRESHOLD = 30; // km/h
 	private static final int BIKE_AVG_SPEED_THRESHOLD = 27; // km/h
 	private static final double BIKE_GUARANTEED_AVG_SPEED_THRESHOLD = 18; // km/h
 
@@ -83,7 +80,7 @@ public class TrackValidator {
 	private static final double GUARANTEED_COVERAGE_THRESHOLD_VALID = 90; // %
 	private static final double GUARANTEED_COVERAGE_THRESHOLD_PENDING = 80; // %
 	
-	private static transient final Logger logger = LoggerFactory.getLogger(TrackValidator.class);
+//	private static transient final Logger logger = LoggerFactory.getLogger(TrackValidator.class);
 	
 	/**
 	 * Preprocess tracked data: spline, remove outstanding points, remove potentially erroneous start / stop points 
@@ -191,7 +188,7 @@ public class TrackValidator {
 
 		int start = 1;
 		boolean removed = false;
-		int n = 0;
+//		int n = 0;
 		do {
 			removed = false;
 			Integer min = null;
@@ -226,7 +223,7 @@ public class TrackValidator {
 				removed = true;
 			}
 			
-			n++;
+//			n++;
 		} while (removed);
 
 	}
@@ -238,7 +235,7 @@ public class TrackValidator {
 			double d = GamificationHelper.harvesineDistance(points.get(i), points.get(index));
 			long t = points.get(i).getRecorded_at().getTime() - points.get(index).getRecorded_at().getTime();
 			if (t > 0) {
-				double speed = (1000.0 * d / ((double) t / 1000)) * 3.6;
+//				double speed = (1000.0 * d / ((double) t / 1000)) * 3.6;
 //				System.err.println("\t" + i + " / " + speed + " / " + d);
 				if (d < d0) {
 //					System.err.println("\t\t" +index + " -> " + i + " = " + speed + " / " + d);

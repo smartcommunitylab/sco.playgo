@@ -4,7 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 public class GameInfo implements Serializable {
-
+	private static final long serialVersionUID = -6374757914730418649L;
+	
 	private String id;
 	private String user;
 	private String password;

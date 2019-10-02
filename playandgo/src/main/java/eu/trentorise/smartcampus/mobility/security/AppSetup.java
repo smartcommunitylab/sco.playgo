@@ -1,5 +1,6 @@
 package eu.trentorise.smartcampus.mobility.security;
 
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,11 +10,13 @@ import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
@@ -37,7 +40,9 @@ public class AppSetup {
 	
 	@Autowired
 	private TokenHelper helper;	
-	
+	@Autowired
+	private GameSetup gameSetup;	
+
 	private CommunicatorConnector communicator;
 	
 	private List<AppInfo> apps;
@@ -140,5 +145,19 @@ public class AppSetup {
 	public AppInfo findAppById(String username) {
 		return appsMap.get(username);
 	}
-	
+
+	@SuppressWarnings("serial")
+	public HttpHeaders createAuthHeaders(String appId) {
+		return new HttpHeaders() {
+			{
+				AppInfo app = findAppById(appId);
+				GameInfo game = gameSetup.findGameById(app.getGameId());
+				String auth = game.getUser() + ":" + game.getPassword();
+				byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("UTF-8")));
+				String authHeader = "Basic " + new String(encodedAuth);
+				set("Authorization", authHeader);
+				set("Content-Type", "application/json");
+			}
+		};
+	}
 }

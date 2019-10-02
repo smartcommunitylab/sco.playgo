@@ -761,6 +761,7 @@ public class GamificationController {
 		return appId;
 	}
 
+	@SuppressWarnings("unchecked")
 	@GetMapping("/gamification/console/useritinerary/{userId}")
 	public @ResponseBody List<ItineraryDescriptor> getItineraryListForUser(@PathVariable String userId, @RequestHeader(required = true, value = "appId") String appId,
 			@RequestParam(required = false) Long fromDate, @RequestParam(required = false) Long toDate, @RequestParam(required = false) Boolean excludeZeroPoints,
@@ -894,8 +895,9 @@ public class GamificationController {
 				ranking = rankingManager.getPreviousIncClassification().get(appId);
 				break;
 			case GLOBAL:
+			default:
 				ranking = rankingManager.getGlobalClassification().get(appId);
-				break;				
+				break;		
 			}
 		} else {
 			ranking = rankingManager.getGlobalClassification().get(appId);

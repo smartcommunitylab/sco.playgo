@@ -1,7 +1,6 @@
 package eu.trentorise.smartcampus.mobility.gamification.challenges;
 
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.stereotype.Component;
 

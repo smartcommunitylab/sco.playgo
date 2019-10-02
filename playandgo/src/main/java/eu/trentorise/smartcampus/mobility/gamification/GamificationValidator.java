@@ -41,7 +41,6 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.google.common.collect.Range;
 import com.google.common.collect.Sets;
 import com.google.common.primitives.Doubles;
 
@@ -64,21 +63,21 @@ import it.sayservice.platform.smartplanner.data.message.TType;
 @Component
 public class GamificationValidator {
 
-	private static final String ON_FOOT = "on_foot";
-	private static final String ON_BICYCLE = "on_bicycle";
-	private static final String IN_VEHICLE = "in_vehicle";
-	private static final String WALKING = "walking";
-	private static final String RUNNING = "running";
-	private static final String UNKNOWN = "unknown";
-	private static final String EMPTY = "unknown";
-	private static final double SPACE_ERROR = 0.1;
+//	private static final String ON_FOOT = "on_foot";
+//	private static final String ON_BICYCLE = "on_bicycle";
+//	private static final String IN_VEHICLE = "in_vehicle";
+//	private static final String WALKING = "walking";
+//	private static final String RUNNING = "running";
+//	private static final String UNKNOWN = "unknown";
+//	private static final String EMPTY = "unknown";
+//	private static final double SPACE_ERROR = 0.1;
 	
 	public static final int SAME_TRIP_INTERVAL = 5 * 60 * 1000; // 5 minutes
 
 	private static final Logger logger = LoggerFactory.getLogger(GamificationValidator.class);
 
-	private static final List<TType> FAST_TRANSPORTS = Lists.newArrayList(TType.BUS, TType.CAR, TType.GONDOLA, TType.SHUTTLE, TType.TRAIN, TType.TRANSIT);
-	private static final Set<String> WALKLIKE = Sets.newHashSet(ON_FOOT, WALKING, RUNNING, UNKNOWN, EMPTY);
+//	private static final List<TType> FAST_TRANSPORTS = Lists.newArrayList(TType.BUS, TType.CAR, TType.GONDOLA, TType.SHUTTLE, TType.TRAIN, TType.TRANSIT);
+//	private static final Set<String> WALKLIKE = Sets.newHashSet(ON_FOOT, WALKING, RUNNING, UNKNOWN, EMPTY);
 
 	@Autowired
 	private AppSetup appSetup;
@@ -218,7 +217,7 @@ public class GamificationValidator {
 		score += Math.min(30, bikeDist) * 5;
 //		score += bikeDist * 7;
 
-		double busTrainTransitDist = busDist + trainDist;
+//		double busTrainTransitDist = busDist + trainDist;
 //		if (busTrainTransitDist > 0) {
 //			score += (busTrainTransitDist > 0 && busTrainTransitDist < 1) ? 10 : ((busTrainTransitDist > 1 && busTrainTransitDist < 5) ? 15 : (busTrainTransitDist >= 5 && busTrainTransitDist < 10) ? 20
 //					: (busTrainTransitDist >= 10 && busTrainTransitDist < 30) ? 30 : 40);
@@ -422,7 +421,7 @@ public class GamificationValidator {
 		score += Math.min(30, bikeDist) * 5;
 		// score += bikeDist * 7;
 
-		double busTrainTransitDist = busDist + trainDist;
+//		double busTrainTransitDist = busDist + trainDist;
 		// if (busTrainTransitDist > 0) {
 		// score += (busTrainTransitDist > 0 && busTrainTransitDist < 1) ? 10 : ((busTrainTransitDist > 1 && busTrainTransitDist < 5) ? 15 : (busTrainTransitDist >= 5 && busTrainTransitDist < 10) ? 20
 		// : (busTrainTransitDist >= 10 && busTrainTransitDist < 30) ? 30 : 40);
@@ -692,22 +691,22 @@ public class GamificationValidator {
 //		}
 //		return false;
 //	}
-
-	private Range<Long> findGeolocationTimeRange(Collection<Geolocation> geolocations) {
-		long first = Long.MAX_VALUE;
-		long last = 0;
-		for (Geolocation loc : geolocations) {
-			first = Math.min(first, loc.getRecorded_at().getTime());
-			last = Math.max(last, loc.getRecorded_at().getTime());
-		}
-		
-		if (first < last) {
-			Range<Long> range = Range.closed(first, last);
-			return range;
-		} else {
-			return null;
-		}
-	}
+//
+//	private Range<Long> findGeolocationTimeRange(Collection<Geolocation> geolocations) {
+//		long first = Long.MAX_VALUE;
+//		long last = 0;
+//		for (Geolocation loc : geolocations) {
+//			first = Math.min(first, loc.getRecorded_at().getTime());
+//			last = Math.max(last, loc.getRecorded_at().getTime());
+//		}
+//		
+//		if (first < last) {
+//			Range<Long> range = Range.closed(first, last);
+//			return range;
+//		} else {
+//			return null;
+//		}
+//	}
 	
 	public boolean isSuspect(TrackedInstance trackedInstance) {
 		List<Geolocation> points = new ArrayList<Geolocation>(trackedInstance.getGeolocationEvents());

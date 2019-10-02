@@ -1,7 +1,6 @@
 package eu.trentorise.smartcampus.mobility.gamificationweb;
 
 import java.net.URLEncoder;
-import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -20,10 +19,8 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.codec.Base64;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
@@ -43,8 +40,6 @@ import eu.trentorise.smartcampus.mobility.gamificationweb.model.ClassificationDa
 import eu.trentorise.smartcampus.mobility.gamificationweb.model.Player;
 import eu.trentorise.smartcampus.mobility.security.AppInfo;
 import eu.trentorise.smartcampus.mobility.security.AppSetup;
-import eu.trentorise.smartcampus.mobility.security.GameInfo;
-import eu.trentorise.smartcampus.mobility.security.GameSetup;
 
 @Component
 public class RankingManager {
@@ -61,9 +56,6 @@ public class RankingManager {
 	
 	@Autowired
 	private AppSetup appSetup;
-	
-	@Autowired
-	private GameSetup gameSetup;	
 	
 	@Autowired
 	@Qualifier("mongoTemplate")
@@ -94,7 +86,7 @@ public class RankingManager {
 								logger.error("Error populating current classification cache.", e);
 							}
 						}
-						return Collections.EMPTY_LIST;
+						return Collections.emptyList();
 					}
 				});
 		
@@ -110,7 +102,7 @@ public class RankingManager {
 								logger.error("Error populating previous classification cache.", e);
 							}								
 						}
-						return Collections.EMPTY_LIST;
+						return Collections.emptyList();
 					}
 				});	
 		
@@ -126,7 +118,7 @@ public class RankingManager {
 								logger.error("Error populating previous classification cache.", e);
 							}								
 						}
-						return Collections.EMPTY_LIST;
+						return Collections.emptyList();
 					}
 				});			
 		
@@ -220,7 +212,7 @@ public class RankingManager {
 		try {
 			// result = restTemplate.getForObject(gamificationUrl + urlWS,
 			// String.class);
-			tmp_res = restTemplate.exchange(gamificationUrl + "data/" + urlWS, HttpMethod.GET, new HttpEntity<Object>(createHeaders(appId)), String.class);
+			tmp_res = restTemplate.exchange(gamificationUrl + "data/" + urlWS, HttpMethod.GET, new HttpEntity<Object>(appSetup.createAuthHeaders(appId)), String.class);
 		} catch (Exception ex) {
 			logger.error(String.format("Exception in proxyController get ws. Method: %s. Details: %s", urlWS, ex.getMessage()));
 		}
@@ -280,20 +272,6 @@ public class RankingManager {
 			return gameId;
 		}
 		return null;
-	}	
-	
-	@SuppressWarnings("serial")
-	HttpHeaders createHeaders(String appId) {
-		return new HttpHeaders() {
-			{
-				AppInfo app = appSetup.findAppById(appId);
-				GameInfo game = gameSetup.findGameById(app.getGameId());
-				String auth = game.getUser() + ":" + game.getPassword();
-				byte[] encodedAuth = Base64.encode(auth.getBytes(Charset.forName("UTF-8")));
-				String authHeader = "Basic " + new String(encodedAuth);
-				set("Authorization", authHeader);
-			}
-		};
 	}	
 	
 }
