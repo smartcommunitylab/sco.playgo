@@ -521,7 +521,8 @@ angular.module('viaggia.services.plan', [])
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                     'UserID': userId,
-                    'AppName': appName
+                    'AppName': appName,
+                    'appId': Config.getAppGameId()
                 },
                 data: {
                     "to": {
