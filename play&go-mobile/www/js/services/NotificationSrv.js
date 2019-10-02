@@ -118,10 +118,35 @@ angular.module('viaggia.services.notification', [])
         console.log(token);
         registrationId = token;
         LoginService.getValidAACtoken().then(
+          //register to message mobility service
           function (tokenLogin) {
             $http({
                 method: 'POST',
                 url: Config.getMessagingServerURL() + '/register/user/' + Config.getMessagingAppId(),
+                headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json',
+                  'Authorization': 'Bearer ' + tokenLogin
+
+                },
+                data: {
+                  "appName": Config.getMessagingAppId(),
+                  "registrationId": registrationId,
+                  "platform": ionic.Platform.isAndroid() ? "android" : "ios"
+                },
+                timeout: 5000
+              }).success(function (data) {
+                deferred.resolve(data.notifications);
+              })
+              .error(function (err) {
+                deferred.reject(err);
+
+              })
+                        //register to message to game service
+
+              $http({
+                method: 'POST',
+                url: Config.getMessagingServerURL() + '/register/user/' + Config.getMessagingAppGameId(),
                 headers: {
                   'Accept': 'application/json',
                   'Content-Type': 'application/json',

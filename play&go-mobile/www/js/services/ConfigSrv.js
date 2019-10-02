@@ -371,6 +371,10 @@ angular.module('viaggia.services.conf', [])
             getMessagingAppId: function () {
                 return mapJsonConfig["messagingAppId"];
             },
+            getMessagingAppGameId: function () {
+                return mapJsonConfig["messagingAppGameId"];
+            },
+            
             getTaxiId: function () {
                 return mapJsonConfig["taxi_id"];
             },
