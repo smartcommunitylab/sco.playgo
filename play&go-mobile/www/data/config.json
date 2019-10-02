@@ -252,7 +252,7 @@
         "foregroundService": true,
         "maxDaysToPersist": 14,
         "triggerActivities": "in_vehicle, on_bicycle, running, walking, on_foot",
-        "url": "https://dev.smartcommunitylab.it/playandgo/geolocations?token=",
+        "url": "https://dev.smartcommunitylab.it/playandgo/gamification/geolocations?token=",
         "method": "POST",
         "batchSync": true,
         "autoSync": false,

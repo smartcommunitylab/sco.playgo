@@ -423,10 +423,10 @@ angular.module('viaggia.services.game', [])
         function (token) {
           $http({
               method: 'GET',
-              url: Config.getServerURL() + '/gamification/traveldetails/' + id,
+              url: Config.getServerGamificationURL() + '/gamification/traveldetails/' + id,
               headers: {
                 'Authorization': 'Bearer ' + token,
-                'appId': Config.getAppId(),
+                'appId': Config.getAppGameId(),
               },
               timeout: Config.getHTTPConfig().timeout
             })

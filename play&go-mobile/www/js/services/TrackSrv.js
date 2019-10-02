@@ -542,7 +542,7 @@ angular.module('viaggia.services.tracking', [])
         //trackingConfigure['url'] += token;
         trackingConfigure['headers'] = { // <-- Optional HTTP headers
           'Authorization': 'Bearer ' + token,
-          'appId': Config.getAppId()
+          'appId': Config.getAppGameId()
         }
         trackingConfigure['foregroundService'] = false;
         if (!bgGeo) {
@@ -570,7 +570,7 @@ angular.module('viaggia.services.tracking', [])
               },
               headers: {
                 'Authorization': 'Bearer ' + token,
-                'appId': Config.getAppId()
+                'appId': Config.getAppGameId()
               }
             }).then(function (response) {
               console.log('Geo Sync SUCCESS: ' + locations.length);
