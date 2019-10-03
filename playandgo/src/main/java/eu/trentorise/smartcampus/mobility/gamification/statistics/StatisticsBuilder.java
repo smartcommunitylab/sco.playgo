@@ -13,6 +13,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -187,12 +189,13 @@ public class StatisticsBuilder {
 				new Criteria("changedValidity").is(TravelValidity.VALID.toString()));		
 		Query query = new Query(criteria);
 		query.fields().include("day");
+		query.with(Sort.by(Direction.DESC, "day"));
+		query.limit(1);
 		
 		logger.debug("Start outside - findOne 1b: " + query);
-		
-//		List<String> before = template.getCollection("trackedInstances").distinct("day", query.getQueryObject());
 		List<String> before = Lists.newArrayList(); 
-		template.getCollection("trackedInstances").distinct("day", String.class).into(before);
+		TrackedInstance prev = template.findOne(query, TrackedInstance.class, "trackedInstances");
+		if (prev != null) before.add(prev.getDay());
 		Collections.sort(before);
 		Collections.reverse(before);
 		if (!before.isEmpty()) {
@@ -206,11 +209,13 @@ public class StatisticsBuilder {
 				new Criteria("changedValidity").is(TravelValidity.VALID.toString()));			
 		query = new Query(criteria);
 		query.fields().include("day");		
-		
+		query.with(Sort.by(Direction.ASC, "day"));
+		query.limit(1);
+
 		logger.debug("Start outside - findOne 2b");
-//		List<String> after = template.getCollection("trackedInstances").distinct("day", query.getQueryObject());
 		List<String> after = Lists.newArrayList();
-		template.getCollection("trackedInstances").distinct("day", String.class).into(after);
+		TrackedInstance nxt = template.findOne(query, TrackedInstance.class, "trackedInstances");
+		if (nxt != null) after.add(nxt.getDay());
 		Collections.sort(after);
 		if (!after.isEmpty()) {
 			result.put("after", after.get(0));
