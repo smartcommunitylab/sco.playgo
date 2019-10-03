@@ -9,7 +9,7 @@
   },
   {
     "file": "css/style.css",
-    "hash": "63e0487a8592b511963be6a54afc0a6a"
+    "hash": "d11d4b547a15b77cbbef472a15035bc8"
   },
   {
     "file": "data/bus.csv",
@@ -389,7 +389,7 @@
   },
   {
     "file": "js/app.js",
-    "hash": "e3e2b7bc04522e2100435c99e4a09cba"
+    "hash": "15cf6c6f872e6308631d08217bb6b366"
   },
   {
     "file": "js/controllers/BookmarksCtrl.js",
@@ -397,11 +397,11 @@
   },
   {
     "file": "js/controllers/CommonCtrl.js",
-    "hash": "716bfbd75ddc7a4b5a678552273fb8ab"
+    "hash": "e0b1a0c807a350442a5050e05e404445"
   },
   {
     "file": "js/controllers/GameCtrl.js",
-    "hash": "4dfc0f07e19356f5b98eb201c62e16ee"
+    "hash": "802812b04d1ddd1cad47dc8566d26de4"
   },
   {
     "file": "js/controllers/HomeCtrl.js",
@@ -449,7 +449,7 @@
   },
   {
     "file": "js/controllers/ProfileCtrl.js",
-    "hash": "49f525d618b84fcc2b6dc8740dbb3e0c"
+    "hash": "13ed6cfccebd9aa72eb452983eb32f74"
   },
   {
     "file": "js/controllers/RegistrationController.js",
@@ -545,7 +545,7 @@
   },
   {
     "file": "js/services/ProfileSrv.js",
-    "hash": "e4167d754dae305dd54800da73fce537"
+    "hash": "54246f0fef357ddcd4992c21640ec7f1"
   },
   {
     "file": "js/services/RegistrationSrv.js",
@@ -1101,11 +1101,11 @@
   },
   {
     "file": "templates/game/profile.html",
-    "hash": "1f718e2a6603aef845d26a1aea2b60c7"
+    "hash": "34e7fe7990cb9aa50ba51dc9d05f83d3"
   },
   {
     "file": "templates/game/profileOthers.html",
-    "hash": "fa6f498d4986f6050f9d3c8fe19acb5d"
+    "hash": "7cefa4ed5744bdb772cb7f9a622c68c4"
   },
   {
     "file": "templates/game/profileOthersChallenges.html",
@@ -1113,7 +1113,7 @@
   },
   {
     "file": "templates/game/profileOthersContainer.html",
-    "hash": "ce7c7f2d047539dc411df69903e841d1"
+    "hash": "ed773476975031667d06787928fa6f10"
   },
   {
     "file": "templates/game/profileOthersStatistics.html",

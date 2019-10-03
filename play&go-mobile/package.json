@@ -8,7 +8,6 @@
     "cordova-android": "8.1.0",
     "cordova-background-geolocation": "file:../../cordova-background-geolocation",
     "cordova-custom-config": "^5.1.0",
-    "cordova-hot-code-push-plugin": "^1.5.3",
     "cordova-plugin-androidx": "1.0.2",
     "cordova-plugin-androidx-adapter": "1.1.0",
     "cordova-plugin-app-event": "^1.2.1",
@@ -138,7 +137,6 @@
       "cordova-plugin-globalization": {},
       "cordova-plugin-camera": {},
       "cordova-plugin-crop": {},
-      "cordova-hot-code-push-plugin": {},
       "cordova-plugin-geolocation": {},
       "cordova-android-support-gradle-release": {
         "ANDROID_SUPPORT_VERSION": "28.+"

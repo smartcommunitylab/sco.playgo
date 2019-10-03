@@ -179,7 +179,9 @@ angular.module('viaggia.controllers.common', [])
                 text: $filter('translate')("pop_up_points_btn"),
                 type: 'button-custom',
                 onTap: function () {
-                  $state.go('app.home.diary');
+                  $ionicHistory.clearCache().then(function(){
+                    $state.go('app.home.diary');
+                  });
                 }
               }
             ]
@@ -217,7 +219,9 @@ angular.module('viaggia.controllers.common', [])
       $state.go('app.notifications');
     }
     $scope.openGamificationBoard = function () {
-      $state.go('app.home.leaderboards');
+      $ionicHistory.clearCache().then(function(){
+        $state.go('app.home.leaderboards');
+      });
     };
     $scope.openBadgeBoard = function () {
       $state.go('app.profile.points');
@@ -624,7 +628,7 @@ angular.module('viaggia.controllers.common', [])
     var changePrifileImage = function () {
       if (profileService.getProfileStatus())
         profileService.getProfileImage(profileService.getProfileStatus().playerData.playerId).then(function (image) {
-          $rootScope.profileImg = profileService.getAvatarUrl() + profileService.getProfileStatus().playerData.playerId + '/big?' + (localStorage.getItem(Config.getAppGameId() + '_timestampImg'));
+          $rootScope.profileImg = profileService.getAvatarUrl() + profileService.getProfileStatus().playerData.playerId + '/big?' + (localStorage.getItem(Config.getAppId() + '_timestampImg'));
           // $scope.refreshProfileImage();
         }, function (error) {
           $rootScope.profileImg = 'img/game/generic_user.png' + '/big?' + (localStorage.getItem(Config.getAppId() + '_timestampImg'));

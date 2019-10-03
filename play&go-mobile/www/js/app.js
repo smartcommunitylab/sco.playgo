@@ -429,7 +429,7 @@ angular.module('viaggia', [
       //   }
       // })
       .state('app.home', {
-        cache: false,
+        cache: true,
         url: "/home",
         views: {
           'menuContent': {
@@ -453,7 +453,7 @@ angular.module('viaggia', [
       })
 
       .state('app.home.diary', {
-        cache: false,
+        cache: true,
         url: '/diary',
         params: {
           challengeEnd: null
@@ -502,7 +502,7 @@ angular.module('viaggia', [
         }
       })
       .state('app.profile', {
-        cache: false,
+        cache: true,
         url: "/profile",
         views: {
           'menuContent': {
@@ -543,7 +543,7 @@ angular.module('viaggia', [
         }
       })
       .state('app.profileOthers', {
-        cache: false,
+        cache: true,
         url: "/other",
         params: {
           profileId: null
