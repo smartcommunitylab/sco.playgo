@@ -18,14 +18,13 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -239,7 +238,7 @@ public class PlayerController {
 	
 	@GetMapping("/gamificationweb/classification")
 	public @ResponseBody PlayerClassification getPlayerClassification(HttpServletRequest request, @RequestParam(required = false) Long timestamp, @RequestParam(required = false) Integer start,
-			@RequestParam(required = false) Integer end, @RequestHeader(required = true, value = "appId") String appId, HttpServletResponse res) throws Exception {
+			@RequestParam(required = false) Integer end, @RequestHeader(required = true, value = "appId") String appId, @RequestParam(required = false) String query, HttpServletResponse res) throws Exception {
 		String token = tokenExtractor.extractHeaderToken(request);
 	logger.debug("WS-get classification user token " + token);
 	
@@ -257,7 +256,7 @@ public class PlayerController {
 	String userId = user.getUserId();
 	
 //		PlayerClassification pc = getPlayerClassification(gameId, userId, timestamp, start, end, appId);
-	PlayerClassification pc = getCachedPlayerClassification(userId, appId, timestamp, start, end);
+	PlayerClassification pc = getCachedPlayerClassification(userId, appId, query, timestamp, start, end);
 	
 	return pc;
 }	
@@ -632,7 +631,7 @@ public class PlayerController {
 //		return result;
 //	}	
 	
-	private PlayerClassification getCachedPlayerClassification(String playerId, String appId, Long timestamp, Integer start, Integer end) throws ExecutionException {
+	private PlayerClassification getCachedPlayerClassification(String playerId, String appId, String nameFilter, Long timestamp, Integer start, Integer end) throws ExecutionException {
 		List<ClassificationData> data = null;
 
 		if (timestamp != null) {
@@ -663,14 +662,6 @@ public class PlayerController {
 			return pc;
 		}
 
-		AppInfo app = appSetup.findAppById(appId);
-		Criteria criteria = new Criteria("gameId").is(app.getGameId());
-		Query query = new Query(criteria);
-		query.fields().include("nickname").include("playerId");
-
-//		List<Player> players = template.find(query, Player.class, "player");
-//		Map<String, String> nicknames = players.stream().collect(Collectors.toMap(Player::getPlayerId, Player::getNickname));
-
 		pc.setClassificationList(data);
 		for (ClassificationData cd : data) {
 			if (playerId.equals(cd.getPlayerId())) {
@@ -688,6 +679,11 @@ public class PlayerController {
 				size = end - start + 1;
 			}
 		}		
+		
+		if (!StringUtils.isEmpty(nameFilter)) {
+			String nf = nameFilter.toLowerCase();
+			data = data.stream().filter(d -> d.getNickName().toLowerCase().contains(nf)).collect(Collectors.toList());
+		}
 		
 		data = data.stream().skip(start != null ? (start - 1) : 0).limit(size != 0 ? size : data.size()).collect(Collectors.toList());
 		pc.setClassificationList(data);
