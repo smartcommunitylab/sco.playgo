@@ -33,7 +33,7 @@ angular.module('viaggia.controllers.login', [])
               //reg push notification, not blocking
               document.addEventListener('deviceready', onDeviceReady, false);
               //go on to home page
-              $state.go('app.home');
+              $state.go('app.home.home');
               $ionicHistory.nextViewOptions({
                 disableBack: true,
                 historyRoot: true
@@ -69,7 +69,7 @@ angular.module('viaggia.controllers.login', [])
             });
             //reg push notification, not blocking
             document.addEventListener('deviceready', onDeviceReady, false); //go on to home page
-            $state.go('app.home');
+            $state.go('app.home.home');
             $ionicHistory.nextViewOptions({
               disableBack: true,
               historyRoot: true
@@ -109,7 +109,7 @@ angular.module('viaggia.controllers.login', [])
             if (valid) {
               //reg push notification, not blocking
               document.addEventListener('deviceready', onDeviceReady, false); //go on to home page
-              $state.go('app.home');
+              $state.go('app.home.home');
               $ionicHistory.nextViewOptions({
                 disableBack: true,
                 historyRoot: true
@@ -187,7 +187,7 @@ angular.module('viaggia.controllers.login', [])
       if (profile != null && locallyValid) {
         //reg push notification, not blocking
         document.addEventListener('deviceready', onDeviceReady, false);
-        $state.go('app.home');
+        $state.go('app.home.home');
         $ionicHistory.nextViewOptions({
           disableBack: true,
           historyRoot: true
@@ -237,7 +237,7 @@ angular.module('viaggia.controllers.login', [])
               if (valid) {
                 //reg push notification, not blocking
                 document.addEventListener('deviceready', onDeviceReady, false); //go on to home page
-                $state.go('app.home');
+                $state.go('app.home.home');
                 $ionicHistory.nextViewOptions({
                   disableBack: true,
                   historyRoot: true

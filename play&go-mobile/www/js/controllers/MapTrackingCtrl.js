@@ -98,7 +98,7 @@ angular.module('viaggia.controllers.mapTracking', [])
         }
         
         $scope.goHome = function () {
-            $state.go('app.home');
+            $state.go('app.home.home');
             $ionicHistory.nextViewOptions({
                 disableBack: true
             });

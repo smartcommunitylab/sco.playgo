@@ -15,7 +15,7 @@ angular.module('viaggia.controllers.game', [])
 
     //the back button is managed with this function
     $scope.goHome = function () {
-      $state.go('app.home');
+      $state.go('app.home.home');
       $ionicHistory.nextViewOptions({
         disableBack: true
       });

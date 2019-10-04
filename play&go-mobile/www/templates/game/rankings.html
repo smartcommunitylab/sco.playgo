@@ -1,4 +1,4 @@
-<ion-view title="{{'home_gamification' | translate}} {{currentUser.nickName}}">
+<ion-view title="{{'home_gamification' | translate}} {{currentUser.nickName}}"  cache-view="true">
     <ion-nav-buttons side="right">
             <button ng-click="openNotifications()" class="button button-icon button-home ic_notification"><span class="badge badge-assertive header-badge"
                 ng-if="countNotification>0">{{getCountNotification(countNotification)}}</span></button>

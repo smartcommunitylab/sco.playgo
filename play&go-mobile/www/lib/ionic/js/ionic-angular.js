@@ -11468,7 +11468,7 @@ IonicModule
  *
  * ```js
  * var app = angular.module('myApp', ['ionic']);
- * app.config(function($stateProvider) {
+ * app.config(function($stateProvider,$ionicConfigProvider) {
  *   $stateProvider
  *   .state('index', {
  *     url: '/',

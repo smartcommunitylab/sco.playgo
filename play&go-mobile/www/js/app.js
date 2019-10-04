@@ -359,7 +359,7 @@ angular.module('viaggia', [
           });
           $state.go('app.home.home');
         }
-        else if ($state.current.name === "app.home.hometrack") {
+        else if ($state.current.name === "app.home.home") {
           navigator.app.exitApp();
         }
         else {
@@ -430,6 +430,7 @@ angular.module('viaggia', [
       // })
       .state('app.home', {
         cache: true,
+        abstract:true,
         url: "/home",
         views: {
           'menuContent': {

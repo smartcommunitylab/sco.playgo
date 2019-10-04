@@ -132,17 +132,17 @@ angular.module('viaggia.controllers.registration', [])
                             if ($scope.currentFile) {
                                 profileService.setProfileImage($scope.currentFile).then(function () {
                                     notificationService.registerUser();
-                                    $state.go('app.home');
+                                    $state.go('app.home.home');
                                 }, function (error) {
                                     if (error == 413) {
                                         Toast.show($filter('translate')('payload_large'), "short", "bottom");
-                                        $state.go('app.home');
+                                        $state.go('app.home.home');
                                         console.log("Payload too large");
                                         return;
                                     }
                                     if (error == 415) {
                                         Toast.show($filter('translate')('payload_unsupported'), "short", "bottom");
-                                        $state.go('app.home');
+                                        $state.go('app.home.home');
                                         console.log("Unsupported media type");
                                         return;
                                     }
@@ -150,7 +150,7 @@ angular.module('viaggia.controllers.registration', [])
                                 }).finally(Config.loaded)
                             } else {
                                 notificationService.registerUser();
-                                $state.go('app.home');
+                                $state.go('app.home.home');
                             }
                         } else {
                             Toast.show($filter('translate')('toast_error_server_template'), "short", "bottom");
