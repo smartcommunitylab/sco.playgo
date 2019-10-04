@@ -7,20 +7,9 @@ public class PlayerLevel {
     private double startLevelScore;
     private double endLevelScore;
     private double toNextLevel;
+    private Integer levelIndex;
 
     public PlayerLevel() {
-    }
-    
-    public PlayerLevel(String levelName, String pointConcept, String levelValue,
-            Double toNextLevel, Double startLevelScore, Double endLevelScore) {
-        this.levelName = levelName;
-        this.pointConcept = pointConcept;
-        this.levelValue = levelValue;
-
-        // check if value is persisted or give a valid one
-        this.toNextLevel = toNextLevel != null ? toNextLevel : 0;
-        this.startLevelScore = startLevelScore != null ? startLevelScore : 0;
-        this.endLevelScore = endLevelScore != null ? endLevelScore : 0;
     }
 
     public String getLevelName() {
@@ -46,4 +35,18 @@ public class PlayerLevel {
     public double getEndLevelScore() {
         return endLevelScore;
     }
+
+	/**
+	 * @return the levelIndex
+	 */
+	public Integer getLevelIndex() {
+		return levelIndex;
+	}
+
+	/**
+	 * @param levelIndex the levelIndex to set
+	 */
+	public void setLevelIndex(Integer levelIndex) {
+		this.levelIndex = levelIndex;
+	}
 }
