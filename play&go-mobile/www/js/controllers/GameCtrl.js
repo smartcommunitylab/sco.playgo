@@ -39,7 +39,7 @@ angular.module('viaggia.controllers.game', [])
     GameSrv.getLocalStatus().then(
       function (status) {
         $scope.status = status;
-        GameSrv.getRanking($scope.rankingFilterOptions[0], 0, $scope.rankingPerPage).then(
+        GameSrv.getRanking($scope.rankingFilterOptions[0], 0, $scope.rankingPerPage, null).then(
           function (ranking) {
             $rootScope.currentUser = ranking['actualUser'];
             $scope.ranking = ranking['classificationList'];
@@ -56,7 +56,7 @@ angular.module('viaggia.controllers.game', [])
   })
 
 
-  
+
 
 
 
@@ -201,41 +201,38 @@ angular.module('viaggia.controllers.game', [])
     var convertChall = function (chall, type) {
       var challConverted = {}
       switch (type) {
-        case "racc":
-          {
-            challConverted.challId = chall.challId;
-            challConverted.startDate = chall.startDate;
-            challConverted.endDate = chall.endDate;
-            challConverted.bonus = chall.bonus;
-            challConverted.group = type;
-            challConverted.type = type;
-            challConverted.short = chall.challDesc;
-            challConverted.long = chall.challCompleteDesc;
-          }
-        case "futu":
-          {
-            challConverted.challId = chall.challId;
-            challConverted.startDate = chall.startDate;
-            challConverted.endDate = chall.endDate;
-            challConverted.bonus = chall.bonus;
-            challConverted.group = type;
-            challConverted.type = type;
-            challConverted.short = chall.challDesc;
-            challConverted.long = chall.challCompleteDesc;
-          }
-        case "invite":
-          {
-            challConverted.challId = chall.challId;
-            challConverted.startDate = chall.startDate;
-            challConverted.endDate = chall.endDate;
-            challConverted.bonus = chall.bonus;
-            challConverted.group = type;
-            challConverted.type = chall.type;
-            challConverted.short = chall.challDesc;
-            challConverted.long = chall.challCompleteDesc;
-            challConverted.received = $scope.status ? (chall.proposerId != $scope.status.playerData.playerId) : false
-            challConverted.nickname = chall.otherAttendeeData ? chall.otherAttendeeData.nickname : ""
-          }
+        case "racc": {
+          challConverted.challId = chall.challId;
+          challConverted.startDate = chall.startDate;
+          challConverted.endDate = chall.endDate;
+          challConverted.bonus = chall.bonus;
+          challConverted.group = type;
+          challConverted.type = type;
+          challConverted.short = chall.challDesc;
+          challConverted.long = chall.challCompleteDesc;
+        }
+        case "futu": {
+          challConverted.challId = chall.challId;
+          challConverted.startDate = chall.startDate;
+          challConverted.endDate = chall.endDate;
+          challConverted.bonus = chall.bonus;
+          challConverted.group = type;
+          challConverted.type = type;
+          challConverted.short = chall.challDesc;
+          challConverted.long = chall.challCompleteDesc;
+        }
+        case "invite": {
+          challConverted.challId = chall.challId;
+          challConverted.startDate = chall.startDate;
+          challConverted.endDate = chall.endDate;
+          challConverted.bonus = chall.bonus;
+          challConverted.group = type;
+          challConverted.type = chall.type;
+          challConverted.short = chall.challDesc;
+          challConverted.long = chall.challCompleteDesc;
+          challConverted.received = $scope.status ? (chall.proposerId != $scope.status.playerData.playerId) : false
+          challConverted.nickname = chall.otherAttendeeData ? chall.otherAttendeeData.nickname : ""
+        }
       }
       return challConverted;
     }
@@ -438,7 +435,7 @@ angular.module('viaggia.controllers.game', [])
     }
     $scope.getValueUser = function (challenge) {
       var labelChallenge = getChallengeByUnit(challenge);
-      return $filter('number')(challenge.row_status, isKm(labelChallenge)?2:0) + " " + $filter('translate')(labelChallenge);
+      return $filter('number')(challenge.row_status, isKm(labelChallenge) ? 2 : 0) + " " + $filter('translate')(labelChallenge);
     }
     var isKm = function (unit) {
       if (unit != "Walk_Km" && unit != "Bike_Km")
@@ -448,7 +445,7 @@ angular.module('viaggia.controllers.game', [])
     $scope.getValueOther = function (challenge) {
       if (challenge.otherAttendeeData) {
         var labelChallenge = getChallengeByUnit(challenge);
-        return $filter('number')(challenge.otherAttendeeData.row_status, isKm(labelChallenge)?2:0) + " " + $filter('translate')(labelChallenge);
+        return $filter('number')(challenge.otherAttendeeData.row_status, isKm(labelChallenge) ? 2 : 0) + " " + $filter('translate')(labelChallenge);
       }
       return "";
     }
@@ -789,7 +786,7 @@ angular.module('viaggia.controllers.game', [])
       $scope.selectPlayer($scope.mapName[suggestion]);
     };
   })
-  
+
 
 
 
@@ -797,6 +794,7 @@ angular.module('viaggia.controllers.game', [])
   .controller('DiaryCtrl', function ($scope, $timeout, $state, $filter, GameSrv, $window, $ionicScrollDelegate, DiaryDbSrv, Toast, Config, trackService) {
     $scope.messages = [];
     // $scope.days=[];
+    $scope.days = null;
     $scope.maybeMore = true;
     var getDiary = false;
     $scope.singleDiaryStatus = true;
@@ -1258,8 +1256,10 @@ angular.module('viaggia.controllers.game', [])
     $scope.maybeMore = true;
     $scope.currentUser = {};
     $scope.ranking = [];
+    $scope.searchOpen = false;
     $scope.singleRankStatus = true;
     $scope.rank = true;
+    $scope.searchData = "";
     $scope.rankingFilterOptions = ['now', 'last', 'global'];
     var getRanking = false;
     $scope.rankingPerPage = 50;
@@ -1268,10 +1268,50 @@ angular.module('viaggia.controllers.game', [])
       function (status) {
         $scope.status = status;
       });
+    $scope.searchToggle = function () {
+      $scope.searchOpen = !$scope.searchOpen;
+      if ($scope.searchOpen) {
+        const input = document.getElementById('search-input-leaderboard');
+        if (input) {
+          input.focus();
+        }
+      }
+      if ($scope.filter.open)
+        $scope.filter.open = false;
+    }
+    $scope.searchPlayer = function (searchData) {
+      Config.loading();
+      //parte la ricerca
+      console.log(searchData);
+      $scope.searchData = searchData;
+      GameSrv.getRanking($scope.rankingFilterOptions[0], 0, $scope.rankingPerPage, searchData).then(
+        function (ranking) {
+          $rootScope.currentUser = ranking['actualUser'];
+          $scope.ranking = ranking['classificationList'];
+          $scope.$broadcast('scroll.infiniteScrollComplete');
+          $scope.noStatus = false;
+          if ($scope.ranking && $scope.ranking.length == 0) {
+            $scope.rank = false;
+          } else {
+            $scope.rank = true;
+          }
+          Config.loaded();
+        },
+        function (err) {
+          Toast.show($filter('translate')("pop_up_error_server_template"), "short", "bottom");
+          $scope.rank = false;
+          $scope.singleRankStatus = true;
+          Config.loaded();
+        }
+      );
+
+    }
     $scope.filter = {
       open: false,
       toggle: function () {
         this.open = !this.open;
+        if ($scope.searchOpen)
+          $scope.searchOpen = false;
         $ionicScrollDelegate.resize();
       },
       filterBy: function (selection) {
@@ -1300,7 +1340,7 @@ angular.module('viaggia.controllers.game', [])
       $scope.singleRankStatus = true;
       $scope.ranking = [];
       Config.loading();
-      GameSrv.getRanking(selection, 0, $scope.rankingPerPage).then(
+      GameSrv.getRanking(selection, 0, $scope.rankingPerPage, null).then(
         function (ranking) {
           if (ranking) {
             getRanking = false;

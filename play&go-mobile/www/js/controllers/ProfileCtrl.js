@@ -6,22 +6,25 @@ angular.module('viaggia.controllers.profile', [])
     $scope.ranking = null;
     $scope.prize = null;
     $scope.noStatus = false;
-    $scope.pointsTab=true;
-    $scope.statisticsTab=false;
-    $scope.blacklistTab=false;
+    $scope.pointsTab = true;
+    $scope.statisticsTab = false;
+    $scope.blacklistTab = false;
     $scope.rankingFilterOptions = ['now', 'last', 'global'];
     $scope.rankingPerPage = 50;
     var setUserLevel = function () {
       $scope.level = "";
-      if ($scope.status && $scope.status.levels && $scope.status.levels.length > 0 && $scope.status.levels[0].levelValue)
+      if ($scope.status && $scope.status.levels && $scope.status.levels.length > 0 && $scope.status.levels[0].levelValue) {
         $scope.level = $scope.status.levels[0].levelValue;
+        $scope.levelNumber = $scope.status.levels[0].levelIndex;
+      }
+
     }
     Config.loading();
     GameSrv.getLocalStatus().then(
       function (status) {
         $scope.status = status;
         setUserLevel();
-        GameSrv.getRanking($scope.rankingFilterOptions[0], 0, $scope.rankingPerPage).then(
+        GameSrv.getRanking($scope.rankingFilterOptions[0], 0, $scope.rankingPerPage, null).then(
           function (ranking) {
             $rootScope.currentUser = ranking['actualUser'];
             $scope.ranking = ranking['classificationList'];
@@ -35,24 +38,24 @@ angular.module('viaggia.controllers.profile', [])
         Toast.show($filter('translate')("pop_up_error_server_template"), "short", "bottom");
       }
     ).finally(Config.loaded);
-    $scope.goToPoints=function(){
-      $scope.pointsTab=true;
-      $scope.statisticsTab=false;
-      $scope.blacklistTab=false;
+    $scope.goToPoints = function () {
+      $scope.pointsTab = true;
+      $scope.statisticsTab = false;
+      $scope.blacklistTab = false;
     }
-    $scope.goToStatistics=function(){
-      $scope.pointsTab=false;
-      $scope.statisticsTab=true;
-      $scope.blacklistTab=false;
+    $scope.goToStatistics = function () {
+      $scope.pointsTab = false;
+      $scope.statisticsTab = true;
+      $scope.blacklistTab = false;
     }
-    $scope.goToBlacklist=function() {
-      $scope.pointsTab=false;
-      $scope.statisticsTab=false;
-      $scope.blacklistTab=true;
+    $scope.goToBlacklist = function () {
+      $scope.pointsTab = false;
+      $scope.statisticsTab = false;
+      $scope.blacklistTab = true;
     }
-   
+
   })
-  
+
   .controller('StatisticsCtrl', function ($scope, $ionicScrollDelegate, $window, $filter, $timeout, Toast, Config, GameSrv) {
     $scope.stats = [];
     $scope.noStats = false;
@@ -473,92 +476,92 @@ angular.module('viaggia.controllers.profile', [])
       $scope.getImage();
     });
   })
-    .controller('BlacklistCtrl', function ($scope, $ionicScrollDelegate, $window, $filter, $timeout, Toast, Config, GameSrv) {
-      $scope.blacklist = [];
-      $scope.noBlack = false;
-      // $scope.maybeMore = true;
-      var getBlacklist = false;
-      $scope.status = null;
-      $scope.noStatus = false;
-  
-      var generateRankingStyle = function () {
-        $scope.rankingStyle = {
-          'height': window.innerHeight - (44 + 44) + 'px'
-        };
-        $ionicScrollDelegate.$getByHandle('statisticScroll').resize();
+  .controller('BlacklistCtrl', function ($scope, $ionicScrollDelegate, $window, $filter, $timeout, Toast, Config, GameSrv) {
+    $scope.blacklist = [];
+    $scope.noBlack = false;
+    // $scope.maybeMore = true;
+    var getBlacklist = false;
+    $scope.status = null;
+    $scope.noStatus = false;
+
+    var generateRankingStyle = function () {
+      $scope.rankingStyle = {
+        'height': window.innerHeight - (44 + 44) + 'px'
       };
-  
-      $window.onresize = function (event) {
-        // Timeout required for our purpose
-        $timeout(function () {
-          generateRankingStyle();
-        }, 200);
-      };
-  
-      GameSrv.getLocalStatus().then(
-        function (status) {
-          $scope.status = status;
-          $scope.noStatus = false;
-        },
-        function (err) {
-          $scope.noStatus = true;
-          Toast.show($filter('translate')("pop_up_error_server_template"), "short", "bottom");
-        })
-  
-  
-      $scope.removeFromBlacklist = function (id) {
+      $ionicScrollDelegate.$getByHandle('statisticScroll').resize();
+    };
+
+    $window.onresize = function (event) {
+      // Timeout required for our purpose
+      $timeout(function () {
+        generateRankingStyle();
+      }, 200);
+    };
+
+    GameSrv.getLocalStatus().then(
+      function (status) {
+        $scope.status = status;
+        $scope.noStatus = false;
+      },
+      function (err) {
+        $scope.noStatus = true;
+        Toast.show($filter('translate')("pop_up_error_server_template"), "short", "bottom");
+      })
+
+
+    $scope.removeFromBlacklist = function (id) {
+      Config.loading();
+      GameSrv.removeFromBlacklist(id).then(function () {
+        //removed
+        Config.loaded();
+      }, function (err) {
+        //not removed
+        Config.loaded();
+      })
+
+    }
+    $scope.loadMore = function () {
+      if (!getBlacklist) {
+        getBlacklist = true;
         Config.loading();
-        GameSrv.removeFromBlacklist(id).then(function () {
-          //removed
-          Config.loaded();
-        }, function (err) {
-          //not removed
-          Config.loaded();
-        })
-  
-      }
-      $scope.loadMore = function () {
-        if (!getBlacklist) {
-          getBlacklist = true;
-          Config.loading();
-          //TODO manage from and to
-          GameSrv.getBlacklist().then(
-            function (blacklist) {
-              Config.loaded();
-  
-              getBlacklist = false;
-              $scope.blacklist = blacklist;
-              if ($scope.blacklist && $scope.blacklist.length == 0) {
-                $scope.noBlack = true
-              }
-            },
-            function (err) {
-              Config.loaded();
-              Toast.show($filter('translate')("pop_up_error_server_template"), "short", "bottom");
-              getBlacklist = false;
+        //TODO manage from and to
+        GameSrv.getBlacklist().then(
+          function (blacklist) {
+            Config.loaded();
+
+            getBlacklist = false;
+            $scope.blacklist = blacklist;
+            if ($scope.blacklist && $scope.blacklist.length == 0) {
+              $scope.noBlack = true
             }
-          );
-        }
-      };
-      $scope.removeFromBlacklist = function (id) {
-        Config.loading();
-        GameSrv.removeFromBlacklist(id).then(function () {
-          //removed
-          GameSrv.getBlacklist().then(
-            function (blacklist) {
-              Config.loaded();
-              $scope.blacklist = blacklist;
-            },
-            function (err) {
-              //not refreshed
-              Config.loaded();
-            })
-        }, function (err) {
-          //not removed
-          Config.loaded();
-        });
+          },
+          function (err) {
+            Config.loaded();
+            Toast.show($filter('translate')("pop_up_error_server_template"), "short", "bottom");
+            getBlacklist = false;
+          }
+        );
       }
-    })
+    };
+    $scope.removeFromBlacklist = function (id) {
+      Config.loading();
+      GameSrv.removeFromBlacklist(id).then(function () {
+        //removed
+        GameSrv.getBlacklist().then(
+          function (blacklist) {
+            Config.loaded();
+            $scope.blacklist = blacklist;
+          },
+          function (err) {
+            //not refreshed
+            Config.loaded();
+          })
+      }, function (err) {
+        //not removed
+        Config.loaded();
+      });
+    }
+  })
   .controller('ProfileOthersContainerCtrl', function ($scope, $filter, $stateParams, Config, GameSrv, $ionicScrollDelegate, Toast) {
     Config.loading();
     $scope.profileId = $stateParams.profileId

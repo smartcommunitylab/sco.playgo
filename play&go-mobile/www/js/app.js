@@ -352,7 +352,7 @@ angular.module('viaggia', [
       // }
 
       $ionicPlatform.registerBackButtonAction(function () {
-        if ($state.current.name === "app.home.leaderboards" || $state.current.name === "app.home.diary" || $state.current.name === "app.home.mobility") {
+        if ($state.current.name === "app.home.leaderboards" || $state.current.name === "app.home.diary" || $state.current.name === "app.home.mobility"|| $state.current.name.startsWith("app.profile")) {
           $ionicHistory.nextViewOptions({
             disableBack: true,
             historyRoot: true
@@ -1569,7 +1569,10 @@ angular.module('viaggia', [
       lbl__challenge_cant_see_player:"Perche’ non riesco a trovare un giocatore?",
       no_blacklist:"Nessuna blacklist trovata",
       lbl_chall_user_not_available_title:"Utente non disponibile",
-      lbl_chall_user_not_available:"L'utente selezionato non e’ più disponibile. Selezionare un altro giocatore"      
+      lbl_chall_user_not_available:"L'utente selezionato non e’ più disponibile. Selezionare un altro giocatore",
+      user_level_index:"Lvl. ",
+      search_name:"Inserisci il nickname"
+
     });
 
     $translateProvider.translations('en', {
@@ -2118,7 +2121,9 @@ angular.module('viaggia', [
       lbl__challenge_cant_see_player:"Why can't I find a player?",
       no_blacklist:"No blacklist found",
       lbl_chall_user_not_available_title:"User not available",
-      lbl_chall_user_not_available:"Selected user is not available anymore. Please, select a different one"  
+      lbl_chall_user_not_available:"Selected user is not available anymore. Please, select a different one" ,
+      user_level_index:"Lvl. ",
+      search_name:"Insert the nickname"
 
    
 

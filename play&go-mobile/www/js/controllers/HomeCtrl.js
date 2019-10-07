@@ -158,27 +158,26 @@ angular.module('viaggia.controllers.home', [])
     }
     var setUserLevel = function () {
       $scope.level = "";
-      if ($scope.status && $scope.status.levels && $scope.status.levels.length > 0 && $scope.status.levels[0].levelValue)
+      if ($scope.status && $scope.status.levels && $scope.status.levels.length > 0 && $scope.status.levels[0].levelValue) {
         $scope.level = $scope.status.levels[0].levelValue;
+        $scope.levelNumber = $scope.status.levels[0].levelIndex;
+      }
     }
     // var mymap = document.getElementById('map-container');
     $scope.getChallengeTemplate = function (challenge) {
       switch (challenge.type) {
-        case typeofChallenges['groupCompetitiveTime'].id:
-          {
-            return 'templates/game/challengeTemplates/competitiveTime.html';
-            break;
-          }
-        case typeofChallenges['groupCompetitivePerformance'].id:
-          {
-            return 'templates/game/challengeTemplates/competitivePerformance.html';
-            break;
-          }
-        case typeofChallenges['groupCooperative'].id:
-          {
-            return 'templates/game/challengeTemplates/cooperative.html';
-            break;
-          }
+        case typeofChallenges['groupCompetitiveTime'].id: {
+          return 'templates/game/challengeTemplates/competitiveTime.html';
+          break;
+        }
+        case typeofChallenges['groupCompetitivePerformance'].id: {
+          return 'templates/game/challengeTemplates/competitivePerformance.html';
+          break;
+        }
+        case typeofChallenges['groupCooperative'].id: {
+          return 'templates/game/challengeTemplates/cooperative.html';
+          break;
+        }
         default:
           return 'templates/game/challengeTemplates/default.html';
       }

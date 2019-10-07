@@ -1172,7 +1172,7 @@ angular.module('viaggia.services.game', [])
       );
     }
     /* get ranking */
-    gameService.getRanking = function (when, start, end) {
+    gameService.getRanking = function (when, start, end, query) {
       var deferred = $q.defer();
 
       LoginService.getValidAACtoken().then(
@@ -1210,6 +1210,9 @@ angular.module('viaggia.services.game', [])
 
           if (!!end) {
             config.params['end'] = end;
+          }
+          if (!!query) {
+            config.params['query'] = query;
           }
 
           $http({

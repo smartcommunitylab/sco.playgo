@@ -9,9 +9,10 @@
     <ion-content class="game-ranking" has-bouncing="false" scroll="false" ng-class="{'margin-for-trackingbar-tab':buttonMapNeed()}">
         <!-- Filter -->
         <div class="filter item-accordion" ng-if="!!filter.options">
-            <ion-item class="item-accordion-header item-icon-right" ng-click="filter.toggle()">
-                <div ng-if="!filter.open">{{!!filter.selected ? ('game_tab_ranking_filter_' + filter.selected) : '' | translate}}</div>
-                <i class="icon ion-arrow-down-b" ng-class="{'open': filter.open}"></i>
+            <ion-item class="item-accordion-header item-icon-right" >
+                <i class="icon ion-search search-leaderboard"  ng-click="searchToggle()"></i>
+                <div class="string-filter" ng-if="!filter.open">{{!!filter.selected ? ('game_tab_ranking_filter_' + filter.selected) : '' | translate}}</div>
+                <i class="icon ion-arrow-down-b " ng-class="{'open': filter.open}" ng-click="filter.toggle()"></i>
             </ion-item>
             <div class="item-accordion-content" ng-show="filter.open">
                 <ion-list>
@@ -20,6 +21,14 @@
                     </ion-item>
                 </ion-list>
             </div>
+            <div class="item-accordion-content" ng-show="searchOpen">
+                    <div>
+                        <label class="item item-input">
+                              <i class="icon ion-search placeholder-icon search-leaderboards"></i>
+                              <input ng-model-options='{ debounce: 1000 }' ng-model="searchData" id="search-input-leaderboard" ng-change="searchPlayer(searchData)" class="search-leaderboards search-leaderboards-input" type="text" placeholder="{{'search_name'|translate}}">
+                            </label>
+                          </div>
+                </div>
         </div>
         <div ng-if="!!status && singleRankStatus && rank">
             <div class="listheader" ng-class="{hasprize: (filter.selected === 'now' && !!prize)}">
@@ -28,7 +37,6 @@
                 </div>
                 <div class="row">
                     <div class="col col-20">{{'game_tab_ranking_listheader_position' | translate}}</div>
-
                     <div class="col col-40">{{'game_tab_ranking_listheader_player' | translate}}</div>
                     <div class="col col-40">{{'game_tab_ranking_listheader_points' | translate}}</div>
                 </div>
@@ -62,7 +70,7 @@
             </ion-scroll>
         </div>
         <div ng-if="!rank">
-            <h4 class="label">{{'no_ranking' | translate}}</h4>
+            <h4 class="label">{{'no_ranking' | translate}}<span ng-if="searchData!=''"> per la ricerca {{searchData}}</span></h4>
         </div>
         <div ng-if="!status">
             <h4 class="label">{{'no_status' | translate}}</h4>

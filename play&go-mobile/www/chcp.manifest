@@ -9,7 +9,7 @@
   },
   {
     "file": "css/style.css",
-    "hash": "d11d4b547a15b77cbbef472a15035bc8"
+    "hash": "bebb072a224103a983fd115ac6de6fe4"
   },
   {
     "file": "data/bus.csv",
@@ -389,7 +389,7 @@
   },
   {
     "file": "js/app.js",
-    "hash": "be675cbbbf3c07c019b7a2c9b9c531aa"
+    "hash": "d7b4ef370ad01be3b1febc301cf9d199"
   },
   {
     "file": "js/controllers/BookmarksCtrl.js",
@@ -401,11 +401,11 @@
   },
   {
     "file": "js/controllers/GameCtrl.js",
-    "hash": "32f4246e49782d904795d66ad558dc5d"
+    "hash": "c586b21a5d54c3b3f388185df66aaee5"
   },
   {
     "file": "js/controllers/HomeCtrl.js",
-    "hash": "4d4979b590a09fe6d11452c46c940460"
+    "hash": "912a3d90bd9b3c8a8f877e74a86f3f9c"
   },
   {
     "file": "js/controllers/InfoCtrl.js",
@@ -449,7 +449,7 @@
   },
   {
     "file": "js/controllers/ProfileCtrl.js",
-    "hash": "13ed6cfccebd9aa72eb452983eb32f74"
+    "hash": "dcc6c64f456365baa6efd0a5732e08e4"
   },
   {
     "file": "js/controllers/RegistrationController.js",
@@ -513,7 +513,7 @@
   },
   {
     "file": "js/services/GameSrv.js",
-    "hash": "480384662c702da0b1cb9d39f91374d6"
+    "hash": "496bf412dd19e93c0b559ab914cd4f10"
   },
   {
     "file": "js/services/GeoSrv.js",
@@ -1097,7 +1097,7 @@
   },
   {
     "file": "templates/game/points.html",
-    "hash": "84d35171f0eb237c24d358d840298a46"
+    "hash": "d02175349813ce2547aff4eaffa16471"
   },
   {
     "file": "templates/game/profile.html",
@@ -1121,7 +1121,7 @@
   },
   {
     "file": "templates/game/rankings.html",
-    "hash": "08695275dc8cc212da172d58685face8"
+    "hash": "24937347bc1d1c4efd8a97563d57808b"
   },
   {
     "file": "templates/game/rules_en.html",
@@ -1137,7 +1137,7 @@
   },
   {
     "file": "templates/home.html",
-    "hash": "30cda57568e4c13c540954f00c3c7639"
+    "hash": "2bbf24cdb29890fafb206faf5e7dcb37"
   },
   {
     "file": "templates/homeContainer.html",
