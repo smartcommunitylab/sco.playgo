@@ -360,7 +360,23 @@ angular.module('viaggia', [
           $state.go('app.home.home');
         }
         else if ($state.current.name === "app.home.home") {
-          navigator.app.exitApp();
+          $ionicPopup.show({
+            title: $filter('translate')("pop_up_exit"),
+            template: $filter('translate')("pop_up_exit_template"),
+            buttons: [
+              {
+                text: $filter('translate')("btn_close"),
+                type: 'button-cancel'
+              },
+              {
+                text: $filter('translate')("btn_conferma"),
+                type: 'button-custom',
+                onTap: function () {
+                  navigator.app.exitApp();
+                }
+              }
+            ]
+          });
         }
         else {
 
@@ -1571,7 +1587,9 @@ angular.module('viaggia', [
       lbl_chall_user_not_available_title:"Utente non disponibile",
       lbl_chall_user_not_available:"L'utente selezionato non e’ più disponibile. Selezionare un altro giocatore",
       user_level_index:"Lvl. ",
-      search_name:"Inserisci il nickname"
+      search_name:"Inserisci il nickname",
+      pop_up_exit:"Uscire dall'applicazione?",
+      pop_up_exit_template:"Sei sicuro di voler uscire dall'applicazione?"
 
     });
 
@@ -2123,7 +2141,9 @@ angular.module('viaggia', [
       lbl_chall_user_not_available_title:"User not available",
       lbl_chall_user_not_available:"Selected user is not available anymore. Please, select a different one" ,
       user_level_index:"Lvl. ",
-      search_name:"Insert the nickname"
+      search_name:"Insert the nickname",
+      pop_up_exit:"Exit?",
+      pop_up_exit_template:"Are you sure you want to exit?"
 
    
 
