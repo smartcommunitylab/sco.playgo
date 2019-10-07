@@ -29,7 +29,7 @@
 				  <li th:each="prod: ${#numbers.sequence(1, 24)}">
 				  <div>
           <fieldset th:id="|fs${prod}|">
-            <p><span th:text="#{survey.q + ${prod}}">Q</span>?</p>
+            <p><span th:text="#{survey.q + ${prod}}">Q</span></p>
             <span style="font-size: 12px" th:text="#{survey.acc2.1}"></span>
             <span style="font-size: 12px" th:text="#{survey.acc2.2}"></span>
             <br />
