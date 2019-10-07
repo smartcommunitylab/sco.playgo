@@ -769,6 +769,7 @@ public class GamificationValidator {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private Map<String, Double> getUserDayData(String appId, String userId) {
+		if (userId == null) return Collections.emptyMap();
 		String data = gamificationCache.getPlayerState(userId, appId);
 		if (data != null) {
 			Map<String, Double> res = new LinkedHashMap<>();

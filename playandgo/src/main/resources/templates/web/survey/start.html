@@ -26,19 +26,20 @@
 
 				<label th:text="#{survey.acc1}">acc1</label> <br />
 				<ol>
-					<p th:each="prod: ${#numbers.sequence(1, 24)}">
-					
-					<fieldset th:id="|fs${prod}|">
-						<li th:text="#{survey.q + ${prod}}" >?</li> <span
-							style="font-size: 12px" th:text="#{survey.acc2.1}"></span> <span
-							style="font-size: 12px" th:text="#{survey.acc2.2}"></span><br />
-						<span th:id="|el${prod}|" class="small_b"
-							th:each="val: ${#numbers.sequence(1, 7)}"> <input 
-							type="radio" th:id="|r${prod}-${val}|" th:name="|q${prod}|"
-							th:value="${val}" /> <label th:for="|r${prod}-${val}|" th:text="${val}">1</label>
-						</span>
-					</fieldset>
-					</p>
+				  <li th:each="prod: ${#numbers.sequence(1, 24)}">
+				  <div>
+          <fieldset th:id="|fs${prod}|">
+            <p><span th:text="#{survey.q + ${prod}}">Q</span>?</p>
+            <span style="font-size: 12px" th:text="#{survey.acc2.1}"></span>
+            <span style="font-size: 12px" th:text="#{survey.acc2.2}"></span>
+            <br />
+            <span th:id="|el${prod}|" class="small_b" th:each="val: ${#numbers.sequence(1, 7)}"> 
+              <input type="radio" th:id="|r${prod}-${val}|" th:name="|q${prod}|" th:value="${val}" /> 
+              <label th:for="|r${prod}-${val}|" th:text="${val}">1</label>
+            </span>
+          </fieldset>				  
+				  </div>
+				  </li>
 				</ol>
 
 				<div class="form-group">

@@ -106,6 +106,7 @@ public class JourneyPlannerController {
 			
 			return result;
 		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
 			e.printStackTrace();
 			response.addHeader("error_msg", e.getMessage());
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

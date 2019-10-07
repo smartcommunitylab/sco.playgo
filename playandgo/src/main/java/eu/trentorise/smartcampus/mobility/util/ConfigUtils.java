@@ -28,7 +28,6 @@ import com.google.common.io.Resources;
 import eu.trentorise.smartcampus.mobility.gamificationweb.model.CheckinData;
 import eu.trentorise.smartcampus.mobility.gamificationweb.model.WeekConfData;
 import eu.trentorise.smartcampus.mobility.gamificationweb.model.WeekPrizeData;
-import eu.trentorise.smartcampus.mobility.gamificationweb.model.WeekWinnersData;
 
 @Component
 public class ConfigUtils {
@@ -42,7 +41,7 @@ public class ConfigUtils {
 //	private LoadingCache<String, List<CheckinData>> checkinEvents;
 
 	public enum ConfigDataType {
-		WEEK_DATA, CHECKIN_EVENT_DATA, WEEK_WINNERS_DATA;
+		WEEK_DATA, CHECKIN_EVENT_DATA;
 	}
 	
 	private LoadingCache<ConfigDataType, List<?>> configData;
@@ -97,8 +96,6 @@ public class ConfigUtils {
 							return loadWeekConfFile();
 						case CHECKIN_EVENT_DATA:
 							return loadCheckinFile();
-						case WEEK_WINNERS_DATA:
-							return loadWeekWinnersFile();
 						}
 						} catch (Exception e) {
 							logger.error("Error reading " + key, e);
@@ -133,10 +130,6 @@ public class ConfigUtils {
 	
 	public List<CheckinData> getCheckinEventData() throws Exception {
 		return (List<CheckinData>)configData.get(ConfigDataType.CHECKIN_EVENT_DATA);
-	}	
-	
-	public List<WeekWinnersData> getWeekWinnersData() throws Exception {
-		return (List<WeekWinnersData>)configData.get(ConfigDataType.WEEK_WINNERS_DATA);
 	}	
 	
 	public List<WeekPrizeData> getWeekPrizes(int weeknum, String lang) {
@@ -224,30 +217,6 @@ public class ConfigUtils {
 
 		return checkinDataList;
 	}
-	
-	public List<WeekWinnersData> loadWeekWinnersFile() throws Exception {
-		String cvsSplitBy = ",";
-		List<WeekWinnersData> winnerWeekFileData = Lists.newArrayList();
-
-		List<String> lines = Resources.readLines(new File(weeklyDataDir + "/game_week_winners.csv").toURI().toURL(), Charsets.UTF_8);
-
-		for (int i = 1; i < lines.size(); i++) {
-			String line = lines.get(i);
-			if (line.trim().isEmpty()) continue;
-
-			// use comma as separator
-			String[] weekWinnerValues = line.split(cvsSplitBy);
-			int weekNum = Integer.parseInt(weekWinnerValues[0]);
-			String player = weekWinnerValues[1];
-			String prize = weekWinnerValues[2];
-			String target = weekWinnerValues[3];
-			logger.debug(String.format("Week winner file: week num %s, player %s, prize %s, target %s", weekNum, player, prize, target));
-			WeekWinnersData wWinners = new WeekWinnersData(weekNum, player, prize, target);
-			winnerWeekFileData.add(wWinners);
-		}
-
-		return winnerWeekFileData;
-	}	
 	
 	private List<WeekPrizeData> loadWeekPrizesFile(String lang) throws Exception {
 		String cvsSplitBy = ",";
