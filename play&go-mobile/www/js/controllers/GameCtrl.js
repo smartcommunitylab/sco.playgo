@@ -1259,7 +1259,9 @@ angular.module('viaggia.controllers.game', [])
     $scope.searchOpen = false;
     $scope.singleRankStatus = true;
     $scope.rank = true;
-    $scope.searchData = "";
+    $scope.search = {
+      searchdata :""
+    }
     $scope.rankingFilterOptions = ['now', 'last', 'global'];
     var getRanking = false;
     $scope.rankingPerPage = 50;
@@ -1275,16 +1277,20 @@ angular.module('viaggia.controllers.game', [])
         if (input) {
           input.focus();
         }
+      } else {
+        $scope.searchPlayer("");
       }
       if ($scope.filter.open)
         $scope.filter.open = false;
+      $scope.search.searchdata = "";
+
     }
-    $scope.searchPlayer = function (searchData) {
+    $scope.searchPlayer = function (searchdata) {
       Config.loading();
       //parte la ricerca
-      console.log(searchData);
-      $scope.searchData = searchData;
-      GameSrv.getRanking($scope.rankingFilterOptions[0], 0, $scope.rankingPerPage, searchData).then(
+      console.log(searchdata);
+      // $scope.search.searchdata = searchdata;
+      GameSrv.getRanking($scope.rankingFilterOptions[0], 0, $scope.rankingPerPage, searchdata).then(
         function (ranking) {
           $rootScope.currentUser = ranking['actualUser'];
           $scope.ranking = ranking['classificationList'];
@@ -1310,8 +1316,10 @@ angular.module('viaggia.controllers.game', [])
       open: false,
       toggle: function () {
         this.open = !this.open;
-        if ($scope.searchOpen)
+        if ($scope.searchOpen) {
           $scope.searchOpen = false;
+          $scope.searchPlayer("");
+        }
         $ionicScrollDelegate.resize();
       },
       filterBy: function (selection) {
