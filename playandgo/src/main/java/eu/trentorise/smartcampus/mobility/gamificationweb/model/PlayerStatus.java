@@ -17,6 +17,7 @@ public class PlayerStatus {
 	private ChallengeConcept challengeConcept = new ChallengeConcept();
 	private List<PlayerLevel> levels = Lists.newArrayList();
 	private Inventory inventory;
+	private Boolean canInvite;
 	
 	public PlayerStatus() {
 		super();
@@ -68,6 +69,14 @@ public class PlayerStatus {
 
 	public void setInventory(Inventory inventory) {
 		this.inventory = inventory;
+	}
+
+	public Boolean getCanInvite() {
+		return canInvite;
+	}
+
+	public void setCanInvite(Boolean canInvite) {
+		this.canInvite = canInvite;
 	}
 	
 }
