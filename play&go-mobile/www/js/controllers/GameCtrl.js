@@ -113,7 +113,11 @@ angular.module('viaggia.controllers.game', [])
       return $scope.expansion[index]
     }
     var reloadList = function () {
-      $scope.getActual();
+      $scope.buildingChallenges = true;
+
+      $scope.getActual().finally(function () {
+        $scope.buildingChallenges = false;
+      });
       $scope.getPast();
     }
     $scope.updateInventory = function (status) {
@@ -127,6 +131,7 @@ angular.module('viaggia.controllers.game', [])
       navigator.globalization.getPreferredLanguage(
         function (result) {
           $scope.language = result.value.substring(0, 2);
+          $scope.buildingChallenges = true;
           GameSrv.getLocalStatus().then(
             function (status) {
               $scope.status = status;
@@ -140,12 +145,15 @@ angular.module('viaggia.controllers.game', [])
               }
               $scope.updateInventory(status);
               $scope.getTypes().finally(function () {
-                $scope.getActual().finally(function () {});
+                $scope.getActual().finally(function () {
+                  $scope.buildingChallenges = false;
+                });
               });
               $scope.getPast();
             },
             function (err) {
               if (!$scope.challenges) {
+                $scope.buildingChallenges = false;
                 $scope.noStatus = true;
                 $scope.actualTab = $scope.tabs[0];
                 Toast.show($filter('translate')("pop_up_error_server_template"), "short", "bottom");
@@ -236,6 +244,21 @@ angular.module('viaggia.controllers.game', [])
       }
       return challConverted;
     }
+    var futureNotSet = function (future) {
+      //check if future has otherchallenge
+      if (future && future.length > 0) {
+        for (var i = 0; i < future.length; i++) {
+          {
+            if (future[i].otherAttendeeData != null) {
+              return false;
+            }
+          }
+        }
+        return true;
+      }
+      return true
+    }
+
     var buildChallenges = function (future, proposed) {
       $scope.challenges = [];
       if (future) {
@@ -244,7 +267,8 @@ angular.module('viaggia.controllers.game', [])
         }
       }
       //proposed from raccomandation system
-      if (proposed) {
+      if (proposed || futureNotSet(future)) {
+        if (proposed)
         for (var i = 0; i < proposed.length; i++) {
           if (proposed[i].otherAttendeeData) {
             $scope.challenges.push(convertChall(proposed[i], "invite"));
@@ -287,6 +311,7 @@ angular.module('viaggia.controllers.game', [])
           }
         }
       }
+
     }
     $scope.showWarning = function (type) {
       if (localStorage.getItem('warning_hide_' + type))
@@ -1260,7 +1285,7 @@ angular.module('viaggia.controllers.game', [])
     $scope.singleRankStatus = true;
     $scope.rank = true;
     $scope.search = {
-      searchdata :""
+      searchdata: ""
     }
     $scope.rankingFilterOptions = ['now', 'last', 'global'];
     var getRanking = false;

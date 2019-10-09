@@ -175,7 +175,7 @@
           </ion-item>
         </ion-list>
       </ion-scroll>
-      <div ng-if="challenges != null && challenges.length == 0" class="text-center padding">
+      <div ng-if="challenges != null && challenges.length == 0 && !buildingChallenges" class="text-center padding">
         <h4>{{ 'no_challenges' | translate}}</h4>
       </div>
     </div>

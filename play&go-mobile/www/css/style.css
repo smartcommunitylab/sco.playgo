@@ -2375,10 +2375,11 @@ ion-header-bar .title {
   display: table-cell;
 
 }
-.search-leaderboards-input{
-  background-color: #055472!important;
-  border-radius: 8px!important;
-  padding-left: 8px!important;
+
+.search-leaderboards-input {
+  background-color: #055472 !important;
+  border-radius: 8px !important;
+  padding-left: 8px !important;
 }
 
 .filter {
@@ -2448,12 +2449,13 @@ ion-header-bar .title {
   border-top: 1px solid white !important;
   background-color: #2975a7;
   color: white;
-  padding-bottom: 25px;
 }
 
 .tracking-dashboard-on {
   border-top: 1px solid white !important;
   background-color: #4caf4f;
+  padding-bottom: 25px;
+
 }
 
 /* .tracking-dashboard div.col{
@@ -2467,6 +2469,10 @@ ion-header-bar .title {
   padding-right: 5px;
   margin: 3px;
   color: white;
+}
+
+.diary .list:last-child {
+  padding-bottom: 30px;
 }
 
 .statstext div {

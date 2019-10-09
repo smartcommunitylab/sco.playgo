@@ -714,6 +714,7 @@ angular.module('viaggia.controllers.profile', [])
         //removed
         $scope.blacklisted = false;
         Config.loaded();
+        Toast.show($filter('translate')("blacklist_removed_toast"), "short", "bottom");
       }, function (err) {
         //not removed
         Config.loaded();
@@ -725,9 +726,12 @@ angular.module('viaggia.controllers.profile', [])
         //removed
         $scope.blacklisted = true;
         Config.loaded();
+        Toast.show($filter('translate')("blacklist_add_toast"), "short", "bottom");
       }, function (err) {
         //not removed
         Config.loaded();
+        Toast.show($filter('translate')("pop_up_error_server_template"), "short", "bottom");
+
       });
     }
 

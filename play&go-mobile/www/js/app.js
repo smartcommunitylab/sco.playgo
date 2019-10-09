@@ -352,7 +352,7 @@ angular.module('viaggia', [
       // }
 
       $ionicPlatform.registerBackButtonAction(function () {
-        if ($state.current.name === "app.home.leaderboards" || $state.current.name === "app.home.diary" || $state.current.name === "app.home.mobility"|| $state.current.name.startsWith("app.profile")) {
+        if ($state.current.name === "app.home.leaderboards" || $state.current.name === "app.home.diary" || $state.current.name === "app.home.mobility"|| $state.current.name.startsWith("app.profile.")) {
           $ionicHistory.nextViewOptions({
             disableBack: true,
             historyRoot: true
@@ -1589,7 +1589,15 @@ angular.module('viaggia', [
       user_level_index:"Lvl. ",
       search_name:"Inserisci il nickname",
       pop_up_exit:"Uscire dall'applicazione?",
-      pop_up_exit_template:"Sei sicuro di voler uscire dall'applicazione?"
+      pop_up_exit_template:"Sei sicuro di voler uscire dall'applicazione?",
+      blacklist_add_toast:"Giocatore aggiunto alla blacklist",
+      blacklist_removed_toast:"Player removed to the blacklist",
+      track_feet:"Piedi",
+      track_bike:"Bici",
+      track_run:"Corsa",
+      track_bus:"Autobus",
+      track_cable:"Funivia",
+      track_train:"Trento"
 
     });
 
@@ -2143,10 +2151,15 @@ angular.module('viaggia', [
       user_level_index:"Lvl. ",
       search_name:"Insert the nickname",
       pop_up_exit:"Exit?",
-      pop_up_exit_template:"Are you sure you want to exit?"
-
-   
-
+      pop_up_exit_template:"Are you sure you want to exit?",
+      blacklist_add_toast:"Player added to the blacklist",
+      blacklist_removed_toast:"Player removed to the blacklist" ,
+      track_feet:"Walk",
+      track_bike:"Bike",
+      track_run:"Run",
+      track_bus:"Bus",
+      track_cable:"Cable car",
+      track_train:"Train"
     });
 
     $translateProvider.preferredLanguage(DEFAULT_LANG);

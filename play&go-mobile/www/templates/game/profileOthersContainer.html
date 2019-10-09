@@ -5,10 +5,10 @@
         </button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-        <button ng-if="blacklisted" class="button button-clear" ng-click="removeFromBlacklist()">
+        <button ng-show="blacklisted" class="button button-clear" ng-click="removeFromBlacklist()">
             <i class="ic_blacklist_off"></i>
         </button>
-        <button ng-if="!blacklisted" class="button button-clear" ng-click="addToBlacklist()">
+        <button ng-show="!blacklisted" class="button button-clear" ng-click="addToBlacklist()">
             <i class="ic_blacklist_on"></i>
         </button>
     </ion-nav-buttons>

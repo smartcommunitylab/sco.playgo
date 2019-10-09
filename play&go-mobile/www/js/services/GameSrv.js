@@ -50,7 +50,7 @@ angular.module('viaggia.services.game', [])
         string: "msg_trip_bike",
         color: "#B44395",
         iconColor: "#6C024F",
-        icon: "ic_bike",
+        icon: "icon-Run-Bike",
         params: tripParams,
         state: "openEventTripDetail(message)"
       },
