@@ -88,7 +88,7 @@ public class JourneyPlannerController {
 	@SuppressWarnings("unchecked")
 	@PostMapping("/plansinglejourney")
 	public @ResponseBody List<Itinerary> planSingleJourney(HttpServletRequest request, HttpServletResponse response, @RequestBody(required=false) SingleJourney journeyRequest, @RequestParam(required = false, defaultValue="default") String policyId,
-			@RequestHeader(required = false, value = "UserID") String userId, @RequestHeader(required = false, value = "AppName") String appName) throws Exception {
+			@RequestHeader(required = false, value = "UserID") String userId, @RequestHeader(required = false, value = "appId") String appId) throws Exception {
 		try {
 			List<Itinerary> result;
 			
@@ -101,7 +101,7 @@ public class JourneyPlannerController {
 			}			
 			
 			for (Itinerary itinerary : result) {
-				gamificationValidator.computeEstimatedGameScore(appName, userId, itinerary, null, false);
+				gamificationValidator.computeEstimatedGameScore(appId, userId, itinerary, null, false);
 			}			
 			
 			return result;
