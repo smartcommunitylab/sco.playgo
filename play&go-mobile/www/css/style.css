@@ -2078,18 +2078,19 @@ ion-header-bar .title {
 
 .game-challenges .challenge {
   border: 1px solid #eee;
-  margin-top: 16px;
+  /* margin-top: 16px; */
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .26);
 
 }
 
 .game-challenges .challenge {
   border: 1px solid #eee;
-  margin-top: 16px;
+  /* margin-top: 16px; */
+  position: relative;
 }
 
 .game-challenges .challenge:last-child {
-  margin-bottom: 16px;
+  /* margin-bottom: 16px; */
 }
 
 .game-challenges .challenge div {
@@ -3423,6 +3424,11 @@ ion-header-bar .title {
   color: lightslategray;
 }
 
+
+.challenge-margin{
+  margin-top: 16px!important;
+
+}
 .done-button {
   text-align: center;
   background-color: transparent;
@@ -3436,7 +3442,12 @@ ion-header-bar .title {
 .challenge-img {
   height: 50px;
 }
-
+.gamification-system{
+  overflow: visible;
+    text-overflow: unset;
+    white-space: normal;
+    margin: 18px;
+}
 .challenge-img>img {
   width: 50px;
   height: 50px;

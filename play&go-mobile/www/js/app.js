@@ -1597,7 +1597,8 @@ angular.module('viaggia', [
       track_run:"Corsa",
       track_bus:"Autobus",
       track_cable:"Funivia",
-      track_train:"Trento"
+      track_train:"Trento",
+      gamification_engine_choosing:"Il sistema sta scegliendo una sfida di coppia per te. Abreve la potrai visualizzare"
 
     });
 
@@ -2159,7 +2160,9 @@ angular.module('viaggia', [
       track_run:"Run",
       track_bus:"Bus",
       track_cable:"Cable car",
-      track_train:"Train"
+      track_train:"Train",
+      gamification_engine_choosing:"The system is choosing a group challenge for you. Shortly you will see it here"
+
     });
 
     $translateProvider.preferredLanguage(DEFAULT_LANG);

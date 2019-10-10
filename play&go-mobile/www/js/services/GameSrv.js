@@ -638,7 +638,7 @@ angular.module('viaggia.services.game', [])
       LoginService.getValidAACtoken().then(
         function (token) {
           gameService.getChallenge(token, 'PROPOSED').then(function (challenges) {
-            updateVariables(null, challenges);
+            updateVariables(profile, challenges);
             deferred.resolve(challenges);
           }, function (err) {
             deferred.reject();
@@ -1069,21 +1069,18 @@ angular.module('viaggia.services.game', [])
     }
     gameService.getChallengeBarTemplate = function (challenge) {
       switch (challenge.type) {
-        case type_challenges['groupCompetitiveTime'].id:
-          {
-            return 'templates/game/challengeTemplates/competitiveTimeBar.html';
-            break;
-          }
-        case type_challenges['groupCompetitivePerformance'].id:
-          {
-            return 'templates/game/challengeTemplates/competitivePerformanceBar.html';
-            break;
-          }
-        case type_challenges['groupCooperative'].id:
-          {
-            return 'templates/game/challengeTemplates/cooperativeBar.html';
-            break;
-          }
+        case type_challenges['groupCompetitiveTime'].id: {
+          return 'templates/game/challengeTemplates/competitiveTimeBar.html';
+          break;
+        }
+        case type_challenges['groupCompetitivePerformance'].id: {
+          return 'templates/game/challengeTemplates/competitivePerformanceBar.html';
+          break;
+        }
+        case type_challenges['groupCooperative'].id: {
+          return 'templates/game/challengeTemplates/cooperativeBar.html';
+          break;
+        }
         default:
           return 'templates/game/challengeTemplates/defaultBar.html';
       }
@@ -1129,6 +1126,16 @@ angular.module('viaggia.services.game', [])
           }
         }
       }
+
+      //check if future has already something
+      if (status  && status.challengeConcept && status.challengeConcept.challengeData && status.challengeConcept.challengeData['FUTURE']) {
+        for (var i = 0; i < status.challengeConcept.challengeData.FUTURE.length; i++) {
+          if (status.challengeConcept.challengeData.FUTURE[i].proposerId == status.playerData.playerId) {
+            return $rootScope.canPropose = false
+          }
+        }
+      }
+
       if (proposed) {
         for (var i = 0; i < proposed.length; i++) {
           if (proposed[i].proposerId == localStatus.playerData.playerId) {
