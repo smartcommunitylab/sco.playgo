@@ -229,7 +229,23 @@ public class NotificationsManager {
 			}
 		}
 	}	
-	
+	@Scheduled(cron="0 0 12 * * FRI")
+	public void checkProposedAssigned() throws Exception {
+		for (AppInfo appInfo : appSetup.getApps()) {
+			try {
+				if (appInfo.getGameId() != null && !appInfo.getGameId().isEmpty()) {
+					GameInfo game = gameSetup.findGameById(appInfo.getGameId());
+					if (game.getSend() == null || !game.getSend()) {
+						continue;
+					}
+					checkProposedAssigned(appInfo);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}	
+		
 	public void sendDirectNotification(String appId, Player toPlayer, String type, Map<String, String> extraData) {
 		AppInfo appInfo = appSetup.findAppById(appId);
 		
@@ -284,6 +300,46 @@ public class NotificationsManager {
 						continue;
 					} catch (Exception e) {
 						logger.error("Error sending notification", e);
+					}
+				}
+			}
+
+		}
+	}
+	
+	private void checkProposedAssigned(AppInfo appInfo) throws Exception {
+		logger.info("Sending notifications assigned for app " + appInfo.getAppId());
+
+
+		List<Player> players = playerRepository.findAllByGameId(appInfo.getGameId());
+		for (Player p : players) {
+			String data = gamificationCache.getPlayerState(p.getPlayerId(), appInfo.getAppId());
+
+			List<ChallengeConcept> challengeConcepts = challengeUtils.parse(data);
+
+			boolean proposed = false;
+			for (ChallengeConcept challengeConcept : challengeConcepts) {
+				if ("PROPOSED".equals(challengeConcept.getState())) {
+					proposed = true;
+					break;
+				}
+			}
+
+			if (proposed) {
+				logger.info("Sending ASSIGNED notification to " + p.getPlayerId());
+				eu.trentorise.smartcampus.communicator.model.Notification notification = null;
+				try {
+					notification = buildSimpleNotification(p.getLanguage(), "ASSIGNED", null);
+				} catch (Exception e) {
+					logger.error("Error building assigned notification", e);
+				}
+
+				if (notification != null) {
+					try {
+						notificatioHelper.notify(notification, p.getPlayerId(), appInfo.getMessagingAppId());
+						continue;
+					} catch (Exception e) {
+						logger.error("Error sending assigned notification", e);
 					}
 				}
 			}

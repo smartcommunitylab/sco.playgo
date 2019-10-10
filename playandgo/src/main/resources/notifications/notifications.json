@@ -115,6 +115,18 @@
 		}
 	},
 	{
+    "id": "ASSIGNED",
+    "type": "program_challenge",
+    "title": {
+      "it": "Sfide",
+      "en": "Challenges"
+    },
+    "description": {
+      "it": "La scelta delle sfide adesso è terminata. A breve ti saranno assegnate le sfide in automatico.",
+      "en": "The challenge selection is now blocked. Shortly you will get the challenges assigned automatically."
+    }
+  },
+  {
 		"id": "INVITATION",
 		"type": "new_invite",
 		"title": {
