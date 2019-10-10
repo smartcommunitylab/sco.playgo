@@ -28,6 +28,8 @@ import it.sayservice.platform.smartplanner.data.message.journey.SingleJourney;
 @Component
 public class DomainStorage {
 
+	private static final String ITINERARY = "itinerary";
+	private static final String RECURRENT = "recurrent";
 	private static final String GEOLOCATIONS = "geolocations";
 	private static final String TRACKED = "trackedInstances";
 	private static final String SAVED = "savedtrips";
@@ -42,6 +44,12 @@ public class DomainStorage {
 	}
 
 	private String getClassCollection(Class<?> cls) {
+		if (cls == ItineraryObject.class) {
+			return ITINERARY;
+		}
+		if (cls == RecurrentJourneyObject.class) {
+			return RECURRENT;
+		}
 		if (cls == Geolocation.class) {
 			return GEOLOCATIONS;
 		}
