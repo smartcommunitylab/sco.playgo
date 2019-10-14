@@ -41,6 +41,7 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import com.google.common.io.Resources;
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 import com.mongodb.WriteConcern;
 
 import eu.trentorise.smartcampus.mobility.security.AppInfo;
@@ -72,7 +73,10 @@ public class MobilityConfig implements WebMvcConfigurer {
 	private String username;
 	@Value("${mail.password}")
 	private String password;	
-	
+
+	@Value("${spring.data.mongodb.url}")
+	private String mongoUri;	
+
 //	@Value("${imagesDir}")
 //	private String imagesDir;		
 
@@ -81,6 +85,9 @@ public class MobilityConfig implements WebMvcConfigurer {
 	
 	@Autowired
 	private GameSetup gameSetup;		
+	
+	@Autowired
+	private MongoClient mongoClient;
 	
 	public MobilityConfig() {
 		super();
@@ -106,17 +113,17 @@ public class MobilityConfig implements WebMvcConfigurer {
 		sender.setJavaMailProperties(props);
 		return sender;
 	}
-	
-	@Bean
-	MongoClient getMongoClient() {
-		return new MongoClient("localhost", 27017);
-	}
 
+	@Bean
+	public MongoClient getMongoClient() {
+		return new MongoClient(new MongoClientURI(mongoUri));
+	}
+	
 	@Bean(name = "mongoTemplate")
 	@Primary
 	public MongoTemplate getDomainMongoTemplate() throws UnknownHostException {
 //		MongoTemplate template = new MongoTemplate(new Mongo("localhost", 17017), "mobility-domain");
-		MongoTemplate template = new MongoTemplate(getMongoClient(), "mobility-domain");
+		MongoTemplate template = new MongoTemplate(mongoClient, "mobility-domain");
 		template.indexOps("trackedInstances").ensureIndex(new Index("day", Direction.ASC));
 		template.indexOps("trackedInstances").ensureIndex(new Index("time", Direction.ASC));
 		template.indexOps("trackedInstances").ensureIndex(new Index("userId", Direction.ASC));
