@@ -95,7 +95,7 @@
             </ion-item>
             <ion-item ng-if="challenge.group=='futu'">
               <div class="challenge no-padding">
-
+ 
                 <div class="row no-padding">
                   <div class="col col-20 {{getColorChallenge(challenge)}} padding-10">
                     <a class="icon-chall  icon {{getIconChallenge(challenge)}}"></a>
@@ -155,7 +155,7 @@
                   </div>
                 </div>
               </ion-item >
-              <h4 class="gamification-system" ng-show="!status.canInvite">
+              <h4 class="gamification-system" ng-show="!status.canInvite && challenge.msg">
                   {{'gamification_engine_choosing'|translate}}
               </h4>
             </div>
