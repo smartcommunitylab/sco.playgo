@@ -1,0 +1,186 @@
+{
+	"walk": [{
+		"negative": false,
+		"word": {
+			"it": "a piedi",
+			"en": "walking"
+		}
+	},
+	{
+		"negative": true,
+		"word": {
+			"it": "spostamento a piedi",
+			"en": "traveling on foot"
+		}
+	}],
+	"bike": [{
+		"negative": false,
+		"word": {
+			"it": "in bici",
+			"en": "by bike"
+		}
+	},
+	{
+		"negative": true,
+		"word": {
+			"it": "la bici",
+			"en": "the bike"
+		}
+	}],
+	"bikesharing": [{
+		"negative": false,
+		"word": {
+			"it": "con bici condivisa",
+			"en": "with shared bike"
+		}
+	},
+	{
+		"negative": true,
+		"word": {
+			"it": "la bici condivisa",
+			"en": "bike sharing"
+		}
+	}],
+	"train": [{
+		"negative": false,
+		"word": {
+			"it": "in treno",
+			"en": "by train"
+		}
+	},
+	{
+		"negative": true,
+		"word": {
+			"it": "il treno",
+			"en": "the train"
+		}
+	}],
+	"bus": [{
+		"negative": false,
+		"word": {
+			"it": "in autobus",
+			"en": "by bus"
+		}
+	},
+	{
+		"negative": true,
+		"word": {
+			"it": "l'autobus",
+			"en": "the bus"
+		}
+	}],
+	"car": [{
+		"negative": false,
+		"word": {
+			"it": "in auto",
+			"en": "by car"
+		}
+	},
+	{
+		"negative": true,
+		"word": {
+			"it": "l'auto",
+			"en": "the car"
+		}
+	}],
+	"zeroimpact": [{
+		"negative": false,
+		"word": {
+			"it": "a impatto zero",
+			"en": "zero impact"
+		}
+	},
+	{
+		"negative": true,
+		"word": {
+			"it": "spostamento a impatto zero",
+			"en": "zero impact trips"
+		}
+	}],
+	"promoted": [{
+		"negative": false,
+		"word": {
+			"it": "promoted",
+			"en": "promoted"
+		}
+	},
+	{
+		"negative": true,
+		"word": {
+			"it": "spostamento promoted",
+			"en": "promoted trips"
+		}
+	}],
+	"pandr": [{
+		"negative": false,
+		"word": {
+			"it": "utilizzando il park and ride",
+			"en": "in park and ride mode"
+		}
+	},
+	{
+		"negative": true,
+		"word": {
+			"it": "il park and ride",
+			"en": "park and ride mode"
+		}
+	}],
+	"cable": [{
+		"negative": false,
+		"word": {
+			"it": "in funivia",
+			"en": "by cable"
+		}
+	},
+	{
+		"negative": true,
+		"word": {
+			"it": "la funivia",
+			"en": "the cable"
+		}
+	}],
+	"start": [{
+		"negative": false,
+		"word": {
+			"it": "iniziale",
+			"en": "start"
+		}
+	},
+	{
+		"negative": true,
+		"word": {
+			"it": "iniziale",
+			"en": "start"
+		}
+	}],
+	"end": [{
+		"negative": false,
+		"word": {
+			"it": "finale",
+			"en": "final"
+		}
+	},
+	{
+		"negative": true,
+		"word": {
+			"it": "finale",
+			"en": "final"
+		}
+	}],
+  "last": [{
+    "negative": false,
+    "word": {
+      "it": "breve",
+      "en": "short"
+    }
+  },
+  {
+    "negative": true,
+    "word": {
+      "it": "breve",
+      "en": "short"
+    }
+  }]    
+	
+	
+}

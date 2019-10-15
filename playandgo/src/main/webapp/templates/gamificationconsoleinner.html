@@ -1,0 +1,389 @@
+	<div id="console" class="console" ng-controller="GameCtrl">
+		<div class="row">
+			<div class="col-md-4">
+				<form id="parsForm" name="parsForm" dl-enter-key="reload()">
+					<div class="panel panel-default padding">
+						<div class="row">
+							<div class="col-md-3">
+								<a class="btn btn-primary btn-sm" href="{{'console/report?appId=' + appId + (allDates ? ('&fromDate=' + fromDate.getTime() + '&toDate=' + toDate.getTime()) : '')}}" role="button">Report</a>
+							</div>
+							<div class="col-md-9 text-right">
+								<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmModal1">Revalidate</button>
+								<button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#confirmModal2">Synchronize</button>
+								<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmModal3">Approve all</button>
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-default padding">
+						<div class="row">
+							
+							<div class="col-md-12 small">
+								<label class="form-check"  style="color: red;"> <input type="checkbox" ng-click="allDates=!allDates" class="navbar-btn btn-sm">All dates</label>							
+								<label class="form-check"> <input type="checkbox" ng-click="excludeZeroPoints=!excludeZeroPoints" class="navbar-btn btn-sm">No 0 pts</label> 
+								<label class="form-check"> <input type="checkbox" ng-click="unapprovedOnly=!unapprovedOnly" class="navbar-btn btn-sm">To approve </label> 
+								<label class="form-check"> <input type="checkbox" ng-click="pendingOnly=!pendingOnly" class="navbar-btn btn-sm">Pending</label>
+								<label class="form-check"> <input type="checkbox" ng-click="toCheck=!toCheck" class="navbar-btn btn-sm">To check</label>
+							</div>
+
+						</div>
+						
+						<div class="row small">
+							<div class="col-md-6">
+								<label>From:</label>
+                <div class="input-group">
+                  <input id="fromDate" type="text" class="form-control" datepicker-popup="{{format}}" datepicker-options="dateOptions" ng-model="fromDate"
+                    is-open="openedFrom" close-text="Close"
+                  /> <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="toggleOpen($event, true)">
+                      <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                  </span>
+                </div>
+							</div>
+							<div class="col-md-6">
+                <label>To:</label>
+                <div class="input-group">
+                  <input id="toDate" type="text" class="form-control" datepicker-popup="{{format}}" datepicker-options="dateOptions" ng-model="toDate" is-open="openedTo"
+                    close-text="Close"
+                  /> <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="toggleOpen($event, false)">
+                      <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                  </span>
+                </div>
+							</div>
+						</div>
+						<br/>
+						<div class="row small">
+              <div class="col-md-6">
+	              <label>User Id:</label>
+	              <input type="text" class="form-control" id="userId" ng-model="filterUserId">
+              </div>
+              <div class="col-md-6">
+                <label>Travel Id:</label>
+                <input type="text" class="form-control" id="travelId" ng-model="filterTravelId">
+              </div>
+						</div>
+            <br/>
+
+			<div class="row small">
+				<div class="col-md-10">
+					<label>Player Ranking</label></br> <label> <input type="radio"
+						ng-model="rankingType" value="NONE"> None
+					</label> <label> <input type="radio" ng-model="rankingType"
+						value="GLOBAL"> Global
+					</label> <label> <input type="radio" ng-model="rankingType"
+						value="CURRENT"> Current week
+					</label> <label> <input type="radio" ng-model="rankingType"
+						value="PREVIOUS"> Previous week
+					</label>
+
+				</div>
+
+				<div class="col-md-2" ng-hide="rankingType == 'NONE'">
+					<label>Max rank:</label> <input type="text" class="form-control"
+						id="rank" ng-model="maxRanking" ng-value="50">
+				</div>
+			</div>
+			</br>     
+            
+            <div class="row ">
+              <div class="col-md-6">
+                <button class="btn btn-primary btn-sm" ng-click="reload()">Filter</button>
+              </div>
+              <div class="col-md-6 text-right">  
+                <button class="btn btn-default btn-sm" ng-click="clearFilter(parsForm)">Clear filter</button>
+              </div>
+            </div>  
+						
+					</div>
+				</form>
+				<!-- <b>{{tripsStats.total}}</b><i>???</i> -->
+			    <strong>({{tripsStats.total}} tracked, <span style="{{validColor(tripsStats)}}">{{tripsStats.invalid}} invalid</span>, <span style="{{pendingColor(tripsStats)}}">{{tripsStats.pending}} pending</span>)</strong>				
+				<div id="left-scrollable" ng-scrollable="{scrollX:'none',scrollY:'right'}" style="width: 100%; height: 100%;">
+					<div class="">
+						<div ng-repeat="user in users" class="panel panel-default user-row">
+							<div class="row">
+								<div class="col-md-4">
+									<a ng-click="selectUser(user)">{{user}} {{banned.indexOf(user) > -1 ? "- BANNED" : ""}}</a>
+								</div>
+								<div class="col-md-8 pull-right">
+								    <strong>({{userTotals[user].total}} tracked, <span style="{{validColor(userTotals[user])}}">{{userTotals[user].valid}} valid, {{userTotals[user].invalid}} invalid</span>, <span style="{{pendingColor(userTotals[user])}}">{{userTotals[user].pending}} pending</span>, <span style="{{pendingColor(userTotals[user])}}">{{userTotals[user].pendingPercent}}% pending</span>)
+									</strong>
+								</div>
+							</div>
+							<div ng-if="selectedUser == user">
+								<div ng-repeat="itinerary in userMap[user]" class="itinerary-row">
+									<div ng-class="{'incomplete': itinerary.instance.complete == false}">
+										<div ng-click="selectInstance(itinerary.instance)" class="instance-row"
+											ng-class="{'selected':selectedInstance == itinerary.instance, 'valid': hasValidStyle(itinerary.instance), 'invalid': hasInvalidStyle(itinerary.instance), 'pending': hasPendingStyle(itinerary.instance)}"
+										>
+											<div class="row">
+												<div class="col-md-6 itinerary-def">
+													{{itinerary.tripName}} <span ng-show="!itinerary.instance.validationResult.matchedLocations && itinerary.instance.itinerary"
+														class="glyphicon glyphicon-move" title="Mismatched locations" data-toggle="tooltip"
+													></span> <span ng-show="!itinerary.instance.validationResult.matchedActivities && itinerary.instance.itinerary" class="glyphicon glyphicon-plane"
+														title="Mismatched activities" data-toggle="tooltip"
+													></span> <span ng-show="itinerary.instance.validationResult.tooFast" class="glyphicon glyphicon-road" title="Too fast" data-toggle="tooltip"></span> 
+													<span ng-show="!itinerary.instance.validationResult.inAreas" class="glyphicon glyphicon-flag" title="Not in areas" data-toggle="tooltip"></span>
+													<br />
+													<i>Type: </i><b>{{itinerary.instance.itinerary == null ? ('Free tracking - ' + itinerary.instance.freeTrackingTransport) : 'Planned'}}</b>
+													<i>{{itinerary.instance.validationResult.plannedAsFreeTracking ? '(as free tracking)' : ''}}</i>
+												</div>
+												<div class="col-md-6 text-right">
+												<span ng-if="itinerary.instance.suspect == true" class="label label-danger"><b>SUSPECT</b></span>												
+												<!--<span ng-if="itinerary.instance.groupId != 0" class="label label-primary">Group {{itinerary.instance.groupId}}</span> !-->
+													<b>{{(itinerary.instance.day ? itinerary.instance.day : '--') + " " + (itinerary.startTime|date:'HH:mm')}}</b> <span
+														ng-show="itinerary.instance.validationResult.tooFewPoints && itinerary.instance.itinerary" class="glyphicon glyphicon-exclamation-sign"
+														title="Too few points" data-toggle="tooltip"
+													></span><br /> <span ng-show="itinerary.instance.itinerary"><b>Estimated score: {{itinerary.instance.itinerary.data.customData.estimatedScore}},</span> {{itinerary.instance.scoreStatus}}: {{itinerary.instance.score}}</b>
+												</div>
+											</div>
+<!-- 											<div class="group-indicator">
+												<span ng-if="itinerary.instance.groupId != 0" class="label label-primary">group {{itinerary.instance.groupId}}</span>
+											</div> -->
+<!-- 											<label class="itinerary-switch"><b>{{'Switch validity ' + (itinerary.instance.approved ? '(Approved) ' : '')}}</b> <input
+												ng-disabled="itinerary.instance.approved" type="checkbox" ng-model="itinerary.instance.switchValidity" 
+												class="navbar-btn btn-sm" data-toggle="modal" data-target="#confirmModal1"
+											> </label> -->
+											<label class="itinerary-switch"><b>{{'Change ' + (itinerary.instance.approved ? '(Approved) ' : '')}}</b> 
+											<select 
+												ng-disabled="itinerary.instance.approved || itinerary.instance.scoreStatus == 'ASSIGNED' || itinerary.instance.id !== selectedInstance.id || itinerary.instance.complete == false" ng-model="itinerary.instance.changedValidity" class="navbar-btn btn-sm" >
+												<option ng-repeat="x in validities" >{{x}}</option>
+											</select>
+											</label>
+											<button class="btn btn-danger btn-sm" ng-click="openSwitchValidity(itinerary.instance)" ng-disabled="itinerary.instance.approved || itinerary.instance.scoreStatus == 'ASSIGNED'  || itinerary.instance.id !== selectedInstance.id">Update validity</button>											
+											<button class="btn btn-danger btn-sm" ng-click="openChangeDistances()" ng-disabled="itinerary.instance.approved || itinerary.instance.scoreStatus == 'ASSIGNED'  || itinerary.instance.id !== selectedInstance.id">Change distances</button>
+											
+											<label class="itinerary-switch"><b>To check</b> <input type="checkbox"
+												ng-checked="itinerary.instance.toCheck" ng-click="toggleToCheck(itinerary.instance)" class="navbar-btn btn-sm"
+											> </label>										
+											
+										</div>
+									</div>
+								</div>
+							</div>
+							</div>
+						<div></div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-8">
+				<div id="map"></div>
+				<span ng-hide="!selectedInstance"><label class="navbar-btn"><input type="checkbox" ng-click="fixpaths=!fixpaths; reselectInstance();"
+						name="fix-paths" class="navbar-btn btn-sm"
+					>&nbsp;Fix paths {{scores}}</label>	
+				<!-- <button class="btn btn-danger btn-sm" ng-click="showAllPoints()">Show all points</button> -->
+				
+				<span ng-hide="!selectedInstance"><b>Show all points</b> <input type="checkbox"
+						ng-click="reselectInstance();" id="showAllPoints"> </span>				
+				
+				
+				</span>				
+				<!-- <span ng-hide="!selectedInstance"><label class="navbar-btn"> -->
+				
+				<!-- <span ng-hide="!selectedInstance || selectedInstance.routesPolylines == null"><label class="navbar-btn"><input type="checkbox" ng-click="showroutes=!showroutes; reselectInstance();"
+						name="show-routes" class="navbar-btn btn-sm"
+					>&nbsp;Show routes</label></span> -->					
+					<!-- <span ng-hide="!selectedInstance"><label class="navbar-btn"> -->
+	
+				<p>
+					<span
+						ng-hide="selectedInstance.routesPolylines['bus'] == null && selectedInstance.routesPolylines['train'] == null"><b>All
+							routes</b> <input type="checkbox"
+						ng-click="toggleAllRoutes(); reselectInstance();"
+						id="allRoutesCheckbox" class="routeCheckbox"> </span> <span><b>&nbsp;</b>
+						<span
+						ng-repeat="(routeId,polyline) in selectedInstance.routesPolylines['bus']"><b>{{routeId}}</b>
+							<input type="checkbox"
+							ng-click="toggleRoute(routeId); reselectInstance();"
+							class="routeCheckbox" id="{{routeId}}"> </span>
+				</p>
+	
+	
+				<div>
+				<span>{{selectedInstance.deviceInfo}}</span>
+				</div>									
+					<div id="right-scrollable" style="width: 100%; height: 100%;">
+						<div class="row" ng-if="selectedInstance != null">
+							<div class="col-md-4">
+								<h3 style="color: green;">Planned</h3>
+								<p>{{selectedInstance.itinerary.data.startime|date:'HH:mm'}} - {{selectedInstance.itinerary.data.endtime|date:'HH:mm'}}</p>
+								<p ng-show="selectedInstance.freeTrackingTransport">
+									<b>Free tracking tranport:</b> {{selectedInstance.freeTrackingTransport}}
+								</p>
+								<hr />
+								<p ng-repeat="leg in selectedInstance.itinerary.data.leg">{{leg.transport.type}}</p>
+							</div>
+							<div class="col-md-4">
+								<h3>
+									<span style="color: blue;">Tracked</span> (valid: <span style="">{{selectedInstance.valid}}</span>)
+								</h3>
+								<p>{{selectedInstance.geolocationEvents[0].recorded_at|date:'HH:mm'}} -
+									{{selectedInstance.geolocationEvents[selectedInstance.geolocationEvents.length-1].recorded_at|date:'HH:mm'}}</p>
+								<hr />
+<!-- 								<p ng-repeat="evt in selectedInstance.legs">
+									<b>{{evt.activity_type ? evt.activity_type : '??'}}</b> ({{evt.count}} events, {{evt.recorded_at|date:'HH:mm:ss'}}<span
+										ng-if="evt.recorded_till != null"
+									> -- {{evt.recorded_till|date:'HH:mm:ss'}}</span>)
+								</p> -->
+								<!--               <p ng-repeat="evt in selectedInstance.geolocationEvents">{{evt.activity_type ? evt.activity_type : '--'}} ({{evt.recorded_at|date:'HH:mm:ss'}})</p> -->
+							</div>
+							<div class="col-md-4">
+								<h3 style="">Validation</h3>
+								<pre>{{selectedInstance.validationResult | json}}</pre>
+							</div>
+						</div>
+						<div class="row" ng-if="selectedInstance != null">
+							<div class="col-md-12">
+								<h3>Tracked events:</h3>
+								<table>
+									<thead>
+										<td></td>
+										<td>i</td>
+										<td>When</td>
+										<td>Accuracy</td>
+										<td>Activity</td>
+										<td>Activity Confidence</td>
+										<td>Coordinates</td>
+										<td>Is moving</td>
+										<td>Speed</td>
+									</thead>
+									<tbody>
+										<!-- <tr ng-repeat="evt in selectedInstance.geolocationEvents" ng-click="newMarker(evt.geocoding[1] + ',' + evt.geocoding[0])"> -->
+										<tr ng-repeat="evt in selectedInstance.geolocationEvents track by $index" ng-click="lineclick()" class="instance-row">
+											<div>
+												<!-- <td><span class="glyphicon glyphicon-map-marker" ng-click="newMarker(evt.geocoding[1] + ',' + evt.geocoding[0])"></span></td> -->
+												<td><label class="btn" ng-click="newEventMarker(evt.geocoding[1],evt.geocoding[0],$index + 1)"> <span class="glyphicon glyphicon-map-marker"
+														aria-hidden="true"
+													></span>
+												</label></td>
+												<td>{{$index + 1}}</td>
+												<td>{{evt.recorded_at|date:'HH:mm:ss'}}</td>
+												<td>{{evt.accuracy}}</td>
+												<td>{{evt.activity_type}}</td>
+												<td>{{evt.activity_confidence}}</td>
+												<td>{{evt.geocoding[1] + " ," + evt.geocoding[0]}}</td>
+												<td>{{evt.is_moving}}</td>
+												<td>{{evt.speed}}</td>
+											</div>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+			</div>
+		</div>
+		<div id="confirmModal1" class="modal fade" role="dialog">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">Are you sure?</h3>
+					</div>
+					<div class="modal-body">
+						<form id="notification-form">
+							<div class="form-group">
+								<!-- <button class="btn btn-primary" type="button" ng-click="switchCurrentValidity()" data-dismiss="modal">Yes</button> -->
+								<button class="btn btn-primary" type="button" ng-click="revalidate()" data-dismiss="modal">Yes</button>
+								<button class="btn btn-primary right" type="button" data-dismiss="modal">No</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="confirmModal2" class="modal fade" role="dialog">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">Are you sure?</h3>
+					</div>
+					<div class="modal-body">
+						<form id="notification-form">
+							<div class="form-group">
+								<!-- <button class="btn btn-primary" type="button" ng-click="revalidate()" data-dismiss="modal">Yes</button> -->
+								<button class="btn btn-primary" type="button" ng-click="synchronize()" data-dismiss="modal">Yes</button>
+								<button class="btn btn-primary right" type="button" data-dismiss="modal">No</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="confirmModal3" class="modal fade" role="dialog">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">Are you sure?</h3>
+					</div>
+					<div class="modal-body">
+						<form id="notification-form">
+							<div class="form-group">
+								<button class="btn btn-primary" type="button" ng-click="approveAll()" data-dismiss="modal">Yes</button>
+								<button class="btn btn-primary right" type="button" data-dismiss="modal">No</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>		
+		
+		<div id="distancesModal" class="modal fade" role="dialog">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">Distances (in meters)</h3>
+						<!-- <h4 class="modal-title">{{selectedInstance.freeTrackingTransport == null}}</h3> -->
+					</div>
+					<div class="modal-body">
+					<form  id="notification-form">
+						<div class="form-group">
+							<div class="row padding pull-right" ng-if="!isTTypeDisabled(selectedInstance, 'walk')">
+								<div class="col-md-8 text-right"><label>Walk</label></div>
+								<div class="col-md-4">
+									<input type="text" class="form-control" id="customWalk"
+										ng-model="selectedInstance.overriddenDistances.walk">
+								</div>
+							</div>
+							
+							<div class="row padding pull-right" ng-if="!isTTypeDisabled(selectedInstance, 'bike')">
+								<div class="col-md-8 text-right"><label>Bike</label></div>
+								<div class="col-md-4">
+									<input type="text" class="form-control" id="customBike"
+										ng-model="selectedInstance.overriddenDistances.bike">
+								</div>
+							</div>							
+							
+							<div class="row padding pull-right" ng-if="!isTTypeDisabled(selectedInstance, 'bus')">
+								<div class="col-md-8 text-right"><label>Bus</label></div>
+								<div class="col-md-4">
+									<input type="text" class="form-control" id="customBus"
+										ng-model="selectedInstance.overriddenDistances.bus">
+								</div>
+							</div>							
+							
+							<div class="row padding pull-right" ng-if="!isTTypeDisabled(selectedInstance, 'train')">
+								<div class="col-md-8 text-right"><label>Train</label></div>
+								<div class="col-md-4">
+									<input type="text" class="form-control" id="customTrain"
+										ng-model="selectedInstance.overriddenDistances.train">
+								</div>
+							</div>							
+							
+						<div class="form-group">
+							<button class="btn btn-primary" type="button" ng-click="overrideDistances(selectedInstance)" data-dismiss="modal">Save</button>
+							<button class="btn btn-primary right" type="button" data-dismiss="modal">Cancel</button>
+						</div>								
+							
+					</form>					
+					
+					
+				</div>
+				</div>
+			</div>
+		</div>			
+		
+		
+				
+	</div>

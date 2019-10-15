@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}">
+<head lang="it" >
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title th:text="#{unsubscribe.title}">Play&amp;Go - Disattivazione Notifiche via Mail</title>
+		
+		<!-- Bootstrap core CSS -->
+		<link href="../../css/bootstrap.min.css" rel="stylesheet"/>
+		<!-- Custom styles for this template -->
+		<link href="../../css/gg_style.css" rel="stylesheet"/>
+		
+		<script type="text/javascript" th:inline="javascript">
+		/*<![CDATA[*/
+		  var cookieEnabled = (navigator.cookieEnabled) ? true : false; 
+		  if (typeof navigator.cookieEnabled == "undefined" && !cookieEnabled)
+		  { 
+		    document.cookie="testcookie";
+		    cookieEnabled = (document.cookie.indexOf("testcookie") != -1) ? true : false;
+		  }
+      function goToApp(){
+    	  window.location.href='../../gamificationweb';
+      }
+		  /*]]>*/
+		</script>
+		<style type="text/css">
+		  .panel {
+		    background: url(../../img/paginaAccesso-56-56-56.svg) no-repeat center center fixed;
+		  }
+		</style>
+</head>
+
+<body>
+  <div class="container" align="center" >
+    <div class="row" style="margin-top: 15px">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-default">
+            <div class="panel-body">
+            <div style="margin: 5px 3px 5px 3px">
+              <div class="row" style="font-size: 18px; color: red" align="center" id="cookies">
+              </div>
+              
+              <div style="margin: 50px 5px 5px 5px" align="center">
+                <h1>
+                  <font face="Raleway-bold" size="48" color="gray"><strong th:text="#{unsubscribe.title}">Viaggia Play&amp;Go</strong></font>
+                </h1>
+                <p th:text="#{unsubscribe.req1}">
+                </p>
+                <p th:text="#{unsubscribe.req2}">
+                </p>
+              </div>
+              
+              <div class="row" style="margin-right: 10px" align="right">
+                <form method="post">
+                &nbsp;
+                <button class="btn btn-success btn-lg" role="button"><font face="Raleway" size="4"><strong th:text="#{unsubscribe.do}">Conferma</strong></font></button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <footer>
+        </footer>
+      </div>
+    </div>
+  </div>
+<!-- Codice per accettazione cookie - Inizio -->
+<script src="../../js/cookiechoices.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function(event) {
+    cookieChoices.showCookieConsentBar("I cookie ci aiutano ad erogare servizi di qualita'. Utilizzando i nostri servizi, l'utente accetta le nostre modalita' d'uso dei cookie.",
+      'OK', 'MAGGIORI INFORMAZIONI', 'cookie_licence');
+  });
+</script>
+
+</body>
+
+</html>
