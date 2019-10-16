@@ -611,6 +611,8 @@ public class PlayerController {
 		data.put("playerId", playerId);
 		String partialUrl = "game/" + gameId + "/player";
 
+		logger.info("registration in gamification: "+ gamificationUrl + "console/" + partialUrl + ", " + data);
+		
 		ResponseEntity<String> tmp_res = restTemplate.exchange(gamificationUrl + "console/" + partialUrl, HttpMethod.POST, new HttpEntity<Object>(data, appSetup.createAuthHeaders(appId)), String.class);
 		logger.info("Sent player registration to gamification engine(mobile-access) " + tmp_res.getStatusCode());
 	}
