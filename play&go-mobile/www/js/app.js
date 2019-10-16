@@ -1569,9 +1569,9 @@ angular.module('viaggia', [
       no_blacklist:"Nessuna blacklist trovata",
       lbl_chall_user_not_available_title:"Utente non disponibile",
       lbl_chall_user_not_available:"L'utente selezionato non e’ più disponibile. Selezionare un altro giocatore" ,
-      pop_up_expired_title:"Scaduta",
-      pop_up_expired:"La tua applicazione e' scaduta. Aggiornala tramite il market",
-      pop_up_open_market:"Apri market"    
+      pop_up_expired_title:"Aggiornamento App",
+      pop_up_expired:"Questa versione dell'App non è più supportata. Per partecipare all'edizione 2019-2020 di Play&Go è necessario aggiornarla.",
+      pop_up_open_market:"Vai all'App Store"  
     });
 
     $translateProvider.translations('en', {
@@ -2121,9 +2121,9 @@ angular.module('viaggia', [
       no_blacklist:"No blacklist found",
       lbl_chall_user_not_available_title:"User not available",
       lbl_chall_user_not_available:"Selected user is not available anymore. Please, select a different one" ,
-      pop_up_expired_title:"Expired",
-      pop_up_expired:"You application is not supported anymore. Please update it",
-      pop_up_open_market:"Open market"
+      pop_up_expired_title:"App update needed",
+      pop_up_expired:"This version of the application is not supported anymore. Please update it to participate to 2019-2020 edition of Play&Go.",
+      pop_up_open_market:"Go to App Store"
 
    
 
