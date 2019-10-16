@@ -106,10 +106,21 @@ angular.module('viaggia.controllers.home', [])
         $scope.expansion[i] = false;
       }
     }
+    var notGourpProposed = function(challenges) {
+      //check if status has in future group challenge
+      if ($scope.status  && $scope.status.challengeConcept && $scope.status.challengeConcept.challengeData && $scope.status.challengeConcept.challengeData['FUTURE']) {
+        for (var i = 0; i < $scope.status.challengeConcept.challengeData.FUTURE.length; i++) {
+          if ($scope.status.challengeConcept.challengeData.FUTURE[i].proposerId) {
+            return false
+          }
+        }
+      }
+      return true;
+    }
     var setChooseButton = function () {
       //if proposed is not empty enable
       GameSrv.getProposedChallenges(profileService.status).then(function (challenges) {
-        if (challenges && challenges.length) {
+        if ((challenges && challenges.length) || $scope.status.canInvite && notGourpProposed()) {
           $scope.buttonProposedEnabled = true;
 
         } else {
