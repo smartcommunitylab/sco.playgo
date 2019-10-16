@@ -154,7 +154,7 @@
         "maxDaysToPersist": 14,
         "triggerActivities": "in_vehicle, on_bicycle, running, walking, on_foot",
 
-        "url": "https://tn.smartcommunitylab.it/core.mobility/gamification/geolocations?token=",
+        "url": "https://tn.smartcommunitylab.it/playandgo/gamification/geolocations?token=",
         "method": "POST",
         "batchSync": true,
         "autoSync": false,

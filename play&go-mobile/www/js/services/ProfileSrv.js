@@ -32,7 +32,7 @@ angular.module('viaggia.services.profile', [])
       return localStorage.getItem(Config.getAppId() + PROFILE_TABLE_SIZE);
     };
     profileService.getAvatarUrl = function () {
-      return 'https://tn.smartcommunitylab.it/core.mobility/gamificationweb/player/avatar/' + Config.getAppId() + '/';
+      return 'https://dev.smartcommunitylab.it/playandgo/gamificationweb/player/avatar/' + Config.getAppGameId() + '/';
     };
     profileService.setAccessibility = function (acc) {
       localStorage.setItem(Config.getAppId() + PROFILE_ACC, acc);
@@ -47,10 +47,10 @@ angular.module('viaggia.services.profile', [])
         function (token) {
           $http({
             method: 'GET',
-            url: Config.getServerURL() + '/gamificationweb/player/avatar/'+Config.getAppId()+'/'+profileId,
+            url: Config.getServerGamificationURL() + '/gamificationweb/player/avatar/'+Config.getAppGameId()+'/'+profileId,
             headers: {
               'Authorization': 'Bearer ' + token,
-              'appId': Config.getAppId(),
+              'appId': Config.getAppGameId(),
             },
             timeout: Config.getHTTPConfig().timeout
           })
@@ -79,12 +79,12 @@ angular.module('viaggia.services.profile', [])
       fd.append("data", file);
       LoginService.getValidAACtoken().then(
         function (token) {
-          $http.post(Config.getServerURL() + '/gamificationweb/player/avatar', fd, {
+          $http.post(Config.getServerGamificationURL() + '/gamificationweb/player/avatar', fd, {
             withCredentials: true,
             headers: {
               'Content-Type': undefined,
               'Authorization': 'Bearer ' + token,
-              'appId': Config.getAppId(),
+              'appId': Config.getAppGameId(),
             },
             transformRequest: angular.identity
           }).success(function () {

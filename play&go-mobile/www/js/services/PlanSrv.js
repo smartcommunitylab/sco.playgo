@@ -516,12 +516,13 @@ angular.module('viaggia.services.plan', [])
             var appName = Config.getAppName();
             $http({
                 method: 'POST',
-                url: Config.getServerURL() + '/plansinglejourney?policyId=' + planService.choosePlanPolicy(newPlanConfigure, Config.getPlanPolicy()),
+                url: Config.getServerGamificationURL() + '/plansinglejourney?policyId=' + planService.choosePlanPolicy(newPlanConfigure, Config.getPlanPolicy()),
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                     'UserID': userId,
-                    'AppName': appName
+                    'AppName': appName,
+                    'appId': Config.getAppGameId()
                 },
                 data: {
                     "to": {

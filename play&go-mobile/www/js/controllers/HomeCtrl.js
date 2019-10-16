@@ -106,10 +106,21 @@ angular.module('viaggia.controllers.home', [])
         $scope.expansion[i] = false;
       }
     }
+    var notGourpProposed = function(challenges) {
+      //check if status has in future group challenge
+      if ($scope.status  && $scope.status.challengeConcept && $scope.status.challengeConcept.challengeData && $scope.status.challengeConcept.challengeData['FUTURE']) {
+        for (var i = 0; i < $scope.status.challengeConcept.challengeData.FUTURE.length; i++) {
+          if ($scope.status.challengeConcept.challengeData.FUTURE[i].proposerId) {
+            return false
+          }
+        }
+      }
+      return true;
+    }
     var setChooseButton = function () {
       //if proposed is not empty enable
       GameSrv.getProposedChallenges(profileService.status).then(function (challenges) {
-        if (challenges && challenges.length) {
+        if ((challenges && challenges.length) || $scope.status.canInvite && notGourpProposed()) {
           $scope.buttonProposedEnabled = true;
 
         } else {
@@ -158,27 +169,26 @@ angular.module('viaggia.controllers.home', [])
     }
     var setUserLevel = function () {
       $scope.level = "";
-      if ($scope.status && $scope.status.levels && $scope.status.levels.length > 0 && $scope.status.levels[0].levelValue)
+      if ($scope.status && $scope.status.levels && $scope.status.levels.length > 0 && $scope.status.levels[0].levelValue) {
         $scope.level = $scope.status.levels[0].levelValue;
+        $scope.levelNumber = $scope.status.levels[0].levelIndex;
+      }
     }
     // var mymap = document.getElementById('map-container');
     $scope.getChallengeTemplate = function (challenge) {
       switch (challenge.type) {
-        case typeofChallenges['groupCompetitiveTime'].id:
-          {
-            return 'templates/game/challengeTemplates/competitiveTime.html';
-            break;
-          }
-        case typeofChallenges['groupCompetitivePerformance'].id:
-          {
-            return 'templates/game/challengeTemplates/competitivePerformance.html';
-            break;
-          }
-        case typeofChallenges['groupCooperative'].id:
-          {
-            return 'templates/game/challengeTemplates/cooperative.html';
-            break;
-          }
+        case typeofChallenges['groupCompetitiveTime'].id: {
+          return 'templates/game/challengeTemplates/competitiveTime.html';
+          break;
+        }
+        case typeofChallenges['groupCompetitivePerformance'].id: {
+          return 'templates/game/challengeTemplates/competitivePerformance.html';
+          break;
+        }
+        case typeofChallenges['groupCooperative'].id: {
+          return 'templates/game/challengeTemplates/cooperative.html';
+          break;
+        }
         default:
           return 'templates/game/challengeTemplates/default.html';
       }
@@ -539,7 +549,7 @@ angular.module('viaggia.controllers.home', [])
     $rootScope.currentUser = null;
     $scope.noStatus = false;
     $rootScope.profileImg = null;
-    $scope.tmpUrl = 'https://tn.smartcommunitylab.it/core.mobility/gamificationweb/player/avatar/' + Config.getAppId() + '/'
+    $scope.tmpUrl = 'https://dev.smartcommunitylab.it/playandgo/gamificationweb/player/avatar/' + Config.getAppGameId() + '/'
     $scope.getImage = function () {
       if ($scope.status)
         profileService.getProfileImage($scope.status.playerData.playerId).then(function (image) {

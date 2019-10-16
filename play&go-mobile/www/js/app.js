@@ -352,15 +352,31 @@ angular.module('viaggia', [
       // }
 
       $ionicPlatform.registerBackButtonAction(function () {
-        if ($state.current.name === "app.home.leaderboards" || $state.current.name === "app.home.diary" || $state.current.name === "app.home.mobility") {
+        if ($state.current.name === "app.home.leaderboards" || $state.current.name === "app.home.diary" || $state.current.name === "app.home.mobility"|| $state.current.name.startsWith("app.profile.")) {
           $ionicHistory.nextViewOptions({
             disableBack: true,
             historyRoot: true
           });
           $state.go('app.home.home');
         }
-        else if ($state.current.name === "app.home.hometrack") {
-          navigator.app.exitApp();
+        else if ($state.current.name === "app.home.home") {
+          $ionicPopup.show({
+            title: $filter('translate')("pop_up_exit"),
+            template: $filter('translate')("pop_up_exit_template"),
+            buttons: [
+              {
+                text: $filter('translate')("btn_close"),
+                type: 'button-cancel'
+              },
+              {
+                text: $filter('translate')("btn_conferma"),
+                type: 'button-custom',
+                onTap: function () {
+                  navigator.app.exitApp();
+                }
+              }
+            ]
+          });
         }
         else {
 
@@ -429,7 +445,8 @@ angular.module('viaggia', [
       //   }
       // })
       .state('app.home', {
-        cache: false,
+        cache: true,
+        abstract:true,
         url: "/home",
         views: {
           'menuContent': {
@@ -453,7 +470,7 @@ angular.module('viaggia', [
       })
 
       .state('app.home.diary', {
-        cache: false,
+        cache: true,
         url: '/diary',
         params: {
           challengeEnd: null
@@ -502,7 +519,7 @@ angular.module('viaggia', [
         }
       })
       .state('app.profile', {
-        cache: false,
+        cache: true,
         url: "/profile",
         views: {
           'menuContent': {
@@ -543,7 +560,7 @@ angular.module('viaggia', [
         }
       })
       .state('app.profileOthers', {
-        cache: false,
+        cache: true,
         url: "/other",
         params: {
           profileId: null
@@ -1568,7 +1585,21 @@ angular.module('viaggia', [
       lbl__challenge_cant_see_player:"Perche’ non riesco a trovare un giocatore?",
       no_blacklist:"Nessuna blacklist trovata",
       lbl_chall_user_not_available_title:"Utente non disponibile",
-      lbl_chall_user_not_available:"L'utente selezionato non e’ più disponibile. Selezionare un altro giocatore"      
+      lbl_chall_user_not_available:"L'utente selezionato non e’ più disponibile. Selezionare un altro giocatore",
+      user_level_index:"Lvl. ",
+      search_name:"Inserisci il nickname",
+      pop_up_exit:"Uscire dall'applicazione?",
+      pop_up_exit_template:"Sei sicuro di voler uscire dall'applicazione?",
+      blacklist_add_toast:"Giocatore aggiunto alla blacklist",
+      blacklist_removed_toast:"Player removed to the blacklist",
+      track_feet:"Piedi",
+      track_bike:"Bici",
+      track_run:"Corsa",
+      track_bus:"Autobus",
+      track_cable:"Funivia",
+      track_train:"Trento",
+      gamification_engine_choosing:"Il sistema sta scegliendo una sfida di coppia per te. Abreve la potrai visualizzare"
+
     });
 
     $translateProvider.translations('en', {
@@ -2117,9 +2148,20 @@ angular.module('viaggia', [
       lbl__challenge_cant_see_player:"Why can't I find a player?",
       no_blacklist:"No blacklist found",
       lbl_chall_user_not_available_title:"User not available",
-      lbl_chall_user_not_available:"Selected user is not available anymore. Please, select a different one"  
-
-   
+      lbl_chall_user_not_available:"Selected user is not available anymore. Please, select a different one" ,
+      user_level_index:"Lvl. ",
+      search_name:"Insert the nickname",
+      pop_up_exit:"Exit?",
+      pop_up_exit_template:"Are you sure you want to exit?",
+      blacklist_add_toast:"Player added to the blacklist",
+      blacklist_removed_toast:"Player removed to the blacklist" ,
+      track_feet:"Walk",
+      track_bike:"Bike",
+      track_run:"Run",
+      track_bus:"Bus",
+      track_cable:"Cable car",
+      track_train:"Train",
+      gamification_engine_choosing:"The system is choosing a group challenge for you. Shortly you will see it here"
 
     });
 

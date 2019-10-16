@@ -59,4 +59,6 @@ typings/
 
 # next.js build output
 .next
-/.project
+
+play&go-mobile/google-services.json
+play&go-mobile/GoogleService-Info.plist

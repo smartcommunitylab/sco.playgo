@@ -9,7 +9,7 @@
   },
   {
     "file": "css/style.css",
-    "hash": "63e0487a8592b511963be6a54afc0a6a"
+    "hash": "fd30f34ae7492183c990046fa2bf3d9f"
   },
   {
     "file": "data/bus.csv",
@@ -17,7 +17,7 @@
   },
   {
     "file": "data/config.json",
-    "hash": "819d79b8b77995caad619201e5d879bb"
+    "hash": "64512cc5dd551ac2962589bc2fef0f19"
   },
   {
     "file": "data/game/ranking.json",
@@ -25,7 +25,7 @@
   },
   {
     "file": "data/game/status.json",
-    "hash": "97fc40607e597597f28d91545904ce52"
+    "hash": "89211a8cd5e4efc32d6da8ff6dfe0716"
   },
   {
     "file": "data/messages.json",
@@ -46,6 +46,26 @@
   {
     "file": "data/tt.json.full.json",
     "hash": "31a3ff73525147ebb8fd4e364850d085"
+  },
+  {
+    "file": "fonts/playgo.css",
+    "hash": "cb2569f2e4a26e4906bc3e3399183315"
+  },
+  {
+    "file": "fonts/playgo.eot",
+    "hash": "3002e662685fdde70b57555f1f5b0682"
+  },
+  {
+    "file": "fonts/playgo.svg",
+    "hash": "237aabe9fb86a831e9c57fbedb0105b4"
+  },
+  {
+    "file": "fonts/playgo.ttf",
+    "hash": "26d27426be13c1cef97c6a67d5a82cbf"
+  },
+  {
+    "file": "fonts/playgo.woff",
+    "hash": "e3709d1b5416083ae1e9cb87167c3cf3"
   },
   {
     "file": "fonts/Roboto_Mono/LICENSE.txt",
@@ -385,11 +405,11 @@
   },
   {
     "file": "index.html",
-    "hash": "59b9fe51ba0d1d30941001682ac48f34"
+    "hash": "90f1ff6adbbf0d8fafdc693567d9b4ed"
   },
   {
     "file": "js/app.js",
-    "hash": "e3e2b7bc04522e2100435c99e4a09cba"
+    "hash": "47dd50a48ba17ffa6bd1a33d23f42a2f"
   },
   {
     "file": "js/controllers/BookmarksCtrl.js",
@@ -397,15 +417,15 @@
   },
   {
     "file": "js/controllers/CommonCtrl.js",
-    "hash": "66df7dda40a5e010eea94a6bc1b80ec8"
+    "hash": "e0b1a0c807a350442a5050e05e404445"
   },
   {
     "file": "js/controllers/GameCtrl.js",
-    "hash": "976a2691c8468bd9ab712814e2d25c03"
+    "hash": "00b8f4e6db8cf8fe741e0fcb2bf81aa2"
   },
   {
     "file": "js/controllers/HomeCtrl.js",
-    "hash": "8d03a0206fd25187d94ff2cbceb469b5"
+    "hash": "43803be1259a17b6566fdd84e421c3e6"
   },
   {
     "file": "js/controllers/InfoCtrl.js",
@@ -413,11 +433,11 @@
   },
   {
     "file": "js/controllers/LoginController.js",
-    "hash": "0e54788bfbb63b9a66149b65c121e622"
+    "hash": "87235b3c9fdc1bde4017f7c942c50bd6"
   },
   {
     "file": "js/controllers/MapTrackingCtrl.js",
-    "hash": "9e2d5bf0e03ff36e3c8b3de458b52ea5"
+    "hash": "d25473de79af67c5b640328d6c2ccf28"
   },
   {
     "file": "js/controllers/MarketsCtrl.js",
@@ -449,11 +469,11 @@
   },
   {
     "file": "js/controllers/ProfileCtrl.js",
-    "hash": "49f525d618b84fcc2b6dc8740dbb3e0c"
+    "hash": "47a9d46890129d08c2a5ff8991bbe94c"
   },
   {
     "file": "js/controllers/RegistrationController.js",
-    "hash": "a56a24bd70d2bfe07cc7562d30cd0aa2"
+    "hash": "20e2f225348c6f9bd5fd98384fe0aeeb"
   },
   {
     "file": "js/controllers/Table1Ctrl.js",
@@ -501,7 +521,7 @@
   },
   {
     "file": "js/services/ConfigSrv.js",
-    "hash": "3c6cd49658350024b679a7d792547203"
+    "hash": "08b485e7a94247edfb7e67e630f332b7"
   },
   {
     "file": "js/services/DataSrv.js",
@@ -509,11 +529,11 @@
   },
   {
     "file": "js/services/DiaryDbSrv.js",
-    "hash": "4016341047e35c48b0174f677ffd4fa6"
+    "hash": "793654e7d231f503493593c5f7248d77"
   },
   {
     "file": "js/services/GameSrv.js",
-    "hash": "bc799bc4eb255c381d13fa543664e990"
+    "hash": "5f07c93faa378b94eb39049aa1f32f29"
   },
   {
     "file": "js/services/GeoSrv.js",
@@ -537,19 +557,19 @@
   },
   {
     "file": "js/services/NotificationSrv.js",
-    "hash": "0723b64bf78ab239000077430c8153d3"
+    "hash": "10981f9f83ada9a0e4413e4a9a81da8f"
   },
   {
     "file": "js/services/PlanSrv.js",
-    "hash": "564e81d021d5d9090b9379364d84a3bb"
+    "hash": "2755abefdae08f2925551061c4ac97ae"
   },
   {
     "file": "js/services/ProfileSrv.js",
-    "hash": "641a3b8bf34e60db9313d42c11927ea1"
+    "hash": "54246f0fef357ddcd4992c21640ec7f1"
   },
   {
     "file": "js/services/RegistrationSrv.js",
-    "hash": "00d3d52cb7f1a894a7d410a848149008"
+    "hash": "76104ac8a0eceeb8354775e4ae71adcd"
   },
   {
     "file": "js/services/TaxiSrv.js",
@@ -557,7 +577,7 @@
   },
   {
     "file": "js/services/TrackSrv.js",
-    "hash": "a5ebd2f248ecdf7b15b8c3e72a689013"
+    "hash": "d2ae5c7eb1cbf7a89c79f472aef517ea"
   },
   {
     "file": "js/services/TTSrv.js",
@@ -641,7 +661,7 @@
   },
   {
     "file": "lib/ionic/js/ionic-angular.js",
-    "hash": "953200210ecff162d1f6a113adbb2d4b"
+    "hash": "8c6c7bae11336d7480e6d61113619e5d"
   },
   {
     "file": "lib/ionic/js/ionic-angular.min.js",
@@ -1033,7 +1053,7 @@
   },
   {
     "file": "templates/game/challenges.html",
-    "hash": "24ac2c3544e694e4fda8d70929a6bb54"
+    "hash": "41106872bd13235a4d3e71ee7247c8ba"
   },
   {
     "file": "templates/game/challengeTemplates/competitivePerformance.html",
@@ -1077,7 +1097,7 @@
   },
   {
     "file": "templates/game/diary.html",
-    "hash": "e86fa32eb20cf2bb3beb2c445cfc6f4b"
+    "hash": "6fbd7d7f8cd5e0809bc7b3378eecb7fb"
   },
   {
     "file": "templates/game/eventTripDetail.html",
@@ -1097,15 +1117,15 @@
   },
   {
     "file": "templates/game/points.html",
-    "hash": "84d35171f0eb237c24d358d840298a46"
+    "hash": "d02175349813ce2547aff4eaffa16471"
   },
   {
     "file": "templates/game/profile.html",
-    "hash": "1f718e2a6603aef845d26a1aea2b60c7"
+    "hash": "34e7fe7990cb9aa50ba51dc9d05f83d3"
   },
   {
     "file": "templates/game/profileOthers.html",
-    "hash": "fa6f498d4986f6050f9d3c8fe19acb5d"
+    "hash": "7cefa4ed5744bdb772cb7f9a622c68c4"
   },
   {
     "file": "templates/game/profileOthersChallenges.html",
@@ -1113,7 +1133,7 @@
   },
   {
     "file": "templates/game/profileOthersContainer.html",
-    "hash": "ce7c7f2d047539dc411df69903e841d1"
+    "hash": "e271bf904864312decd43d1b351a552d"
   },
   {
     "file": "templates/game/profileOthersStatistics.html",
@@ -1121,7 +1141,7 @@
   },
   {
     "file": "templates/game/rankings.html",
-    "hash": "e0cc0a62200a331a4423b9723a465a3a"
+    "hash": "07b4646b39321b17b93691aa090f947a"
   },
   {
     "file": "templates/game/rules_en.html",
@@ -1137,11 +1157,11 @@
   },
   {
     "file": "templates/home.html",
-    "hash": "30cda57568e4c13c540954f00c3c7639"
+    "hash": "411c139a2c6995c1675f5f61d17e242a"
   },
   {
     "file": "templates/homeContainer.html",
-    "hash": "c084a0939080bf2e0c4aca2a871edfb3"
+    "hash": "61f5d9fa59ba77fcae91877648124fcd"
   },
   {
     "file": "templates/login.html",

@@ -160,21 +160,6 @@ angular.module('viaggia.controllers.common', [])
         Config.loaded();
         var travelForDiary = GameSrv.getTravelForDiary()
         trackService.stop();
-        //Removed controls for minimum distance, control added server side
-
-        // if (Math.floor(data.dist < Config.getMinimumDistance()) && data.transport == 'walk') {
-
-        // Toast.show($filter('translate')("no_points"), "short", "bottom");
-        // $ionicPopup.alert({
-        //     title: $filter('translate')("no_points_title"),
-        //     template: $filter('translate')("no_points", {
-        //         points: data.points
-        //     }),
-        //     okText: $filter('translate')("btn_close"),
-        //     okType: 'button-cancel'
-        // })
-
-        // } else {
         if (data.valid && travelForDiary) {
           GameSrv.addTravelDiary(travelForDiary);
           $ionicPopup.confirm({
@@ -194,7 +179,9 @@ angular.module('viaggia.controllers.common', [])
                 text: $filter('translate')("pop_up_points_btn"),
                 type: 'button-custom',
                 onTap: function () {
-                  $state.go('app.home.diary');
+                  $ionicHistory.clearCache().then(function(){
+                    $state.go('app.home.diary');
+                  });
                 }
               }
             ]
@@ -232,7 +219,9 @@ angular.module('viaggia.controllers.common', [])
       $state.go('app.notifications');
     }
     $scope.openGamificationBoard = function () {
-      $state.go('app.home.leaderboards');
+      $ionicHistory.clearCache().then(function(){
+        $state.go('app.home.leaderboards');
+      });
     };
     $scope.openBadgeBoard = function () {
       $state.go('app.profile.points');
@@ -646,10 +635,10 @@ angular.module('viaggia.controllers.common', [])
         })
     }
     $scope.getUserImgBig = function (id) {
-      return Config.getServerURL() + '/gamificationweb/player/avatar/' + Config.getAppId() + '/' + id + '/big';
+      return Config.getServerGamificationURL() + '/gamificationweb/player/avatar/' + Config.getAppGameId() + '/' + id + '/big';
     }
     $scope.getUserImg = function (id) {
-      return Config.getServerURL() + '/gamificationweb/player/avatar/' + Config.getAppId() + '/' + id
+      return Config.getServerGamificationURL() + '/gamificationweb/player/avatar/' + Config.getAppGameId() + '/' + id
     }
     $scope.uploadFileImage = function (files) {
       Config.loading();

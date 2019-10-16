@@ -5,3 +5,5 @@ bower_components/
 node_modules/
 platforms/
 plugins/
+play&go-mobile/google-services.json
+play&go-mobile/GoogleService-Info.plist
