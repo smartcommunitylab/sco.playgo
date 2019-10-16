@@ -852,11 +852,11 @@ public class GamificationValidator {
 		case WALK:
 			return 15.0;
 		case BIKE:
-			return 7.0;
+			return 7.5;
 		case BUS:
-			return 3.0;
+			return 5.0;
 		case TRAIN:
-			return 3.0;
+			return 5.0;
 		default:
 			return 0.0;	
 		}	
