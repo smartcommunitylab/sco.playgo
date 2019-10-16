@@ -7,6 +7,7 @@ angular.module('viaggia.controllers.home', [])
     $scope.buttonProposedEnabled = false;
     $scope.buttonUnlockEnabled = false;
     $scope.expansion = [];
+    $scope.expiredPopup =null;
     $scope.buttons = [{
       label: $filter('translate')('menu_news'),
       icon: 'ic_news'
@@ -19,18 +20,55 @@ angular.module('viaggia.controllers.home', [])
       GameSrv.updateStatus();
 
     }
+
     //load from localstorage the id notifications read
     $ionicPlatform.ready(function () {
       document.addEventListener("resume", function () {
         notificationInit();
         updateStatus();
         Config.setWeeklySposnsor();
-
       }, false);
       Config.setWeeklySposnsor();
 
     });
+    var dateExpired = function () {
+      var today = new moment()
+      if (today.isAfter(moment("2019-10-26")))
+        return true;
+      return false;
+    }
+    var openMarket = function () {
+      var url = "";
+      if (ionic.Platform.isAndroid())
+        url = 'https://play.google.com/store/apps/details?id=it.smartcommunitylab.viaggiatrento.playgo'
+      else url = ' https://apps.apple.com/it/app/viaggia-trento-play-go/id1151014023?ls=1';
+      window.open(url, '_system', 'location=yes');
 
+    }
+    deregisterBackButton = $ionicPlatform.registerBackButtonAction(function (e) {}, 401);
+
+    var checkExpired = function () {
+      if (dateExpired() && !$scope.expiredPopup) {
+        $scope.expiredPopup = $ionicPopup.confirm({
+          title: $filter('translate')("pop_up_expired_title"),
+          template: $filter('translate')("pop_up_expired"),
+          buttons: [
+
+            {
+              text: $filter('translate')("pop_up_open_market"),
+              type: 'button-custom',
+              onTap: function () {
+                openMarket();
+                $scope.expiredPopup = null;
+              }
+            }
+          ]
+        });
+        expiredPopup.then(function (res) {
+          deregisterBackButton();
+        });
+      }
+    }
     //aggoiorna le notifiche
     var notificationInit = function () {
       //scrico le ultime di una settimana
@@ -95,6 +133,8 @@ angular.module('viaggia.controllers.home', [])
       setUserLevel();
       setUserProgress();
       setChooseButton();
+      checkExpired();
+
       if ($scope.status && $scope.status.challengeConcept)
         setChallenges();
     });
@@ -164,21 +204,18 @@ angular.module('viaggia.controllers.home', [])
     // var mymap = document.getElementById('map-container');
     $scope.getChallengeTemplate = function (challenge) {
       switch (challenge.type) {
-        case typeofChallenges['groupCompetitiveTime'].id:
-          {
-            return 'templates/game/challengeTemplates/competitiveTime.html';
-            break;
-          }
-        case typeofChallenges['groupCompetitivePerformance'].id:
-          {
-            return 'templates/game/challengeTemplates/competitivePerformance.html';
-            break;
-          }
-        case typeofChallenges['groupCooperative'].id:
-          {
-            return 'templates/game/challengeTemplates/cooperative.html';
-            break;
-          }
+        case typeofChallenges['groupCompetitiveTime'].id: {
+          return 'templates/game/challengeTemplates/competitiveTime.html';
+          break;
+        }
+        case typeofChallenges['groupCompetitivePerformance'].id: {
+          return 'templates/game/challengeTemplates/competitivePerformance.html';
+          break;
+        }
+        case typeofChallenges['groupCooperative'].id: {
+          return 'templates/game/challengeTemplates/cooperative.html';
+          break;
+        }
         default:
           return 'templates/game/challengeTemplates/default.html';
       }

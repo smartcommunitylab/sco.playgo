@@ -1568,7 +1568,10 @@ angular.module('viaggia', [
       lbl__challenge_cant_see_player:"Perche’ non riesco a trovare un giocatore?",
       no_blacklist:"Nessuna blacklist trovata",
       lbl_chall_user_not_available_title:"Utente non disponibile",
-      lbl_chall_user_not_available:"L'utente selezionato non e’ più disponibile. Selezionare un altro giocatore"      
+      lbl_chall_user_not_available:"L'utente selezionato non e’ più disponibile. Selezionare un altro giocatore" ,
+      pop_up_expired_title:"Scaduta",
+      pop_up_expired:"La tua applicazione e' scaduta. Aggiornala tramite il market",
+      pop_up_open_market:"Apri market"    
     });
 
     $translateProvider.translations('en', {
@@ -2117,7 +2120,10 @@ angular.module('viaggia', [
       lbl__challenge_cant_see_player:"Why can't I find a player?",
       no_blacklist:"No blacklist found",
       lbl_chall_user_not_available_title:"User not available",
-      lbl_chall_user_not_available:"Selected user is not available anymore. Please, select a different one"  
+      lbl_chall_user_not_available:"Selected user is not available anymore. Please, select a different one" ,
+      pop_up_expired_title:"Expired",
+      pop_up_expired:"You application is not supported anymore. Please update it",
+      pop_up_open_market:"Open market"
 
    
 
