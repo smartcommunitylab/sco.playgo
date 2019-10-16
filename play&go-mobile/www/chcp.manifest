@@ -389,7 +389,7 @@
   },
   {
     "file": "js/app.js",
-    "hash": "e3e2b7bc04522e2100435c99e4a09cba"
+    "hash": "1bc0c8c991c6950eadc0b098902373c5"
   },
   {
     "file": "js/controllers/BookmarksCtrl.js",
@@ -405,7 +405,7 @@
   },
   {
     "file": "js/controllers/HomeCtrl.js",
-    "hash": "8d03a0206fd25187d94ff2cbceb469b5"
+    "hash": "37d072628d05e1e52ed33819a2252b8c"
   },
   {
     "file": "js/controllers/InfoCtrl.js",
@@ -537,7 +537,7 @@
   },
   {
     "file": "js/services/NotificationSrv.js",
-    "hash": "0723b64bf78ab239000077430c8153d3"
+    "hash": "e5db625f3b8a2c884163201f9c80ba37"
   },
   {
     "file": "js/services/PlanSrv.js",
