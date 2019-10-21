@@ -1597,7 +1597,7 @@ angular.module('viaggia', [
       track_run:"Corsa",
       track_bus:"Autobus",
       track_cable:"Funivia",
-      track_train:"Trento",
+      track_train:"Treno",
       gamification_engine_choosing:"Il sistema sta scegliendo una sfida di coppia per te. Abreve la potrai visualizzare"
 
     });
