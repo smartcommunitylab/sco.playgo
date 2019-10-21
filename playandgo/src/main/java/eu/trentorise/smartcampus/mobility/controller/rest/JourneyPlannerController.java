@@ -419,6 +419,10 @@ public class JourneyPlannerController {
 		    Enumeration<String> headerNames = request.getHeaderNames();
 		    while (headerNames.hasMoreElements()) {
 		        String headerName = headerNames.nextElement();
+		        // skip appId as not required by mobility
+		        if (headerName.equals("appId")) {
+		        	continue;
+		        }
 		        headers.set(headerName, request.getHeader(headerName));
 		    }
 
