@@ -430,6 +430,7 @@ public class JourneyPlannerController {
 		    RestTemplate restTemplate = new RestTemplate();
 		    ResponseEntity<String> resp = null;
 		    try {
+		    	logger.debug("Planning request: " + uri +"    " + headers);
 		        resp = restTemplate.exchange(uri, method, httpEntity, String.class);
 		        if (resp.getBody() != null) {
 		        	T result = mapper.readValue(resp.getBody(), typeReference);
