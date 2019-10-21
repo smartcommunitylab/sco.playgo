@@ -27,9 +27,6 @@ public class SynchronizationManager {
 
 	private static transient final Logger logger = LoggerFactory.getLogger(SynchronizationManager.class);
 	
-	@Value("${gamification.url}")
-	private String gamificationUrl;
-	
 	@Value("${rabbitmq.host}")
 	private String rabbitMQHost;	
 

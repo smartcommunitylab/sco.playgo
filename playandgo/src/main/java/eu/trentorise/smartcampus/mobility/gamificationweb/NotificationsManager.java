@@ -72,9 +72,6 @@ public class NotificationsManager {
 	
 	private static transient final Logger logger = LoggerFactory.getLogger(NotificationsManager.class);
 	
-	@Value("${gamification.url}")
-	private String gamificationUrl;
-	
 	@Value("${rabbitmq.host}")
 	private String rabbitMQHost;	
 

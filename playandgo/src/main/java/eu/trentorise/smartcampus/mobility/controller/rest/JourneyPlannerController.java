@@ -434,7 +434,7 @@ public class JourneyPlannerController {
 		        	return new ResponseEntity<T>((T)null, resp.getStatusCode());
 		        }
 		    } catch(Exception e) {
-		    	logger.error("Error forwarding request");
+		    	logger.error("Error forwarding request: " + e.getMessage(), e);
 		    	throw e;
 //		        return ResponseEntity.status(e.getRawStatusCode())
 //		                             .headers(e.getResponseHeaders())
