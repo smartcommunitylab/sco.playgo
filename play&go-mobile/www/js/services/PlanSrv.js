@@ -514,6 +514,8 @@ angular.module('viaggia.services.plan', [])
             var deferred = $q.defer();
             var userId = LoginService.getUserProfile().userId;
             var appName = Config.getAppName();
+            LoginService.getValidAACtoken().then(
+                function (token) {
             $http({
                 method: 'POST',
                 url: Config.getServerGamificationURL() + '/plansinglejourney?policyId=' + planService.choosePlanPolicy(newPlanConfigure, Config.getPlanPolicy()),
@@ -522,7 +524,9 @@ angular.module('viaggia.services.plan', [])
                     'Content-Type': 'application/json',
                     'UserID': userId,
                     'AppName': appName,
-                    'appId': Config.getAppGameId()
+                    'appId': Config.getAppGameId(),
+                    'Authorization': 'Bearer ' + token,
+
                 },
                 data: {
                     "to": {
@@ -550,7 +554,10 @@ angular.module('viaggia.services.plan', [])
                     console.log(data + status + headers + config);
                     deferred.reject(data);
                 });
-
+            },
+            function () {
+              deferred.reject();
+            });
             return deferred.promise;
         }
         planService.getplanJourneyResults = function () {
