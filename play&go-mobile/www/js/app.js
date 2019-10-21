@@ -1519,7 +1519,7 @@ angular.module('viaggia', [
       challenge_future: "Future",
       challenge_past: "Passate",
       challenge_unlock: "Tipologie",
-      warning_unlock_challenge: "Sblocca una nuova tipologia di sfida che potrai utilizzare nella prossima scelta!",
+      warning_unlock_challenge: "Le sfide di coppia si sbloccano al raggiungimento dei livelli 4, 5 e 6",
       warning_choose_challenge: "Programma la sfida per la prossima settimana. Se non avrai scelto una sfida, alle 12.00 di venerdì il sistema ti assegnerà in automatico una sfida individuale",
       read_more: "altro",
       challenge_popup_title: "Sblocca sfida",
@@ -1597,7 +1597,7 @@ angular.module('viaggia', [
       track_run:"Corsa",
       track_bus:"Autobus",
       track_cable:"Funivia",
-      track_train:"Trento",
+      track_train:"Treno",
       gamification_engine_choosing:"Il sistema sta scegliendo una sfida di coppia per te. Abreve la potrai visualizzare"
 
     });
@@ -2082,7 +2082,7 @@ angular.module('viaggia', [
       challenge_future: "Future",
       challenge_past: "Old",
       challenge_unlock: "Types",
-      warning_unlock_challenge: "Unlock a new type of challenge! You will be able to use it form your next challenge planning",
+      warning_unlock_challenge: "Group challenges will unlock as you reach level 3,4 and 5",
       warning_choose_challenge: "Plan next week's challenge. If you don't choose a challenge before Friday at 12.00 the system will automatically assign a single-player challenge",
       read_more: "read more",
       challenge_popup_title: "Unlock challenge",

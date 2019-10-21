@@ -2,7 +2,7 @@ angular.module('viaggia.controllers.profile', [])
 
   .controller('ProfileCtrl', function ($scope, $rootScope, $filter, Config, GameSrv, Toast) {
     $rootScope.currentUser = null;
-    $scope.status = null;
+    $scope.status = {};
     $scope.ranking = null;
     $scope.prize = null;
     $scope.noStatus = false;

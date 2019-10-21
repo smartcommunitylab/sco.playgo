@@ -24,7 +24,7 @@
       <ion-scroll class="padding-right padding-left challenges" ng-style="challengesStyle"
         delegate-handle="challengesScroll">
         <ion-list>
-          <ion-item class="challenge   item-text-wrap type-challenge" ng-if="showWarning('unlock')">
+          <ion-item class="challenge   item-text-wrap type-challenge warning-challenge" ng-if="showWarning('unlock')">
             <h4 class="label">{{'warning_unlock_challenge' | translate}}</h4>
             <button class="button button-clear button-challenge-enable" ng-click="hideWarning('unlock')">
               {{'btn_got_it' | translate}}</button>

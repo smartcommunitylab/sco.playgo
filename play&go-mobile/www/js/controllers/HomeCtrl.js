@@ -106,7 +106,7 @@ angular.module('viaggia.controllers.home', [])
         $scope.expansion[i] = false;
       }
     }
-    var notGourpProposed = function(challenges) {
+    var notGroupProposed = function(challenges) {
       //check if status has in future group challenge
       if ($scope.status  && $scope.status.challengeConcept && $scope.status.challengeConcept.challengeData && $scope.status.challengeConcept.challengeData['FUTURE']) {
         for (var i = 0; i < $scope.status.challengeConcept.challengeData.FUTURE.length; i++) {
@@ -120,7 +120,7 @@ angular.module('viaggia.controllers.home', [])
     var setChooseButton = function () {
       //if proposed is not empty enable
       GameSrv.getProposedChallenges(profileService.status).then(function (challenges) {
-        if ((challenges && challenges.length) || $scope.status.canInvite && notGourpProposed()) {
+        if ((challenges && challenges.length) || ($scope.status.canInvite && notGroupProposed())) {
           $scope.buttonProposedEnabled = true;
 
         } else {
@@ -549,7 +549,7 @@ angular.module('viaggia.controllers.home', [])
     $rootScope.currentUser = null;
     $scope.noStatus = false;
     $rootScope.profileImg = null;
-    $scope.tmpUrl = 'https://dev.smartcommunitylab.it/playandgo/gamificationweb/player/avatar/' + Config.getAppGameId() + '/'
+    $scope.tmpUrl = 'https://tn.smartcommunitylab.it/playandgo/gamificationweb/player/avatar/' + Config.getAppGameId() + '/'
     $scope.getImage = function () {
       if ($scope.status)
         profileService.getProfileImage($scope.status.playerData.playerId).then(function (image) {

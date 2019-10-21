@@ -125,8 +125,11 @@
         <variable name="LOCATION_WHEN_IN_USE_USAGE_DESCRIPTION" value="Background location-tracking is required"/>
         <variable name="MOTION_USAGE_DESCRIPTION" value="Using the accelerometer increases battery-efficiency by intelligently toggling location-tracking only when the device is detected to be moving"/>
     </plugin> -->
+    <plugin name="cordova-plugin-googleplus" source="npm">
+        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.453601816446-r4itlqv8qpkqfq5q4jgketdu6f58hqbl" />
+    </plugin>
     <icon src="config/instances/TRENTINO/resources/android/icon/drawable-xhdpi-icon.png" />
     <chcp>
-        <config-file url="https://tn.smartcommunitylab.it/playandgo/chcp.json" />
+        <config-file url="https://tn.smartcommunitylab.it/playandgo-cordova/chcp.json" />
     </chcp>
 </widget>
