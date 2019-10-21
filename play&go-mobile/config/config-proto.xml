@@ -130,6 +130,6 @@
     </plugin>
     <icon src="*resource_folder*/resources/android/icon/drawable-xhdpi-icon.png" />
     <chcp>
-        <config-file url="https://tn.smartcommunitylab.it/playandgo/chcp.json" />
+        <config-file url="https://tn.smartcommunitylab.it/playandgo-cordova/chcp.json" />
     </chcp>
 </widget>
