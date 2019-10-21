@@ -420,7 +420,7 @@ public class JourneyPlannerController {
 		    while (headerNames.hasMoreElements()) {
 		        String headerName = headerNames.nextElement();
 		        // skip appId as not required by mobility
-		        if (headerName.equals("appId")) {
+		        if (headerName.equalsIgnoreCase("appid")) {
 		        	continue;
 		        }
 		        headers.set(headerName, request.getHeader(headerName));
