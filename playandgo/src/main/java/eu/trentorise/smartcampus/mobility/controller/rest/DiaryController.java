@@ -72,10 +72,6 @@ public class DiaryController {
 	private static final Logger logger = LoggerFactory.getLogger(ChallengesUtils.class);
 
 	@Autowired
-	@Value("${gamification.url}")
-	private String gamificationUrl;
-
-	@Autowired
 	@Value("${aacURL}")
 	private String aacURL;
 

@@ -62,9 +62,6 @@ public class ReportEmailSender {
 	private WebLinkUtils utils;
 	
 	@Autowired
-	@Value("${gamification.url}")
-	private String gamificationUrl;
-	@Autowired
 	@Value("${playgoURL}")
 	private String playgoURL;
 

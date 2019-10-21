@@ -33,9 +33,6 @@ public class TargetPrizeChallengesCalculator {
 	public static final String PLAYER1_PRZ = "player1_prz";
 	public static final String PLAYER2_PRZ = "player2_prz";
 
-	@Value("${gamification.url}")
-	private String gamificationUrl;
-
 	@Autowired
 	private GamificationCache gamificationCache;
 

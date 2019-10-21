@@ -419,6 +419,10 @@ public class JourneyPlannerController {
 		    Enumeration<String> headerNames = request.getHeaderNames();
 		    while (headerNames.hasMoreElements()) {
 		        String headerName = headerNames.nextElement();
+		        // skip appId as not required by mobility
+		        if (headerName.equalsIgnoreCase("appid")) {
+		        	continue;
+		        }
 		        headers.set(headerName, request.getHeader(headerName));
 		    }
 
@@ -426,6 +430,7 @@ public class JourneyPlannerController {
 		    RestTemplate restTemplate = new RestTemplate();
 		    ResponseEntity<String> resp = null;
 		    try {
+		    	logger.debug("Planning request: " + uri +"    " + headers);
 		        resp = restTemplate.exchange(uri, method, httpEntity, String.class);
 		        if (resp.getBody() != null) {
 		        	T result = mapper.readValue(resp.getBody(), typeReference);
@@ -434,7 +439,7 @@ public class JourneyPlannerController {
 		        	return new ResponseEntity<T>((T)null, resp.getStatusCode());
 		        }
 		    } catch(Exception e) {
-		    	logger.error("Error forwarding request");
+		    	logger.error("Error forwarding request: " + e.getMessage(), e);
 		    	throw e;
 //		        return ResponseEntity.status(e.getRawStatusCode())
 //		                             .headers(e.getResponseHeaders())

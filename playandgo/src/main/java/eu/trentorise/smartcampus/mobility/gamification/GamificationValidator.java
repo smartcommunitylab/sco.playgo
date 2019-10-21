@@ -326,7 +326,7 @@ public class GamificationValidator {
 		double trainDist = 0; // km
 		double busDist = 0; // km
 		double carDist = 0; // km
-		double transitDist = 0;
+//		double traansitDist = 0;
 
 		logger.debug("Analyzing itinerary for gamification.");
 		if (itinerary != null) {
@@ -364,7 +364,7 @@ public class GamificationValidator {
 				} else if (leg.getTransport().getType().equals(TType.BUS)) {
 					busDist += leg.getLength() / 1000;
 				} else if (leg.getTransport().getType().equals(TType.TRANSIT)) {
-					transitDist += leg.getLength() / 1000;
+					busDist += leg.getLength() / 1000;
 				}
 			}
 		}
@@ -447,9 +447,9 @@ public class GamificationValidator {
 		if (trainDist > 0) {
 			data.put("trainDistance", trainDist);
 		}
-		if (transitDist > 0) {
-			data.put("transitDistance", transitDist);
-		}
+//		if (transitDist > 0) {
+//			data.put("transitDistance", transitDist);
+//		}
 		if (carDist > 0) {
 			data.put("carDistance", carDist);
 		}
@@ -852,11 +852,11 @@ public class GamificationValidator {
 		case WALK:
 			return 15.0;
 		case BIKE:
-			return 7.0;
+			return 7.5;
 		case BUS:
-			return 3.0;
+			return 5.0;
 		case TRAIN:
-			return 3.0;
+			return 5.0;
 		default:
 			return 0.0;	
 		}	
