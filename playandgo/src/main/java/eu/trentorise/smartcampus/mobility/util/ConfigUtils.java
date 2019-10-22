@@ -234,7 +234,7 @@ public class ConfigUtils {
 			int weekNum = Integer.parseInt(weekPrizeValues[0]);
 			String weekPrize = weekPrizeValues[1];
 			String target = weekPrizeValues[2];
-			String sponsor = weekPrizeValues[3];
+			String sponsor = weekPrizeValues.length > 3 ? weekPrizeValues[3] : "-";
 			logger.debug(String.format("Week prize file: week num %s, prize %s, target %s, sponsor %s", weekNum, weekPrize, target, sponsor));
 			WeekPrizeData wPrize = new WeekPrizeData(weekNum, weekPrize, target, sponsor);
 			prizeWeekFileData.add(wPrize);
