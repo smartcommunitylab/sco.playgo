@@ -106,9 +106,9 @@ angular.module('viaggia.controllers.home', [])
         $scope.expansion[i] = false;
       }
     }
-    var notGroupProposed = function(challenges) {
+    var notGroupProposed = function (challenges) {
       //check if status has in future group challenge
-      if ($scope.status  && $scope.status.challengeConcept && $scope.status.challengeConcept.challengeData && $scope.status.challengeConcept.challengeData['FUTURE']) {
+      if ($scope.status && $scope.status.challengeConcept && $scope.status.challengeConcept.challengeData && $scope.status.challengeConcept.challengeData['FUTURE']) {
         for (var i = 0; i < $scope.status.challengeConcept.challengeData.FUTURE.length; i++) {
           if ($scope.status.challengeConcept.challengeData.FUTURE[i].proposerId) {
             return false
@@ -117,10 +117,16 @@ angular.module('viaggia.controllers.home', [])
       }
       return true;
     }
+    var userCanPropose = function () {
+      if ($scope.status && $scope.status.inventory && $scope.status.inventory.challengeChoices && $scope.status.inventory.challengeChoices.length > 0)
+        return true
+      return false
+    }
+
     var setChooseButton = function () {
       //if proposed is not empty enable
       GameSrv.getProposedChallenges(profileService.status).then(function (challenges) {
-        if ((challenges && challenges.length) || ($scope.status.canInvite && notGroupProposed())) {
+        if ((challenges && challenges.length) || ($scope.status.canInvite && notGroupProposed() && userCanPropose())) {
           $scope.buttonProposedEnabled = true;
 
         } else {
