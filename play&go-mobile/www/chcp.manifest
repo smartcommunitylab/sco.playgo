@@ -425,7 +425,7 @@
   },
   {
     "file": "js/controllers/HomeCtrl.js",
-    "hash": "b2b6c75e827d7f76688e040e819bc64c"
+    "hash": "85cd8e0f5baa255eb6718e5fd28b2b4b"
   },
   {
     "file": "js/controllers/InfoCtrl.js",
@@ -1053,7 +1053,7 @@
   },
   {
     "file": "templates/game/challenges.html",
-    "hash": "9e3b09d919c8647d5579bf54c5549a69"
+    "hash": "9c6fed88331dead7eddac1d37b757ee8"
   },
   {
     "file": "templates/game/challengeTemplates/competitivePerformance.html",
