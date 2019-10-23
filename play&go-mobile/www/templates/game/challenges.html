@@ -60,7 +60,7 @@
     <div ng-if="actualTab=='future'">
       <ion-scroll ng-if="challenges && challenges.length > 0" class="padding-right padding-left challenges"
         ng-style="challengesStyle" delegate-handle="challengesScroll">
-        <ion-item class="challenge item-text-wrap type-challenge" ng-if="showWarning('future')">
+        <ion-item class="challenge item-text-wrap type-challenge warning-challenge" ng-if="showWarning('future')">
           <h4 class="label">{{'warning_choose_challenge' | translate}}</h4>
           <button class="button button-clear button-challenge-enable" ng-click="hideWarning('future')">
             {{'btn_got_it' | translate}}</button>
