@@ -22,37 +22,37 @@
 					"type": "APPEND",
 					"key": "levelIndex",
 					"value": "1",
-					"string": " Hai sbloccato le sfide settimanali!"
+					"string": " Hai sbloccato le sfide settimanali. Dalla prossima settimana ti saranno assegnate due sfide."
 				},
 				{
 					"type": "APPEND",
 					"key": "levelIndex",
 					"value": "2",
-					"string": " Ora puoi scegliere fra DUE sfide a settimana!"
+					"string": " Dalla prossima settimana una delle sfide ti sarà assegnata e l'altra potrai sceglierla tu fra DUE proposte."
 				},
 				{
 					"type": "APPEND",
 					"key": "levelIndex",
 					"value": "3",
-					"string": " Ora puoi scegliere fra TRE sfide a settimana!"
+					"string": " Dalla prossima settimana una delle sfide ti sarà assegnata e l'altra potrai sceglierla tu fra TRE proposte."
 				},
 				{
 					"type": "APPEND",
 					"key": "levelIndex",
 					"value": "4",
-					"string": " Hai sbloccato le sfide di coppia!"
+					"string": " Hai sbloccato la prima tipologia di sfida di coppia: L'unione fa forza!"
 				},
 				{
 					"type": "APPEND",
 					"key": "levelIndex",
 					"value": "5",
-					"string": " Hai sbloccato una nuova tipologia di sfida di coppia!"
+					"string": " Hai sbloccato una nuova tipologia di sfida di coppia: Vinca il più veloce!"
 				},
 				{
 					"type": "APPEND",
 					"key": "levelIndex",
 					"value": "6",
-					"string": " Hai sbloccato una nuova tipologia di sfida di coppia!"
+					"string": " Hai sbloccato una nuova tipologia di sfida di coppia: Chi la dura la vince!"
 				}
 			],
 			"en": [
@@ -66,37 +66,37 @@
 					"type": "APPEND",
 					"key": "levelIndex",
 					"value": "1",
-					"string": " You unlocked weekly challenges!"
+					"string": " You have unlocked the weekly challenges! From the next week you will receive two challenges."
 				},
 				{
 					"type": "APPEND",
 					"key": "levelIndex",
 					"value": "2",
-					"string": " Now you can choose between TWO challenges per week!"
+					"string": " From the next week one challenge will be assigned to you and yoy will have the possibility to choose the other between TWO proposed challenges."
 				},
 				{
 					"type": "APPEND",
 					"key": "levelIndex",
 					"value": "3",
-					"string": " Now you can choose between THREE challenges per week!"
+					"string": " From the next week one challenge will be assigned to you and you will have the possibility to choose the other between THREE proposed challenges."
 				},
 				{
 					"type": "APPEND",
 					"key": "levelIndex",
 					"value": "4",
-					"string": " You have unlocked multi-player challenges!"
+					"string": " You've unlocked the first type of multi-player challenges: Unity is strength!"
 				},
 				{
 					"type": "APPEND",
 					"key": "levelIndex",
 					"value": "5",
-					"string": " You have unlocked a new type of multi-player challenge!"
+					"string": " You've unlocked the second type of multi-player challenges! May the fastest win!"
 				},
 				{
 					"type": "APPEND",
 					"key": "levelIndex",
 					"value": "6",
-					"string": " You have unlocked a new type of multi-player challenge!"
+					"string": " You've unlocked the third type of multi-player challenges! Who endures wins!"
 				}
 			]
 
@@ -269,8 +269,8 @@
 			"en": "Victory"
 		},
 		"description": {
-			"it": "Hai vinto una sfida!",
-			"en": "You won a challenge!"
+			"it": "Complimenti! Hai vinto la sfida!",
+			"en": "Congratulations! You won a challenge!"
 		},
 		"extras": {
 		}
@@ -280,11 +280,11 @@
 		"type": "challenge_failed",
 		"title": {
 			"it": "Sconfitta",
-			"en": "Defeat"
+			"en": "Failure"
 		},
 		"description": {
-			"it": "Hai perso una sfida!",
-			"en": "You lost a challenge!"
+			"it": "Questa volta non hai vinto la sfida. Riprovaci ancora!",
+			"en": "This time you didn't win the challenge. Try again!"
 		},
 		"extras": {
 		}
