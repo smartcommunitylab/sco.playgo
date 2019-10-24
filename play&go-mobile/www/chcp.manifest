@@ -17,7 +17,7 @@
   },
   {
     "file": "data/config.json",
-    "hash": "83f3d1f4aa28ce556bafd184a3b028ae"
+    "hash": "adb11afb7457324b135f1dcd8cc15417"
   },
   {
     "file": "data/game/ranking.json",
@@ -1145,11 +1145,11 @@
   },
   {
     "file": "templates/game/rules_en.html",
-    "hash": "611af35209739c0c33771364d3df91fc"
+    "hash": "a2d7bf97b1725736f90e0340a3fc8394"
   },
   {
     "file": "templates/game/rules_it.html",
-    "hash": "c220670de172925e85fd12abb179ca46"
+    "hash": "1b27baa916878b8cfbb98d0c7b6cdc02"
   },
   {
     "file": "templates/game/statistics.html",
