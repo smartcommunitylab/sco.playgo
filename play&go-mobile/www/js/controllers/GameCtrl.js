@@ -135,6 +135,7 @@ angular.module('viaggia.controllers.game', [])
 
 
     $scope.init = function () {
+      Config.loading();
       navigator.globalization.getPreferredLanguage(
         function (result) {
           $scope.language = result.value.substring(0, 2);
@@ -154,6 +155,7 @@ angular.module('viaggia.controllers.game', [])
               $scope.getTypes().finally(function () {
                 $scope.getActual().finally(function () {
                   $scope.buildingChallenges = false;
+                  // Config.loaded();
                 });
               });
               $scope.getPast();
@@ -166,8 +168,11 @@ angular.module('viaggia.controllers.game', [])
                 Toast.show($filter('translate')("pop_up_error_server_template"), "short", "bottom");
                 $scope.challenges = [];
                 $scope.pastChallenges = [];
+                // Config.loaded();
               }
-            })
+            }).finally(function () {
+            Config.loaded();
+          })
 
         },
         function (err) {
@@ -187,7 +192,7 @@ angular.module('viaggia.controllers.game', [])
     }
     $scope.getTypes = function () {
       var deferred = $q.defer();
-      Config.loading();
+      // Config.loading();
       if (LoginService.getUserProfile()) {
         GameSrv.getAvailableChallenges(LoginService.getUserProfile().userId).then(function (types) {
           var typesChallenges = GameSrv.getTypesChallenges();
@@ -208,7 +213,8 @@ angular.module('viaggia.controllers.game', [])
         }, function (err) {
           return deferred.reject();
 
-        }).finally(Config.loaded);
+        })
+        // .finally(Config.loaded);
       }
       return deferred.promise;
     }
@@ -284,42 +290,44 @@ angular.module('viaggia.controllers.game', [])
             }
           }
         //build challenges with type
-        if (!$rootScope.canPropose) {
-          for (var i = 0; i < $scope.typeOfChallenges.length; i++) {
-            if ($scope.typeOfChallenges[i] && $scope.typeOfChallenges[i].state == "ACTIVE") {
-              $scope.challenges.push({
-                group: 'unlock',
-                msg: false,
-                type: $scope.typeOfChallenges[i].type,
-                short: $scope.typeOfChallenges[i].short,
-                long: $scope.typeOfChallenges[i].long,
-                state: 'ACTIVE'
-              });
+        if (futureNotSet(future)) {
+          if (!$rootScope.canPropose) {
+            for (var i = 0; i < $scope.typeOfChallenges.length; i++) {
+              if ($scope.typeOfChallenges[i] && $scope.typeOfChallenges[i].state == "ACTIVE") {
+                $scope.challenges.push({
+                  group: 'unlock',
+                  msg: false,
+                  type: $scope.typeOfChallenges[i].type,
+                  short: $scope.typeOfChallenges[i].short,
+                  long: $scope.typeOfChallenges[i].long,
+                  state: 'ACTIVE'
+                });
+              }
             }
-          }
-        } else {
-          //find last index with invite
-          var index = 0;
-          for (var i = 0; i < $scope.challenges.length; i++) {
-            if ($scope.challenges[i].group == "racc") {
-              index = i;
-              break;
+          } else {
+            //find last index with invite
+            var index = 0;
+            for (var i = 0; i < $scope.challenges.length; i++) {
+              if ($scope.challenges[i].group == "racc") {
+                index = i;
+                break;
+              }
             }
-          }
-          var first = true;
-          for (var i = 0; i < $scope.typeOfChallenges.length; i++) {
-            if ($scope.typeOfChallenges[i] && $scope.typeOfChallenges[i].state == "ACTIVE") {
-              $scope.challenges.splice(index, 0, {
-                group: 'unlock',
-                msg: first,
-                type: $scope.typeOfChallenges[i].type,
-                short: $scope.typeOfChallenges[i].short,
-                long: $scope.typeOfChallenges[i].long,
-                state: 'ACTIVE'
-              });
+            var first = true;
+            for (var i = 0; i < $scope.typeOfChallenges.length; i++) {
+              if ($scope.typeOfChallenges[i] && $scope.typeOfChallenges[i].state == "ACTIVE") {
+                $scope.challenges.splice(index, 0, {
+                  group: 'unlock',
+                  msg: first,
+                  type: $scope.typeOfChallenges[i].type,
+                  short: $scope.typeOfChallenges[i].short,
+                  long: $scope.typeOfChallenges[i].long,
+                  state: 'ACTIVE'
+                });
+              }
+              if (first)
+                first = false;
             }
-            if (first)
-              first = false;
           }
         }
       }
