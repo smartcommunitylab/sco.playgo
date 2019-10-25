@@ -123,7 +123,7 @@ public class MobilityConfig implements WebMvcConfigurer {
 	@Primary
 	public MongoTemplate getDomainMongoTemplate() throws UnknownHostException {
 //		MongoTemplate template = new MongoTemplate(new Mongo("localhost", 17017), "mobility-domain");
-		MongoTemplate template = new MongoTemplate(mongoClient, "mobility-domain");
+		MongoTemplate template = new MongoTemplate(mongoClient, new MongoClientURI(mongoUri).getDatabase());
 		template.indexOps("trackedInstances").ensureIndex(new Index("day", Direction.ASC));
 		template.indexOps("trackedInstances").ensureIndex(new Index("time", Direction.ASC));
 		template.indexOps("trackedInstances").ensureIndex(new Index("userId", Direction.ASC));
