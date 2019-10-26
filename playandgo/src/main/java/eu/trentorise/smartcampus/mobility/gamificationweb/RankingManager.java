@@ -140,7 +140,7 @@ public class RankingManager {
 		List<ClassificationData> classificationList = Lists.newArrayList();
 
 		try {
-			String url = "game/" + gameId + "/classification/" + URLEncoder.encode("global classification green", "UTF-8");
+			String url = "game/" + gameId + "/classification/" + URLEncoder.encode("global classification green", "UTF-8") + "?page=0&size=5000";
 			ClassificationBoard board = getClassification(url, appId);
 			if (board != null) {
 				computeRanking(board);
@@ -174,7 +174,7 @@ public class RankingManager {
 		List<ClassificationData> classificationList = Lists.newArrayList();
 
 		try {
-			String url = "game/" + gameId + "/incclassification/" + URLEncoder.encode("week classification green", "UTF-8") + "?timestamp=" + timestamp;
+			String url = "game/" + gameId + "/incclassification/" + URLEncoder.encode("week classification green", "UTF-8") + "?timestamp=" + timestamp+"&page=0&size=5000";
 			ClassificationBoard board = getClassification(url, appId);
 			if (board != null) {
 				computeRanking(board);
