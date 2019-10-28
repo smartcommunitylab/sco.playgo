@@ -17,7 +17,7 @@
   },
   {
     "file": "data/config.json",
-    "hash": "adb11afb7457324b135f1dcd8cc15417"
+    "hash": "9e51ba3e6d846b73075a09a34cef73ad"
   },
   {
     "file": "data/game/ranking.json",
@@ -1261,7 +1261,7 @@
   },
   {
     "file": "templates/registrationForm.html",
-    "hash": "520b1f772e24d5c7c087c3965d20ee94"
+    "hash": "e1b1a69f19ccdaaa4630ebebf492dccc"
   },
   {
     "file": "templates/rulesModal.html",
