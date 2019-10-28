@@ -677,9 +677,7 @@ public class PlayerController {
 			start = 1;
 		}
 		if (end != null) {
-			if (start != null) {
-				size = end - start + 1;
-			}
+			size = end - start + 1;
 		}		
 		
 		if (!StringUtils.isEmpty(nameFilter)) {
@@ -687,7 +685,7 @@ public class PlayerController {
 			data = data.stream().filter(d -> d.getNickName().toLowerCase().contains(nf)).collect(Collectors.toList());
 		}
 		
-		data = data.stream().skip(start != null ? (start - 1) : 0).limit(size != 0 ? size : data.size()).collect(Collectors.toList());
+		data = data.stream().skip(start - 1).limit(size != 0 ? size : data.size()).collect(Collectors.toList());
 		pc.setClassificationList(data);
 		
 		return pc;
