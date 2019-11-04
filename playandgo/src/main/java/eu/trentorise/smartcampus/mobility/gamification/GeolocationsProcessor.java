@@ -203,8 +203,8 @@ public class GeolocationsProcessor {
 					tsc.set(Calendar.YEAR, sc.get(Calendar.YEAR));
 					tsc.set(Calendar.MONTH, sc.get(Calendar.MONTH));
 					tsc.set(Calendar.DATE, sc.get(Calendar.DATE));
-					location.setTimestamp(tsc.getTime());
 					logger.info("Adjusting time point: " + location.getTimestamp().getTime());
+					location.setTimestamp(tsc.getTime());
 				}
 
 				// discard event older than 2 days
