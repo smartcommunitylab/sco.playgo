@@ -5,6 +5,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.annotation.PostConstruct;
 
@@ -94,6 +96,11 @@ public class ChallengesUtils {
 	private Map<String, List> challengeDictionaryMap;
 	private Map<String, String> challengeReplacements;
 
+	private static final Map<String, String> UNIT_MAPPING = Stream.of(new String[][] {
+		  { "daily", "days" }, 
+		  { "weekly", "weeks" }, 
+		}).collect(Collectors.toMap(data -> data[0], data -> data[1]));
+	
 	@Autowired
 	private PlayerRepositoryDao playerRepository;
 	
@@ -215,6 +222,8 @@ public class ChallengesUtils {
 		    				row_status = successes;
 		    				status = Math.min(100, (int)(100.0 * successes / periodTarget));
 		    				challengeData.setChallTarget((int)periodTarget);
+		    				// update unit for repetitive behavior: correspond to the number of periods
+		    				challengeData.setUnit(UNIT_MAPPING.get(periodName));
 	    					break;
 	    				case CHAL_MODEL_PERCENTAGE_INC:
 	    				case CHAL_MODEL_ABSOLUTE_INC: {
