@@ -1,0 +1,10 @@
+games:
+  - id: 5d9353a3f0856342b2dded7f
+    user: USERT
+    password: PASSWORD
+    start: 01/10/2019
+    send: true
+    areas:
+      - !circle
+        center: [46.066945, 11.121524]
+        radius: 75
