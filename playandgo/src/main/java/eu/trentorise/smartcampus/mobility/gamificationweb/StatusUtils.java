@@ -105,7 +105,7 @@ public class StatusUtils {
 		Map<String, Object> playerData = buildPlayerData(playerId, gameId, nickName);
 		ps.setPlayerData(playerData);
 		
-		points.removeIf(x -> !PC_GREEN_LEAVES.equals(x.getName()) && !PC_WEEKLY.equals(x.getPeriodType()));
+		points.removeIf(x -> !PC_GREEN_LEAVES.equals(x.getName()) || !PC_WEEKLY.equals(x.getPeriodType()));
 		ps.setPointConcept(points);		
 		
 		Calendar c = Calendar.getInstance();
