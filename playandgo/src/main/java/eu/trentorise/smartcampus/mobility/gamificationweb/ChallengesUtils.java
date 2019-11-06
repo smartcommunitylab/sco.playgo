@@ -565,6 +565,7 @@ public class ChallengesUtils {
 	}
 	
 	private int retrieveRepeatitiveStatusFromCounterName(String cName, String periodType, List<PointConcept> pointConcept, Long chalStart, Long chalEnd, double target){
+		Range<Long> challengeRange = Range.open(chalStart, chalEnd);
 		int countSuccesses = 0; // km or trips
 		if(cName != null && !cName.isEmpty()){
 			for(PointConcept pt : pointConcept){
@@ -572,9 +573,8 @@ public class ChallengesUtils {
 					List<PointConceptPeriod> allPeriods = pt.getInstances();
 					for(PointConceptPeriod pcp : allPeriods){
 						if(chalStart != null && chalEnd != null){
-							Range.open(pcp.getStart(), pcp.getEnd()); 
-//							if(chalStart <= pcp.getStart() && chalEnd >= pcp.getEnd()){	// Now I check only using starting time
-							if(chalStart != null && chalEnd != null) {
+							Range<Long> pcpRange = Range.open(pcp.getStart(), pcp.getEnd()); 
+							if(chalStart != null && chalEnd != null && pcpRange.isConnected(challengeRange)) {
 								countSuccesses += pcp.getScore() >= target ? 1 : 0;
 							}
 						}
