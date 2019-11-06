@@ -897,7 +897,6 @@ public class GamificationController {
 			case GLOBAL:
 			default:
 				ranking = rankingManager.getGlobalClassification().get(appId);
-				break;		
 			}
 		} else {
 			ranking = rankingManager.getGlobalClassification().get(appId);
@@ -952,7 +951,7 @@ public class GamificationController {
 				if (userId == null) {
 					continue;
 				}
-				if (rankingPlayers != null && !rankingPlayers.contains(userId)) {
+				if (StringUtils.isEmpty(filterTravelId) && StringUtils.isEmpty(filterUserId) && rankingPlayers != null && !rankingPlayers.contains(userId)) {
 					continue;
 				}
 				UserDescriptor ud = users.get(userId);

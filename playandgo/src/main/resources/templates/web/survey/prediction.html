@@ -1,0 +1,155 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.thymeleaf.org"
+	th:with="lang=${#locale.language}" th:lang="${lang}">
+<head lang="it">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title th:text="#{surveyprediction.title}">Play&amp;Go - Questionario Sfide</title>
+<link href="../../../../css/bootstrap.min.css" rel="stylesheet" />
+<link href="../../../../css/bootstrap-theme.min.css" rel="stylesheet" />
+<link href="../../../../css/gg_style.css" rel="stylesheet" />
+
+<!-- required libraries -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+<script src="../../../../lib/jquery.min.js"></script>
+<script src="../../../../lib/bootstrap.min.js"></script>
+<style>
+  textarea {
+    width: 100%;
+    border: 1px solid #ddd;
+  }
+</style>
+
+</head>
+<body>
+	<div class="container">
+		<h3 th:text="#{surveyprediction.head}" style="text-align: center;">Questionario
+			Play&amp;Go</h3>
+		<form id="form" role="form" name="form" method="POST">
+
+			<div class="first-page text-center">
+
+				<div style="text-align: left" th:utext="#{surveyprediction.acc1}">acc1</div> <br />
+				<ol>
+				  <li th:each="prod: ${#numbers.sequence(1, 9)}">
+				  <div>
+          <fieldset th:id="|fs${prod}|">
+            <img width="100%" th:src="|../../../../img/prediction/lines-${prod}.png|">
+            <input class="form-control pull-right"
+              type="number" th:id="|r${prod}|" th:name="|q${prod}|" th:placeholder="#{surveyprediction.ph}"/>
+              <p>&nbsp;</p>
+          </fieldset>				  
+				  </div>
+				  </li>
+				</ol>
+
+        <div class="form-group">
+          <label th:text="#{surveyprediction.reason}">Reason</label> 
+          <textarea style="width:100%" name="qreason" rows="5"></textarea>
+        </div>
+				
+			  <div class="form-group">
+        <button id="check" type="button" class="btn btn-primary"
+          th:text="#{survey.next}" onClick="highlightIncomplete(null, true)">NEXT</button>
+      </div>        
+				
+				
+			</div>
+
+			<div class="second-page" style="display:none;">
+				<div class="form-group">
+					<label for="serious" th:text="#{survey.serious}"></label> <select
+						name="serious" id="serious" class="form-control">
+						<option value="" th:text="#{survey.empty}"></option>
+						<option value="yes" th:text="#{survey.serious.1}"></option>
+						<option value="no" th:text="#{survey.serious.2}"></option>
+					</select>
+				</div>
+
+			<div class="form-group">
+				<button id="send" type="button" class="btn btn-primary"
+					th:text="#{survey.submit}">Submit</button>
+			</div>
+
+			</div>
+
+
+
+		</form>
+
+	</div>
+
+
+  <script th:inline="javascript">
+/*<![CDATA[*/
+  var first = true;  
+  
+  $('#send').click(function() {
+    if (!checkData()) {
+      $('form').submit();     
+    }
+  });
+  
+  function highlightIncomplete(event, proceed) {
+    var next = true;
+    var qsn = $('fieldset').length;
+    
+    for (i = 1; i <= qsn; i++) {
+      var v = $("input[name='q" + i + "']")
+      if (!v.val()) {
+    	  $('#fs' + i).addClass('has-error');
+    	  next = false;
+      } else {
+        $('#fs' + i).removeClass('has-error');
+      }
+    }   
+        
+    if (next) {
+      checkData(proceed)
+    }
+  }
+  
+function checkData(proceed) {
+  var qsn = $('fieldset').length;
+  
+  var disabled = false;
+    
+  for (i = 1; i <= qsn; i++) {
+    var v = $("input[name='q" + i + "']")
+    if (!v.val()) {
+      disabled = true;
+      break;
+    }
+  }  
+  
+  if (!disabled) {
+    $('select:visible').each(function() {
+      if ($(this).val().length === 0) {
+        disabled = true;
+        return;
+      } 
+    }); 
+  }
+  
+  if (!disabled) {
+    if (first && proceed) {
+      $('.first-page').hide(); 
+      $('.second-page').show();
+      disabled = true;
+      first = false;
+    }
+
+  }
+  
+  $('#send').prop('disabled', disabled);
+  return disabled;
+}
+  
+  $('input').change(highlightIncomplete);
+  $('select').change(highlightIncomplete);
+  checkData();
+/*]]>*/
+</script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+apps:
+  - appId: trentinoplaygo2019
+    password: pwd
+    messagingAppId : mobility.trentoplaygo.test
+    gcmSenderApiKey : APIKEY
+    gcmSenderId : SENDER
+    gameId : 5d9353a3f0856342b2dded7f

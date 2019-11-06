@@ -105,7 +105,7 @@ public class StatusUtils {
 		Map<String, Object> playerData = buildPlayerData(playerId, gameId, nickName);
 		ps.setPlayerData(playerData);
 		
-		points.removeIf(x -> !PC_GREEN_LEAVES.equals(x.getName()));
+		points.removeIf(x -> !PC_GREEN_LEAVES.equals(x.getName()) || !PC_WEEKLY.equals(x.getPeriodType()));
 		ps.setPointConcept(points);		
 		
 		Calendar c = Calendar.getInstance();
@@ -121,26 +121,46 @@ public class StatusUtils {
 		List<PointConcept> result = Lists.newArrayList();
 		
 		for (Map gePointMap: gePointsMap) {
-			PointConcept pc = new PointConcept();
-			pc.setName((String)gePointMap.get(PC_NAME));
-			pc.setScore(((Double)gePointMap.get(PC_SCORE)));
-			pc.setPeriodType(PC_WEEKLY);
-			
-			Map periods = (Map)gePointMap.get(PC_PERIODS);
-			Map weekly = (Map)periods.get(PC_WEEKLY);
-			if (weekly != null) {
-				pc.setStart((Long)weekly.get(PC_START));
-				pc.setPeriodDuration((Integer)weekly.get(PC_PERIOD));
-				pc.setPeriodIdentifier((String)weekly.get(PC_IDENTIFIER));
-				if (weekly.containsKey(PC_INSTANCES)) {
-					Map<Object, Map> instances = (Map<Object, Map>)weekly.get(PC_INSTANCES);
-					for (Map inst: instances.values()) {
-						PointConceptPeriod pcp = mapper.convertValue(inst, PointConceptPeriod.class);
-						pc.getInstances().add(pcp);
+//			PointConcept pc = new PointConcept();
+//			pc.setName((String)gePointMap.get(PC_NAME));
+//			pc.setScore(((Double)gePointMap.get(PC_SCORE)));
+//			pc.setPeriodType(PC_WEEKLY);
+			Map<String, Object> periods = (Map)gePointMap.get(PC_PERIODS);
+			for (String period : periods.keySet()) {
+				PointConcept pc = new PointConcept();
+				pc.setName((String)gePointMap.get(PC_NAME));
+				pc.setScore(((Double)gePointMap.get(PC_SCORE)));
+				pc.setPeriodType(period);
+				Map pMap = (Map)periods.get(period);
+				if (pMap != null) {
+					pc.setStart((Long)pMap.get(PC_START));
+					pc.setPeriodDuration((Integer)pMap.get(PC_PERIOD));
+					pc.setPeriodIdentifier((String)pMap.get(PC_IDENTIFIER));
+					if (pMap.containsKey(PC_INSTANCES)) {
+						Map<Object, Map> instances = (Map<Object, Map>)pMap.get(PC_INSTANCES);
+						for (Map inst: instances.values()) {
+							PointConceptPeriod pcp = mapper.convertValue(inst, PointConceptPeriod.class);
+							pc.getInstances().add(pcp);
+						}
 					}
 				}
+				result.add(pc);
 			}
-			result.add(pc);
+
+//			Map weekly = (Map)periods.get(PC_WEEKLY);
+//			if (weekly != null) {
+//				pc.setStart((Long)weekly.get(PC_START));
+//				pc.setPeriodDuration((Integer)weekly.get(PC_PERIOD));
+//				pc.setPeriodIdentifier((String)weekly.get(PC_IDENTIFIER));
+//				if (weekly.containsKey(PC_INSTANCES)) {
+//					Map<Object, Map> instances = (Map<Object, Map>)weekly.get(PC_INSTANCES);
+//					for (Map inst: instances.values()) {
+//						PointConceptPeriod pcp = mapper.convertValue(inst, PointConceptPeriod.class);
+//						pc.getInstances().add(pcp);
+//					}
+//				}
+//			}
+//			result.add(pc);
 		}
 		return result;
 	}
