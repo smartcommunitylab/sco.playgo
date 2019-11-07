@@ -3,19 +3,17 @@ package eu.trentorise.smartcampus.mobility.storage;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
-
-import com.mongodb.BasicDBObject;
 
 import eu.trentorise.smartcampus.mobility.gamification.model.PlanObject;
 import eu.trentorise.smartcampus.mobility.gamification.model.SavedTrip;
@@ -122,40 +120,25 @@ public class DomainStorage {
 		}
 	}
 	
-	public void saveSavedTrips(SavedTrip savedTrip) {
+	public void saveSavedTrip(SavedTrip savedTrip) {
+		Map<String, Object> pars = new TreeMap<String, Object>();
+		pars.put("itinerary.clientId", savedTrip.getItinerary().getClientId());
+		pars.put("itinerary.userId", savedTrip.getItinerary().getUserId());
+		SavedTrip old = searchDomainObject(pars, SavedTrip.class);
+		if (old != null) {
+			savedTrip.setId(old.getId());
+			savedTrip.setCreatedAt(old.getCreatedAt());
+		}
+
 		template.save(savedTrip, SAVED);
 	}
-	
-	public void saveRouteMonitoring(RouteMonitoringObject rmo) {
-		Query query = new Query(new Criteria("clientId").is(rmo.getClientId()));
-		RouteMonitoringObject monitoringDB = searchDomainObject(query, RouteMonitoringObject.class);
-		if (monitoringDB == null) {
-			template.save(rmo, MONITORING);
-		} else {
-			Update update = new Update();
-			update.set("agencyId", rmo.getAgencyId());
-			update.set("routeId", rmo.getRouteId());
-			update.set("recurrency", rmo.getRecurrency());
-			template.updateFirst(query, update, MONITORING);
-		}
-	}	
-	
-	public void deleteRouteMonitoring(String clientdId) {
-		BasicDBObject query = new BasicDBObject();
-		query.put("clientId", clientdId);
-		template.getCollection(MONITORING).deleteOne(query);
-	}	
-	
-	public Geolocation getLastGeolocationByUserId(String userId) {
-		Criteria criteria = new Criteria("userId").is(userId);
-		Query query = new Query(criteria).with(new Sort(Sort.Direction.DESC, "created_at"));
-		return searchDomainObject(query, Geolocation.class);
-	}
-	
-	public <T> List<T> searchDomainObjects(Criteria criteria, Class<T> clz) {
-		Query query = new Query(criteria);
-		logger .debug("query: {}",JsonUtils.toJSON(query.getQueryObject()));
-		return template.find(query, clz, getClassCollection(clz));
+	public ItineraryObject getSavedTrip(String userId, String clientId) {
+		Map<String, Object> pars = new TreeMap<String, Object>();
+		pars.put("itinerary.clientId", clientId);
+		pars.put("itinerary.userId", userId);
+		SavedTrip old = searchDomainObject(pars, SavedTrip.class);
+		if (old != null) return old.getItinerary();
+		return null;
 	}
 	
 	public <T> List<T> searchDomainObjects(Query query, Class<T> clz) {
@@ -168,31 +151,6 @@ public class DomainStorage {
 		return template.findOne(query, clz, getClassCollection(clz));
 	}	
 	
-	public <T> List<T> searchDomainObjects(Map<String, Object> pars, Class<T> clz) {
-		Criteria criteria = new Criteria();
-		for (String key: pars.keySet()) {
-			criteria.and(key).is(pars.get(key));
-		}
-		
-		Query query = new Query(criteria);
-		
-		return template.find(query, clz, getClassCollection(clz));
-	}
-	public <T> List<T> searchDomainObjects(Map<String, Object> pars, Set<String> keys, Class<T> clz) {
-		Criteria criteria = new Criteria();
-		for (String key: pars.keySet()) {
-			criteria.and(key).is(pars.get(key));
-		}
-		
-		Query query = new Query(criteria);
-		if (keys != null){
-			for (String key : keys) {
-				query.fields().include(key);
-			}
-		}
-		
-		return template.find(query, clz, getClassCollection(clz));
-	}
 	
 	public <T> List<T> searchDomainObjects(Query query, Set<String> keys, Class<T> clz) {
 		logger .debug("query: {}",JsonUtils.toJSON(query.getQueryObject()));
@@ -215,20 +173,6 @@ public class DomainStorage {
 		Query query = new Query(criteria);
 		return template.findOne(query, clz, getClassCollection(clz));
 	}	
-	
-	public <T> void deleteDomainObject(Criteria criteria, Class<T> clz) {
-		Query query = new Query(criteria);
-		logger .debug("query: {}",JsonUtils.toJSON(query.getQueryObject()));
-		template.remove(query, getClassCollection(clz));
-	}	
-		
-	public <T> long count(Criteria criteria, Class<T> clz) {
-		Query query = new Query(criteria);
-		logger .debug("query: {}",JsonUtils.toJSON(query.getQueryObject()));
-		long result = template.count(query, getClassCollection(clz));
-		return result;
-	}		
-	
 	
 //	public <T> T searchDomainObjectFixForSpring(Map<String, Object> pars, Class<T> clz) {
 //		Criteria criteria = new Criteria();

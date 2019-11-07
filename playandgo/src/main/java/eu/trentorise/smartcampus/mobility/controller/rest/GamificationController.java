@@ -245,11 +245,7 @@ public class GamificationController {
 				return;
 			}
 
-			Map<String, Object> pars = new TreeMap<String, Object>();
-
-			pars.put("clientId", itineraryId);
-			pars.put("userId", userId);
-			ItineraryObject res = storage.searchDomainObject(pars, ItineraryObject.class);
+			ItineraryObject res = storage.getSavedTrip(userId, itineraryId);
 			if (res != null && !userId.equals(res.getUserId())) {
 				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 				logger.info("Unauthorized.");
@@ -264,6 +260,9 @@ public class GamificationController {
 
 			Date date = new Date(System.currentTimeMillis());
 			String day = shortSdf.format(date);
+			Map<String, Object> pars = new TreeMap<String, Object>();
+			pars.put("clientId", itineraryId);
+			pars.put("userId", userId);
 			pars.put("day", day);
 			TrackedInstance res2 = storage.searchDomainObject(pars, TrackedInstance.class);
 			if (res2 == null) {
@@ -822,12 +821,7 @@ public class GamificationController {
 					if (o.getUserId() != null) {
 						descr.setUserId(o.getUserId());
 					} else {
-						ItineraryObject itinerary = storage.searchDomainObject(Collections.<String, Object>singletonMap("clientId", o.getClientId()), ItineraryObject.class);
-						if (itinerary != null) {
-							descr.setUserId(itinerary.getUserId());
-						} else {
-							continue;
-						}
+						continue;
 					}
 					descr.setTripId(o.getClientId());
 

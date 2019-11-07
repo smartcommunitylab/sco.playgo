@@ -25,7 +25,6 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 import com.google.common.util.concurrent.Striped;
 
-import eu.trentorise.smartcampus.mobility.gamification.model.SavedTrip;
 import eu.trentorise.smartcampus.mobility.gamification.model.TrackedInstance;
 import eu.trentorise.smartcampus.mobility.gamification.model.TrackedInstance.ScoreStatus;
 import eu.trentorise.smartcampus.mobility.geolocation.model.Activity;
@@ -376,21 +375,11 @@ public class GeolocationsProcessor {
 			res.setUserId(userId);
 			res.setId(ObjectId.get().toString());
 			pars.remove("day");
-			ItineraryObject res2 = storage.searchDomainObject(pars, ItineraryObject.class);
-			if (res2 == null) {
-				logger.warn("No existing ItineraryObject found.");
-				pars = new TreeMap<String, Object>();
-				pars.put("itinerary.clientId", travelId);
-				pars.put("itinerary.userId", userId);
-				SavedTrip res3 = storage.searchDomainObject(pars, SavedTrip.class);
-				if (res3 != null) {
-					res.setItinerary(res3.getItinerary());
-				} else {
-					logger.warn("No existing SavedTrip found.");
-				}
+			ItineraryObject saved = storage.getSavedTrip(userId, travelId);
+			if (saved != null) {
+				res.setItinerary(saved);
 			} else {
-				logger.warn("Found ItineraryObject.");
-				res.setItinerary(res2);
+				logger.warn("No existing SavedTrip found.");
 			}
 			if (res.getItinerary() == null) {
 				if (travelId.contains("_temporary_")) {
