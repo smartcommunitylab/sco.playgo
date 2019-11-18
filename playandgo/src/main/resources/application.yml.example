@@ -29,18 +29,20 @@ mail:
   subject: Gamification Notification  
   redirectUrl: http://localhost:8010/core.mobility/gamificationweb
   
+waypointsDir: ./data/waypoints
+weeklyDataDir: ./data/mail/conf_file  
+challengesDir: ./data/challenges
+notificationsDir: ./data/notifications
+badgeConf: ./data/badges.json
+
 validation:
-  shapefolder:
+  shapefolder: ./data/validation
   
-weeklyDataDir:
 
-externalDataDir:
+resourceDir: ./src/main/resources/static/
 
-certificatesDir: 
-
-imagesDir:
-
-waypointsDir:
+externalDataDir: ./data/
+certificatesDir: ./data/
 
 management:
   port: 7011  

@@ -1,14 +1,17 @@
 package eu.trentorise.smartcampus.mobility.gamificationweb.model;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
@@ -16,13 +19,14 @@ import org.yaml.snakeyaml.constructor.Constructor;
 @Component
 public class ChallengeDescriptionDataSetup {
 
-	@Value("classpath:/chall-conf.yml")
-	private Resource resource;
+	@Autowired
+	@Value("${challengesDir}")
+	private String challengesDir;
 	
 	@PostConstruct
 	public void init() throws IOException {
 		Yaml yaml = new Yaml(new Constructor(ChallengeDescriptionDataSetup.class));
-		ChallengeDescriptionDataSetup data = (ChallengeDescriptionDataSetup) yaml.load(resource.getInputStream());
+		ChallengeDescriptionDataSetup data = (ChallengeDescriptionDataSetup) yaml.load(new FileInputStream(getChallengeResourceURL("chall-conf.yml")));
 		this.descriptions = data.descriptions;
 	}
 
@@ -50,6 +54,10 @@ public class ChallengeDescriptionDataSetup {
 			}
 		}
 		return descriptionsMap.get(id);
+	}
+
+	public File getChallengeResourceURL(String file) throws MalformedURLException {
+		return new File(challengesDir + (challengesDir.endsWith("/") ? "" : "/")+ file);
 	}
 
 }

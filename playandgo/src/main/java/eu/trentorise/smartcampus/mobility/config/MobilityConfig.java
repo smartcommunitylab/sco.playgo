@@ -77,9 +77,6 @@ public class MobilityConfig implements WebMvcConfigurer {
 	@Value("${spring.data.mongodb.url}")
 	private String mongoUri;	
 
-//	@Value("${imagesDir}")
-//	private String imagesDir;		
-
 	@Autowired
 	private AppSetup appSetup;
 	

@@ -160,7 +160,6 @@ public class ConfigUtils {
 			String cvsSplitBy = ",";
 			weekConfData = Lists.newArrayList();
 
-//			List<String> lines = Resources.readLines(Resources.getResource(src), Charsets.UTF_8);
 			List<String> lines = Resources.readLines(new File(src).toURI().toURL(), Charsets.UTF_8);
 
 			for (int i = 1; i < lines.size(); i++) {
@@ -222,7 +221,6 @@ public class ConfigUtils {
 		String cvsSplitBy = ",";
 		List<WeekPrizeData> prizeWeekFileData = Lists.newArrayList();
 
-//		List<String> lines = Resources.readLines(Resources.getResource(src), Charsets.UTF_8);
 		List<String> lines = Resources.readLines(new File(weeklyDataDir + "/game_week_prize_" + lang + ".csv").toURI().toURL(), Charsets.UTF_8);
 
 		for (int i = 1; i < lines.size(); i++) {

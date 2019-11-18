@@ -41,7 +41,6 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.google.common.io.Resources;
 
 import eu.trentorise.smartcampus.mobility.gamification.GamificationCache;
 import eu.trentorise.smartcampus.mobility.gamification.challenges.TargetPrizeChallengesCalculator;
@@ -121,7 +120,7 @@ public class ChallengeController {
 	public void init() throws Exception {
 		profileService = new BasicProfileService(aacURL);
 		
-		rewards = mapper.readValue(Resources.getResource("challenges/rewards.json"), new TypeReference<Map<String, Reward>>() {
+		rewards = mapper.readValue(challengeUtils.getChallengeResourceURL("rewards.json"), new TypeReference<Map<String, Reward>>() {
 		});
 	}
 	

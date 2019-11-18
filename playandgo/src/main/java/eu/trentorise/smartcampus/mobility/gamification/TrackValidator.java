@@ -576,6 +576,22 @@ public class TrackValidator {
 			return status;
 		}
 		
+		// two points
+		if (points.size() == 2) {
+			status.setValidationOutcome(TravelValidity.INVALID);
+			status.setError(ERROR_TYPE.NO_DATA);
+//			long estimate = (long) (status.getDistance() * 1.5);
+//			long speed = estimate / status.getDuration();
+//			if (speed > avgSpeedThreshold) {
+//				status.setValidationOutcome(TravelValidity.INVALID);
+//				status.setError(ERROR_TYPE.TOO_FAST);
+//			} else {
+//				status.setValidationOutcome(TravelValidity.VALID);
+//				status.setEffectiveDistances(Collections.singletonMap(mode, status.getDistance()));
+//			} 
+			
+		}
+		
 		// split track into pieces. 
 		TrackSplit trackSplit = TrackSplit.slowSplit(points, speedThreshold, timeThreshold, minTrackThreshold);
 		// if no slow intervals or no fast intervals and speed is high, invalid

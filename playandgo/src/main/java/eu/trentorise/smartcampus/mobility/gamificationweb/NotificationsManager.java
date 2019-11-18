@@ -1,6 +1,9 @@
 package eu.trentorise.smartcampus.mobility.gamificationweb;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -114,7 +117,11 @@ public class NotificationsManager {
 	
 	@Autowired
 	private GamificationCache gamificationCache;	
-	
+
+	@Autowired
+	@Value("${notificationsDir}")
+	private String notificationsDir;
+
 	private ObjectMapper mapper = new ObjectMapper(); {
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 	}	
@@ -127,7 +134,7 @@ public class NotificationsManager {
 		notificationClasses.forEach(x -> {
 			notificationClassesMap.put(x.getSimpleName(), x);
 		});
-		List<NotificationMessage> messages = mapper.readValue(Resources.getResource("notifications/notifications.json"), new TypeReference<List<NotificationMessage>>() {
+		List<NotificationMessage> messages = mapper.readValue(getNotificationsResourceURL("notifications.json"), new TypeReference<List<NotificationMessage>>() {
 		});
 		notificationsMessages = messages.stream().collect(Collectors.toMap(NotificationMessage::getId, Function.identity()));
 		initRabbitMQ();
@@ -645,5 +652,9 @@ public class NotificationsManager {
 
 		return result;
 	}
-	
+
+	public URL getNotificationsResourceURL(String file) throws MalformedURLException {
+		return new File(notificationsDir + (notificationsDir.endsWith("/") ? "" : "/")+ file).toURI().toURL();
+	}
+
 }

@@ -14,24 +14,32 @@
  *    limitations under the License.
  ******************************************************************************/
 
-package eu.trentorise.smartcampus.mobility.gamification;
+package eu.trentorise.smartcampus.mobility.email;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Collections;
 
-import org.junit.Assert;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.google.common.io.CharStreams;
 
-import eu.trentorise.smartcampus.mobility.gamificationweb.StatusUtils;
+import eu.trentorise.smartcampus.mobility.gamification.GamificationCache;
+import eu.trentorise.smartcampus.mobility.gamificationweb.ReportEmailSender;
+import eu.trentorise.smartcampus.mobility.gamificationweb.model.Player;
+import eu.trentorise.smartcampus.mobility.security.AppInfo;
+import eu.trentorise.smartcampus.mobility.security.AppSetup;
+import eu.trentorise.smartcampus.mobility.storage.PlayerRepositoryDao;
 
 
 /**
@@ -41,24 +49,44 @@ import eu.trentorise.smartcampus.mobility.gamificationweb.StatusUtils;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 @EnableConfigurationProperties
-public class TestChallenges {
+public class TestEmails {
 
 	@Autowired
-	private StatusUtils utils;
-	
-	private String profile;
+	private ReportEmailSender sender;
+	@Autowired
+	private AppSetup appSetup;
+
+	@Autowired
+	private PlayerRepositoryDao playerRepositoryDao;	
 
 	@Autowired
 	@Value("${gamification.url}")
-	private String gamificationUrl;	
+	private String gamificationUrl;
+	
+	@MockBean
+	private GamificationCache cache;
+	
+	private AppInfo appInfo;
+	private String profile;
 
 	@Before
 	public void setUp() throws IOException {
+		appInfo = appSetup.getApps().get(0);
+		Player p = new Player("1", appInfo.getGameId(), "name", "surname", "nick", "name@surname", "it", true, Collections.singletonMap("timestamp", System.currentTimeMillis()), null, true); // default sendMail attribute value is true
+		playerRepositoryDao.save(p);
 		profile = CharStreams.toString(new InputStreamReader(getClass().getResourceAsStream("/userstatus.json")));
+
+		Mockito.when(cache.getPlayerState(Mockito.any(), Mockito.any()))
+		.thenReturn(profile);
+	}
+	
+	@After
+	public void tearDown() {
+		playerRepositoryDao.deleteAll();
 	}
 	
 	@Test
-	public void testParseChallenges() throws Exception {
-		utils.convertPlayerData(profile, "1", "2", "nick", gamificationUrl, 1, "it");
+	public void testWeeklyNotification() throws Exception {
+		sender.sendWeeklyNotification();
 	}
 }

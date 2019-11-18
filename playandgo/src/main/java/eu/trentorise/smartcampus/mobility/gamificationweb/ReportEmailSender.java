@@ -2,6 +2,7 @@ package eu.trentorise.smartcampus.mobility.gamificationweb;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.time.Instant;
@@ -76,6 +77,10 @@ public class ReportEmailSender {
 	@Autowired
 	@Value("${certificatesDir}")
 	private String certificatesDir;	
+	@Autowired
+	@Value("${resourceDir}")
+	private String resourceDir;
+
 	
 	private static final String ITA_LANG = "it";
 	private static final String ENG_LANG = "en";
@@ -218,17 +223,14 @@ public class ReportEmailSender {
 //		List<Summary> summaryMail = Lists.newArrayList();
 //		long millis = System.currentTimeMillis() - (7 * 24 * 60 * 60 * 1000); // Delta in millis of one week //long millis = 1415660400000L; //(for test)
 
-		URL resource = getClass().getResource("/public/");
-		String path = resource.getPath();
-
 		List<MailImage> standardImages = Lists.newArrayList();
 
-		standardImages.add(new MailImage("foglie03", Resources.asByteSource(Resources.getResource("public/img/mail/foglie03.png")).read(), IMAGE_PNG));
-		standardImages.add(new MailImage("foglie04", Resources.asByteSource(Resources.getResource("public/img/mail/foglie04.png")).read(), IMAGE_PNG));
-		standardImages.add(new MailImage("greenScore", Resources.asByteSource(Resources.getResource("public/img/mail/green/greenLeavesbase.png")).read(), IMAGE_PNG));
-		standardImages.add(new MailImage("healthScore", Resources.asByteSource(Resources.getResource("public/img/mail/health/healthLeavesBase.png")).read(), IMAGE_PNG));
-		standardImages.add(new MailImage("prScore", Resources.asByteSource(Resources.getResource("public/img/mail/pr/prLeaves.png")).read(), IMAGE_PNG));
-		standardImages.add(new MailImage("footer", Resources.asByteSource(Resources.getResource("public/img/mail/templateMail.png")).read(), IMAGE_PNG));
+		standardImages.add(new MailImage("foglie03", Resources.asByteSource(imageURL("img/mail/foglie03.png")).read(), IMAGE_PNG));
+		standardImages.add(new MailImage("foglie04", Resources.asByteSource(imageURL("img/mail/foglie04.png")).read(), IMAGE_PNG));
+		standardImages.add(new MailImage("greenScore", Resources.asByteSource(imageURL("img/mail/green/greenLeavesbase.png")).read(), IMAGE_PNG));
+		standardImages.add(new MailImage("healthScore", Resources.asByteSource(imageURL("img/mail/health/healthLeavesBase.png")).read(), IMAGE_PNG));
+		standardImages.add(new MailImage("prScore", Resources.asByteSource(imageURL("img/mail/pr/prLeaves.png")).read(), IMAGE_PNG));
+		standardImages.add(new MailImage("footer", Resources.asByteSource(imageURL("img/mail/templateMail.png")).read(), IMAGE_PNG));
 
 		List<WeekConfData> mailConfigurationFileData = new ArrayList<>(configUtils.getWeekConfData());
 
@@ -319,7 +321,7 @@ public class ReportEmailSender {
 //				someBadge = checkCorrectBadges(allBadge, notifications);
 //			}
 
-			List<BadgesData> allBadge = getAllBadges(path);
+			List<BadgesData> allBadge = getAllBadges();
 			someBadge = filterBadges(allBadge, completePlayerStatus);
 			
 			String mailto = null;
@@ -341,6 +343,10 @@ public class ReportEmailSender {
 		}
 
 	}
+
+	protected URL imageURL(String name) throws MalformedURLException {
+		return new File(resourceDir + name).toURI().toURL(); 
+	}
 	
 	public String getPlayerLang(Player p) {
 		return p.getLanguage() != null ? p.getLanguage() : ITA_LANG;
@@ -356,12 +362,12 @@ public class ReportEmailSender {
 
 		List<MailImage> standardImages = Lists.newArrayList();
 
-		standardImages.add(new MailImage("foglie03", Resources.asByteSource(Resources.getResource("public/img/mail/foglie03.png")).read(), IMAGE_PNG));
-		standardImages.add(new MailImage("foglie04", Resources.asByteSource(Resources.getResource("public/img/mail/foglie04.png")).read(), IMAGE_PNG));
-		standardImages.add(new MailImage("greenScore", Resources.asByteSource(Resources.getResource("public/img/mail/green/greenLeavesbase.png")).read(), IMAGE_PNG));
-		standardImages.add(new MailImage("healthScore", Resources.asByteSource(Resources.getResource("public/img/mail/health/healthLeavesBase.png")).read(), IMAGE_PNG));
-		standardImages.add(new MailImage("prScore", Resources.asByteSource(Resources.getResource("public/img/mail/pr/prLeaves.png")).read(), IMAGE_PNG));
-		standardImages.add(new MailImage("footer", Resources.asByteSource(Resources.getResource("public/img/mail/templateMail.png")).read(), IMAGE_PNG));
+		standardImages.add(new MailImage("foglie03", Resources.asByteSource(imageURL("img/mail/foglie03.png")).read(), IMAGE_PNG));
+		standardImages.add(new MailImage("foglie04", Resources.asByteSource(imageURL("img/mail/foglie04.png")).read(), IMAGE_PNG));
+		standardImages.add(new MailImage("greenScore", Resources.asByteSource(imageURL("img/mail/green/greenLeavesbase.png")).read(), IMAGE_PNG));
+		standardImages.add(new MailImage("healthScore", Resources.asByteSource(imageURL("img/mail/health/healthLeavesBase.png")).read(), IMAGE_PNG));
+		standardImages.add(new MailImage("prScore", Resources.asByteSource(imageURL("img/mail/pr/prLeaves.png")).read(), IMAGE_PNG));
+		standardImages.add(new MailImage("footer", Resources.asByteSource(imageURL("img/mail/templateMail.png")).read(), IMAGE_PNG));
 
 		String gameId = getGameId(appId);
 		List<Player> iter = playerRepositoryDao.findAllByGameId(gameId);
@@ -419,7 +425,7 @@ public class ReportEmailSender {
 		}
 	}
 	
-	private List<BadgesData> getAllBadges(String path) throws IOException {
+	private List<BadgesData> getAllBadges() throws IOException {
 		return badgesCache.getAllBadges();
 	}
 

@@ -1,6 +1,7 @@
 package eu.trentorise.smartcampus.mobility.gamificationweb;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.InputStream;
 
 import javax.annotation.PostConstruct;
@@ -11,6 +12,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.bson.types.Binary;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -36,8 +38,9 @@ import eu.trentorise.smartcampus.mobility.util.ImageUtils;
 @RestController
 public class FileController {
 
-//	@Value("${imagesDir}")
-//	private String imagesDir;
+	@Autowired
+	@Value("${resourceDir}")
+	private String resourceDir;
 
 	private static final String DEFAULT_USER = "default_user";
 	
@@ -61,7 +64,7 @@ public class FileController {
 		if (avatar == null) {
 			avatar = new Avatar();
 			
-			InputStream is = Resources.asByteSource(Resources.getResource(DEFAULT_USER + ".png")).openBufferedStream();
+			InputStream is = Resources.asByteSource(new File(resourceDir + "img/"+  DEFAULT_USER + ".png").toURI().toURL()).openBufferedStream();
 			BufferedImage bs = ImageIO.read(is);
 			
 			byte cb[] = ImageUtils.compressImage(bs, "image/png", DIMENSION);

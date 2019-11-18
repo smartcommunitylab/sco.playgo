@@ -1,5 +1,8 @@
 package eu.trentorise.smartcampus.mobility.gamificationweb;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -13,6 +16,7 @@ import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.stringtemplate.v4.ST;
 
@@ -24,7 +28,6 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multimaps;
 import com.google.common.collect.Range;
-import com.google.common.io.Resources;
 
 import eu.trentorise.smartcampus.mobility.gamification.model.ChallengeConcept;
 import eu.trentorise.smartcampus.mobility.gamificationweb.model.BadgeCollectionConcept;
@@ -96,6 +99,11 @@ public class ChallengesUtils {
 	private Map<String, List> challengeDictionaryMap;
 	private Map<String, String> challengeReplacements;
 
+	
+	@Autowired
+	@Value("${challengesDir}")
+	private String challengesDir;
+
 	private static final Map<String, String> UNIT_MAPPING = Stream.of(new String[][] {
 		  { "daily", "days" }, 
 		  { "weekly", "weeks" }, 
@@ -112,7 +120,7 @@ public class ChallengesUtils {
 		challengeStructureMap = Maps.newTreeMap();
 		challengeLongStructureMap = Maps.newTreeMap();
 
-		List list = mapper.readValue(Resources.getResource("challenges/challenges.json"), List.class);
+		List list = mapper.readValue(getChallengeResourceURL("challenges.json"), List.class);
 		for (Object o : list) {
 			ChallengeStructure challenge = mapper.convertValue(o, ChallengeStructure.class);
 
@@ -121,7 +129,7 @@ public class ChallengesUtils {
 //			template.save(challenge);
 		}
 		
-		list = mapper.readValue(Resources.getResource("challenges/challenges_descriptions.json"), List.class);
+		list = mapper.readValue(getChallengeResourceURL("challenges_descriptions.json"), List.class);
 		for (Object o : list) {
 			ChallengeLongDescrStructure challenge = mapper.convertValue(o, ChallengeLongDescrStructure.class);
 
@@ -130,10 +138,14 @@ public class ChallengesUtils {
 //			template.save(challenge);
 		}
 
-		challengeDictionaryMap = mapper.readValue(Resources.getResource("challenges/challenges_dictionary.json"), Map.class);
-		challengeReplacements = mapper.readValue(Resources.getResource("challenges/challenges_replacements.json"), Map.class);
+		challengeDictionaryMap = mapper.readValue(getChallengeResourceURL("challenges_dictionary.json"), Map.class);
+		challengeReplacements = mapper.readValue(getChallengeResourceURL("challenges_replacements.json"), Map.class);
 	}
 
+	public URL getChallengeResourceURL(String file) throws MalformedURLException {
+		return new File(challengesDir + (challengesDir.endsWith("/") ? "" : "/")+ file).toURI().toURL();
+	}
+	
 	public List<ChallengeConcept> parse(String data) throws Exception {
 		List<ChallengeConcept> concepts = Lists.newArrayList();
 
