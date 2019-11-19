@@ -1,5 +1,14 @@
+<<<<<<< HEAD
 <?xml version='1.0' encoding='utf-8'?>
 <widget android-versionCode="93" id="it.smartcommunitylab.viaggiatrento.playgo" version="2.3.4" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+=======
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<widget id="it.smartcommunitylab.viaggiatrento.playgo" version="3.0.0" android-versionCode="94" 
+    xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns="http://www.w3.org/ns/widgets" 
+    xmlns:cdv="http://cordova.apache.org/ns/1.0" 
+    xmlns:android="http://schemas.android.com/apk/res/android">
+>>>>>>> d45288b88b19975f9202d45a133642c04a3e740f
     <name>Viaggia Play&amp;Go</name>
     <description>Viaggia Play&amp;Go</description>
     <author email="info@smartcommunitylab.it" href="http://www.smartcommunitylab.it/">Smart Community Lab</author>

@@ -1335,7 +1335,7 @@ angular.module('viaggia.controllers.game', [])
       //parte la ricerca
       console.log(searchdata);
       // $scope.search.searchdata = searchdata;
-      GameSrv.getRanking($scope.rankingFilterOptions[0], 0, $scope.rankingPerPage, searchdata).then(
+      GameSrv.getRanking($scope.filter.selected, 0, $scope.rankingPerPage, searchdata).then(
         function (ranking) {
           $rootScope.currentUser = ranking['actualUser'];
           $scope.ranking = ranking['classificationList'];

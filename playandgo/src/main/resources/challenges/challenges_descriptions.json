@@ -511,6 +511,14 @@
 			"en": "To win this challenge, complete the multiplayer challenge questionnaire that you can access \\<a href='<surveylink>' target='_system'>here\\</a>."
 		}
 	},	
+  {
+    "modelName": "survey",
+    "filter": "prediction",
+    "description": {
+      "it": "Per vincere la sfida compila il breve questionario che visualizzi al seguente \\<a href='<surveylink>' target='_system'>indirizzo\\</a>.",
+      "en": "To win this challenge, complete a short questionnaire that you can access \\<a href='<surveylink>' target='_system'>here\\</a>."
+    }
+  },  
 	{
 		"modelName": "leaderboardPosition",
 		"filter": null,

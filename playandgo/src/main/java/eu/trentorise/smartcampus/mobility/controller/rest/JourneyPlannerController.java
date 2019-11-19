@@ -143,7 +143,7 @@ public class JourneyPlannerController {
 			io.setRecurrency(itinerary.getRecurrency());
 
 			SavedTrip st = new SavedTrip(new Date(), io, RequestMethod.POST.toString());
-			domainStorage.saveSavedTrips(st);
+			domainStorage.saveSavedTrip(st);
 
 			result.setClientId(clientId);
 			return result;
@@ -161,7 +161,7 @@ public class JourneyPlannerController {
 			result = (ItineraryObject)(forward(itinerary, HttpMethod.PUT, request, response, new TypeReference<BasicItinerary>() {}).getBody());
 			
 			SavedTrip st = new SavedTrip(new Date(), result, RequestMethod.PUT.toString());
-			domainStorage.saveSavedTrips(st);
+			domainStorage.saveSavedTrip(st);
 			
 			return result;
 			} catch (HttpClientErrorException e0) {

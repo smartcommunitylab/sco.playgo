@@ -17,7 +17,7 @@
   },
   {
     "file": "data/config.json",
-    "hash": "adb11afb7457324b135f1dcd8cc15417"
+    "hash": "9e51ba3e6d846b73075a09a34cef73ad"
   },
   {
     "file": "data/game/ranking.json",
@@ -421,7 +421,7 @@
   },
   {
     "file": "js/controllers/GameCtrl.js",
-    "hash": "382770609d00e148c77e935d776ed7b9"
+    "hash": "cd4a8266a2e6c95de793d98181546c74"
   },
   {
     "file": "js/controllers/HomeCtrl.js",
@@ -561,7 +561,7 @@
   },
   {
     "file": "js/services/PlanSrv.js",
-    "hash": "b37dab3bde6a6dcb51964f3c60691e76"
+    "hash": "f88ad25058dd972c825f6ad9301a219a"
   },
   {
     "file": "js/services/ProfileSrv.js",
@@ -1261,7 +1261,7 @@
   },
   {
     "file": "templates/registrationForm.html",
-    "hash": "520b1f772e24d5c7c087c3965d20ee94"
+    "hash": "e1b1a69f19ccdaaa4630ebebf492dccc"
   },
   {
     "file": "templates/rulesModal.html",

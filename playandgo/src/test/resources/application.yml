@@ -1,0 +1,61 @@
+spring.data.mongodb.url: mongodb://localhost:27017/mobility-domain
+
+communicatorURL: http://localhost:8080/core.communicator
+
+aacURL: http://localhost:8080/aac/
+
+mobilityURL: http://localhost:8080/core.mobility
+playgoURL: http://localhost:8080/sco.playgo
+
+mobility:
+  clientId: 
+  clientSecret: 
+    
+gamification:
+  url: http://localhost:8080/gamification/
+  secretKey1: 1234567812345678
+  secretKey2: 1234567812345678
+  surveyUrl: 
+
+mail:
+  username: 
+  password: 
+  host: smtp.gmail.com
+  port: 465
+  protocol: smtps   
+  from: 
+  to: 
+  send: false
+  subject: Gamification Notification  
+  redirectUrl: http://localhost:8010/core.mobility/gamificationweb
+  
+validation:
+  shapefolder: ./src/main/resources/validation
+  
+weeklyDataDir: ./src/main/resources/mail/conf_file  
+  
+externalDataDir: ./src/main/resources/
+  
+certificatesDir: ./src/main/resources/
+  
+waypointsDir: ./src/main/resources/
+
+management:
+  port: 7011  
+  context-path: /manage       
+  
+spring:
+  http:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB     
+      
+rabbitmq:
+  host: localhost
+  virtualhost: playgo
+  port: 5672
+  user: 
+  password: 
+  geExchangeName: ge-notifications
+  geRoutingKeyPrefix: game

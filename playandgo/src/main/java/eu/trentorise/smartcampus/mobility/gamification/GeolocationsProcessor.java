@@ -2,6 +2,7 @@ package eu.trentorise.smartcampus.mobility.gamification;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -24,7 +25,6 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 import com.google.common.util.concurrent.Striped;
 
-import eu.trentorise.smartcampus.mobility.gamification.model.SavedTrip;
 import eu.trentorise.smartcampus.mobility.gamification.model.TrackedInstance;
 import eu.trentorise.smartcampus.mobility.gamification.model.TrackedInstance.ScoreStatus;
 import eu.trentorise.smartcampus.mobility.geolocation.model.Activity;
@@ -193,6 +193,17 @@ public class GeolocationsProcessor {
 
 				if (locationTs == null) {
 					locationTs = location.getTimestamp().getTime();
+				// Happens in strange situations: the timestamp of GPS is far in the past. Need to adjust
+				} else if (location.getTimestamp().getTime() < locationTs) {
+					Calendar tsc = Calendar.getInstance();
+					tsc.setTime(location.getTimestamp());
+					Calendar sc = Calendar.getInstance();
+					sc.setTimeInMillis(locationTs);
+					tsc.set(Calendar.YEAR, sc.get(Calendar.YEAR));
+					tsc.set(Calendar.MONTH, sc.get(Calendar.MONTH));
+					tsc.set(Calendar.DATE, sc.get(Calendar.DATE));
+					logger.info("Adjusting time point: " + location.getTimestamp().getTime());
+					location.setTimestamp(tsc.getTime());
 				}
 
 				// discard event older than 2 days
@@ -364,21 +375,11 @@ public class GeolocationsProcessor {
 			res.setUserId(userId);
 			res.setId(ObjectId.get().toString());
 			pars.remove("day");
-			ItineraryObject res2 = storage.searchDomainObject(pars, ItineraryObject.class);
-			if (res2 == null) {
-				logger.warn("No existing ItineraryObject found.");
-				pars = new TreeMap<String, Object>();
-				pars.put("itinerary.clientId", travelId);
-				pars.put("itinerary.userId", userId);
-				SavedTrip res3 = storage.searchDomainObject(pars, SavedTrip.class);
-				if (res3 != null) {
-					res.setItinerary(res3.getItinerary());
-				} else {
-					logger.warn("No existing SavedTrip found.");
-				}
+			ItineraryObject saved = storage.getSavedTrip(userId, travelId);
+			if (saved != null) {
+				res.setItinerary(saved);
 			} else {
-				logger.warn("Found ItineraryObject.");
-				res.setItinerary(res2);
+				logger.warn("No existing SavedTrip found.");
 			}
 			if (res.getItinerary() == null) {
 				if (travelId.contains("_temporary_")) {

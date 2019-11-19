@@ -1,0 +1,907 @@
+{
+    "playerId": "1",
+    "gameId": "5d9353a3f0856342b2dded7f",
+    "state": {
+        "BadgeCollectionConcept": [
+            {
+                "id": "1",
+                "name": "public transport aficionado",
+                "badgeEarned": []
+            },
+            {
+                "id": "1",
+                "name": "sustainable life",
+                "badgeEarned": [
+                    "1_zero_impact_trip",
+                    "5_zero_impact_trip",
+                    "10_zero_impact_trip"
+                ]
+            },
+            {
+                "id": "1",
+                "name": "recommendations",
+                "badgeEarned": []
+            },
+            {
+                "id": "1",
+                "name": "leaderboard top 3",
+                "badgeEarned": [
+                    "1st_of_the_week"
+                ]
+            },
+            {
+                "id": "1",
+                "name": "bike aficionado",
+                "badgeEarned": [
+                    "1_bike_trip"
+                ]
+            },
+            {
+                "id": "1",
+                "name": "park and ride pioneer",
+                "badgeEarned": []
+            },
+            {
+                "id": "1",
+                "name": "bike sharing pioneer",
+                "badgeEarned": []
+            },
+            {
+                "id": "1",
+                "name": "green leaves",
+                "badgeEarned": [
+                    "50_point_green",
+                    "100_point_green",
+                    "200_point_green",
+                    "400_point_green"
+                ]
+            }
+        ],
+        "ChallengeConcept": [
+            {
+                "name": "w53_rs__Walk_Km_7dc194a2-9a12-4382-8002-0579e70287a9",
+                "modelName": "absoluteIncrement",
+                "fields": {
+                    "difficulty": 2,
+                    "bonusScore": 100,
+                    "wi": 10.0,
+                    "bonusPointType": "green leaves",
+                    "periodName": "weekly",
+                    "counterName": "Walk_Km",
+                    "target": 1.0
+                },
+                "start": 1572649200000,
+                "end": 1573254000000,
+                "completed": true,
+                "dateCompleted": 1572865919528,
+                "state": "COMPLETED",
+                "stateDate": {
+                    "ASSIGNED": 1572426842778,
+                    "ACTIVE": 1572866997285,
+                    "COMPLETED": 1572865919528
+                },
+                "origin": "rs",
+                "priority": 0,
+                "forced": false,
+                "visibility": {
+                    "hidden": true,
+                    "disclosureDate": 1572433200000
+                }
+            },
+            {
+                "name": "start_survey-16e04f6a1bf-9db21fc7",
+                "modelName": "survey",
+                "fields": {
+                    "surveyType": "start",
+                    "bonusScore": 100.0,
+                    "link": "",
+                    "bonusPointType": "green leaves"
+                },
+                "start": 1572041302463,
+                "end": 1573253999000,
+                "completed": false,
+                "state": "ACTIVE",
+                "stateDate": {
+                    "ASSIGNED": 1572041302584,
+                    "ACTIVE": 1572261247901
+                },
+                "priority": 0,
+                "forced": false,
+                "visibility": {
+                    "hidden": false,
+                    "disclosureDate": null
+                }
+            },
+            {
+                "name": "'initial_challenge_16e04f6a251-9db21fc7",
+                "modelName": "absoluteIncrement",
+                "fields": {
+                    "bonusScore": 50.0,
+                    "bonusPointType": "green leaves",
+                    "periodName": "weekly",
+                    "target": 1.0,
+                    "counterName": "ZeroImpact_Trips"
+                },
+                "start": 1572041302609,
+                "end": 1573253999000,
+                "completed": true,
+                "dateCompleted": 1572261247901,
+                "state": "COMPLETED",
+                "stateDate": {
+                    "ASSIGNED": 1572041302712,
+                    "ACTIVE": 1572261247901,
+                    "COMPLETED": 1572261247901
+                },
+                "priority": 0,
+                "forced": false,
+                "visibility": {
+                    "hidden": false,
+                    "disclosureDate": null
+                }
+            },
+            {
+                "name": "w53_rs__green leaves_05208380-18bc-444d-9702-64044e4646e3",
+                "modelName": "repetitiveBehaviour",
+                "fields": {
+                    "bonusScore": 100,
+                    "bonusPointType": "green leaves",
+                    "periodName": "daily",
+                    "counterName": "green leaves",
+                    "target": 30.0,
+                    "periodTarget": 2.0
+                },
+                "start": 1572649200000,
+                "end": 1573254000000,
+                "completed": true,
+                "dateCompleted": 1572968476386,
+                "state": "COMPLETED",
+                "stateDate": {
+                    "ASSIGNED": 1572426842505,
+                    "ACTIVE": 1572866997285,
+                    "COMPLETED": 1572968476386
+                },
+                "origin": "rs",
+                "priority": 0,
+                "forced": false,
+                "visibility": {
+                    "hidden": true,
+                    "disclosureDate": 1572433200000
+                }
+            }
+        ],
+        "PointConcept": [
+            {
+                "id": "1",
+                "name": "Bus_Km",
+                "score": 0.0,
+                "periods": {
+                    "weekly": {
+                        "start": 1569621600000,
+                        "end": null,
+                        "period": 604800000,
+                        "identifier": "weekly",
+                        "capacity": 0,
+                        "instances": {}
+                    },
+                    "daily": {
+                        "start": 1569621600000,
+                        "end": null,
+                        "period": 86400000,
+                        "identifier": "daily",
+                        "capacity": 7,
+                        "instances": {}
+                    }
+                }
+            },
+            {
+                "id": "1",
+                "name": "green leaves",
+                "score": 574.0,
+                "periods": {
+                    "weekly": {
+                        "start": 1569621600000,
+                        "end": null,
+                        "period": 604800000,
+                        "identifier": "weekly",
+                        "capacity": 0,
+                        "instances": {
+                            "2019-10-26T00:00:00": {
+                                "score": 203.0,
+                                "start": 1572040800000,
+                                "end": 1572649200000,
+                                "index": 4
+                            },
+                            "2019-11-02T00:00:00": {
+                                "score": 371.0,
+                                "start": 1572649200000,
+                                "end": 1573254000000,
+                                "index": 5
+                            }
+                        }
+                    },
+                    "daily": {
+                        "start": 1569621600000,
+                        "end": null,
+                        "period": 86400000,
+                        "identifier": "daily",
+                        "capacity": 7,
+                        "instances": {
+                            "2019-10-28T00:00:00": {
+                                "score": 110.0,
+                                "start": 1572217200000,
+                                "end": 1572303600000,
+                                "index": 30
+                            },
+                            "2019-10-29T00:00:00": {
+                                "score": 93.0,
+                                "start": 1572303600000,
+                                "end": 1572390000000,
+                                "index": 31
+                            },
+                            "2019-11-01T00:00:00": {
+                                "score": 0.0,
+                                "start": 1572562800000,
+                                "end": 1572649200000,
+                                "index": 34
+                            },
+                            "2019-11-02T00:00:00": {
+                                "score": 0.0,
+                                "start": 1572649200000,
+                                "end": 1572735600000,
+                                "index": 35
+                            },
+                            "2019-11-03T00:00:00": {
+                                "score": 0.0,
+                                "start": 1572735600000,
+                                "end": 1572822000000,
+                                "index": 36
+                            },
+                            "2019-11-04T00:00:00": {
+                                "score": 138.0,
+                                "start": 1572822000000,
+                                "end": 1572908400000,
+                                "index": 37
+                            },
+                            "2019-11-05T00:00:00": {
+                                "score": 233.0,
+                                "start": 1572908400000,
+                                "end": 1572994800000,
+                                "index": 38
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "id": "1",
+                "name": "PandR_Trips",
+                "score": 0.0,
+                "periods": {
+                    "weekly": {
+                        "start": 1569621600000,
+                        "end": null,
+                        "period": 604800000,
+                        "identifier": "weekly",
+                        "capacity": 0,
+                        "instances": {}
+                    },
+                    "daily": {
+                        "start": 1569621600000,
+                        "end": null,
+                        "period": 86400000,
+                        "identifier": "daily",
+                        "capacity": 7,
+                        "instances": {}
+                    }
+                }
+            },
+            {
+                "id": "1",
+                "name": "Transit_Trips",
+                "score": 0.0,
+                "periods": {
+                    "weekly": {
+                        "start": 1569621600000,
+                        "end": null,
+                        "period": 604800000,
+                        "identifier": "weekly",
+                        "capacity": 0,
+                        "instances": {}
+                    },
+                    "daily": {
+                        "start": 1569621600000,
+                        "end": null,
+                        "period": 86400000,
+                        "identifier": "daily",
+                        "capacity": 7,
+                        "instances": {}
+                    }
+                }
+            },
+            {
+                "id": "1",
+                "name": "BikeSharing_Km",
+                "score": 0.0,
+                "periods": {
+                    "weekly": {
+                        "start": 1569621600000,
+                        "end": null,
+                        "period": 604800000,
+                        "identifier": "weekly",
+                        "capacity": 0,
+                        "instances": {}
+                    },
+                    "daily": {
+                        "start": 1569621600000,
+                        "end": null,
+                        "period": 86400000,
+                        "identifier": "daily",
+                        "capacity": 7,
+                        "instances": {}
+                    }
+                }
+            },
+            {
+                "id": "1",
+                "name": "Bike_Trips",
+                "score": 3.0,
+                "periods": {
+                    "weekly": {
+                        "start": 1569621600000,
+                        "end": null,
+                        "period": 604800000,
+                        "identifier": "weekly",
+                        "capacity": 0,
+                        "instances": {
+                            "2019-11-02T00:00:00": {
+                                "score": 3.0,
+                                "start": 1572649200000,
+                                "end": 1573254000000,
+                                "index": 5
+                            }
+                        }
+                    },
+                    "daily": {
+                        "start": 1569621600000,
+                        "end": null,
+                        "period": 86400000,
+                        "identifier": "daily",
+                        "capacity": 7,
+                        "instances": {
+                            "2019-11-05T00:00:00": {
+                                "score": 3.0,
+                                "start": 1572908400000,
+                                "end": 1572994800000,
+                                "index": 38
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "id": "1",
+                "name": "Car_Km",
+                "score": 0.0,
+                "periods": {
+                    "weekly": {
+                        "start": 1569621600000,
+                        "end": null,
+                        "period": 604800000,
+                        "identifier": "weekly",
+                        "capacity": 0,
+                        "instances": {}
+                    },
+                    "daily": {
+                        "start": 1569621600000,
+                        "end": null,
+                        "period": 86400000,
+                        "identifier": "daily",
+                        "capacity": 7,
+                        "instances": {}
+                    }
+                }
+            },
+            {
+                "id": "1",
+                "name": "BikeSharing_Trips",
+                "score": 0.0,
+                "periods": {
+                    "weekly": {
+                        "start": 1569621600000,
+                        "end": null,
+                        "period": 604800000,
+                        "identifier": "weekly",
+                        "capacity": 0,
+                        "instances": {}
+                    },
+                    "daily": {
+                        "start": 1569621600000,
+                        "end": null,
+                        "period": 86400000,
+                        "identifier": "daily",
+                        "capacity": 7,
+                        "instances": {}
+                    }
+                }
+            },
+            {
+                "id": "1",
+                "name": "Walk_Trips",
+                "score": 9.0,
+                "periods": {
+                    "weekly": {
+                        "start": 1569621600000,
+                        "end": null,
+                        "period": 604800000,
+                        "identifier": "weekly",
+                        "capacity": 0,
+                        "instances": {
+                            "2019-10-26T00:00:00": {
+                                "score": 4.0,
+                                "start": 1572040800000,
+                                "end": 1572649200000,
+                                "index": 4
+                            },
+                            "2019-11-02T00:00:00": {
+                                "score": 5.0,
+                                "start": 1572649200000,
+                                "end": 1573254000000,
+                                "index": 5
+                            }
+                        }
+                    },
+                    "daily": {
+                        "start": 1569621600000,
+                        "end": null,
+                        "period": 86400000,
+                        "identifier": "daily",
+                        "capacity": 7,
+                        "instances": {
+                            "2019-10-28T00:00:00": {
+                                "score": 2.0,
+                                "start": 1572217200000,
+                                "end": 1572303600000,
+                                "index": 30
+                            },
+                            "2019-10-29T00:00:00": {
+                                "score": 2.0,
+                                "start": 1572303600000,
+                                "end": 1572390000000,
+                                "index": 31
+                            },
+                            "2019-11-04T00:00:00": {
+                                "score": 3.0,
+                                "start": 1572822000000,
+                                "end": 1572908400000,
+                                "index": 37
+                            },
+                            "2019-11-05T00:00:00": {
+                                "score": 2.0,
+                                "start": 1572908400000,
+                                "end": 1572994800000,
+                                "index": 38
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "id": "1",
+                "name": "Train_Km",
+                "score": 27.774281867939884,
+                "periods": {
+                    "weekly": {
+                        "start": 1569621600000,
+                        "end": null,
+                        "period": 604800000,
+                        "identifier": "weekly",
+                        "capacity": 0,
+                        "instances": {
+                            "2019-10-26T00:00:00": {
+                                "score": 17.71744515599265,
+                                "start": 1572040800000,
+                                "end": 1572649200000,
+                                "index": 4
+                            },
+                            "2019-11-02T00:00:00": {
+                                "score": 10.056836711947234,
+                                "start": 1572649200000,
+                                "end": 1573254000000,
+                                "index": 5
+                            }
+                        }
+                    },
+                    "daily": {
+                        "start": 1569621600000,
+                        "end": null,
+                        "period": 86400000,
+                        "identifier": "daily",
+                        "capacity": 7,
+                        "instances": {
+                            "2019-10-28T00:00:00": {
+                                "score": 8.964495116935838,
+                                "start": 1572217200000,
+                                "end": 1572303600000,
+                                "index": 30
+                            },
+                            "2019-10-29T00:00:00": {
+                                "score": 8.752950039056811,
+                                "start": 1572303600000,
+                                "end": 1572390000000,
+                                "index": 31
+                            },
+                            "2019-11-05T00:00:00": {
+                                "score": 10.056836711947234,
+                                "start": 1572908400000,
+                                "end": 1572994800000,
+                                "index": 38
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "id": "1",
+                "name": "Walk_Km",
+                "score": 9.953742159095954,
+                "periods": {
+                    "weekly": {
+                        "start": 1569621600000,
+                        "end": null,
+                        "period": 604800000,
+                        "identifier": "weekly",
+                        "capacity": 0,
+                        "instances": {
+                            "2019-10-26T00:00:00": {
+                                "score": 4.306795996897872,
+                                "start": 1572040800000,
+                                "end": 1572649200000,
+                                "index": 4
+                            },
+                            "2019-11-02T00:00:00": {
+                                "score": 5.646946162198082,
+                                "start": 1572649200000,
+                                "end": 1573254000000,
+                                "index": 5
+                            }
+                        }
+                    },
+                    "daily": {
+                        "start": 1569621600000,
+                        "end": null,
+                        "period": 86400000,
+                        "identifier": "daily",
+                        "capacity": 7,
+                        "instances": {
+                            "2019-10-28T00:00:00": {
+                                "score": 1.0472736674891585,
+                                "start": 1572217200000,
+                                "end": 1572303600000,
+                                "index": 30
+                            },
+                            "2019-10-29T00:00:00": {
+                                "score": 3.2595223294087132,
+                                "start": 1572303600000,
+                                "end": 1572390000000,
+                                "index": 31
+                            },
+                            "2019-11-04T00:00:00": {
+                                "score": 2.5485091999617033,
+                                "start": 1572822000000,
+                                "end": 1572908400000,
+                                "index": 37
+                            },
+                            "2019-11-05T00:00:00": {
+                                "score": 3.098436962236379,
+                                "start": 1572908400000,
+                                "end": 1572994800000,
+                                "index": 38
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "id": "1",
+                "name": "Recommendations",
+                "score": 0.0,
+                "periods": {
+                    "weekly": {
+                        "start": 1569621600000,
+                        "end": null,
+                        "period": 604800000,
+                        "identifier": "weekly",
+                        "capacity": 0,
+                        "instances": {}
+                    },
+                    "daily": {
+                        "start": 1569621600000,
+                        "end": null,
+                        "period": 86400000,
+                        "identifier": "daily",
+                        "capacity": 7,
+                        "instances": {}
+                    }
+                }
+            },
+            {
+                "id": "1",
+                "name": "Bus_Trips",
+                "score": 0.0,
+                "periods": {
+                    "weekly": {
+                        "start": 1569621600000,
+                        "end": null,
+                        "period": 604800000,
+                        "identifier": "weekly",
+                        "capacity": 0,
+                        "instances": {}
+                    },
+                    "daily": {
+                        "start": 1569621600000,
+                        "end": null,
+                        "period": 86400000,
+                        "identifier": "daily",
+                        "capacity": 7,
+                        "instances": {}
+                    }
+                }
+            },
+            {
+                "id": "1",
+                "name": "Car_Trips",
+                "score": 0.0,
+                "periods": {
+                    "weekly": {
+                        "start": 1569621600000,
+                        "end": null,
+                        "period": 604800000,
+                        "identifier": "weekly",
+                        "capacity": 0,
+                        "instances": {}
+                    },
+                    "daily": {
+                        "start": 1569621600000,
+                        "end": null,
+                        "period": 86400000,
+                        "identifier": "daily",
+                        "capacity": 7,
+                        "instances": {}
+                    }
+                }
+            },
+            {
+                "id": "1",
+                "name": "Train_Trips",
+                "score": 3.0,
+                "periods": {
+                    "weekly": {
+                        "start": 1569621600000,
+                        "end": null,
+                        "period": 604800000,
+                        "identifier": "weekly",
+                        "capacity": 0,
+                        "instances": {
+                            "2019-10-26T00:00:00": {
+                                "score": 2.0,
+                                "start": 1572040800000,
+                                "end": 1572649200000,
+                                "index": 4
+                            },
+                            "2019-11-02T00:00:00": {
+                                "score": 1.0,
+                                "start": 1572649200000,
+                                "end": 1573254000000,
+                                "index": 5
+                            }
+                        }
+                    },
+                    "daily": {
+                        "start": 1569621600000,
+                        "end": null,
+                        "period": 86400000,
+                        "identifier": "daily",
+                        "capacity": 7,
+                        "instances": {
+                            "2019-10-28T00:00:00": {
+                                "score": 1.0,
+                                "start": 1572217200000,
+                                "end": 1572303600000,
+                                "index": 30
+                            },
+                            "2019-10-29T00:00:00": {
+                                "score": 1.0,
+                                "start": 1572303600000,
+                                "end": 1572390000000,
+                                "index": 31
+                            },
+                            "2019-11-05T00:00:00": {
+                                "score": 1.0,
+                                "start": 1572908400000,
+                                "end": 1572994800000,
+                                "index": 38
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "id": "1",
+                "name": "NoCar_Trips",
+                "score": 15.0,
+                "periods": {
+                    "weekly": {
+                        "start": 1569621600000,
+                        "end": null,
+                        "period": 604800000,
+                        "identifier": "weekly",
+                        "capacity": 0,
+                        "instances": {
+                            "2019-10-26T00:00:00": {
+                                "score": 6.0,
+                                "start": 1572040800000,
+                                "end": 1572649200000,
+                                "index": 4
+                            },
+                            "2019-11-02T00:00:00": {
+                                "score": 9.0,
+                                "start": 1572649200000,
+                                "end": 1573254000000,
+                                "index": 5
+                            }
+                        }
+                    },
+                    "daily": {
+                        "start": 1569621600000,
+                        "end": null,
+                        "period": 86400000,
+                        "identifier": "daily",
+                        "capacity": 7,
+                        "instances": {
+                            "2019-10-28T00:00:00": {
+                                "score": 3.0,
+                                "start": 1572217200000,
+                                "end": 1572303600000,
+                                "index": 30
+                            },
+                            "2019-10-29T00:00:00": {
+                                "score": 3.0,
+                                "start": 1572303600000,
+                                "end": 1572390000000,
+                                "index": 31
+                            },
+                            "2019-11-04T00:00:00": {
+                                "score": 3.0,
+                                "start": 1572822000000,
+                                "end": 1572908400000,
+                                "index": 37
+                            },
+                            "2019-11-05T00:00:00": {
+                                "score": 6.0,
+                                "start": 1572908400000,
+                                "end": 1572994800000,
+                                "index": 38
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "id": "1",
+                "name": "Bike_Km",
+                "score": 4.9194887843305715,
+                "periods": {
+                    "weekly": {
+                        "start": 1569621600000,
+                        "end": null,
+                        "period": 604800000,
+                        "identifier": "weekly",
+                        "capacity": 0,
+                        "instances": {
+                            "2019-11-02T00:00:00": {
+                                "score": 4.9194887843305715,
+                                "start": 1572649200000,
+                                "end": 1573254000000,
+                                "index": 5
+                            }
+                        }
+                    },
+                    "daily": {
+                        "start": 1569621600000,
+                        "end": null,
+                        "period": 86400000,
+                        "identifier": "daily",
+                        "capacity": 7,
+                        "instances": {
+                            "2019-11-05T00:00:00": {
+                                "score": 4.9194887843305715,
+                                "start": 1572908400000,
+                                "end": 1572994800000,
+                                "index": 38
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "id": "1",
+                "name": "ZeroImpact_Trips",
+                "score": 12.0,
+                "periods": {
+                    "weekly": {
+                        "start": 1569621600000,
+                        "end": null,
+                        "period": 604800000,
+                        "identifier": "weekly",
+                        "capacity": 0,
+                        "instances": {
+                            "2019-10-26T00:00:00": {
+                                "score": 4.0,
+                                "start": 1572040800000,
+                                "end": 1572649200000,
+                                "index": 4
+                            },
+                            "2019-11-02T00:00:00": {
+                                "score": 8.0,
+                                "start": 1572649200000,
+                                "end": 1573254000000,
+                                "index": 5
+                            }
+                        }
+                    },
+                    "daily": {
+                        "start": 1569621600000,
+                        "end": null,
+                        "period": 86400000,
+                        "identifier": "daily",
+                        "capacity": 7,
+                        "instances": {
+                            "2019-10-28T00:00:00": {
+                                "score": 2.0,
+                                "start": 1572217200000,
+                                "end": 1572303600000,
+                                "index": 30
+                            },
+                            "2019-10-29T00:00:00": {
+                                "score": 2.0,
+                                "start": 1572303600000,
+                                "end": 1572390000000,
+                                "index": 31
+                            },
+                            "2019-11-04T00:00:00": {
+                                "score": 3.0,
+                                "start": 1572822000000,
+                                "end": 1572908400000,
+                                "index": 37
+                            },
+                            "2019-11-05T00:00:00": {
+                                "score": 5.0,
+                                "start": 1572908400000,
+                                "end": 1572994800000,
+                                "index": 38
+                            }
+                        }
+                    }
+                }
+            }
+        ]
+    },
+    "levels": [
+        {
+            "levelName": "Green Warrior",
+            "levelValue": "Green Lover",
+            "levelIndex": 2,
+            "pointConcept": "green leaves",
+            "startLevelScore": 500.0,
+            "endLevelScore": 1000.0,
+            "toNextLevel": 426.0
+        }
+    ],
+    "inventory": {
+        "challengeChoices": [],
+        "challengeActivationActions": 0
+    },
+    "customData": {
+        "exp": "control"
+    }
+}

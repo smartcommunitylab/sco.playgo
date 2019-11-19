@@ -652,7 +652,7 @@ angular.module('viaggia.services.plan', [])
             }
             //console.log(JSON.stringify(trip));
 
-            var urlBuilt = Config.getServerURL() + "/itinerary";
+            var urlBuilt = Config.getServerGamificationURL() + "/itinerary";
             var databuilt = buildData(null, trip, name, requestedFrom, requestedTo, recurrency, daysOfWeek);
             //        if (!newTrip) {
             //            //create a new and delete the old one
@@ -673,7 +673,9 @@ angular.module('viaggia.services.plan', [])
                     headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + token
+                        'Authorization': 'Bearer ' + token,
+                        'appId': Config.getAppGameId()
+
 
                     },
                     data: databuilt,
@@ -690,14 +692,14 @@ angular.module('viaggia.services.plan', [])
                         if (!savedTrips) {
                             savedTrips = {};
                         }
-                        
                         if (!newTrip) {
                             // trackService.updateNotification(planService.getTrips(), databuilt.clientId, "modify");
                             //delete the old one from local storage and from server
                             planService.deleteTrip(tripId).then(function (value) {
                                 //console.log(JSON.stringify(value));
                                 savedTrips[databuilt.clientId] = databuilt;
-                                localStorage.setItem(Config.getAppId() + "_savedTrips", JSON.stringify(savedTrips));
+                        localStorage.setItem(Config.getAppId() + "_savedTrips", JSON.stringify(savedTrips));
+                        
                                 planService.getTrips().then(function (trips) {
                                     trackService.updateNotification(trips, databuilt.clientId, "delete");
                                     //change bookmark if present
@@ -717,6 +719,9 @@ angular.module('viaggia.services.plan', [])
 
 
                         } else {
+                            savedTrips[databuilt.clientId] = databuilt;
+                        localStorage.setItem(Config.getAppId() + "_savedTrips", JSON.stringify(savedTrips));
+                        
                             planService.getTrips().then(function (trips) {
                                 trackService.updateNotification(trips, databuilt.clientId, "create");
                                 savedTrips[databuilt.clientId] = databuilt;
@@ -863,11 +868,12 @@ angular.module('viaggia.services.plan', [])
                 LoginService.getValidAACtoken().then(function (token) {
                     $http({
                         method: 'GET',
-                        url: Config.getServerURL() + "/itinerary",
+                        url: Config.getServerGamificationURL() + "/itinerary",
                         headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json',
-                            'Authorization': 'Bearer ' + token
+                            'Authorization': 'Bearer ' + token,
+                            'appId': Config.getAppGameId()
 
                         },
                         timeout: 10000
@@ -941,12 +947,12 @@ angular.module('viaggia.services.plan', [])
                 deferred.reject();
             } else {
                 LoginService.getValidAACtoken().then(function (token) {
-                    $http.delete(Config.getServerURL() + "/itinerary/" + tripId, {
+                    $http.delete(Config.getServerGamificationURL() + "/itinerary/" + tripId, {
                         headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json',
-                            'Authorization': 'Bearer ' + token
-
+                            'Authorization': 'Bearer ' + token,
+                            'appId': Config.getAppGameId()
                         },
                         timeout: 10000
                     }).
