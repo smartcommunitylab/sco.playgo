@@ -79,14 +79,14 @@ angular.module('smartcommunitylab.services.login', [])
 		saveTokenInfo: function () {
 			$window.localStorage.setItem(this.TOKENINFO, JSON.stringify(user.tokenInfo));
 		},
-		getUser: function () {
-			user = {
-				provider: this.getProvider(),
-				profile: this.getProfile(),
-				tokenInfo: this.getTokenInfo()
-			};
-            return user;
-		},
+		// getUser: function () {
+		// 	user = {
+		// 		provider: this.getProvider(),
+		// 		profile: this.getProfile(),
+		// 		tokenInfo: this.getTokenInfo()
+		// 	};
+        //     return user;
+		// },
 		saveUser: function () {
 			this.saveProvider();
 			this.saveProfile();
@@ -100,7 +100,7 @@ angular.module('smartcommunitylab.services.login', [])
 	};
 
 	service.userIsLogged = function () {
-		return (!!user && !!user.provider && !!user.profile && !!user.profile.userId && (settings.loginType == service.LOGIN_TYPE.COOKIE ? true : !!user.tokenInfo));
+		return (!!user && !!this.localStorage.getProvider() && !!this.localStorage.getProfile() && !!this.localStorage.getProfile().userId && (settings.loginType == service.LOGIN_TYPE.COOKIE ? true : !!this.localStorage.getTokenInfo()));
 	};
 
 	var saveToken = function (tokenInfo) {
@@ -118,11 +118,11 @@ angular.module('smartcommunitylab.services.login', [])
 	};
 
 	var resetUser = function () {
-		user = {
-			provider: undefined,
-			profile: undefined,
-			tokenInfo: undefined
-		};
+		// user = {
+		// 	provider: undefined,
+		// 	profile: undefined,
+		// 	tokenInfo: undefined
+		// };
 		service.localStorage.deleteUser();
 	};
 
@@ -163,7 +163,7 @@ angular.module('smartcommunitylab.services.login', [])
 			// undefined or true
 			settings = newSettings;
 			libConfigOK = true;
-			service.localStorage.getUser();
+			// service.localStorage.getUser();
 			deferred.resolve();
 		}
 
@@ -692,16 +692,16 @@ angular.module('smartcommunitylab.services.login', [])
 
 		// check for expiry.
 		var now = new Date();
-		if (!!user && !!user.tokenInfo && !!user.tokenInfo.refresh_token) {
-			var validUntil = new Date(user.tokenInfo.validUntil);
+		if (!!this.localStorage.getTokenInfo() && !!this.localStorage.getTokenInfo().refresh_token) {
+			var validUntil = new Date(this.localStorage.getTokenInfo().validUntil);
 			if (validUntil.getTime() >= now.getTime() + (60 * 60 * 1000)) {
-				refreshTokenDeferred.resolve(user.tokenInfo.access_token);
+				refreshTokenDeferred.resolve(this.localStorage.getTokenInfo().access_token);
 			} else {
 				$http.post(settings.aacUrl + AAC.TOKEN_URI, null, {
 					params: {
 						'client_id': settings.clientId,
 						'client_secret': settings.clientSecret,
-						'refresh_token': user.tokenInfo.refresh_token,
+						'refresh_token': this.localStorage.getTokenInfo().refresh_token,
 						'grant_type': 'refresh_token'
 					}
 				}).then(
@@ -725,6 +725,7 @@ angular.module('smartcommunitylab.services.login', [])
 			}
 		} else {
 			resetUser();
+			console.log('reset user done.');
 			refreshTokenDeferred.reject(null);
 		}
 
@@ -774,9 +775,9 @@ angular.module('smartcommunitylab.services.login', [])
 					);
 					break;
 				case service.PROVIDER.INTERNAL:
-					$http.get(settings.aacUrl + AAC.REVOKE_URI + user.tokenInfo.access_token, {
+					$http.get(settings.aacUrl + AAC.REVOKE_URI + this.localStorage.getTokenInfo().access_token, {
 						headers: {
-							'Authorization': 'Bearer ' + user.tokenInfo.access_token
+							'Authorization': 'Bearer ' + this.localStorage.getTokenInfo().access_token
 						}
 					}).then(
 						function (response) {
@@ -937,8 +938,8 @@ angular.module('smartcommunitylab.services.login', [])
 	};
 
 	service.getUserProfile = function () {
-		if (!!user.profile && !!user.profile.userId) {
-			return user.profile;
+		if (!!this.localStorage.getProfile() && !!this.localStorage.getProfile()) {
+			return this.localStorage.getProfile();
 		}
 		return null;
 	};

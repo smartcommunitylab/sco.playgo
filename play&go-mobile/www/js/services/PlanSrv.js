@@ -724,6 +724,8 @@ angular.module('viaggia.services.plan', [])
                         
                             planService.getTrips().then(function (trips) {
                                 trackService.updateNotification(trips, databuilt.clientId, "create");
+                                savedTrips[databuilt.clientId] = databuilt;
+                                localStorage.setItem(Config.getAppId() + "_savedTrips", JSON.stringify(savedTrips));
                                 deferred.resolve(databuilt);
 
                             });
