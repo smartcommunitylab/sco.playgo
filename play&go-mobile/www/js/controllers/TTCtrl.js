@@ -133,7 +133,7 @@ angular.module('viaggia.controllers.timetable', ['ionic'])
         var headerRowHeight = 25; // has a border
         $scope.stopsColWidth = 100; // has border
         $scope.flagAccessibility = false;
-        $scope.headervariable = 90;
+        $scope.headervariable = 80;
         $scope.stopsColLineHeight = 20;
         if (ionic.Platform.isWebView() && ionic.Platform.isIOS() && ionic.Platform.version() < 9) {
             $scope.stopsColLineHeight = 21;

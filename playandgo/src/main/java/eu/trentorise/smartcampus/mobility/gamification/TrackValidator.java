@@ -589,7 +589,6 @@ public class TrackValidator {
 //				status.setValidationOutcome(TravelValidity.VALID);
 //				status.setEffectiveDistances(Collections.singletonMap(mode, status.getDistance()));
 //			} 
-			
 		}
 		
 		// split track into pieces. 
