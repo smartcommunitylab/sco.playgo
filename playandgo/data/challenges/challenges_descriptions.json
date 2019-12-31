@@ -479,62 +479,14 @@
 			"en": "To win this challenge join the Researchers’ Night at MUSE (Friday September 29, from 5PM to 10PM), come to the Viaggia Play&Go stand (Floor -1) and complete the check-in.”"
 		}
 	},
-	{
-		"modelName": "survey",
-		"filter": "end",
-		"description": {
-			"it": "Per vincere la sfida compila il questionario di fine gioco che visualizzi al seguente \\<a href='<surveylink>' target='_system'>indirizzo\\</a>.",
-			"en": "To win this challenge, complete the final game questionnaire that you can access \\<a href='<surveylink>' target='_system'>here\\</a>."
-		}
-	},
-	{
-		"modelName": "survey",
-		"filter": "last",
-		"description": {
-			"it": "Per vincere la sfida compila questo breve questionario al seguente \\<a href='<surveylink>' target='_system'>indirizzo\\</a>.",
-			"en": "To win this challenge, complete the short survey that you can access \\<a href='<surveylink>' target='_system'>here\\</a>."
-		}
-	},
-	{
-		"modelName": "survey",
-		"filter": "start",
-		"description": {
-			"it": "Per vincere la sfida compila il questionario di inizio gioco che visualizzi al seguente \\<a href='<surveylink>' target='_system'>indirizzo\\</a>.",
-			"en": "To win this challenge, complete the initial game questionnaire that you can access \\<a href='<surveylink>' target='_system'>here\\</a>."
-		}
-	},
-	{
-		"modelName": "survey",
-		"filter": "challenge",
-		"description": {
-			"it": "Per vincere la sfida compila il questionario sulle sfide di coppia che visualizzi al seguente \\<a href='<surveylink>' target='_system'>indirizzo\\</a>.",
-			"en": "To win this challenge, complete the multiplayer challenge questionnaire that you can access \\<a href='<surveylink>' target='_system'>here\\</a>."
-		}
-	},	
   {
     "modelName": "survey",
-    "filter": "prediction",
-    "description": {
-      "it": "Per vincere la sfida compila il breve questionario che visualizzi al seguente \\<a href='<surveylink>' target='_system'>indirizzo\\</a>.",
-      "en": "To win this challenge, complete a short questionnaire that you can access \\<a href='<surveylink>' target='_system'>here\\</a>."
-    }
-  },  
-  {
-    "modelName": "survey",
-    "filter": "evaluation",
+    "filter": null,
     "description": {
       "it": "Per vincere la sfida compila il breve questionario che visualizzi al seguente \\<a href='<surveylink>' target='_system'>indirizzo\\</a>.",
       "en": "To win this challenge, complete a short questionnaire that you can access \\<a href='<surveylink>' target='_system'>here\\</a>."
     }
   },
-  {
-    "modelName": "survey",
-    "filter": "evaluation",
-    "description": {
-      "it": "Per vincere la sfida compila il breve questionario che visualizzi al seguente \\<a href='<surveylink>' target='_system'>indirizzo\\</a>.",
-      "en": "To win this challenge, complete a short questionnaire that you can access \\<a href='<surveylink>' target='_system'>here\\</a>."
-    }
-  },  
 	{
 		"modelName": "leaderboardPosition",
 		"filter": null,

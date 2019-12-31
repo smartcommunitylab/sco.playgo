@@ -529,9 +529,7 @@ public class ChallengesUtils {
 	private String getFilterByType(String type) {
 		switch(type) {
 			case CHAL_MODEL_PERCENTAGE_INC:
-			case CHAL_MODEL_ABSOLUTE_INC: {
-				return "counterName";
-			}
+			case CHAL_MODEL_ABSOLUTE_INC:
 			case CHAL_MODEL_REPETITIVE_BEAV: {
 				return "counterName";
 			}
@@ -542,12 +540,6 @@ public class ChallengesUtils {
 			case CHAL_MODEL_POICHECKIN: {
 				return "eventName";
 			}
-			case CHAL_MODEL_CLASSPOSITION: {
-				return null;
-			}
-			case CHAL_MODEL_SURVEY: {
-				return "surveyType";
-			}
 			case CHAL_MODEL_CHECKIN: {
 				return "checkinType";
 			}
@@ -555,6 +547,8 @@ public class ChallengesUtils {
 			case CHAL_MODEL_GROUP_COMPETITIVE_TIME:
 			case CHAL_MODEL_GROUP_COOPERATIVE:
 				return "challengePointConceptName";
+			case CHAL_MODEL_SURVEY:
+			case CHAL_MODEL_CLASSPOSITION:
 			default: {
 				return null;
 			}
@@ -755,7 +749,7 @@ public class ChallengesUtils {
 	public String fillLongDescription(String name, String filterField, Map<String, Object> params, String lang) {
 		ChallengeLongDescrStructure challengeStructure = challengeLongStructureMap.getOrDefault(name + "#" + filterField, null);
 		
-		String description = "";
+//		String desscription = "";
 		if (challengeStructure != null) {
 			ST st = new ST(challengeStructure.getDescription().get(lang));
 			
@@ -764,9 +758,9 @@ public class ChallengesUtils {
 				st.add(field, o instanceof Number ? ((Number) o).intValue() : (o instanceof String ? instantiateWord(o.toString(), false, lang) : o));
 			}			
 			
-			for (String key: challengeReplacements.keySet()) {
-				description = description.replaceAll(key, challengeReplacements.get(key));
-			}		
+//			for (String key: challengeReplacements.keySet()) {
+//				description = description.replaceAll(key, challengeReplacements.get(key));
+//			}		
 			
 			return st.render();
 		} else {

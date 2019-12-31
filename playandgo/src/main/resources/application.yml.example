@@ -33,6 +33,8 @@ waypointsDir: ./data/waypoints
 weeklyDataDir: ./data/mail/conf_file  
 challengesDir: ./data/challenges
 notificationsDir: ./data/notifications
+surveysDir: ./data/surveys
+
 badgeConf: ./data/badges.json
 
 validation:
