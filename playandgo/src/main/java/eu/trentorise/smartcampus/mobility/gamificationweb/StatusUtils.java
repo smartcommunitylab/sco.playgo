@@ -302,7 +302,7 @@ public class StatusUtils {
 													JSONObject pc_instance = pc_instances.getJSONObject(instancesKeys.next());
 													int instance_score = (!pc_instance.isNull(PC_SCORE)) ? pc_instance.getInt(PC_SCORE) : 0;
 													long instance_start = (!pc_instance.isNull(PC_START)) ? pc_instance.getLong(PC_START) : 0L;
-													if (timestamp >= instance_start) {
+													if (timestamp <= instance_start) {
 														score += instance_score;
 													}
 												}

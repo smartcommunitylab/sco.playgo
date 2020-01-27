@@ -101,6 +101,7 @@ public class PlayerTeamController {
 				res.setCustomData(team.getCustomData());
 				try {
 					Double score = computeTeamScore(team.getGameId(), team.getInitiative(), id);
+					if (team.getMembers() != null && team.getMembers().size() > 0) score = score / team.getMembers().size();
 					res.setScore(score);
 				} catch (Exception e) {
 					res.setScore(0d);
@@ -181,6 +182,7 @@ public class PlayerTeamController {
 		validate(team, obj);
 		
 		team = repo.save(team);
+		teamState.refresh(team.getId());
 		return ResponseEntity.ok(team); 
 	}
 
@@ -232,7 +234,7 @@ public class PlayerTeamController {
 			if (team.getMembers() != null && team.getMembers().size() > 0) {
 				if (obj.getBonusThreshold() != null && obj.getBonus() != null && team.getExpected() != null && team.getExpected() > 0) {
 					if (100.0* (team.getMembers().size() / team.getExpected()) > obj.getBonusThreshold()) {
-						score += obj.getBonus();
+						score += obj.getBonus()*team.getMembers().size();
 					}
 				}
 				for (String m : team.getMembers()) {
