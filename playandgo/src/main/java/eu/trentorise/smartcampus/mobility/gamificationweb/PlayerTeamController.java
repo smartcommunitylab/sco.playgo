@@ -78,9 +78,9 @@ public class PlayerTeamController {
 	private GameSetup gameSetup;
 	@Autowired
 	private AppSetup appSetup;
-	@Value("${aacURL}")
+	@Value("${teammgmt.aacURL}")
 	private String aacURL;	
-	@Value("${mobility.clientId}")
+	@Value("${teammgmt.clientId}")
 	private String clientId;	
 
 	private BasicProfileService profileService;
