@@ -1,0 +1,251 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.thymeleaf.org"
+	th:with="lang=${#locale.language}" th:lang="${lang}">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Viaggia Play&amp;Go</title>
+
+<!-- Bootstrap core CSS -->
+<link href="../../../css/bootstrap.min.css" rel="stylesheet" />
+<!-- Custom styles for this template -->
+<link href="../../../css/gg_style.css" rel="stylesheet" />
+
+<!-- required libraries -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="../../../lib/bootstrap.min.js"></script>
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+      AAC_ENDPOINT = [[${aacEndpoint}]] ;
+      CLIENT_ID = [[${clientId}]];
+      GAME_ID = [[${gameId}]];
+      INITIATIVE = [[${initiative}]];
+      /*]]>*/
+    </script>
+
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+      if (location.hash && location.hash.length > 1) {
+          var queryString = location.hash.substring(1);
+          var params = {};
+          var regex = /([^&=]+)=([^&]*)/g, m;
+          while (m = regex.exec(queryString)) {
+            params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+          }
+          if (params['access_token'] && params['expires_in']) {
+            sessionStorage.access_token = params['access_token'];
+            sessionStorage.access_token_expires_in = new Date().getTime() + parseInt(params['expires_in'], 10) * 1000;
+            window.location.hash = '';
+            window.location.reload();
+          }
+      } else {
+    	  var token = sessionStorage.getItem('access_token');
+    	  expiresIn = sessionStorage.getItem('access_token_expires_in') || 0;
+    	  if (!token || expiresIn < new Date().getTime()) {
+    		  var redirect = window.location;
+    		  window.location.href = AAC_ENDPOINT + '/eauth/authorize?response_type=token&client_id='+CLIENT_ID+'&redirect_uri=' + redirect;
+          delete sessionStorage.access_token;
+          delete sessionStorage.access_token_expires_in;
+    	  }
+      }
+    
+      
+      /*]]>*/
+    </script>
+    
+    
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui"/>
+    
+</head>
+
+<body>
+
+<div id="app">
+  <v-app> 
+    <v-app-bar app >
+      <v-toolbar-title>Team Management</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn icon>
+        <v-icon @click="logout()">mdi-logout</v-icon>
+      </v-btn>
+      <v-progress-linear :active="loading" :indeterminate="loading"  absolute bottom></v-progress-linear>
+	  </v-app-bar> 
+    <v-content> 
+      <v-btn class="mx-2" fab dark large color="primary" bottom right fixed @click="createNew()"  v-if="!unauthorized">
+        <v-icon dark>mdi-plus</v-icon>
+      </v-btn>
+		  <v-container>
+		    <h1 v-if="teams != null && teams.length == 0" class="text-center">No teams defined. Create a new one.</h1>
+        <h1 color="error" v-if="!!unauthorized" class="text-center">You are not authorized to access this page. <v-btn color="error" @click="logout()">Exit</v-btn></h1>
+		    
+		    <v-row>
+		      <v-col cols="12" v-for="team in teams">
+			      <v-card class="mx-auto">
+					    <v-list-item>
+					      <v-list-item-content>
+					        <v-list-item-title class="headline mb-1">
+					        <span v-for="(d, key, index) in team.customData"><b>{{key}}</b>: {{d}}<br></span>
+					        </v-list-item-title>
+					        <v-list-item-subtitle>{{(team.members || []).length}} members <span v-if="team.members && team.members.length > 0">({{team.members.join(', ')}})</span></v-list-item-subtitle>
+					      </v-list-item-content>					
+					    </v-list-item>
+					
+					    <v-card-actions>
+                <v-btn color="primary" text @click="view(team)">View Board</v-btn>
+					      <v-btn color="primary" text @click="editTeam(team)">Edit</v-btn>
+					      <v-btn color="error" @click="deleteTeam(team)" text>Delete</v-btn>
+					    </v-card-actions>
+					  </v-card>
+		      </v-col>
+		    </v-row>
+		    
+		  </v-container> 
+	  </v-content>
+	  
+	  
+	  <v-dialog v-model="dialog" persistent max-width="600px">
+      <v-card>
+        <v-form ref="form" v-model="valid">
+        <v-card-title>
+          <span class="headline">Team Edit</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col cols="12" v-for="field in initiative.fields">
+                <v-text-field :rules="fieldRules" v-model="currTeam.customData[field]" :label="field +'*'" required></v-text-field>
+              </v-col>
+              
+              <v-col cols="12">
+              <v-autocomplete v-model="currTeam.members" :items="teamCandidates" chips deletable-chips label="Team Members" multiple>
+              </v-autocomplete>
+              </v-col>
+              <v-col cols="12">
+                <v-text-field :rules="fieldRules" type="number" v-model="currTeam.expected" label="Total number" required></v-text-field>
+              </v-col>
+            </v-row>
+            
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" text @click="closeEdit()">Close</v-btn>
+          <v-btn color="blue darken-1" text @click="saveTeam()" :disabled="!valid">Save</v-btn>
+        </v-card-actions>
+        </v-form>
+      </v-card>
+    </v-dialog> 
+    <v-dialog v-model="deleteDialog" max-width="290">
+      <v-card>
+        <v-card-title class="headline">Are you sure you want to delete? This cannot be undone!</v-card-title>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn  text @click="deleteDialog = false"> Cancel </v-btn>
+          <v-btn color="error" text @click="confirmDelete()">Delete</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>    
+  </v-app>
+</div>
+
+
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  <script>
+    var token = sessionStorage.access_token;
+    var conf = {headers: {
+    	Authorization: `Bearer ${token}`
+    }};
+    new Vue({
+      el: '#app',
+      vuetify: new Vuetify(),
+      data () {
+    	  return {
+    		  dialog: false,
+    		  deleteDialog: false,
+    		  valid: false,
+    		  loading: false,
+    		  unauthorized: false,
+    		  fieldRules: [
+    		        v => !!v || 'Field is required'
+    		      ],
+    		  teams: null,
+    		  candidates: [],
+    		  teamCandidates: [],
+    		  currTeam: {members: [], customData: {}},
+    		  initiative: INITIATIVE
+    	  }
+      },
+      created() {
+    	  console.log('Initializing');
+    	  this.load();
+      },
+      methods: {
+    	  logout() {
+    		     console.log('logout');
+              delete sessionStorage.access_token;
+              delete sessionStorage.access_token_expires_in;
+              window.location.href = AAC_ENDPOINT + '/logout?target=' + window.location.href; 
+    	  },
+    	  load() {
+    		    this.loading = true;
+  	        axios.get(`../../mgmt/${GAME_ID}/${INITIATIVE.initiative}/my`, conf).then((data) => {
+  	            this.teams = data.data;
+  	            axios.get(`../../mgmt/${GAME_ID}/${INITIATIVE.initiative}/team/candidates`, conf).then((data) => {
+  	              this.candidates = data.data;
+  	              this.loading = false;  	            	
+  	            });  	            
+ 	          }).catch(err => {
+                  console.log(err);
+                  this.unauthorized = err.response.status == 401;
+                  this.loading = false;                                   
+              });    		  
+    	  },
+    	  createNew() {
+    		  this.currTeam = {members: [], customData: {}};
+    		  this.dialog = true;
+    		  this.teamCandidates = this.candidates.slice();
+    	  },
+    	  editTeam(team) {
+    		  var editTeam = Object.assign({}, team);
+    		  this.currTeam = editTeam;
+          this.dialog = true;    		  
+          this.teamCandidates =  this.candidates.slice().concat(editTeam.members || []);
+    	  },
+    	  closeEdit() {
+          this.currTeam = {members: [], customData: {}};
+    		  this.dialog = false;
+    	  },
+    	  saveTeam() {
+    		  var copy = Object.assign({}, this.currTeam);
+          this.loading = true;
+ 	        axios.post(`../../mgmt/${GAME_ID}/${INITIATIVE.initiative}/team`, copy, conf).then((data) => {
+ 	            this.dialog = false;
+ 	            this.load();
+          });
+    	  },
+    	  view(team) {
+    		  window.open(`../../web/${GAME_ID}/${INITIATIVE.initiative}/board`, '_blank');
+    	  },
+    	  deleteTeam(team) {
+    		  this.currTeam = team;
+    		  this.deleteDialog = true;    		 
+    	  },
+    	  confirmDelete() {
+              axios.delete(`../../mgmt/${GAME_ID}/${INITIATIVE.initiative}/team/${this.currTeam.id}`, conf).then((data) => {
+                  this.deleteDialog = false;
+                  this.load();
+              });
+    	  }
+      }
+    })
+  </script>
+</body>
+
+</html>

@@ -233,6 +233,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     	}        	
     }        
     
+    @Configuration
+    @Order(28)
+	public static class OAuthSecurityConfig9 extends WebSecurityConfigurerAdapter {
+    	
+        @Bean(name="resourceFilter")
+        public OAuth2AuthenticationProcessingFilter getResourceFilter() throws Exception {
+        	OAuth2AuthenticationProcessingFilter rf = new OAuth2AuthenticationProcessingFilter();
+        	rf.setAuthenticationManager(authenticationManager());
+        	rf.setTokenExtractor(new CustomTokenExtractor());
+        	rf.setStateless(false);
+        	return rf;
+        }      	
+    	
+    	@Override
+    	public void configure(HttpSecurity http) throws Exception {
+    		http.csrf().disable();
+    		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    		
+    		http.antMatcher("/initiatives/**").authorizeRequests()
+    			.antMatchers("/initiatives/mgmt/**").fullyAuthenticated()
+    			.antMatchers("/initiatives/web/**").permitAll()
+    		.and()
+    		.addFilterBefore(getResourceFilter(), RequestHeaderAuthenticationFilter.class);	     		
+    	}        	
+    }   
     
     @Configuration
     @Order(30)                                                        
