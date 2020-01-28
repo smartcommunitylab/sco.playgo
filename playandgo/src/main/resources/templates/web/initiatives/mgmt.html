@@ -69,7 +69,7 @@
 <div id="app">
   <v-app> 
     <v-app-bar app >
-      <v-toolbar-title>Team Management</v-toolbar-title>
+      <v-toolbar-title th:text="#{teammgmt.title}">Team Management</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn icon>
         <v-icon @click="logout()">mdi-logout</v-icon>
@@ -81,8 +81,8 @@
         <v-icon dark>mdi-plus</v-icon>
       </v-btn>
 		  <v-container>
-		    <h1 v-if="teams != null && teams.length == 0" class="text-center">No teams defined. Create a new one.</h1>
-        <h1 color="error" v-if="!!unauthorized" class="text-center">You are not authorized to access this page. <v-btn color="error" @click="logout()">Exit</v-btn></h1>
+		    <h1 v-if="teams != null && teams.length == 0" class="text-center" th:text="#{teammgmt.noteams}">No teams defined. Create a new one.</h1>
+        <h1 color="error" v-if="!!unauthorized" class="text-center" th:text="#{teammgmt.noaccess}">You are not authorized to access this page. <v-btn color="error" @click="logout()" th:text="#{teammgmt.btn_exit}">Exit</v-btn></h1>
 		    
 		    <v-row>
 		      <v-col cols="12" v-for="team in teams">
@@ -92,14 +92,14 @@
 					        <v-list-item-title class="headline mb-1">
 					        <span v-for="(d, key, index) in team.customData"><b>{{key}}</b>: {{d}}<br></span>
 					        </v-list-item-title>
-					        <v-list-item-subtitle>{{(team.members || []).length}} members <span v-if="team.members && team.members.length > 0">({{team.members.join(', ')}})</span></v-list-item-subtitle>
+					        <v-list-item-subtitle>{{(team.members || []).length}} <span th:text="#{teammgmt.members}">members</span> <span v-if="team.members && team.members.length > 0">({{team.members.join(', ')}})</span></v-list-item-subtitle>
 					      </v-list-item-content>					
 					    </v-list-item>
 					
 					    <v-card-actions>
-                <v-btn color="primary" text @click="view(team)">View Board</v-btn>
-					      <v-btn color="primary" text @click="editTeam(team)">Edit</v-btn>
-					      <v-btn color="error" @click="deleteTeam(team)" text>Delete</v-btn>
+                <v-btn color="primary" text @click="view(team)" th:text="#{teammgmt.btn_view}">View Board</v-btn>
+					      <v-btn color="primary" text @click="editTeam(team)" th:text="#{teammgmt.btn_edit}">Edit</v-btn>
+					      <v-btn color="error" @click="deleteTeam(team)" text th:text="#{teammgmt.btn_delete}">Delete</v-btn>
 					    </v-card-actions>
 					  </v-card>
 		      </v-col>
@@ -113,7 +113,7 @@
       <v-card>
         <v-form ref="form" v-model="valid">
         <v-card-title>
-          <span class="headline">Team Edit</span>
+          <span class="headline" th:text="#{teammgmt.title_edit}">Team Edit</span>
         </v-card-title>
         <v-card-text>
           <v-container>
@@ -123,11 +123,11 @@
               </v-col>
               
               <v-col cols="12">
-              <v-autocomplete v-model="currTeam.members" :items="teamCandidates" chips deletable-chips label="Team Members" multiple>
+              <v-autocomplete v-model="currTeam.members" :items="teamCandidates" chips deletable-chips label="Team Members" th:attr="label=#{teammgmt.lbl_members}" multiple>
               </v-autocomplete>
               </v-col>
               <v-col cols="12">
-                <v-text-field :rules="fieldRules" type="number" v-model="currTeam.expected" label="Total number" required></v-text-field>
+                <v-text-field :rules="fieldRules" type="number" v-model="currTeam.expected" th:attr="label=#{teammgmt.lbl_total}" required></v-text-field>
               </v-col>
             </v-row>
             
@@ -135,19 +135,19 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="closeEdit()">Close</v-btn>
-          <v-btn color="blue darken-1" text @click="saveTeam()" :disabled="!valid">Save</v-btn>
+          <v-btn color="blue darken-1" text @click="closeEdit()" th:text="#{teammgmt.btn_close}">Close</v-btn>
+          <v-btn color="blue darken-1" text @click="saveTeam()" :disabled="!valid" th:text="#{teammgmt.btn_save}">Save</v-btn>
         </v-card-actions>
         </v-form>
       </v-card>
     </v-dialog> 
     <v-dialog v-model="deleteDialog" max-width="290">
       <v-card>
-        <v-card-title class="headline">Are you sure you want to delete? This cannot be undone!</v-card-title>
+        <v-card-title class="headline" th:text="#{teammgmt.confirm_delete}">Are you sure you want to delete? This cannot be undone!</v-card-title>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn  text @click="deleteDialog = false"> Cancel </v-btn>
-          <v-btn color="error" text @click="confirmDelete()">Delete</v-btn>
+          <v-btn  text @click="deleteDialog = false" th:text="#{teammgmt.btn_cancel}"> Cancel </v-btn>
+          <v-btn color="error" text @click="confirmDelete()"  th:text="#{teammgmt.btn_delete}">Delete</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>    

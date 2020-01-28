@@ -279,8 +279,8 @@
 		"id": "ChallengeFailedNotication",
 		"type": "challenge_failed",
 		"title": {
-			"it": "Sconfitta",
-			"en": "Failure"
+			"it": "Prova di nuovo!",
+			"en": "Try again!"
 		},
 		"description": {
 			"it": "Questa volta non hai vinto la sfida. Riprovaci ancora!",
