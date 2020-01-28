@@ -18,6 +18,8 @@ package eu.trentorise.smartcampus.mobility.gamificationweb;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -27,6 +29,8 @@ import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -63,6 +67,8 @@ import eu.trentorise.smartcampus.profileservice.model.AccountProfile;
  */
 @Controller
 public class PlayerTeamController {
+
+	private static transient final Logger logger = LoggerFactory.getLogger(PlayerTeamController.class);
 
 	@Autowired
 	private PlayerTeamRepository repo;
@@ -104,6 +110,7 @@ public class PlayerTeamController {
 					if (team.getMembers() != null && team.getMembers().size() > 0) score = score / team.getMembers().size();
 					res.setScore(score);
 				} catch (Exception e) {
+					logger.error("Error computing team score: "+ e.getMessage(), e);
 					res.setScore(0d);
 				}
 				return res;
@@ -257,7 +264,7 @@ public class PlayerTeamController {
 							ClassificationData classificationData = statusUtils.playerClassificationSince(string, player.getPlayerId(), m, from.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
 							score += classificationData.getScore();
 						} catch (Exception e) {
-							//
+							logger.error("Error computing team player score: "+ e.getMessage(), e);
 						}
 					}
 				};
