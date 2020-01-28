@@ -257,7 +257,7 @@ public class PlayerTeamController {
 					}
 				}
 				for (String m : team.getMembers()) {
-					Player player = playerRepo.findByNicknameIgnoreCaseAndGameId(m, gameId);
+					Player player = playerRepo.findByNicknameIgnoreCaseAndGameId("^"+m+"$", gameId);
 					if (player != null) {
 						try {
 							String string = gamificationCache.getPlayerState(player.getPlayerId(), appInfo.getAppId());
