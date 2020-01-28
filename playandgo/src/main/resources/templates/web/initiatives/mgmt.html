@@ -23,6 +23,11 @@
       CLIENT_ID = [[${clientId}]];
       GAME_ID = [[${gameId}]];
       INITIATIVE = [[${initiative}]];
+      
+      FIELD_REQUIRED = [[#{teammgmt.error_required}]];
+      TEAM_SIZE_LABEL = INITIATIVE.team_size_label || [[#{teammgmt.lbl_total}]];
+      TEAM_SIZE_ERROR = INITIATIVE.team_size_error || [[#{teammgmt.error_team_size}]];
+      
       /*]]>*/
     </script>
 
@@ -123,11 +128,11 @@
               </v-col>
               
               <v-col cols="12">
-              <v-autocomplete v-model="currTeam.members" :items="teamCandidates" chips deletable-chips label="Team Members" th:attr="label=#{teammgmt.lbl_members}" multiple>
-              </v-autocomplete>
+                <v-text-field :rules="fieldRules" type="number" v-model="currTeam.expected" :label="TEAM_SIZE_LABEL" required></v-text-field>
               </v-col>
               <v-col cols="12">
-                <v-text-field :rules="fieldRules" type="number" v-model="currTeam.expected" th:attr="label=#{teammgmt.lbl_total}" required></v-text-field>
+              <v-autocomplete v-model="currTeam.members" @input="searchInput=null" :search-input.sync="searchInput" :error-messages="!teamValid ? teamSizeError : null" :items="teamCandidates" chips deletable-chips label="Team Members" th:attr="label=#{teammgmt.lbl_members}" multiple>
+              </v-autocomplete>
               </v-col>
             </v-row>
             
@@ -136,7 +141,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="closeEdit()" th:text="#{teammgmt.btn_close}">Close</v-btn>
-          <v-btn color="blue darken-1" text @click="saveTeam()" :disabled="!valid" th:text="#{teammgmt.btn_save}">Save</v-btn>
+          <v-btn color="blue darken-1" text @click="saveTeam()" :disabled="!valid || !teamValid" th:text="#{teammgmt.btn_save}">Save</v-btn>
         </v-card-actions>
         </v-form>
       </v-card>
@@ -172,19 +177,29 @@
     		  valid: false,
     		  loading: false,
     		  unauthorized: false,
+    		  TEAM_SIZE_LABEL: TEAM_SIZE_LABEL,
     		  fieldRules: [
-    		        v => !!v || 'Field is required'
-    		      ],
+    		        v => !!v || FIELD_REQUIRED
+    		  ],
     		  teams: null,
     		  candidates: [],
     		  teamCandidates: [],
     		  currTeam: {members: [], customData: {}},
-    		  initiative: INITIATIVE
+    		  initiative: INITIATIVE,
+    		  searchInput: null
     	  }
       },
       created() {
     	  console.log('Initializing');
     	  this.load();
+      },
+      computed: {
+    	  teamValid() {
+    		  return this.currTeam.members.length >= Math.min(this.initiative.minTeamSize, this.currTeam.expected) 
+    	  },
+    	  teamSizeError() {
+    		  return TEAM_SIZE_ERROR.replace(/\{0\}/g, this.initiative.minTeamSize); 
+    	  }
       },
       methods: {
     	  logout() {

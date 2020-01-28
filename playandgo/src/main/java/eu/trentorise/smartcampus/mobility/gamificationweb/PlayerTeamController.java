@@ -145,6 +145,18 @@ public class PlayerTeamController {
 			}
 		}).filter(s -> s != null).collect(Collectors.toList());
 		list.sort((a,b) -> a.getScore() > b.getScore() ? -1 : a.getScore() < b.getScore() ? 1 : 0);
+		double points = -1;
+		for (int i = 0; i < list.size(); i++) {
+			TeamClassification c = list.get(i);
+			if (c.getScore() == null) c.setScore(0d);
+			if (c.getScore() != points) {
+				c.setPosition(i+1);
+			} else {
+				c.setPosition(list.get(i-1).getPosition());
+			}
+			points = c.getScore();
+		}
+		
 		return ResponseEntity.ok(list);
 	}
 
@@ -297,6 +309,7 @@ public class PlayerTeamController {
 	public static class TeamClassification {
 		private String id;
 		private Double score;
+		private int position;
 		private Map<String, String> customData;
 		public String getId() {
 			return id;
@@ -316,5 +329,12 @@ public class PlayerTeamController {
 		public void setCustomData(Map<String, String> customData) {
 			this.customData = customData;
 		}
+		public int getPosition() {
+			return position;
+		}
+		public void setPosition(int position) {
+			this.position = position;
+		}
+		
 	}
 }

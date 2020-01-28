@@ -40,14 +40,16 @@
           <template v-slot:default>
             <thead>
               <tr>
+                <th th:text="#{teamboard.position}">Position</th>
                 <th class="text-left" v-for="f in initiative.fields">{{f}}</th>
-                <th></th>
+                <th th:text="#{teamboard.points}">green leaves</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="team in teams" :key="team.id">
+                <td>{{team.position}}</td>
                 <td v-for="f in initiative.fields">{{ team.customData[f] }}</td>
-                <td>{{ team.score | fmt}}</td>
+                <td>{{ (team.score || 0) | fmt}}</td>
               </tr>
             </tbody>
           </template>
@@ -63,7 +65,7 @@
   <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
   <script>
 	  Vue.filter('fmt', function (value) {
-		  if (!value) return ''
+		  if (!value) return '0'
 		  return value.toFixed(0);
 		})
 

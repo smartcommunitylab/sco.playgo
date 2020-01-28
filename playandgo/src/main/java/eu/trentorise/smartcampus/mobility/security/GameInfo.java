@@ -74,8 +74,8 @@ public class GameInfo implements Serializable {
 
 
 	public static class Initiative {
-		private String initiative, accountMask, registrationDeadline, startDate;
-		private Integer bonusThreshold, bonus;
+		private String initiative, accountMask, registrationDeadline, startDate, team_size_label, team_size_error;
+		private Integer bonusThreshold, bonus, minTeamSize = 10;
 		
 		private List<String> fields;
 
@@ -133,6 +133,30 @@ public class GameInfo implements Serializable {
 
 		public void setBonus(Integer bonus) {
 			this.bonus = bonus;
+		}
+
+		public Integer getMinTeamSize() {
+			return minTeamSize;
+		}
+
+		public void setMinTeamSize(Integer minTeamSize) {
+			this.minTeamSize = minTeamSize;
+		}
+
+		public String getTeam_size_label() {
+			return team_size_label;
+		}
+
+		public void setTeam_size_label(String team_size_label) {
+			this.team_size_label = team_size_label;
+		}
+
+		public String getTeam_size_error() {
+			return team_size_error;
+		}
+
+		public void setTeam_size_error(String team_size_error) {
+			this.team_size_error = team_size_error;
 		}
 	}
 
