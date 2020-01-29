@@ -1,7 +1,9 @@
 package eu.trentorise.smartcampus.mobility.gamificationweb;
 
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -289,22 +291,19 @@ public class StatusUtils {
 							if (pc_name != null && pc_name.compareTo(PC_GREEN_LEAVES) == 0) {
 								JSONObject pc_period = (!point.isNull(PC_PERIODS)) ? point.getJSONObject(PC_PERIODS) : null;
 								if (pc_period != null) {
-									Iterator<String> keys = pc_period.keys();
-									while (keys.hasNext()) {
-										String key = keys.next();
-										JSONObject pc_weekly = pc_period.getJSONObject(key);
-										if (pc_weekly != null) {
-											JSONObject pc_instances = pc_weekly.getJSONObject(PC_INSTANCES);
-
-											if (pc_instances != null) {
-												Iterator<String> instancesKeys = pc_instances.keys();
-												while (instancesKeys.hasNext()) {
-													JSONObject pc_instance = pc_instances.getJSONObject(instancesKeys.next());
-													int instance_score = (!pc_instance.isNull(PC_SCORE)) ? pc_instance.getInt(PC_SCORE) : 0;
-													long instance_start = (!pc_instance.isNull(PC_START)) ? pc_instance.getLong(PC_START) : 0L;
-													if (timestamp <= instance_start) {
-														score += instance_score;
-													}
+									JSONObject pc_weekly = pc_period.getJSONObject(PC_WEEKLY);
+									if (pc_weekly != null) {
+										JSONObject pc_instances = pc_weekly.getJSONObject(PC_INSTANCES);
+										System.err.println("nickname: " + nickName);	
+										if (pc_instances != null) {
+											Iterator<String> instancesKeys = pc_instances.sortedKeys();
+											while (instancesKeys.hasNext()) {
+												JSONObject pc_instance = pc_instances.getJSONObject(instancesKeys.next());
+												int instance_score = (!pc_instance.isNull(PC_SCORE)) ? pc_instance.getInt(PC_SCORE) : 0;
+												long instance_start = (!pc_instance.isNull(PC_START)) ? pc_instance.getLong(PC_START) : 0L;
+												if (timestamp <= instance_start) {
+													System.err.println("  week: " + new Date(instance_start).toInstant().atZone(ZoneId.systemDefault()).toLocalDate() +" = " + instance_score);
+													score += instance_score;
 												}
 											}
 										}
