@@ -294,7 +294,7 @@ public class StatusUtils {
 									JSONObject pc_weekly = pc_period.getJSONObject(PC_WEEKLY);
 									if (pc_weekly != null) {
 										JSONObject pc_instances = pc_weekly.getJSONObject(PC_INSTANCES);
-										System.err.println("nickname: " + nickName);	
+//										System.err.println("nickname: " + nickName);	
 										if (pc_instances != null) {
 											Iterator<String> instancesKeys = pc_instances.sortedKeys();
 											while (instancesKeys.hasNext()) {
@@ -302,7 +302,7 @@ public class StatusUtils {
 												int instance_score = (!pc_instance.isNull(PC_SCORE)) ? pc_instance.getInt(PC_SCORE) : 0;
 												long instance_start = (!pc_instance.isNull(PC_START)) ? pc_instance.getLong(PC_START) : 0L;
 												if (timestamp <= instance_start) {
-													System.err.println("  week: " + new Date(instance_start).toInstant().atZone(ZoneId.systemDefault()).toLocalDate() +" = " + instance_score);
+//													System.err.println("  week: " + new Date(instance_start).toInstant().atZone(ZoneId.systemDefault()).toLocalDate() +" = " + instance_score);
 													score += instance_score;
 												}
 											}

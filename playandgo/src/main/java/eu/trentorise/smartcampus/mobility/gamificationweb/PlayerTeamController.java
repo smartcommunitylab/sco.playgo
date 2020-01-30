@@ -253,7 +253,7 @@ public class PlayerTeamController {
 			if (team.getMembers() != null && team.getMembers().size() > 0) {
 				if (obj.getBonusThreshold() != null && obj.getBonus() != null && team.getExpected() != null && team.getExpected() > 0) {
 					if (100.0* (team.getMembers().size() / team.getExpected()) > obj.getBonusThreshold()) {
-						score += obj.getBonus();
+						score += obj.getBonus() * team.getMembers().size();
 					}
 				}
 				for (String m : team.getMembers()) {
