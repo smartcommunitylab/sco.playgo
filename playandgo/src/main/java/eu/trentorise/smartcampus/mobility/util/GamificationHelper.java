@@ -184,12 +184,20 @@ public class GamificationHelper {
 
 	}
 
-	private static double[] compute(double v1, double a1, double v2, double a2, double distance) {
+	public static double[] compute(double v1, double a1, double v2, double a2, double distance) {
+		double d = 1000.0 * distance; // distance in meters
+		
+		// convert: meters to degree approx, considering 111km ~ 1
+		double a1m = a1 / 1000.0 / 111.0, a2m = a2 / 1000.0 / 111.0;
+		// projection
+		a1m = a1m * (v2 - v1) / distance;
+		a2m = a2m * (v2 - v1) / distance;
 		if ((a1 + a2) / 1000.0 > distance) {
-			double v = a1 > a2 ? (v2 - (v2 - v1) * a2 / a1) : (v1 + (v2 - v1) * a1 / a2);
+			// mid point
+			double v = (v1 + v2 + a1m -  a2m) / 2;
 			return new double[] { v, v };
 		}
-		return new double[] { v1 + (v2 - v1) * a1 / distance / 1000.0, v2 - (v2 - v1) * a2 / distance / 1000.0 };
+		return new double[] { v1 + a1m, v2 - a2m };
 	}
 
 	private static double[] computeLats(Geolocation p1, Geolocation p2, double distance) {
@@ -408,14 +416,4 @@ public class GamificationHelper {
 		
 		return convertTType(ttypes.iterator().next());
 	}	
-	
-	public static void main(String[] args) throws UnknownHostException, MongoException, SecurityException, RemoteException {
-		MongoTemplate mg = new MongoTemplate(new MongoClient("127.0.0.1", 37017), "mobility-logging");
-		List<Map> findAll = mg.findAll(Map.class, "forgamification");
-		for (Map m : findAll) {
-			m.remove("_id");
-			RemoteConnector.postJSON("http://localhost:8900", "/execute", JsonUtils.toJSON(m), null);
-		}
-	}
-
 }
