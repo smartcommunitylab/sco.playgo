@@ -248,7 +248,7 @@ public class PlayerTeamController {
 		PlayerTeam team = repo.findById(teamId).orElse(null);
 		AppInfo appInfo = appSetup.findAppsByGameId(gameId).get(0);
 		LocalDate from = LocalDate.parse(obj.getStartDate());
-		if (team != null) {
+		if (team != null && !LocalDate.now().isBefore(from)) {
 			double score = 0;
 			if (team.getMembers() != null && team.getMembers().size() > 0) {
 				if (obj.getBonusThreshold() != null && obj.getBonus() != null && team.getExpected() != null && team.getExpected() > 0) {
