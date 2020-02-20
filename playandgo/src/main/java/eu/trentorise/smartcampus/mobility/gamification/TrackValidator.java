@@ -148,6 +148,7 @@ public class TrackValidator {
 		
 		// preprocess
 		status.computeAccuracy(points);
+//		System.err.println(GamificationHelper.encodePoly(points));
 		points = removeStarredClusters(points);
 		points = preprocessTrack(points);
 		TrackValidator.shortenByHighSpeed(points);
@@ -298,9 +299,9 @@ public class TrackValidator {
 	}
 	
 	private static List<List<Geolocation>> computeAngles(List<Geolocation> points) {
-		List<List<Geolocation>> groups = Lists.newArrayList();
-		List<Integer> angles1 = Lists.newArrayList();
-		List<Integer> indexes = Lists.newArrayList();
+		List<List<Geolocation>> groups = Lists.newLinkedList();
+		List<Integer> indexes = Lists.newLinkedList();
+		int idx = 0;
 		for (int i = 1; i < points.size() - 1; i++) {
 			double d1 = GamificationHelper.harvesineDistance(points.get(i).getLatitude(), points.get(i).getLongitude(), points.get(i - 1).getLatitude(), points.get(i - 1).getLongitude());
 			double d2 = GamificationHelper.harvesineDistance(points.get(i).getLatitude(), points.get(i).getLongitude(), points.get(i + 1).getLatitude(), points.get(i + 1).getLongitude());
@@ -308,38 +309,60 @@ public class TrackValidator {
 
 			double a1 = (Math.acos((d1 * d1 + d2 * d2 - d3 * d3) / (2 * d1 * d2)));
 
-			angles1.add((int)Math.toDegrees(a1));
-		}
-
-		for (int i = 0; i < angles1.size(); i++) {
-			if (Math.abs(angles1.get(i)) < 90) {
-				indexes.add(i);
+			double angle = Math.toDegrees(a1); 
+			if (Math.abs(angle) < 30) {
+				indexes.add(idx);
 			}
+			idx++;
 		}
 
 		int start = -1;
 		int end = -1;
 		for (int i = 1; i < indexes.size(); i++) {
-			if (indexes.get(i) - indexes.get(i - 1) == 1 && start == -1) {
+			// initialize first star
+			if (start == -1) {
 				start = i - 1;
 			}
-			if (start != -1 && indexes.get(i) - indexes.get(i - 1) > 5) {
+			// end star
+			if (start != -1 && indexes.get(i) - indexes.get(i - 1) > 1) {
 				end = i - 1;
 			}
+			// close the last star
 			if (i == indexes.size() - 1 && start != -1) {
 				end = i;
 			}
-			if (start != -1 && end != -1 && (end - start >= 20)) {
-				List<Geolocation> group = Lists.newArrayList();
-				for (int j = indexes.get(start); j <= indexes.get(end); j++) {
+			// compute group
+			if (end != -1) {
+				List<Geolocation> group = Lists.newLinkedList();
+				for (int j = indexes.get(start); j <= indexes.get(end) + 1; j++) {
 					group.add(points.get(j));
 				}
 				groups.add(group);
-			}
-			if (start != -1 && end != -1) {
 				start = -1;
 				end = -1;
 			}
+
+			
+//			if (indexes.get(i) - indexes.get(i - 1) == 1 && start == -1) {
+//				start = i - 1;
+//			}
+//			if (start != -1 && indexes.get(i) - indexes.get(i - 1) > 5) {
+//				end = i - 1;
+//			}
+//			if (i == indexes.size() - 1 && start != -1) {
+//				end = i;
+//			}
+//			if (start != -1 && end != -1 && (end - start >= 20)) {
+//				List<Geolocation> group = Lists.newArrayList();
+//				for (int j = indexes.get(start); j <= indexes.get(end); j++) {
+//					group.add(points.get(j));
+//				}
+//				groups.add(group);
+//			}
+//			if (start != -1 && end != -1) {
+//				start = -1;
+//				end = -1;
+//			}
 		}
 		
 		return groups;
