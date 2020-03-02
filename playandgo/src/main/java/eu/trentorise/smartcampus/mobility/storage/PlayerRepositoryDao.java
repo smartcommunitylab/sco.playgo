@@ -25,6 +25,8 @@ public interface PlayerRepositoryDao extends CrudRepository<Player, String>{
 
 	Player findByGameIdAndMail(String gameId, String mail);
 
+	@Query(value="{'gameId' : ?0}", fields="{nickname: 1}")
+	List<Player> findNicknames(String gameId);
 	
 	Iterable<Player> findAllByCheckedRecommendationAndGameId(boolean recommendation, String gameId);
 	

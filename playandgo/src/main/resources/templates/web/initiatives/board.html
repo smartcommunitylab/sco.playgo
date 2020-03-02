@@ -1,0 +1,99 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.thymeleaf.org"
+	th:with="lang=${#locale.language}" th:lang="${lang}">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- Bootstrap core CSS -->
+<link href="../../../../css/bootstrap.min.css" rel="stylesheet" />
+<!-- Custom styles for this template -->
+<link href="../../../../css/gg_style.css" rel="stylesheet" />
+
+<!-- required libraries -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="../../../../lib/bootstrap.min.js"></script>
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+      GAME_ID = [[${gameId}]];
+      INITIATIVE = [[${initiative}]];
+      /*]]>*/
+    </script>
+    
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui"/>
+    
+</head>
+
+<body>
+
+<div id="app">
+  <v-app> 
+    <v-content> 
+		  <v-container>
+        <v-simple-table>
+          <template v-slot:default>
+            <thead>
+              <tr>
+                <th th:text="#{teamboard.position}">Position</th>
+                <th class="text-left" v-for="f in initiative.fields">{{f}}</th>
+                <th th:text="#{teamboard.points}">green leaves</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="team in teams" :key="team.id">
+                <td>{{team.position}}</td>
+                <td v-for="f in initiative.fields">{{ team.customData[f] }}</td>
+                <td>{{ (team.score || 0) | fmt}}</td>
+              </tr>
+            </tbody>
+          </template>
+        </v-simple-table>
+		  </v-container> 
+	  </v-content>
+	  
+  </v-app>
+</div>
+
+
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  <script>
+	  Vue.filter('fmt', function (value) {
+		  if (!value) return '0'
+		  return value.toFixed(0);
+		})
+
+    new Vue({
+      el: '#app',
+      vuetify: new Vuetify(),
+      data () {
+    	  return {
+    		  loading: false,
+    		  teams: null,
+    		  initiative: INITIATIVE
+    	  }
+      },
+      created() {
+    	  console.log('Initializing');
+    	  this.load();
+      },
+      methods: {
+    	  load() {
+    		    this.loading = true;
+  	        axios.get(`../../../web/${GAME_ID}/${INITIATIVE.initiative}/board/rest`).then((data) => {
+  	            this.teams = data.data;
+ 	              this.loading = false;  	            	
+ 	          });    		  
+    	  }
+      }
+    })
+  </script>
+</body>
+
+</html>

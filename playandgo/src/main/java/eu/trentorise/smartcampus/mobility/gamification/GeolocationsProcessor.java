@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -47,6 +48,8 @@ public class GeolocationsProcessor {
 
 	private static final String TRAVEL_ID = "travelId";
 	public static final String START_TIME = "startTime";
+	private static final int MAX_LOCATIONS = 10000;
+	
 
 	@Autowired
 	private DomainStorage storage;
@@ -106,7 +109,22 @@ public class GeolocationsProcessor {
 				}
 
 				for (TrackedInstance ti : instances) {
+					// limit number of points to avoid failure of saving data
+					if (ti.getGeolocationEvents() != null) {
+						int mul = 1; 
+						while (ti.getGeolocationEvents().size() > (mul * MAX_LOCATIONS)) mul++;
+						if (mul > 1) {
+							logger.info("TOO MANY GEOLOCATION EVENTS, user: " + userId + ", travel: " + ti.getId() + ", " + ti.getGeolocationEvents().size() + " events.");
+							List<Geolocation> src = new LinkedList<>(ti.getGeolocationEvents());
+							List<Geolocation> res = new LinkedList<>();
+							for (int i = 0; i < src.size(); i += mul) {
+								res.add(src.get(i));
+							}
+							ti.setGeolocationEvents(res);
+						}
+					}
 					sendTrackedInstance(userId, appId, ti);
+
 					storage.saveTrackedInstance(ti);
 					logger.info("Saved geolocation events, user: " + userId + ", travel: " + ti.getId() + ", " + ti.getGeolocationEvents().size() + " events.");
 				}

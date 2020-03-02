@@ -1,7 +1,9 @@
 package eu.trentorise.smartcampus.mobility.gamificationweb;
 
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -255,6 +257,65 @@ public class StatusUtils {
 					playerClass.setPosition(-1); // used for user without
 													// nickName
 				}
+			}
+
+		}
+		return playerClass;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public ClassificationData playerClassificationSince(String profile, String playerId, String nickName, Long timestamp) throws JSONException {
+		ClassificationData playerClass = new ClassificationData();
+		if (profile != null && !profile.isEmpty()) {
+
+			int score = 0;
+			// long time = (timestamp == null || timestamp.longValue() == 0L) ?
+			// System.currentTimeMillis() : timestamp.longValue();
+			// int weekNum = getActualWeek(time, type);
+
+			JSONObject profileData = new JSONObject(profile);
+			JSONObject stateData = (!profileData.isNull(STATE)) ? profileData.getJSONObject(STATE) : null;
+			// System.out.println("My state " + stateData.toString());
+			JSONArray pointConceptData = null;
+			if (stateData != null) {
+				pointConceptData = (!stateData.isNull(POINT_CONCEPT)) ? stateData.getJSONArray(POINT_CONCEPT) : null;
+				if (pointConceptData != null) {
+					for (int i = 0; i < pointConceptData.length(); i++) {
+						JSONObject point = pointConceptData.getJSONObject(i);
+						String pc_name = (!point.isNull(PC_NAME)) ? point.getString(PC_NAME) : null;
+						if (timestamp == null || timestamp.longValue() == 0L) { // global
+							if (pc_name != null && pc_name.compareTo(PC_GREEN_LEAVES) == 0) {
+								score = (!point.isNull(PC_SCORE)) ? point.getInt(PC_SCORE) : null;
+							}
+						} else { // specific week
+							if (pc_name != null && pc_name.compareTo(PC_GREEN_LEAVES) == 0) {
+								JSONObject pc_period = (!point.isNull(PC_PERIODS)) ? point.getJSONObject(PC_PERIODS) : null;
+								if (pc_period != null) {
+									JSONObject pc_weekly = pc_period.getJSONObject(PC_WEEKLY);
+									if (pc_weekly != null) {
+										JSONObject pc_instances = pc_weekly.getJSONObject(PC_INSTANCES);
+//										System.err.println("nickname: " + nickName);	
+										if (pc_instances != null) {
+											Iterator<String> instancesKeys = pc_instances.sortedKeys();
+											while (instancesKeys.hasNext()) {
+												JSONObject pc_instance = pc_instances.getJSONObject(instancesKeys.next());
+												int instance_score = (!pc_instance.isNull(PC_SCORE)) ? pc_instance.getInt(PC_SCORE) : 0;
+												long instance_start = (!pc_instance.isNull(PC_START)) ? pc_instance.getLong(PC_START) : 0L;
+												if (timestamp <= instance_start) {
+//													System.err.println("  week: " + new Date(instance_start).toInstant().atZone(ZoneId.systemDefault()).toLocalDate() +" = " + instance_score);
+													score += instance_score;
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				playerClass.setNickName(nickName);
+				playerClass.setPlayerId(playerId);
+				playerClass.setScore(score);
 			}
 
 		}
