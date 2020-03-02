@@ -9,7 +9,7 @@
   },
   {
     "file": "css/style.css",
-    "hash": "9ea07f932c51047c25685cc508fbcbb5"
+    "hash": "b2f1780c8f75b13c1044e1ceb138c092"
   },
   {
     "file": "data/bus.csv",
@@ -409,7 +409,7 @@
   },
   {
     "file": "js/app.js",
-    "hash": "51930066f47e1930d1a85b9a16eefc65"
+    "hash": "be479cbfa03c2656f5fb0fcf7b7603f7"
   },
   {
     "file": "js/controllers/BookmarksCtrl.js",
@@ -417,7 +417,7 @@
   },
   {
     "file": "js/controllers/CommonCtrl.js",
-    "hash": "e0b1a0c807a350442a5050e05e404445"
+    "hash": "b13b35909e8a3b7b1a837b4db218300b"
   },
   {
     "file": "js/controllers/GameCtrl.js",
@@ -1197,7 +1197,7 @@
   },
   {
     "file": "templates/menu.html",
-    "hash": "f54b45bf76a1f17029e358daded0ecc3"
+    "hash": "39e26a3fd88fab973d536802f2f24309"
   },
   {
     "file": "templates/mobility.html",

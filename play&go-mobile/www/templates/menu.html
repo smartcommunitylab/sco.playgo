@@ -16,9 +16,6 @@
 	<ion-side-menu-content drag-menu-content="false" edge-drag-threshold="true">
 		<ion-nav-bar class="bar-positive-100" ng-class="{expanded: isExpanded, 'has-header-fab-left': hasHeaderFabLeft, 'has-header-fab-right': hasHeaderFabRight}"
 		 align-title="left">
-			<!-- <ion-nav-back-button class="no-text">
-			</ion-nav-back-button> -->
-
 			<ion-nav-buttons side="left">
 				<button class="button button-clear" ng-if="!isHomePages();" ng-click="goBackView()">
 					<i class="ion-android-arrow-back" style="font-size:30px;"></i>
@@ -79,6 +76,9 @@
 						</ion-item>
 					</div>
 				</div>
+				<ion-item class="item item-icon-left item-icon-right menu-main" nav-clear menu-close ng-click="openSchool()" class="menu-main item-icon-left">
+					<i class="icon ion-university"></i>{{'high_school_label' | translate}}<i class="icon ion-android-bulb icon-high-school"></i>
+				</ion-item>
 				<ion-item nav-clear menu-close ng-click="openPrizes()" class="menu-main item-icon-left">
 					<i class="icon ic_prize"></i>{{'registration_prizes' | translate}}
 				</ion-item>
