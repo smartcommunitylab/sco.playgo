@@ -264,7 +264,13 @@ angular.module('viaggia.controllers.common', [])
       var url = Config.getGamificationURL() + "/prizes";
       window.open(url, "_system", "location=yes");
     };
-
+    $scope.openSchool = function () {
+      if (!!$scope.firstOpenPopup) {
+        $scope.firstOpenPopup.close();
+      }
+      var url = "https://www.smartcommunitylab.it/playgo-high-school-challenge/";
+      window.open(url, "_system", "location=yes");
+    };
     $scope.forceTutorial = function () {
       if (!!$scope.firstOpenPopup) {
         $scope.firstOpenPopup.close();

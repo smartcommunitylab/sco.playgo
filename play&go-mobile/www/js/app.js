@@ -1598,7 +1598,9 @@ angular.module('viaggia', [
       track_bus:"Autobus",
       track_cable:"Funivia",
       track_train:"Treno",
-      gamification_engine_choosing:"Il sistema sta scegliendo una sfida di coppia per te. Abreve la potrai visualizzare"
+      gamification_engine_choosing:"Il sistema sta scegliendo una sfida di coppia per te. Abreve la potrai visualizzare",
+      high_school_label: "High School Challenge"
+
 
     });
 
@@ -2161,7 +2163,8 @@ angular.module('viaggia', [
       track_bus:"Bus",
       track_cable:"Cable car",
       track_train:"Train",
-      gamification_engine_choosing:"The system is choosing a group challenge for you. Shortly you will see it here"
+      gamification_engine_choosing:"The system is choosing a group challenge for you. Shortly you will see it here",
+      high_school_label: "High School Challenge"
 
     });
 
