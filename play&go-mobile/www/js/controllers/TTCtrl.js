@@ -11,6 +11,23 @@ angular.module('viaggia.controllers.timetable', ['ionic'])
 
         $scope.hasMap = false;
         $scope.allMarkers = null;
+        $scope.titleCorona = $filter('translate')('label_warning_corona_title');
+        $scope.subtitleCorona = $filter('translate')('label_warning_corona_message');
+        $scope.openPopUp = function () {
+            $scope.messageCorona = $filter('translate')('label_warning_corona_extended');
+            $scope.alertPopup = $ionicPopup.alert({
+                title:$scope.titleCorona,
+                templateUrl: 'templates/coronaPopup.html',
+                scope: $scope,
+                cssClass: 'coronaPopup'
+            });
+
+            $scope.alertPopup.then(function (res) {
+            });
+        }
+        $scope.closePopup = function () {
+            $scope.alertPopup.close();
+        }
 
         $scope.selectElement = function (e) {
             // route element: go to table
@@ -124,7 +141,7 @@ angular.module('viaggia.controllers.timetable', ['ionic'])
 
     })
 
-    .controller('TTCtrl', function ($scope, $state, $location, $stateParams, $ionicPosition, $ionicScrollDelegate, $timeout, $filter, ttService, Config, Toast, bookmarkService, $ionicLoading, profileService) {
+    .controller('TTCtrl', function ($scope, $state,$ionicPopup, $location, $stateParams, $ionicPosition, $ionicScrollDelegate, $timeout, $filter, ttService, Config, Toast, bookmarkService, $ionicLoading, profileService) {
         $scope.data = [];
         var biggerTable = false;
         $scope.tableStyle = profileService.isLittleSize() ? 'ic_text_size_outline' : 'ic_text_size';
@@ -215,6 +232,23 @@ angular.module('viaggia.controllers.timetable', ['ionic'])
             var firstRowHeight = 28;
             $scope.scrollHeight = window.innerHeight - headerHeight;
         };
+        $scope.openCorona = function () {
+            $scope.messageCorona = $filter('translate')('label_warning_corona_extended');
+            $scope.titleCorona = $filter('translate')('label_warning_corona_title');
+            $scope.alertPopup = $ionicPopup.alert({
+                 title:$scope.titleCorona,
+                templateUrl: 'templates/coronaPopup.html',
+                scope: $scope,
+                cssClass: 'coronaPopup'
+            });
+
+            $scope.alertPopup.then(function (res) {
+            });
+            $scope.closePopup = function () {
+                $scope.alertPopup.close();
+            }
+        }
+
         $scope.changeStyleTable = function () {
             var actualPosition = {};
             var actualCol = 0;

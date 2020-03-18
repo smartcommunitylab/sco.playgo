@@ -172,10 +172,10 @@ angular.module('viaggia', [
       $ionicLoading.hide();
     }
     var resetCache = function () {
-      localStorage.removeItem(Config.getAppId() + "_diaryRefresh") ;
-      localStorage.removeItem(Config.getAppId() + "_challengesRefresh") ;
-      localStorage.removeItem(Config.getAppId() + "_homeRefresh") ;
-      localStorage.removeItem(Config.getAppId() + "_rankingRefresh") ;
+      localStorage.removeItem(Config.getAppId() + "_diaryRefresh");
+      localStorage.removeItem(Config.getAppId() + "_challengesRefresh");
+      localStorage.removeItem(Config.getAppId() + "_homeRefresh");
+      localStorage.removeItem(Config.getAppId() + "_rankingRefresh");
     }
     $ionicPlatform.ready(function () { // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -205,7 +205,7 @@ angular.module('viaggia', [
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       }
       if (window.StatusBar) {
-        StatusBar.overlaysWebView(true);            
+        StatusBar.overlaysWebView(true);
         StatusBar.styleDefault();
       }
       //        GeoLocate.initLocalization().then(function () {
@@ -352,7 +352,7 @@ angular.module('viaggia', [
       // }
 
       $ionicPlatform.registerBackButtonAction(function () {
-        if ($state.current.name === "app.home.leaderboards" || $state.current.name === "app.home.diary" || $state.current.name === "app.home.mobility"|| $state.current.name.startsWith("app.profile.")) {
+        if ($state.current.name === "app.home.leaderboards" || $state.current.name === "app.home.diary" || $state.current.name === "app.home.mobility" || $state.current.name.startsWith("app.profile.")) {
           $ionicHistory.nextViewOptions({
             disableBack: true,
             historyRoot: true
@@ -446,7 +446,7 @@ angular.module('viaggia', [
       // })
       .state('app.home', {
         cache: true,
-        abstract:true,
+        abstract: true,
         url: "/home",
         views: {
           'menuContent': {
@@ -498,8 +498,8 @@ angular.module('viaggia', [
         url: "/challenges",
         params: {
           challengeEnd: null,
-          challengeStart:null,
-          unlock:false
+          challengeStart: null,
+          unlock: false
         },
         views: {
           'tab-challenges': {
@@ -1416,7 +1416,7 @@ angular.module('viaggia', [
       "no_challengables": "Al momento non ci sono giocatori disponibili",
       "no_badges": "Al momento non ci sono badges",
       "no_challenges_old": "Nessuna sfida trovata",
-      no_ranking:"Nessuna classifica trovata",
+      no_ranking: "Nessuna classifica trovata",
       no_statistics: "Nessuna statistica trovata",
       pop_up_invalid_tracking_title: "Viaggio non valido",
       pop_up_invalid_tracking_template: "Le caratteristiche del viaggio fatto non corrispondono al mezzo di trasporto specificato. I punti non saranno assegnati.",
@@ -1533,7 +1533,7 @@ angular.module('viaggia', [
       btn_challenge_choose: "Scegli chi sfidare",
       lbl_challenge_configure_type: "Come preferisci affrontare la sfida?",
       lbl_challenge_configure_opponent: "Scegli il tuo avversario",
-      lbl_challenge_configure_friend:"Scegli il tuo compagno",
+      lbl_challenge_configure_friend: "Scegli il tuo compagno",
       home_configure_challenge: "Configura la sfida",
       lbl_challenge_choose_from_list: "Seleziona da lista",
       ph_challenge_nick: "Cerca per nickname",
@@ -1568,40 +1568,49 @@ angular.module('viaggia', [
       payload_large: "Immagine troppo grande",
       payload_unsupported: "Immagine non sopportata",
       toast_type_unlocked: "Tipologia di sfida sbloccata!",
-      groupCompetitivePerformance_desc_short:"Chi la dura la vince",
-      groupCompetitivePerformance_desc_long:"Sfida un altro giocatore su un obiettivo a scelta. Chi, al termine della settimana avrà ottenuto un risultato migliore vince.",
-      groupCompetitiveTime_desc_short:"Vinca il più veloce",
-      groupCompetitiveTime_desc_long:"Sfida un altro giocatore in una gara a tempo. Vince chi raggiunge per primo l'obiettivo.",
-      groupCooperative_desc_short:"L'unione fa la forza",
-      groupCooperative_desc_long:"Invita un altro utente a giocare con te su un obiettivo comune. Vincerete se, al termine della settimana, la somma dei vostri risultati raggiungerà l'obiettivo.",
-      Walk_Km:" Km",
-      Bike_Km:" Km",
-      Green_Leaves:"Green Leaves",
-      lbl_chall_blacklist:"Il giocatore che hai cercato non e’ sfidabile. Questo succede quando si verifica una o più delle seguenti condizioni: il giocatore ha un livello troppo alto (o basso) rispetto al tuo, il giocatore ha già ricevuto tre richieste, il giocatore ha già programmato la sfida per la prossima settimana, il giocatore ti ha inserito nella sua blacklist o tu hai inserito il giocatore nella tua blacklist.",
-      lbl_insert_nickname:"Inserisci il nickname del giocatore",
-      lbl_challenge_percentage:"Percentuale:",
-      lbl_challenge_threshold:"Threshold:",
-      home_unlock_challenge:"Sblocca una nuova sfida",
-      lbl__challenge_cant_see_player:"Perche’ non riesco a trovare un giocatore?",
-      no_blacklist:"Nessuna blacklist trovata",
-      lbl_chall_user_not_available_title:"Utente non disponibile",
-      lbl_chall_user_not_available:"L'utente selezionato non e’ più disponibile. Selezionare un altro giocatore",
-      user_level_index:"Lvl. ",
-      search_name:"Inserisci il nickname",
-      pop_up_exit:"Uscire dall'applicazione?",
-      pop_up_exit_template:"Sei sicuro di voler uscire dall'applicazione?",
-      blacklist_add_toast:"Giocatore aggiunto alla blacklist",
-      blacklist_removed_toast:"Player removed to the blacklist",
-      track_feet:"Piedi",
-      track_bike:"Bici",
-      track_run:"Corsa",
-      track_bus:"Autobus",
-      track_cable:"Funivia",
-      track_train:"Treno",
-      gamification_engine_choosing:"Il sistema sta scegliendo una sfida di coppia per te. Abreve la potrai visualizzare",
-      high_school_label: "High School Challenge"
-
-
+      groupCompetitivePerformance_desc_short: "Chi la dura la vince",
+      groupCompetitivePerformance_desc_long: "Sfida un altro giocatore su un obiettivo a scelta. Chi, al termine della settimana avrà ottenuto un risultato migliore vince.",
+      groupCompetitiveTime_desc_short: "Vinca il più veloce",
+      groupCompetitiveTime_desc_long: "Sfida un altro giocatore in una gara a tempo. Vince chi raggiunge per primo l'obiettivo.",
+      groupCooperative_desc_short: "L'unione fa la forza",
+      groupCooperative_desc_long: "Invita un altro utente a giocare con te su un obiettivo comune. Vincerete se, al termine della settimana, la somma dei vostri risultati raggiungerà l'obiettivo.",
+      Walk_Km: " Km",
+      Bike_Km: " Km",
+      Green_Leaves: "Green Leaves",
+      lbl_chall_blacklist: "Il giocatore che hai cercato non e’ sfidabile. Questo succede quando si verifica una o più delle seguenti condizioni: il giocatore ha un livello troppo alto (o basso) rispetto al tuo, il giocatore ha già ricevuto tre richieste, il giocatore ha già programmato la sfida per la prossima settimana, il giocatore ti ha inserito nella sua blacklist o tu hai inserito il giocatore nella tua blacklist.",
+      lbl_insert_nickname: "Inserisci il nickname del giocatore",
+      lbl_challenge_percentage: "Percentuale:",
+      lbl_challenge_threshold: "Threshold:",
+      home_unlock_challenge: "Sblocca una nuova sfida",
+      lbl__challenge_cant_see_player: "Perche’ non riesco a trovare un giocatore?",
+      no_blacklist: "Nessuna blacklist trovata",
+      lbl_chall_user_not_available_title: "Utente non disponibile",
+      lbl_chall_user_not_available: "L'utente selezionato non e’ più disponibile. Selezionare un altro giocatore",
+      user_level_index: "Lvl. ",
+      search_name: "Inserisci il nickname",
+      pop_up_exit: "Uscire dall'applicazione?",
+      pop_up_exit_template: "Sei sicuro di voler uscire dall'applicazione?",
+      blacklist_add_toast: "Giocatore aggiunto alla blacklist",
+      blacklist_removed_toast: "Player removed to the blacklist",
+      track_feet: "Piedi",
+      track_bike: "Bici",
+      track_run: "Corsa",
+      track_bus: "Autobus",
+      track_cable: "Funivia",
+      track_train: "Treno",
+      gamification_engine_choosing: "Il sistema sta scegliendo una sfida di coppia per te. Abreve la potrai visualizzare",
+      high_school_label: "High School Challenge",
+      pop_up_not_expired_template: 'Questa  è una versione di prova e terminerà il ',
+      label_warning_corona_title: 'ATTENZIONE: nuove misure di contenimento COVID-19',
+      label_warning_corona_message: '<b>Tra lunedi e sabato</b>, tutte le corse seguono l\'orario festivo.<br> <b>La domenica ed i festivi </b>tutte le corse sono sospese.<br>Tocca per ulteriori INFO',
+      label_warning_corona_extended: '<b>NUOVE MISURE CONTENIMENTO CORONAVIRUS:</b> <br>\
+- azzeramento servizio festivo  <br>\
+- applicazione orario festivo a giornate feriali lun/sab  <br>\
+- istituzione servizio a chiamata elastibus  <br>\
+<b>Per esigenze di lavoro e urgenti ragioni sanitarie </b> (comprese le necessità di recarsi da parenti non autosufficienti) sarà possibile <b>contattare il numero verde 800390270 (Elastibus) </b>tutti i giorni dalle 8.00 alle 17.00, per richiedere uno specifico trasporto gratuito, purché la richiesta arrivi entro le 17 del giorno precedente. I servizi di trasporto (gratuiti) saranno svolti dalle imprese del Consorzio Trentino Autonoleggiatori. <br>\
+<br>\
+<b>I provvedimenti hanno validità a tempo indeterminato, fino a revoca da parte delle Autorità Competenti che li hanno deliberati. <br>\
+<br>'
     });
 
     $translateProvider.translations('en', {
@@ -1983,7 +1992,7 @@ angular.module('viaggia', [
       "no_badges": "No badges at the moment",
       "no_challenges_old": "No challenges found",
       "no_statistics": "No data found",
-      no_ranking:"No ranking found",
+      no_ranking: "No ranking found",
       pop_up_invalid_tracking_title: "The trip is not valid",
       pop_up_invalid_tracking_template: "Trip details are not compatible with the type of transport chosen to track the trip. No Green Leaves Points will be awarded for this trip.",
       pop_up_plan: "Plan",
@@ -2098,7 +2107,7 @@ angular.module('viaggia', [
       btn_challenge_choose: "Choose your opponent ",
       lbl_challenge_configure_type: "Come preferisci affrontare la sfida?",
       lbl_challenge_configure_opponent: "Choose your partner",
-      lbl_challenge_configure_friend:"Choose your opponent",
+      lbl_challenge_configure_friend: "Choose your opponent",
       home_configure_challenge: "Challenge settings",
       lbl_challenge_choose_from_list: "Select form the list",
       ph_challenge_nick: "Insert nickname",
@@ -2133,38 +2142,49 @@ angular.module('viaggia', [
       payload_large: "Payload too large",
       payload_unsupported: "Unsupported media type",
       toast_type_unlocked: "Type of challenge unlocked!",
-      groupCompetitivePerformance_desc_short:" Who endures wins",
-      groupCompetitivePerformance_desc_long:"Choose the goal and challenge another player. At the end of the week, the one giving the best performance will be the winner.",
-      groupCompetitiveTime_desc_short:" May the fastest win",
-      groupCompetitiveTime_desc_long:" Challenge another player in a speed competition. The one that reaches the goal first wins.",
-      groupCooperative_desc_short:"Unity is strength",
-      groupCooperative_desc_long:"Invite another user to play with you on a common goal. To win, the sum of what you do individually during the week has to be at least equal to the target of the challenge.",
-      Walk_Km:" Km",
-      Bike_Km:" Km",
-      Green_Leaves:"Green Leaves",
-      lbl_chall_blacklist:"You cannot invite the player to a challenge. This happens when one or more of the following applies: the player has a too much higher (or lower) level in comparison to yours, the player has already received three requests, the player has already programmed the challenge for the next week, the player blacklisted you, or you blacklisted the player.",
-      lbl_insert_nickname:"Insert the player's nickname",
-      lbl_challenge_percentage:"Percentage:",
-      lbl_challenge_threshold:"Threshold:",
-      home_unlock_challenge:"Unlock a new challenge",
-      lbl__challenge_cant_see_player:"Why can't I find a player?",
-      no_blacklist:"No blacklist found",
-      lbl_chall_user_not_available_title:"User not available",
-      lbl_chall_user_not_available:"Selected user is not available anymore. Please, select a different one" ,
-      user_level_index:"Lvl. ",
-      search_name:"Insert the nickname",
-      pop_up_exit:"Exit?",
-      pop_up_exit_template:"Are you sure you want to exit?",
-      blacklist_add_toast:"Player added to the blacklist",
-      blacklist_removed_toast:"Player removed to the blacklist" ,
-      track_feet:"Walk",
-      track_bike:"Bike",
-      track_run:"Run",
-      track_bus:"Bus",
-      track_cable:"Cable car",
-      track_train:"Train",
-      gamification_engine_choosing:"The system is choosing a group challenge for you. Shortly you will see it here",
-      high_school_label: "High School Challenge"
+      groupCompetitivePerformance_desc_short: " Who endures wins",
+      groupCompetitivePerformance_desc_long: "Choose the goal and challenge another player. At the end of the week, the one giving the best performance will be the winner.",
+      groupCompetitiveTime_desc_short: " May the fastest win",
+      groupCompetitiveTime_desc_long: " Challenge another player in a speed competition. The one that reaches the goal first wins.",
+      groupCooperative_desc_short: "Unity is strength",
+      groupCooperative_desc_long: "Invite another user to play with you on a common goal. To win, the sum of what you do individually during the week has to be at least equal to the target of the challenge.",
+      Walk_Km: " Km",
+      Bike_Km: " Km",
+      Green_Leaves: "Green Leaves",
+      lbl_chall_blacklist: "You cannot invite the player to a challenge. This happens when one or more of the following applies: the player has a too much higher (or lower) level in comparison to yours, the player has already received three requests, the player has already programmed the challenge for the next week, the player blacklisted you, or you blacklisted the player.",
+      lbl_insert_nickname: "Insert the player's nickname",
+      lbl_challenge_percentage: "Percentage:",
+      lbl_challenge_threshold: "Threshold:",
+      home_unlock_challenge: "Unlock a new challenge",
+      lbl__challenge_cant_see_player: "Why can't I find a player?",
+      no_blacklist: "No blacklist found",
+      lbl_chall_user_not_available_title: "User not available",
+      lbl_chall_user_not_available: "Selected user is not available anymore. Please, select a different one",
+      user_level_index: "Lvl. ",
+      search_name: "Insert the nickname",
+      pop_up_exit: "Exit?",
+      pop_up_exit_template: "Are you sure you want to exit?",
+      blacklist_add_toast: "Player added to the blacklist",
+      blacklist_removed_toast: "Player removed to the blacklist",
+      track_feet: "Walk",
+      track_bike: "Bike",
+      track_run: "Run",
+      track_bus: "Bus",
+      track_cable: "Cable car",
+      track_train: "Train",
+      gamification_engine_choosing: "The system is choosing a group challenge for you. Shortly you will see it here",
+      high_school_label: "High School Challenge",
+      pop_up_not_expired_template: 'The actual version of the app end on ',
+      label_warning_corona_title:'WARNING: new containment measures COVID-19',
+label_warning_corona_message:'<b>From Monday to Saturday</b>, all rides follow public holidays timetables<b> On Sundays and public holidays </b> all rides are suspended. <br> Touch for more INFO',
+      label_warning_corona_extended:'- No holiday service <br>\
+-  Holiday timetables application from Monday to Saturday  <br>\
+- Elastibus service on call  <br>\
+<b>For work needs and urgent health reasons </b> (including the need to go to relatives) it will be possible to  <b> contact the toll-free number 800390270 (Elastibus) </b>every day from 8.00 to 17.00 , to request a specific free transport, only if that the call arrives before 5 pm of the previous day. The transport services (free of charge) will be carried out by the companies of the Trentino Autonoleggiatori Consortium. <br>\
+<br>\
+<b>The measures are valid for an indefinitely, until revoked by the Competent Authorities that have approved them.<br>\
+<br>'
+
 
     });
 
