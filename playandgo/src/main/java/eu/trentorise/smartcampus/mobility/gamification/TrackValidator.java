@@ -301,7 +301,6 @@ public class TrackValidator {
 	private static List<List<Geolocation>> computeAngles(List<Geolocation> points) {
 		List<List<Geolocation>> groups = Lists.newLinkedList();
 		List<Integer> indexes = Lists.newLinkedList();
-		int idx = 0;
 		for (int i = 1; i < points.size() - 1; i++) {
 			double d1 = GamificationHelper.harvesineDistance(points.get(i).getLatitude(), points.get(i).getLongitude(), points.get(i - 1).getLatitude(), points.get(i - 1).getLongitude());
 			double d2 = GamificationHelper.harvesineDistance(points.get(i).getLatitude(), points.get(i).getLongitude(), points.get(i + 1).getLatitude(), points.get(i + 1).getLongitude());
@@ -309,32 +308,37 @@ public class TrackValidator {
 
 			double a1 = (Math.acos((d1 * d1 + d2 * d2 - d3 * d3) / (2 * d1 * d2)));
 
-			double angle = Math.toDegrees(a1); 
-			if (Math.abs(angle) < 30) {
-				indexes.add(idx);
+			Double acc = points.get(i).getAccuracy() / 1000.0;
+			
+			double angle = Math.toDegrees(a1);
+			// or an angle, or put together the points within accuracy when accuracy is bad
+			if (Math.abs(angle) < 30 || acc > 1 && d1 < acc && d2 < acc && d3 < acc) {
+				// add head of an "arrow"
+				indexes.add(i);
 			}
-			idx++;
 		}
 
 		int start = -1;
 		int end = -1;
+		boolean closed = false;
 		for (int i = 1; i < indexes.size(); i++) {
 			// initialize first star
 			if (start == -1) {
 				start = i - 1;
 			}
-			// end star
-			if (start != -1 && indexes.get(i) - indexes.get(i - 1) > 1) {
+			// end star: or the nodes are not subsequent or cut by 5 mins 
+			if (start != -1 && (indexes.get(i) - indexes.get(i - 1) > 3 || points.get(indexes.get(i)).getRecorded_at().getTime() - points.get(indexes.get(start) - 1).getRecorded_at().getTime() > 5*60*1000)) {
 				end = i - 1;
 			}
 			// close the last star
-			if (i == indexes.size() - 1 && start != -1) {
+			if (i == indexes.size() - 1 && start != -1 && end == -1) {
+				closed = true;
 				end = i;
 			}
 			// compute group
 			if (end != -1) {
 				List<Geolocation> group = Lists.newLinkedList();
-				for (int j = indexes.get(start); j <= indexes.get(end) + 1; j++) {
+				for (int j = indexes.get(start) -1; j <= indexes.get(end) + 1; j++) {
 					group.add(points.get(j));
 				}
 				groups.add(group);
@@ -363,6 +367,13 @@ public class TrackValidator {
 //				start = -1;
 //				end = -1;
 //			}
+		}
+		if (!closed && indexes.size() > 0) {
+			List<Geolocation> group = Lists.newLinkedList();
+			for (int j = indexes.get(indexes.size()-1) -1; j <= indexes.get(indexes.size()-1) + 1; j++) {
+				group.add(points.get(j));
+			}
+			groups.add(group);
 		}
 		
 		return groups;
