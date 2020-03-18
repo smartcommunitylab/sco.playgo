@@ -9,7 +9,7 @@
   },
   {
     "file": "css/style.css",
-    "hash": "b2f1780c8f75b13c1044e1ceb138c092"
+    "hash": "1c4f3ba152ece9d0669760d99de3a1d1"
   },
   {
     "file": "data/bus.csv",
@@ -409,7 +409,7 @@
   },
   {
     "file": "js/app.js",
-    "hash": "be479cbfa03c2656f5fb0fcf7b7603f7"
+    "hash": "3a8511d34bd9f91e6098ca7c85a1ee3f"
   },
   {
     "file": "js/controllers/BookmarksCtrl.js",
@@ -497,7 +497,7 @@
   },
   {
     "file": "js/controllers/TTCtrl.js",
-    "hash": "f8e1d1000d6b6fab88c60e2ad2a061d3"
+    "hash": "9a5f880539cb4a6ff38bca6b62b6546d"
   },
   {
     "file": "js/directives/Directives.js",
@@ -1012,6 +1012,10 @@
     "hash": "631ebb1e0f569a5c7c34712ed2fcd5c0"
   },
   {
+    "file": "templates/coronaPopup.html",
+    "hash": "b514bad6053daba10299ee9c1d050aec"
+  },
+  {
     "file": "templates/credits.html",
     "hash": "65ed44fc2e734ed2a2a15ca33c8ad061"
   },
@@ -1281,7 +1285,7 @@
   },
   {
     "file": "templates/table1.html",
-    "hash": "7ae6fec14de47828651026098340b30b"
+    "hash": "bf8935e1f5ce96a3bb5bef04aa938742"
   },
   {
     "file": "templates/table2.html",
@@ -1309,7 +1313,7 @@
   },
   {
     "file": "templates/ttroutelist.html",
-    "hash": "d726feb66e13bf3e9d9d6791a2d4ea10"
+    "hash": "765ec59bc1b6108c3c12ee0a15d4a8a4"
   },
   {
     "file": "templates/ttstop.html",
