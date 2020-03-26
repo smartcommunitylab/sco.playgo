@@ -661,6 +661,19 @@ angular.module('viaggia.controllers.common', [])
         console.log("network error");
       }).finally(Config.loaded)
     };
+    $scope.openTrackingCorona = function(){
+      $scope.titleCorona = $filter('translate')('label_title_tracking_corona');
+            $scope.messageCorona = $filter('translate')('label_warning_corona_extended');
+            $scope.alertPopup = $ionicPopup.alert({
+                title:$scope.titleCorona,
+                templateUrl: 'templates/corona/coronaGamePopup.html',
+                scope: $scope,
+                cssClass: 'coronaGamePopup'
+            });
+
+            $scope.alertPopup.then(function (res) {
+            });
+        }
   })
 
 

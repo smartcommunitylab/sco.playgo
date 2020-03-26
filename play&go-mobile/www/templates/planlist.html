@@ -46,7 +46,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="green-points">
+                    <div ng-if="!coronaVirus" class="green-points">
                         <img class="points-image" src="img/ribbon.png">
                         <span class="text-muted text-center points" ng-if="journey.customData['estimatedScore']">{{journey.customData["estimatedScore"]}}</span>
                         <span class="text-muted text-center points" ng-if="!journey.customData['estimatedScore']">0</span>
@@ -83,7 +83,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="green-points">
+                <div class="green-points" ng-if="!coronaVirus" >
                     <img class="points-image" src="img/ribbon.png">
                     <span class="text-muted text-center points" ng-if="journey.customData['estimatedScore']">{{journey.customData["estimatedScore"]}}</span>
                     <span class="text-muted text-center points" ng-if="!journey.customData['estimatedScore']">0</span>

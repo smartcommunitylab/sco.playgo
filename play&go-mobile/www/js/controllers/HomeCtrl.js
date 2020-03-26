@@ -2,7 +2,6 @@ angular.module('viaggia.controllers.home', [])
 
   .controller('HomeCtrl', function ($scope, $state, GameSrv, profileService, $rootScope, $ionicPlatform, $timeout, $interval, $filter, $location, $ionicHistory, marketService, notificationService, Config, GeoLocate, mapService, ionicMaterialMotion, ionicMaterialInk, bookmarkService, planService, $ionicLoading, $ionicPopup, trackService, Toast, tutorial, GameSrv, DiaryDbSrv, BT) {
 
-
     $scope.challenges = null;
     $scope.buttonProposedEnabled = false;
     $scope.buttonUnlockEnabled = false;
@@ -375,6 +374,9 @@ angular.module('viaggia.controllers.home', [])
     }
     $scope.trackAndMap = function (transportType) {
       //init multimodal id used for db 
+      if ($scope.coronaVirus) {
+        $scope.openTrackingCorona();
+      } else 
       if (!$rootScope.syncRunning) {
         $scope.startTracking(transportType);
         $state.go('app.mapTracking');

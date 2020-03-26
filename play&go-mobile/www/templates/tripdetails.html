@@ -16,6 +16,7 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div>
+                            <div ng-if="!coronaVirus" >
                             <div class="text-center padding-10" ng-if="!isAvailableForDay()">
                                 {{'toast_already_monitored'|translate}}
                             </div>
@@ -26,7 +27,7 @@
                                 </div>
                                 <button class="button button-stop button-block" ng-show="isTracking()" ng-click="trackStop()">{{'labl_stop_tracking'|translate}} </button>
                             </div>
-
+                        </div>
                             <div class="green-head" ng-if="currentItinerary.promoted">
                                 <div class="green-thumb"><img src="img/ic_leaf.png" />
                                 </div>
@@ -34,7 +35,7 @@
                                     <p class="green-title">{{'journey_details_sustainable' | translate}}</p>
                                 </div>
                             </div>
-                            <div class="green-points">
+                            <div class="green-points" ng-if="!coronaVirus">
                                 <img class="points-image" src="img/ribbon.png">
                                 <span class="text-muted text-center points" ng-if="currentItinerary.customData['estimatedScore']">{{currentItinerary.customData["estimatedScore"]}}</span>
                                 <span class="text-muted text-center points" ng-if="!currentItinerary.customData['estimatedScore']">0</span>

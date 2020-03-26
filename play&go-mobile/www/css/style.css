@@ -3724,6 +3724,7 @@ ion-header-bar .title {
 }
 .warning-corona-title{
   font-weight: bold;
+  text-align: center;
 }
 .warning-corona-subtitle{
 text-align: center;
@@ -3772,6 +3773,54 @@ text-align: center;
 .coronaPopup .body-message{
   margin: 20px;
 }
+
+.coronaGamePopup .popup {
+  min-width: 85% !important;  /* height: 230px; */
+  background-color: #2975a7 !important;
+  color: white;
+}
+.coronaGamePopup .popup-title{
+  color: white;
+}
+ .coronaGamePopup .popup-head {
+  /* visibility: hidden; */
+  /* padding: 0px; */
+  color: white!important;
+  border-bottom: none;
+  padding-top: 21px;
+} 
+
+.coronaGamePopup .popup-body {
+  overflow: inherit !important;
+  text-align: justify;
+  position: relative;
+  height: 22vh;
+
+}
+
+.coronaGamePopup .popup-buttons .button:last-child {
+  /* position: absolute;
+  right: -22px;
+  bottom: -20px;
+  width: 45px;
+  cursor: pointer; */
+  background-color: white!important;
+  color:#2975a7 !important;
+}
+.coronaGamePopup .close-button{
+  position: absolute;
+  right: 15px;
+  top: -50px;
+}
+.coronaGamePopup a {
+  color: white;
+}
+.coronaGamePopup .body-message{
+  margin: 20px;
+}
 .corona-content{
   top:0px!important;
+}
+.disabled-corona{
+  background-color: #D3D3D3!important;
 }

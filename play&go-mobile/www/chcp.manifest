@@ -9,7 +9,7 @@
   },
   {
     "file": "css/style.css",
-    "hash": "1c4f3ba152ece9d0669760d99de3a1d1"
+    "hash": "a208660855b1e6b3917d9848ce81a7f4"
   },
   {
     "file": "data/bus.csv",
@@ -409,7 +409,7 @@
   },
   {
     "file": "js/app.js",
-    "hash": "3a8511d34bd9f91e6098ca7c85a1ee3f"
+    "hash": "8ee8c71554bd2cd8e35fbbaa41a6c29a"
   },
   {
     "file": "js/controllers/BookmarksCtrl.js",
@@ -417,7 +417,7 @@
   },
   {
     "file": "js/controllers/CommonCtrl.js",
-    "hash": "b13b35909e8a3b7b1a837b4db218300b"
+    "hash": "cc629cfac2563a08620b60c4859dbdf6"
   },
   {
     "file": "js/controllers/GameCtrl.js",
@@ -425,7 +425,7 @@
   },
   {
     "file": "js/controllers/HomeCtrl.js",
-    "hash": "85cd8e0f5baa255eb6718e5fd28b2b4b"
+    "hash": "95d2b2d9148c96b7acd148e58f7a836a"
   },
   {
     "file": "js/controllers/InfoCtrl.js",
@@ -497,7 +497,7 @@
   },
   {
     "file": "js/controllers/TTCtrl.js",
-    "hash": "9a5f880539cb4a6ff38bca6b62b6546d"
+    "hash": "eeb173a4e5021432a6ca2759efb1ba7f"
   },
   {
     "file": "js/directives/Directives.js",
@@ -1012,8 +1012,20 @@
     "hash": "631ebb1e0f569a5c7c34712ed2fcd5c0"
   },
   {
-    "file": "templates/coronaPopup.html",
+    "file": "templates/corona/coronaGamePopup.html",
+    "hash": "f19c57fae9f2e475081b43a963e79718"
+  },
+  {
+    "file": "templates/corona/coronaPopup.html",
     "hash": "b514bad6053daba10299ee9c1d050aec"
+  },
+  {
+    "file": "templates/corona/homeCorona.html",
+    "hash": "85bb86fb24cc3866b05b2a0da4cc5127"
+  },
+  {
+    "file": "templates/corona/littleCorona.html",
+    "hash": "bfa23335c6b21bb8545594523d1d63b7"
   },
   {
     "file": "templates/credits.html",
@@ -1057,7 +1069,7 @@
   },
   {
     "file": "templates/game/challenges.html",
-    "hash": "9c6fed88331dead7eddac1d37b757ee8"
+    "hash": "65dbf3473f572dc427212286f6b94fb5"
   },
   {
     "file": "templates/game/challengeTemplates/competitivePerformance.html",
@@ -1101,7 +1113,7 @@
   },
   {
     "file": "templates/game/diary.html",
-    "hash": "6fbd7d7f8cd5e0809bc7b3378eecb7fb"
+    "hash": "44e3a087fea5ed31d79ec70155840a58"
   },
   {
     "file": "templates/game/eventTripDetail.html",
@@ -1145,7 +1157,7 @@
   },
   {
     "file": "templates/game/rankings.html",
-    "hash": "07b4646b39321b17b93691aa090f947a"
+    "hash": "baf75176ababb7b0c3fc0803413e7fd5"
   },
   {
     "file": "templates/game/rules_en.html",
@@ -1161,7 +1173,7 @@
   },
   {
     "file": "templates/home.html",
-    "hash": "411c139a2c6995c1675f5f61d17e242a"
+    "hash": "768b5e16771fcdf0a27ec7a1c7afb64a"
   },
   {
     "file": "templates/homeContainer.html",
@@ -1249,7 +1261,7 @@
   },
   {
     "file": "templates/planlist.html",
-    "hash": "4998f621ff50f2bc98ce4297afa96f75"
+    "hash": "80d54b244f907c1e673b3ee4e4e4bd67"
   },
   {
     "file": "templates/planMapModal.html",
@@ -1305,7 +1317,7 @@
   },
   {
     "file": "templates/tripdetails.html",
-    "hash": "1c6d429f488c219a7d04bc39d1299f6b"
+    "hash": "195b19f697353dfb7766c6b8c7009a48"
   },
   {
     "file": "templates/ttmap.html",

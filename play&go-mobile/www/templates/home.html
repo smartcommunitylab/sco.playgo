@@ -12,6 +12,7 @@
         </div> -->
   </ion-nav-buttons>
   <ion-content ng-class="{'empty_bookmarks': primaryLinks.length == 0}" ng-init="showTutorial()">
+  <ng-include src="'templates/corona/homeCorona.html'"></ng-include>
     <div class="user-state home-user-state card" ng-click="openProfile()">
       <div class="row">
         <div class="col col-20 vertical-center">
@@ -122,7 +123,7 @@
         <div class="row" ng-class="{'synch':syncRunning}">
           <div class="col">
             <a ng-click="trackAndMap('walk')">
-              <div class="tracking-ds-button">
+              <div class="tracking-ds-button" ng-class="{'disabled-corona':coronaVirus}">
                 <i class="icon ic_foot"></i>
                 <!-- <span>{{'track_walk' | translate}}</span> -->
               </div>
@@ -130,7 +131,7 @@
           </div>
           <div class="col">
             <a ng-click="trackAndMap('bike')">
-              <div class="tracking-ds-button">
+              <div class="tracking-ds-button" ng-class="{'disabled-corona':coronaVirus}">
                 <i class="icon ic_bike"></i>
                 <!-- <span>{{'track_bike' | translate}}</span> -->
               </div>
@@ -138,7 +139,7 @@
           </div>
           <div class="col">
             <a ng-click="trackAndMap('bus')">
-              <div class="tracking-ds-button">
+              <div class="tracking-ds-button" ng-class="{'disabled-corona':coronaVirus}">
                 <i class="icon ic_urban-bus"></i>
                 <!-- <span>{{'menu_real_time_bus' | translate}}</span> -->
               </div>
@@ -146,7 +147,7 @@
           </div>
           <div class="col">
             <a ng-click="trackAndMap('train')">
-              <div class="tracking-ds-button">
+              <div class="tracking-ds-button" ng-class="{'disabled-corona':coronaVirus}">
                 <i class="icon ic_train"></i>
                 <!-- <span>{{'menu_real_time_train' | translate}}</span> -->
               </div>
