@@ -34,8 +34,15 @@
     <access origin="tel:*" launch-external="yes" />
     <access origin="mailto:*" launch-external="yes" />
     <access origin="geo:*" launch-external="yes" />
+        <feature name="CDVWKWebViewEngine">
+        <param name="ios-package" value="CDVWKWebViewEngine" />
+    </feature>
+
+    <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
+    <preference name="WKWebViewOnly" value="true" />
+    <preference name="AndroidPersistentFileLocation" value="Compatibility" />
     <preference name="webviewbounce" value="false" />
-    <preference name="UIWebViewBounce" value="false" />
+    <!-- <preference name="UIWebViewBounce" value="false" /> -->
     <preference name="DisallowOverscroll" value="true" />
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="auto-hide-splash-screen" value="false" />
@@ -115,7 +122,14 @@
         <splash src="*resource_folder*/resources/ios/splash/Default-Portrait~ipad.png" width="768" height="1024" />
         <splash src="*resource_folder*/resources/ios/splash/Default@2x~iphone.png" width="640" height="960" />
         <splash src="*resource_folder*/resources/ios/splash/Default~iphone.png" width="320" height="480" />
-    </platform>
+        <!-- <preference name="deployment-target" value="9.0" />
+<preference name="pods_use_frameworks" value="true" /> -->
+<pod name="GoogleSignIn" version="5.0.0" />
+<!-- 
+<pod name="FBSDKCoreKit" version="5.8.0" />
+<pod name="FBSDKLoginKit" version="5.8.0" />
+<pod name="FBSDKShareKit" version="5.8.0" />     -->
+</platform>
     <!-- <plugin name="cordova-background-geolocation">
         <variable name="LICENSE" value="6af31309a1796013f00927f4c396b898ac881efac6d398a165301e06e0a6a9c7"/>
         <variable name="GOOGLE_API_VERSION" value="11.6.0"/>
@@ -128,8 +142,31 @@
     <plugin name="cordova-plugin-googleplus" source="npm">
         <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.453601816446-r4itlqv8qpkqfq5q4jgketdu6f58hqbl" />
     </plugin>
+    <config-file parent="CFBundleURLTypes" target="*-Info.plist">
+        <array>
+            <dict>
+                <key>CFBundleTypeRole</key>
+                <string>Editor</string>
+                <key>CFBundleURLName</key>
+                <string>REVERSED_CLIENT_ID</string>
+                <key>CFBundleURLSchemes</key>
+                <array>
+                    <string>com.googleusercontent.apps.414560938900-ims1hvapjvv7ehud12a5qd08tfh3m0iv</string>
+                </array>
+            </dict>
+            <dict>
+                <key>CFBundleURLSchemes</key>
+                <array>
+                    <string>fb1771254186520727</string>
+                </array>
+            </dict>
+        </array>
+    </config-file>
     <icon src="*resource_folder*/resources/android/icon/drawable-xhdpi-icon.png" />
-    <chcp>
-        <config-file url="https://tn.smartcommunitylab.it/playandgo-cordova/chcp.json" />
-    </chcp>
+    <platform name="android">
+    <preference name="CodePushDeploymentKey" value="*code_push_android*" />
+</platform>
+<platform name="ios">
+    <preference name="CodePushDeploymentKey" value="*code_push_ios*" />
+</platform>
 </widget>

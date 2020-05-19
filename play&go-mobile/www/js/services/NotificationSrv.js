@@ -112,7 +112,9 @@ angular.module('viaggia.services.notification', [])
         window.FirebasePlugin.subscribe(Config.getMessagingAppId() + ".ios");
       }
       //get permission for background notifications
-      window.FirebasePlugin.grantPermission();
+      window.FirebasePlugin.grantPermission(function(hasPermission){
+        console.log("Permission was " + (hasPermission ? "granted" : "denied"));
+    });
       window.FirebasePlugin.getToken(function (token) {
         // save this server-side and use it to push notifications to this device
         console.log(token);

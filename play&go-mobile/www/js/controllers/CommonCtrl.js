@@ -662,13 +662,13 @@ angular.module('viaggia.controllers.common', [])
       }).finally(Config.loaded)
     };
     $scope.openTrackingCorona = function(){
-      $scope.titleCorona = $filter('translate')('label_title_tracking_corona');
-            $scope.messageCorona = $filter('translate')('label_warning_corona_extended');
+      $scope.titleCorona = $filter('translate')('label_title_tracking_not_yet');
+            $scope.messageCorona = $filter('translate')('label_warning_not_yet_extended');
             $scope.alertPopup = $ionicPopup.alert({
                 title:$scope.titleCorona,
-                templateUrl: 'templates/corona/coronaGamePopup.html',
+                templateUrl: 'templates/notYetPopup.html',
                 scope: $scope,
-                cssClass: 'coronaGamePopup'
+                cssClass: 'notYetGamePopup'
             });
 
             $scope.alertPopup.then(function (res) {

@@ -1,0 +1,263 @@
+{
+    "apptoken": "viaggiatrento",
+    "appid": "trentinoplaygo",
+    "appGameId": "trentinoplaygo2019",
+    "messagingAppId": "mobility.trentoplaygo",
+    "messagingAppGameId": "mobility.trentoplaygo",
+    "senderID": "414560938900",
+    "webclientid": "453601816446-bs9vtikvubnm4k3aa7n5vh9vdl17v893.apps.googleusercontent.com",
+    "appversion": "3.0.0",
+    "appname": "Viaggia Play&Go",
+    "serverURL": "https://tn.smartcommunitylab.it/core.mobility",
+    "serverGamificationURL": "https://tn.smartcommunitylab.it/playandgo",
+    "metroparco": "https://tn.smartcommunitylab.it/metroparco/data/tn",
+    "messagingServerURL": "https://tn.smartcommunitylab.it/core.communicator",
+    "newsRSS": "https://tn.smartcommunitylab.it/core.mobility/announcements/rss/trento",
+    "contact_link": "mailto:playandgo@smartcommunitylab.it?subject=ViaggiaPlayGo:%20segnalazione%20problema",
+    "AACURL": "https://tn.smartcommunitylab.it/aac",
+    "authServerURL": "/eauth/authorize",
+    "serverTokenURL": "/oauth/token",
+    "serverRegisterURL": "/internal/register/rest",
+    "serverProfileURL": "/basicprofile/me",
+    "gamificationURL": "https://tn.smartcommunitylab.it/playandgo/gamificationweb",
+    "cliendID": "ec03a596-e41e-49cc-808c-62f39e01de0b",
+    "clientSecID": "6c6829bc-6621-4273-84b8-d74d23744f04",
+    "redirectURL": "http://localhost",
+    "smartcheck_options": [
+        1,
+        4,
+        5
+    ],
+    "plan_default_options": {
+        "routeType": "fastest",
+        "transportTypes": [
+            "WALK",
+            "TRANSIT"
+        ]
+    },
+    "plan_policy": [
+        {
+            "name": "Trento",
+            "center": [
+                46.069672,
+                11.121270
+            ],
+            "distance": 0
+        },
+        {
+            "name": "Rovereto",
+            "center": [
+                45.890919,
+                11.040184
+            ],
+            "distance": 10
+        }
+    ],
+    "default_plan_policy": "Trento",
+    "taxi_id": "TAXI_TRENTO",
+    "taxi_accuracy": 65,
+    "accessibility": true,
+    "agencies": [
+        5,
+        6,
+        10,
+        12,
+        16,
+        17
+    ],
+    "extraurban_agencies": [
+        17
+    ],
+    "broadcast_notifications_options": [
+        1,
+        4
+    ],
+    "center_map": [
+        46.069672,
+        11.121270
+    ],
+    "parkings_agency_ids": [
+        "COMUNE_DI_TRENTO",
+        "COMUNE_DI_ROVERETO"
+    ],
+    "bikesharing_agency_ids": [
+        "trento",
+        "rovereto",
+        "pergine_valsugana"
+    ],
+    "zoom_map": 15,
+    "db_version": 25,
+    "visualization": {
+        "primaryLinks": [
+            {
+                "state": "newPlan()",
+                "label": "menu_plan",
+                "icon": "ic_search",
+                "color": "#3BBACF"
+            },
+            {
+                "state": "/app/mytrips",
+                "label": "menu_mytrip",
+                "icon": "ic_folder",
+                "color": "#3BBACF"
+            },
+            {
+                "state": "/app/bookmarks",
+                "label": "menu_bookmarks",
+                "icon": "ic_bookmark",
+                "color": "#3BBACF"
+            },
+            {
+                "state": "/app/ttlist/urbano",
+                "label": "menu_real_time_bus_urban",
+                "icon": "ic_urban-bus",
+                "color": "#eb8919"
+            },
+            {
+                "state": "/app/ttlist/trains",
+                "label": "menu_real_time_train",
+                "icon": "ic_train",
+                "color": "#cd251c"
+            },
+            {
+                "state": "/app/ttlist/extraurbano",
+                "label": "menu_real_time_bus_suburban",
+                "icon": "ic_extraurban-bus",
+                "color": "#00588e"
+            },
+            {
+                "state": "/app/parking",
+                "label": "menu_real_time_park",
+                "icon": "ic_parking-lot",
+                "color": "#164286"
+            },
+            {
+                "state": "/app/parkingMeters",
+                "label": "menu_parking_meters",
+                "icon": "ic_parcometro",
+                "color": "#FBA724"
+            },
+            {
+                "state": "/app/bikesharing",
+                "label": "menu_real_time_bike",
+                "icon": "ic_bike",
+                "color": "#922d66"
+            },
+            {
+                "state": "/app/taxi",
+                "label": "menu_taxi",
+                "icon": "ic_taxi",
+                "color": "#f8cf20"
+            }
+        ],
+        "infomenu": [
+            {
+                "state": "/app/plan",
+                "label": "menu_plan",
+                "icon": "ic_search"
+            },
+            {
+                "state": "/app/mytrips",
+                "label": "menu_mytrip",
+                "icon": "ic_folder"
+            },
+            {
+                "state": "/app/bookmarks",
+                "label": "menu_bookmarks",
+                "icon": "ic_bookmark"
+            },
+            {
+                "state": "/app/ttlist/urbano",
+                "label": "menu_real_time_bus_urban",
+                "icon": "ic_urban-bus"
+            },
+            {
+                "state": "/app/ttlist/extraurbano",
+                "label": "menu_real_time_bus_suburban",
+                "icon": "ic_extraurban-bus"
+            },
+            {
+                "state": "/app/ttlist/trains",
+                "label": "menu_real_time_train",
+                "icon": "ic_train"
+            },
+            {
+                "state": "/app/bikesharing",
+                "label": "menu_real_time_bike",
+                "icon": "ic_bike"
+            },
+            {
+                "state": "/app/parking",
+                "label": "menu_real_time_park",
+                "icon": "ic_parking-lot"
+            },
+            {
+                "state": "/app/parkingMeters",
+                "label": "menu_parking_meters",
+                "icon": "ic_parcometro"
+            },
+            {
+                "state": "/app/taxi",
+                "label": "menu_taxi",
+                "icon": "ic_taxi"
+            }
+        ],
+        "playmenu": [
+            {
+                "state": "openRules()",
+                "label": "btn_rules",
+                "icon": "ic_game_rules"
+            },
+            {
+                "state": "openFAQ()",
+                "label": "btn_faq",
+                "icon": "ion-help"
+            },
+            {
+                "state": "openPrizes()",
+                "label": "registration_prizes",
+                "icon": "ic_game_challenge"
+            },
+            {
+                "state": "forceTutorial()",
+                "label": "tutorial",
+                "icon": "ic_game_tutorial"
+            }
+        ]
+    },
+    "thresholdEndTime": 1200000,
+    "thresholdStartTime": 1200000,
+    "trackingConfigure": {
+        "desiredAccuracy": 0,
+        "distanceFilter": 0,
+        "stationaryRadius": 20,
+        "activityType": "Other",
+        "disableElasticity": true,
+        "disableStopDetection": true,
+        "stopDetectionDelay": 0,
+        "stopTimeout": 0,
+        "activityRecognitionInterval": 10000,
+        "pausesLocationUpdatesAutomatically": false,
+        "preventSuspend": true,
+        "heartbeatInterval": 10,
+        "stopOnTerminate": false,
+        "debug": false,
+        "locationUpdateInterval": 1000,
+        "minimumActivityRecognitionConfidence": 80,
+        "fastestLocationUpdateInterval": 1000,
+        "forceReloadOnLocationChange": false,
+        "forceReloadOnMotionChange": false,
+        "forceReloadOnGeofence": false,
+        "startOnBoot": false,
+        "foregroundService": true,
+        "maxDaysToPersist": 14,
+        "triggerActivities": "in_vehicle, on_bicycle, running, walking, on_foot",
+        "url": "https://tn.smartcommunitylab.it/playandgo/gamification/geolocations?token=",
+        "method": "POST",
+        "batchSync": true,
+        "autoSync": false,
+        "notificationColor": "gray",
+        "notificationSmallIcon": "drawable/notification",
+        "notificationLargeIcon": "drawable/notification"
+    }
+}

@@ -16,7 +16,7 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div>
-                            <div ng-if="!coronaVirus" >
+                            <div   >
                             <div class="text-center padding-10" ng-if="!isAvailableForDay()">
                                 {{'toast_already_monitored'|translate}}
                             </div>
@@ -35,7 +35,7 @@
                                     <p class="green-title">{{'journey_details_sustainable' | translate}}</p>
                                 </div>
                             </div>
-                            <div class="green-points" ng-if="!coronaVirus">
+                            <div class="green-points"  >
                                 <img class="points-image" src="img/ribbon.png">
                                 <span class="text-muted text-center points" ng-if="currentItinerary.customData['estimatedScore']">{{currentItinerary.customData["estimatedScore"]}}</span>
                                 <span class="text-muted text-center points" ng-if="!currentItinerary.customData['estimatedScore']">0</span>

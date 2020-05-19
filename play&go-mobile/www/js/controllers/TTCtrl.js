@@ -13,19 +13,7 @@ angular.module('viaggia.controllers.timetable', ['ionic'])
         $scope.allMarkers = null;
         $scope.titleCorona = $filter('translate')('label_warning_corona_title');
         $scope.subtitleCorona = $filter('translate')('label_warning_corona_message');
-        $scope.openPopUp = function () {
-            // $scope.messageCorona = $filter('translate')('label_warning_corona_extended');
-            $scope.messageZero = $filter('translate')('message_popup_zero');
-            $scope.alertPopup = $ionicPopup.alert({
-                title:$scope.titleCorona,
-                templateUrl: 'templates/corona/coronaPopup.html',
-                scope: $scope,
-                cssClass: 'coronaPopup'
-            });
 
-            $scope.alertPopup.then(function (res) {
-            });
-        }
         $scope.closePopup = function () {
             $scope.alertPopup.close();
         }
@@ -233,23 +221,6 @@ angular.module('viaggia.controllers.timetable', ['ionic'])
             var firstRowHeight = 28;
             $scope.scrollHeight = window.innerHeight - headerHeight;
         };
-        $scope.openCorona = function () {
-            // $scope.messageCorona = $filter('translate')('label_warning_corona_extended');
-            $scope.messageZero = $filter('translate')('message_popup_zero');
-            $scope.titleCorona = $filter('translate')('label_warning_corona_title');
-            $scope.alertPopup = $ionicPopup.alert({
-                 title:$scope.titleCorona,
-                templateUrl: 'templates/corona/coronaPopup.html',
-                scope: $scope,
-                cssClass: 'coronaPopup'
-            });
-
-            $scope.alertPopup.then(function (res) {
-            });
-            $scope.closePopup = function () {
-                $scope.alertPopup.close();
-            }
-        }
 
         $scope.changeStyleTable = function () {
             var actualPosition = {};

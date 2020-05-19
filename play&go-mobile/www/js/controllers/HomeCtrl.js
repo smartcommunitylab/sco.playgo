@@ -372,9 +372,9 @@ angular.module('viaggia.controllers.home', [])
         Config.loaded();
       }
     }
-    $scope.trackAndMap = function (transportType) {
+    $scope.trackAndMap = function (transportType,enabled) {
       //init multimodal id used for db 
-      if ($scope.coronaVirus) {
+      if (!enabled) {
         $scope.openTrackingCorona();
       } else 
       if (!$rootScope.syncRunning) {

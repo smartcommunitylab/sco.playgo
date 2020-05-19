@@ -134,7 +134,7 @@ angular.module('viaggia', [
   .run(function ($ionicPlatform, $ionicLoading, $ionicPopup, $filter, $ionicHistory, $state, $cordovaFile, $q, $rootScope, $translate, trackService, DataManager, DiaryDbSrv, Config, GeoLocate, notificationService, LoginService) {
 
     $rootScope.locationWatchID = undefined;
-    $rootScope.coronaVirus =true;
+    // $rootScope.coronaVirus = false;
 
     var geolocate = function () {
       var defer = $q.defer();
@@ -152,54 +152,17 @@ angular.module('viaggia', [
     };
 
     var initAppUpdate = function () {
-      document.addEventListener('chcp_updateIsReadyToInstall', onUpdateReady, false);
-      document.addEventListener('chcp_nothingToUpdate', nothingToUpdate, false);
-      document.addEventListener('chcp_updateInstalled', hideLoad, false);
-      document.addEventListener('chcp_updateInstallFailed', hideLoad, false);
+      codePush.sync();
     }
 
-    // chcp_updateIsReadyToInstall Event Handler
-    var onUpdateReady = function () {
-      console.log('Update is ready for installation');
-      //loading
-      // $ionicLoading.show();
-    }
-    // chcp_updateIsReadyToInstall Event Handler
-    var nothingToUpdate = function () {
-      console.log('Nothing to update');
-    }
-    var hideLoad = function () {
-      console.log('hide loading');
-      $ionicLoading.hide();
-    }
     var resetCache = function () {
       localStorage.removeItem(Config.getAppId() + "_diaryRefresh");
       localStorage.removeItem(Config.getAppId() + "_challengesRefresh");
       localStorage.removeItem(Config.getAppId() + "_homeRefresh");
       localStorage.removeItem(Config.getAppId() + "_rankingRefresh");
     }
-    $ionicPlatform.ready(function () { // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-      // for form inputs)
-      document.addEventListener('chcp_updateLoadFailed', function () { console.log('chcp_updateLoadFailed') });
-      document.addEventListener('chcp_updateInstallFailed', function () { console.log('chcp_updateInstallFailed') });
-      document.addEventListener('chcp_assetsInstallationError', function () { console.log('chcp_assetsInstallationError') });
-      document.addEventListener('chcp_updateIsReadyToInstall', onUpdateReady, false);
-      document.addEventListener('chcp_nothingToUpdate', nothingToUpdate, false);
-      document.addEventListener('chcp_updateInstalled', hideLoad, false);
-      document.addEventListener('chcp_updateInstallFailed', hideLoad, false);
-      function onUpdateReady() {
-        console.log('Update is ready for installation');
-        //loading
-        //$ionicLoading.show();
-      }
-      // chcp_updateIsReadyToInstall Event Handler
-      function nothingToUpdate() {
-        console.log('Nothing to update');
-      }
-      function hideLoad() {
-        console.log('hide loading');
-        $ionicLoading.hide();
-      }
+    $ionicPlatform.ready(function () {
+      
       initAppUpdate();
 
       if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
@@ -1604,17 +1567,19 @@ angular.module('viaggia', [
       pop_up_not_expired_template: 'Questa  è una versione di prova e terminerà il ',
       label_warning_corona_title: 'ATTENZIONE: nuove disposizioni in vigore dal 04 maggio 2020',
       label_warning_corona_message: 'Vengono ripristinati nei <b>giorni feriali </b>i servizi Extraurbano, Urbano, Ferroviario e Funiviario.<br>Tocca per ulteriori INFO',
-message_popup_zero: 'Vengono ripristinati nei <b>giorni feriali </b>i servizi Extraurbano, Urbano, Ferroviario e Funiviario.',
-message_popup_first: 'Nei giorni festivi, i servizi sono sospesi (rimane disponibile il',
-message_popup_second: 'servizio Elastibus',
-message_popup_third: 'Lunedì 11 maggio 2020 termina la gratuità sui servizi di trasporto  pubblico. Non sarà possibile l\'acquisto dei biglietti a bordo.',
-message_popup_forth: 'Clicca',
-message_popup_fifth: 'QUI',
-message_popup_last:'per maggiori informazioni. ',
+      message_popup_zero: 'Vengono ripristinati nei <b>giorni feriali </b>i servizi Extraurbano, Urbano, Ferroviario e Funiviario.',
+      message_popup_first: 'Nei giorni festivi, i servizi sono sospesi (rimane disponibile il',
+      message_popup_second: 'servizio Elastibus',
+      message_popup_third: 'Lunedì 11 maggio 2020 termina la gratuità sui servizi di trasporto  pubblico. Non sarà possibile l\'acquisto dei biglietti a bordo.',
+      message_popup_forth: 'Clicca',
+      message_popup_fifth: 'QUI',
+      message_popup_last: 'per maggiori informazioni. ',
       corona_home_title: 'Attenzione: TUTTE le attività di Play&Go sono SOSPESE causa COVID-19.',
       corona_home_subtitle: 'Le sfide, le classifiche e tutte le altre attività di Play&Go sono congelate fino a data da destinarsi. Per ulteriori informazioni sulle modifiche alla mobilità, consulta ',
-      label_this_page:' questa pagina',
-      label_title_tracking_corona:'Impossibile avviare l\'attività selezionata!'
+      label_this_page: ' questa pagina',
+      label_title_tracking_not_yet: 'Impossibile avviare l\'attività selezionata!',
+      track_boat: 'Battello',
+      track_car_pooling: 'Car pooling'
 
 
     });
@@ -2187,16 +2152,18 @@ message_popup_last:'per maggiori informazioni. ',
       label_warning_corona_title: 'WARNING: new containment measures starting from 04 May 2020',
       label_warning_corona_message: 'The suburban, urban, railway and cableway services are restored on <b> weekdays </b>.<br> Touch for further INFO',
       message_popup_zero: 'The suburban, urban, railway and cableway services are restored on <b> weekdays </b>. ',
-message_popup_first: 'On holidays  all rides are suspended. (is still available the ',
-message_popup_second: ' Elastibus service',
-message_popup_third: 'Free admission on public transport services ends on Monday 11 May 2020. It will not be possible to purchase tickets on board.',
-message_popup_forth: 'Click',
-message_popup_fifth: 'here',
-message_popup_last:'for further information ',
-corona_home_title: 'Warning: ALL Play&Go activities are SUSPENDED due to COVID-19.',
-corona_home_subtitle: 'The challenges, rankings and all other Play&Go activities are frozen until further notice. For more information on changes to mobility services, see',
-label_this_page:' this page',
-label_title_tracking_corona:'The selected activity is temporarily blocked!'
+      message_popup_first: 'On holidays  all rides are suspended. (is still available the ',
+      message_popup_second: ' Elastibus service',
+      message_popup_third: 'Free admission on public transport services ends on Monday 11 May 2020. It will not be possible to purchase tickets on board.',
+      message_popup_forth: 'Click',
+      message_popup_fifth: 'here',
+      message_popup_last: 'for further information ',
+      corona_home_title: 'Warning: ALL Play&Go activities are SUSPENDED due to COVID-19.',
+      corona_home_subtitle: 'The challenges, rankings and all other Play&Go activities are frozen until further notice. For more information on changes to mobility services, see',
+      label_this_page: ' this page',
+      label_title_tracking_not_yet: 'The selected activity is temporarily blocked!',
+      track_boat: 'Boat',
+      track_car_pooling: 'Car pooling'
 
 
 

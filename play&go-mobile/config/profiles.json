@@ -11,7 +11,9 @@
         "widget_id": "it.smartcommunitylab.viaggiatrento.playgo",
         "version": "3.0.0",
         "version_code": "94",
-        "app_name": "Viaggia Play&amp;Go"
+        "app_name": "Viaggia Play&amp;Go",
+        "code_push_android":"nWbSYvRimH_juxbAASBT_R1MLXDCfgjPBaYV2",
+        "code_push_ios":"e3gW-IOtSTqBlWH9YP8YbLEE7MeatNIIudrzi"
     },
     "ROVERETO": {
         "resource_folder": "config/instances/ROVERETO",
@@ -26,5 +28,14 @@
         "version": "0.0.1",
         "version_code": "1",
         "app_name": "Viaggia Bologna"
+    },
+    "FERRARA": {
+        "resource_folder": "config/instances/FERRARA",
+        "widget_id": "eu.trentorise.smartcampus.playferrara",
+        "version": "0.0.1",
+        "version_code": "1",
+        "app_name": "Play&amp;Go Ferrara",
+        "code_push_android":"nWbSYvRimH_juxbAASBT_R1MLXDCfgjPBaYV2",
+        "code_push_ios":"e3gW-IOtSTqBlWH9YP8YbLEE7MeatNIIudrzi"
     }
 }
