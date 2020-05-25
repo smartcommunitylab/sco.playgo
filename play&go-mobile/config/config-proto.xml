@@ -7,15 +7,6 @@
     <name>*app_name*</name>
     <description>*app_name*</description>
     <author email="info@smartcommunitylab.it" href="http://www.smartcommunitylab.it/">Smart Community Lab</author>
-    <plugin name="cordova-background-geolocation">
-        <variable name="LICENSE" value="1cfd7941328121fc95223f24f1f8535efd9b716900d5f250d5e153fb5bef4355" />
-        <variable name="GOOGLE_API_VERSION" value="11.6.0" />
-        <variable name="APPCOMPAT_VERSION" value="28.0.0" />
-        <variable name="LOCATION_ALWAYS_AND_WHEN_IN_USE_USAGE_DESCRIPTION" value="Always use is required for background location tracking" />
-        <variable name="LOCATION_ALWAYS_USAGE_DESCRIPTION" value="Background location-tracking is required" />
-        <variable name="LOCATION_WHEN_IN_USE_USAGE_DESCRIPTION" value="Background location-tracking is required" />
-        <variable name="MOTION_USAGE_DESCRIPTION" value="Using the accelerometer increases battery-efficiency by intelligently toggling location-tracking only when the device is detected to be moving" />
-    </plugin>
     <content src="index.html" />
 
     <plugin name="cordova-plugin-whitelist" spec="1" />
@@ -62,7 +53,7 @@
     </feature>
     <platform name="android">
         <config-file parent="/manifest/application" target="app/src/main/AndroidManifest.xml">
-            <meta-data android:name="com.transistorsoft.locationmanager.license_key" android:value="1cfd7941328121fc95223f24f1f8535efd9b716900d5f250d5e153fb5bef4355" />
+            <meta-data android:name="com.transistorsoft.locationmanager.license_key" android:value="68544394ff6a6dc790596dfb7165cfd739382a736de43248b9cb52b643f13f8a" />
         </config-file>
         <resource-file src="resources/android/notification_icon/drawable-mdpi/notification_icon.png" target="app/src/main/res/drawable-mdpi/notification_icon.png" />
         <resource-file src="resources/android/notification_icon/drawable-hdpi/notification_icon.png" target="app/src/main/res/drawable-hdpi/notification_icon.png" />
@@ -140,7 +131,7 @@
         <variable name="MOTION_USAGE_DESCRIPTION" value="Using the accelerometer increases battery-efficiency by intelligently toggling location-tracking only when the device is detected to be moving"/>
     </plugin> -->
     <plugin name="cordova-plugin-googleplus" source="npm">
-        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.453601816446-r4itlqv8qpkqfq5q4jgketdu6f58hqbl" />
+        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.593393059512-hlehbganu86qqi1pr8jb2deknfllmvlc" />
     </plugin>
     <config-file parent="CFBundleURLTypes" target="*-Info.plist">
         <array>
@@ -151,7 +142,7 @@
                 <string>REVERSED_CLIENT_ID</string>
                 <key>CFBundleURLSchemes</key>
                 <array>
-                    <string>com.googleusercontent.apps.414560938900-ims1hvapjvv7ehud12a5qd08tfh3m0iv</string>
+                    <string>com.googleusercontent.apps.593393059512-hlehbganu86qqi1pr8jb2deknfllmvlc</string>
                 </array>
             </dict>
             <dict>

@@ -34,7 +34,7 @@
     "cordova-plugin-disable-ios11-statusbar": "^1.0.0",
     "cordova-plugin-facebook4": "6.4.0",
     "cordova-plugin-file": "6.0.2",
-    "cordova-plugin-file-transfer": "^1.6.3",
+    "cordova-plugin-file-transfer": "1.7.1",
     "cordova-plugin-firebasex": "9.1.1",
     "cordova-plugin-geolocation": "4.0.2",
     "cordova-plugin-globalization": "^1.11.0",
@@ -105,13 +105,6 @@
       },
       "locator": "https://github.com/EddyVerbruggen/cordova-plugin-googleplus",
       "id": "cordova-plugin-googleplus"
-    },
-    {
-      "variables": {
-        "LICENSE": "1cfd7941328121fc95223f24f1f8535efd9b716900d5f250d5e153fb5bef4355"
-      },
-      "locator": "https://github.com/transistorsoft/cordova-background-geolocation.git#2.9.1",
-      "id": "cordova-background-geolocation"
     }
   ],
   "cordovaPlatforms": [
@@ -151,10 +144,6 @@
       "cordova-plugin-screen-orientation": {},
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-whitelist": {},
-      "cordova-plugin-googleplus": {
-        "REVERSED_CLIENT_ID": "com.googleusercontent.apps.453601816446-r4itlqv8qpkqfq5q4jgketdu6f58hqblio",
-        "PLAY_SERVICES_VERSION": "15.0.1"
-      },
       "cordova-plugin-firebasex": {
         "FIREBASE_ANALYTICS_COLLECTION_ENABLED": "true",
         "FIREBASE_PERFORMANCE_COLLECTION_ENABLED": "true",
@@ -185,6 +174,8 @@
       "cordova.plugins.diagnostic": {
         "ANDROID_SUPPORT_VERSION": "28.+"
       },
+      "cordova-plugin-code-push": {},
+      "cordova-plugin-zip": {},
       "cordova-background-geolocation": {
         "GOOGLE_API_VERSION": "16.+",
         "APPCOMPAT_VERSION": "28.+",
@@ -192,13 +183,16 @@
         "EVENTBUS_VERSION": "3.0.0",
         "BACKGROUND_MODE_LOCATION": "<string>location</string>"
       },
-      "cordova-plugin-code-push": {},
       "cordova-plugin-file-transfer": {},
-      "cordova-plugin-zip": {}
+      "cordova-plugin-googleplus": {
+        "REVERSED_CLIENT_ID": "com.googleusercontent.apps.593393059512-hlehbganu86qqi1pr8jb2deknfllmvlc",
+        "WEB_APPLICATION_CLIENT_ID": "593393059512-7gcsbj3up6ubrdb9k3omeokq4jaa3vlk.apps.googleusercontent.com",
+        "PLAY_SERVICES_VERSION": "15.0.1"
+      }
     },
     "platforms": [
-      "android",
-      "ios"
+      "ios",
+      "android"
     ]
   }
 }

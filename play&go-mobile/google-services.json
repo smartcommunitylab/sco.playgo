@@ -1,39 +1,44 @@
 {
   "project_info": {
-    "project_number": "414560938900",
-    "firebase_url": "https://viaggia-playgo.firebaseio.com",
-    "project_id": "viaggia-playgo",
-    "storage_bucket": "viaggia-playgo.appspot.com"
+    "project_number": "593393059512",
+    "firebase_url": "https://playgoferrara.firebaseio.com",
+    "project_id": "playgoferrara",
+    "storage_bucket": "playgoferrara.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:414560938900:android:9e750a461995c927",
+        "mobilesdk_app_id": "1:593393059512:android:6466f21df071bdc1ac964d",
         "android_client_info": {
-          "package_name": "it.smartcommunitylab.viaggiatrento.playgo"
+          "package_name": "it.smartcommunitylab.playgoferrara"
         }
       },
       "oauth_client": [
         {
-          "client_id": "414560938900-6ussgfa9a6nsvav99lqtia0kk24gtkah.apps.googleusercontent.com",
+          "client_id": "593393059512-7gcsbj3up6ubrdb9k3omeokq4jaa3vlk.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCyaH-vq3cQdhBug4_NoFCIgaSbPBIxkq0"
+          "current_key": "AIzaSyAQyVhy_1jKl3qAWf45uFz-YKMMxk8E-2U"
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
+          "other_platform_oauth_client": [
+            {
+              "client_id": "593393059512-7gcsbj3up6ubrdb9k3omeokq4jaa3vlk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "593393059512-hlehbganu86qqi1pr8jb2deknfllmvlc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "it.smartcommunitylab.playgoferrara"
+              }
+            }
+          ]
         }
       }
     }

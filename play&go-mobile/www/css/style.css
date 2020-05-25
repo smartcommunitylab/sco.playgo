@@ -2459,7 +2459,7 @@ ion-header-bar .title {
 .tracking-dashboard-on {
   border-top: 1px solid white !important;
   background-color: #4caf4f;
-  padding-bottom: 25px;
+  /* padding-bottom: 100px; */
 
 }
 
@@ -2554,9 +2554,9 @@ ion-header-bar .title {
   /* padding: 4px; */
   color: #fff;
   text-align: center;
-  /* width: 88px;
-     height: 88px; */
+  width: 90px;
   margin: auto;
+  height: 90px;
 }
 
 .tracking-dashboard .tracking-ds-button i {
@@ -2889,6 +2889,7 @@ ion-header-bar .title {
 
 .home-track-container {
   height: 50px;
+  background-color: #2975a7 !important;
   position: relative;
   width: 100%;
   ;
@@ -2896,30 +2897,35 @@ ion-header-bar .title {
 
 .home-track-buttons {
   background-color: #2975a7 !important;
-  border-radius: 0px 35px 35px 0px;
-  padding: 5px;
+  /* border-radius: 0px 35px 35px 0px; */
+  /* padding: 5px; */
   z-index: 999;
-  margin-left: -10px;
+  /* margin-left: -10px; */
   display: inline-flex;
+  width: 100%;
 }
 
 .home-track-buttons .button-map {
   background-color: #2975a7 !important;
   color: white;
 }
-
+.stop-col {
+  text-align: center;
+  margin-top: 5px;
+}
 .home-track-stop-map {
   padding: 0vw 5vw;
   background-color: #c1272d;
   color: #fff;
-  border-radius: 35px 0px 0px 35px;
+  border-radius: 35px 35px 35px 35px;
   padding-top: 5px;
   padding-bottom: 5px;
   height: 57px;
   z-index: 999;
-  margin-right: -10px;
-  right: 0px;
-  position: absolute;
+  font-size: 20px;
+  /* margin-right: -10px; */
+  /* right: 0px; */
+  /* position: absolute; */
 }
 
 .footer-bar {
@@ -3714,7 +3720,7 @@ ion-header-bar .title {
   }
 }
 
-.warning-corona{
+.warning-not-yet{
   margin: 8px;
   margin-top: 28px;
   background-color: #2975a7 !important;
@@ -3722,23 +3728,23 @@ ion-header-bar .title {
   text-align: justify;
   padding: 8px;
 }
-.warning-corona-title{
+.warning-not-yet{
   font-weight: bold;
   text-align: center;
 }
-.warning-corona-subtitle{
+.warning-not-yet{
 text-align: center;
 }
-.coronaPopup .popup {
+.notYetPopup .popup {
   min-width: 85% !important;  /* height: 230px; */
   background-color: #2975a7 !important;
   color: white;
   height:50%;
 }
-.coronaPopup .popup-title{
+.notYetPopup .popup-title{
   color: white;
 }
- .coronaPopup .popup-head {
+ .notYetPopup .popup-head {
   /* visibility: hidden; */
   /* padding: 0px; */
   color: white!important;
@@ -3746,7 +3752,7 @@ text-align: center;
   padding-top: 21px;
 } 
 
-.coronaPopup .popup-body {
+.notYetPopup .popup-body {
   overflow: inherit !important;
   text-align: justify;
   position: relative;
@@ -3754,7 +3760,7 @@ text-align: center;
 
 }
 
-.coronaPopup .popup-buttons .button:last-child {
+.notYetPopup .popup-buttons .button:last-child {
   /* position: absolute;
   right: -22px;
   bottom: -20px;
@@ -3763,27 +3769,27 @@ text-align: center;
   background-color: white!important;
   color:#2975a7 !important;
 }
-.coronaPopup .close-button{
+.notYetPopup .close-button{
   position: absolute;
   right: 15px;
   top: -50px;
 }
-.coronaPopup a {
+.notYetPopup a {
   color: white;
 }
-.coronaPopup .body-message{
+.notYetPopup .body-message{
   margin: 20px;
 }
 
-.coronaGamePopup .popup {
+.notYetGamePopup .popup {
   min-width: 85% !important;  /* height: 230px; */
   background-color: #2975a7 !important;
   color: white;
 }
-.coronaGamePopup .popup-title{
+.notYetGamePopup .popup-title{
   color: white;
 }
- .coronaGamePopup .popup-head {
+ .notYetGamePopup .popup-head {
   /* visibility: hidden; */
   /* padding: 0px; */
   color: white!important;
@@ -3791,7 +3797,7 @@ text-align: center;
   padding-top: 21px;
 } 
 
-.coronaGamePopup .popup-body {
+.notYetGamePopup .popup-body {
   overflow: inherit !important;
   text-align: justify;
   position: relative;
@@ -3799,7 +3805,7 @@ text-align: center;
 
 }
 
-.coronaGamePopup .popup-buttons .button:last-child {
+.notYetGamePopup .popup-buttons .button:last-child {
   /* position: absolute;
   right: -22px;
   bottom: -20px;
@@ -3808,19 +3814,19 @@ text-align: center;
   background-color: white!important;
   color:#2975a7 !important;
 }
-.coronaPopup .close-button{
+.notYetGamePopup .close-button{
   position: absolute;
   right: 6px;
-  top: -68px;
+  top: -50px;
   
 }
-.coronaGamePopup a {
+.notYetGamePopup a {
   color: white;
 }
-.coronaGamePopup .body-message{
+.notYetGamePopup .body-message{
   margin: 20px;
 }
-.corona-content{
+.not-yet-content{
   top:0px!important;
 }
 .disabled{
