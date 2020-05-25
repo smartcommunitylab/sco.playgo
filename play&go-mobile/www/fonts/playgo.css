@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'viaggia';
-  src:  url('playgo.eot?nmh65g');
-  src:  url('playgo.eot?nmh65g#iefix') format('embedded-opentype'),
-    url('playgo.ttf?nmh65g') format('truetype'),
-    url('playgo.woff?nmh65g') format('woff'),
-    url('playgo.svg?nmh65g#viaggia') format('svg');
+  src:  url('playgo.eot?uyvjyf');
+  src:  url('playgo.eot?uyvjyf#iefix') format('embedded-opentype'),
+    url('playgo.ttf?uyvjyf') format('truetype'),
+    url('playgo.woff?uyvjyf') format('woff'),
+    url('playgo.svg?uyvjyf#viaggia') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -25,6 +25,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-Run-Bike:before {
+.icon-boat:before {
   content: "\e900";
 }
