@@ -89,19 +89,19 @@
 
               </button>
               <!-- <div ng-if="trackingMultimodal()"> -->
-                <button class="col button button-map icon ic_foot" ng-class="{'actual-track':actualTracking('walk')}"
-                  ng-click="changeTracking('walk')"></button>
+                <button class="col button button-map icon ic_foot " ng-class="{'actual-track':actualTracking('walk')}"
+                  ng-click="changeTracking('walk',true)"></button>
                 <button class="col button button-map icon ic_bike" ng-class="{'actual-track':actualTracking('bike')}"
-                  ng-click="changeTracking('bike')"></button>
+                  ng-click="changeTracking('bike',true)"></button>
                 <button class="col button button-map icon ic_urban-bus" ng-class="{'actual-track':actualTracking('bus')}"
-                  ng-click="changeTracking('bus')"></button>
+                  ng-click="changeTracking('bus',true)"></button>
                 <button class="col button button-map icon ic_train"  
-                  ng-class="{'actual-track':actualTracking('train')}" ng-click="changeTracking('train')"></button>
-                <button class="col button button-map icon icon-boat"  
-                  ng-class="{'actual-track':actualTracking('boat')}" ng-click="changeTracking('boat')"></button>
-                <button class="col button button-map icon ion-model-s"  
+                  ng-class="{'actual-track':actualTracking('train')}" ng-click="changeTracking('train',true)"></button>
+                <button class="col button button-map icon icon-boat icon-disabled"  
+                  ng-class="{'actual-track':actualTracking('boat')}" ng-click="changeTracking('boat',false)"></button>
+                <button class="col button button-map icon ion-model-s icon-disabled"  
                   ng-class="{'actual-track':actualTracking('car_pooling')}"
-                  ng-click="changeTracking('car_pooling')"></button>
+                  ng-click="changeTracking('car_pooling',false)"></button>
               <!-- </div> -->
             </div>
         </div>
@@ -176,7 +176,7 @@
           </div>
           <div class="col">
             <a ng-click="trackAndMap('boat',false)">
-              <div class="tracking-ds-button disabled">
+              <div class="tracking-ds-button tracking-disabled">
                 <i class="icon icon-boat"></i>
                 <!-- <span>{{'menu_real_time_train' | translate}}</span> -->
               </div>
@@ -184,7 +184,7 @@
           </div>
           <div class="col">
             <a ng-click="trackAndMap('carPooling',false)">
-              <div class="tracking-ds-button disabled">
+              <div class="tracking-ds-button tracking-disabled">
                 <i class="icon ion-model-s"></i>
                 <!-- <span>{{'menu_real_time_train' | translate}}</span> -->
               </div>

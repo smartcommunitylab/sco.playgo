@@ -7,7 +7,7 @@ angular.module('viaggia.services.tracking', [])
     };
     var GPSpopup = false;
     var refreshCallback = null;
-    var ACCURACY = 100;
+    var ACCURACY = -1;
     var timerTrack = null;
     var hasLocationPermission = function (cb) {
       if (window.cordova.plugins.diagnostic) {

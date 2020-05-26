@@ -1,25 +1,30 @@
 <!-- <button class="pulse-button icon ion-map" ng-click="goToMap()" ng-if="buttonMapNeed();">
 </button> -->
 <div ng-if="notHomeAndMap()">
-	<div class="app-track-buttons"  ng-class="{'menu-expanded': menuIsOpen()}" >
-			<button class="button button-map icon ion-map" ng-click="goToMap()"></button>
-			<button class="button button-map icon ic_foot" ng-class="{'actual-track':actualTracking('walk')}" ng-click="changeTracking('walk')"></button>
-			<button class="button button-map icon ic_bike" ng-class="{'actual-track':actualTracking('bike')}" ng-click="changeTracking('bike')"></button>
-			<button class="button button-map icon ic_urban-bus" ng-class="{'actual-track':actualTracking('bus')}" ng-click="changeTracking('bus')"></button>
-			<button class="button button-map icon ic_train" ng-class="{'actual-track':actualTracking('train')}" ng-click="changeTracking('train')"></button>
-			<button class="button button-map icon ion-waterdrop" style="padding-right: 1rem;"
-			ng-class="{'actual-track':actualTracking('boat')}" ng-click="changeTracking('boat')"></button>
-		  <button class="button button-map icon ion-model-s" style="padding-right: 1rem;"
-			ng-class="{'actual-track':actualTracking('car_pooling')}"
-			ng-click="changeTracking('car_pooling')"></button>
-			<button  class="button app-track-stop-map" ng-click="stopTracking()" ng-class="{'menu-expanded': menuIsOpen()}">STOP</button>
-		</div>
+	<div class="app-track-buttons" ng-class="{'menu-expanded': menuIsOpen()}">
+		<button class="button button-map icon ion-map" ng-click="goToMap()"></button>
+		<button class="button button-map icon ic_foot" ng-class="{'actual-track':actualTracking('walk')}"
+			ng-click="changeTracking('walk',true)"></button>
+		<button class="button button-map icon ic_bike" ng-class="{'actual-track':actualTracking('bike')}"
+			ng-click="changeTracking('bike',true)"></button>
+		<button class="button button-map icon ic_urban-bus" ng-class="{'actual-track':actualTracking('bus')}"
+			ng-click="changeTracking('bus',true)"></button>
+		<button class="button button-map icon ic_train" ng-class="{'actual-track':actualTracking('train')}"
+			ng-click="changeTracking('train',true)"></button>
+		<button class="button button-map icon icon-boat icon-disabled" ng-class="{'actual-track':actualTracking('boat')}"
+			ng-click="changeTracking('boat',false)"></button>
+		<button class="button button-map icon ion-model-s icon-disabled" ng-class="{'actual-track':actualTracking('car_pooling')}"
+			ng-click="changeTracking('car_pooling',false)"></button>
+		<button class="button app-track-stop-map" ng-click="stopTracking()"
+			ng-class="{'menu-expanded': menuIsOpen()}">STOP</button>
+	</div>
 </div>
 </ion-grid>
 <ion-side-menus enable-menu-with-back-views="false">
 	<ion-side-menu-content drag-menu-content="false" edge-drag-threshold="true">
-		<ion-nav-bar class="bar-positive-100" ng-class="{expanded: isExpanded, 'has-header-fab-left': hasHeaderFabLeft, 'has-header-fab-right': hasHeaderFabRight}"
-		 align-title="left">
+		<ion-nav-bar class="bar-positive-100"
+			ng-class="{expanded: isExpanded, 'has-header-fab-left': hasHeaderFabLeft, 'has-header-fab-right': hasHeaderFabRight}"
+			align-title="left">
 			<ion-nav-buttons side="left">
 				<button class="button button-clear" ng-if="!isHomePages();" ng-click="goBackView()">
 					<i class="ion-android-arrow-back" style="font-size:30px;"></i>
@@ -42,7 +47,8 @@
 				</a> -->
 				<a class="item user-menu-name" nav-clear menu-close ng-click="openProfile();">
 					<div class="profile-container">
-						<img class="bar-profile-img" ng-if="profileImg" ng-src="{{profileImg}}" ng-click="openProfile()">
+						<img class="bar-profile-img" ng-if="profileImg" ng-src="{{profileImg}}"
+							ng-click="openProfile()">
 					</div>
 					<div class="user-menu-name">{{currentUser.nickName}}</div>
 				</a>

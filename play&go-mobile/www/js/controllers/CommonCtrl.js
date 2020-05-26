@@ -1,6 +1,6 @@
 angular.module('viaggia.controllers.common', [])
 
-  .controller('AppCtrl', function ($scope, $rootScope,$locale, $q, $state,$ionicSideMenuDelegate, GameSrv, $cordovaCamera, profileService, trackService, $ionicHistory, $location, $timeout, $ionicScrollDelegate, $ionicPopup, $ionicModal, $filter, $ionicLoading, DataManager, Config, planService, Utils, tutorial) {
+  .controller('AppCtrl', function ($scope, $rootScope, $locale, $q, $state, $ionicSideMenuDelegate, GameSrv, $cordovaCamera, profileService, trackService, $ionicHistory, $location, $timeout, $ionicScrollDelegate, $ionicPopup, $ionicModal, $filter, $ionicLoading, DataManager, Config, planService, Utils, tutorial) {
 
     $locale.NUMBER_FORMATS.GROUP_SEP = '';
     /* menu group */
@@ -122,33 +122,37 @@ angular.module('viaggia.controllers.common', [])
         historyRoot: true
       });
     }
-    $scope.changeTracking = function (type) {
+    $scope.changeTracking = function (type, enabled) {
       //se type e' uguale al tipo attuale non cambiare
-      if (!$scope.actualTracking(type) && trackService.trackingIsGoingOn()) {
-        //show popup if u want change the tracking mean
-        $ionicPopup.show({
-          title: $filter('translate')("pop_up_change_free_track_title"),
-          template: $filter('translate')("pop_up_change_free_track_template"),
-          buttons: [
-            {
-              text: $filter('translate')("btn_close"),
-              type: 'button-cancel'
-            },
-            {
-              text: $filter('translate')("pop_up_change_free_track_go_on"),
-              type: 'button-custom',
-              onTap: function () {
-                //close track and start another one
-                trackService.stopNoSynch().then(function () {
-                  trackService.startTransportTrack(type).then(function () {
+      if (enabled) {
+        if (!$scope.actualTracking(type) && trackService.trackingIsGoingOn()) {
+          //show popup if u want change the tracking mean
+          $ionicPopup.show({
+            title: $filter('translate')("pop_up_change_free_track_title"),
+            template: $filter('translate')("pop_up_change_free_track_template"),
+            buttons: [
+              {
+                text: $filter('translate')("btn_close"),
+                type: 'button-cancel'
+              },
+              {
+                text: $filter('translate')("pop_up_change_free_track_go_on"),
+                type: 'button-custom',
+                onTap: function () {
+                  //close track and start another one
+                  trackService.stopNoSynch().then(function () {
+                    trackService.startTransportTrack(type).then(function () {
+                    });
+                  }, function () {
+                    Toast.show($filter('translate')('pop_up_error_server_template'), "short", "bottom");
                   });
-                }, function () {
-                  Toast.show($filter('translate')('pop_up_error_server_template'), "short", "bottom");
-                });
-              }
-            }]
-        })
+                }
+              }]
+          })
 
+        }
+      } else {
+        $scope.openTrackingCorona();
       }
     }
     $scope.stopTracking = function () {
@@ -179,7 +183,7 @@ angular.module('viaggia.controllers.common', [])
                 text: $filter('translate')("pop_up_points_btn"),
                 type: 'button-custom',
                 onTap: function () {
-                  $ionicHistory.clearCache().then(function(){
+                  $ionicHistory.clearCache().then(function () {
                     $state.go('app.home.diary');
                   });
                 }
@@ -219,7 +223,7 @@ angular.module('viaggia.controllers.common', [])
       $state.go('app.notifications');
     }
     $scope.openGamificationBoard = function () {
-      $ionicHistory.clearCache().then(function(){
+      $ionicHistory.clearCache().then(function () {
         $state.go('app.home.leaderboards');
       });
     };
@@ -661,19 +665,19 @@ angular.module('viaggia.controllers.common', [])
         console.log("network error");
       }).finally(Config.loaded)
     };
-    $scope.openTrackingCorona = function(){
+    $scope.openTrackingCorona = function () {
       $scope.titleCorona = $filter('translate')('label_title_tracking_not_yet');
-            $scope.messageCorona = $filter('translate')('label_warning_not_yet_extended');
-            $scope.alertPopup = $ionicPopup.alert({
-                title:$scope.titleCorona,
-                templateUrl: 'templates/notYetPopup.html',
-                scope: $scope,
-                cssClass: 'notYetGamePopup'
-            });
+      $scope.messageCorona = $filter('translate')('label_warning_not_yet_extended');
+      $scope.alertPopup = $ionicPopup.alert({
+        title: $scope.titleCorona,
+        templateUrl: 'templates/notYetPopup.html',
+        scope: $scope,
+        cssClass: 'notYetGamePopup'
+      });
 
-            $scope.alertPopup.then(function (res) {
-            });
-        }
+      $scope.alertPopup.then(function (res) {
+      });
+    }
   })
 
 

@@ -48,12 +48,12 @@
                 <button class="button button-map icon ion-android-locate"></button>
             </div>
             <div class="modes-buttons" ng-if="trackingMultimodal()">
-                <button class="button button-map icon ic_foot" ng-class="{'actual-track':actualTracking('walk')}" ng-click="changeTracking('walk')"></button>
-                <button class="button button-map icon ic_bike" ng-class="{'actual-track':actualTracking('bike')}" ng-click="changeTracking('bike')"></button>
-                <button class="button button-map icon ic_urban-bus" ng-class="{'actual-track':actualTracking('bus')}" ng-click="changeTracking('bus')"></button>
-                <button class="button button-map icon ic_train" ng-class="{'actual-track':actualTracking('train')}" ng-click="changeTracking('train')"></button>
-                <button class="button button-map icon ion-waterdrop" ng-class="{'actual-track':actualTracking('boat')}" ng-click="changeTracking('boat')"></button>
-                <button class="button button-map icon ion-model-s" ng-class="{'actual-track':actualTracking('car_pooling')}" ng-click="changeTracking('car_pooling')"></button>
+                <button class="button button-map icon ic_foot" ng-class="{'actual-track':actualTracking('walk')}" ng-click="changeTracking('walk',true)"></button>
+                <button class="button button-map icon ic_bike" ng-class="{'actual-track':actualTracking('bike')}" ng-click="changeTracking('bike',true)"></button>
+                <button class="button button-map icon ic_urban-bus" ng-class="{'actual-track':actualTracking('bus')}" ng-click="changeTracking('bus',true)"></button>
+                <button class="button button-map icon ic_train" ng-class="{'actual-track':actualTracking('train')}" ng-click="changeTracking('train',true)"></button>
+                <button class="button button-map icon icon-boat icon-disabled" ng-class="{'actual-track':actualTracking('boat')}" ng-click="changeTracking('boat',false)"></button>
+                <button class="button button-map icon ion-model-s icon-disabled" ng-class="{'actual-track':actualTracking('car_pooling')}" ng-click="changeTracking('car_pooling',false)"></button>
             </div>
             <button class="button button-stop-map" ng-click="stopTracking()">STOP</button>
 

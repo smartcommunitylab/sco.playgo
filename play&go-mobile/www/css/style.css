@@ -2820,7 +2820,7 @@ ion-header-bar .title {
   /* height: 20px!important;
      width: 20px!important; */
   font-size: 30px !important;
-  min-width: 44px;
+  min-width: 11%;
 }
 
 .modes-buttons {
@@ -2831,6 +2831,7 @@ ion-header-bar .title {
   border-radius: 0px 35px 35px 0px;
   padding: 5px;
   display: flex;
+  width: 100%;
 }
 
 .modes-buttons .button-map {
@@ -2841,13 +2842,16 @@ ion-header-bar .title {
 .button-stop-map {
   position: fixed;
   bottom: 10px;
-  right: 0px;
+  padding:0vw 5vw;
   background-color: #c1272d;
   color: #fff;
   border-radius: 35px 0px 0px 35px;
   padding-top: 5px;
   padding-bottom: 5px;
   height: 57px;
+  z-index: 999;
+  margin-right: -10px;
+  right: 0px;
 }
 
 .col-60 {
@@ -2869,6 +2873,7 @@ ion-header-bar .title {
   border-radius: 0px 35px 35px 0px;
   padding: 5px;
   z-index: 999;
+  width: 100%;
 }
 
 .app-track-stop-map {
@@ -3829,6 +3834,9 @@ text-align: center;
 .not-yet-content{
   top:0px!important;
 }
-.disabled{
+.tracking-disabled{
   background-color: #D3D3D3!important;
+}
+.icon-disabled {
+  color: #D3D3D3!important;
 }
