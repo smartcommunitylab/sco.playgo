@@ -97,9 +97,9 @@
                   ng-click="changeTracking('bus',true)"></button>
                 <button class="col button button-map icon ic_train"  
                   ng-class="{'actual-track':actualTracking('train')}" ng-click="changeTracking('train',true)"></button>
-                <button class="col button button-map icon icon-boat icon-disabled"  
+                <button class="col button button-map icon icon-boat icon-disabled-gray"  
                   ng-class="{'actual-track':actualTracking('boat')}" ng-click="changeTracking('boat',false)"></button>
-                <button class="col button button-map icon ion-model-s icon-disabled"  
+                <button class="col button button-map icon ion-model-s icon-disabled-gray"  
                   ng-class="{'actual-track':actualTracking('car_pooling')}"
                   ng-click="changeTracking('car_pooling',false)"></button>
               <!-- </div> -->
@@ -159,10 +159,10 @@
             {{'track_feet' | translate}}
           </div>
           <div class="col text-center">
-            {{'track_bike' | translate}}<br> {{'track_run' | translate}}
+            {{'track_bike' | translate}} / {{'track_run' | translate}}
           </div>
           <div class="col text-center">
-            {{'track_bus' | translate}}<br> {{'track_cable' | translate}}
+            {{'track_bus' | translate}}
           </div>
         </div>
         <div class="row" ng-class="{'synch':syncRunning}">

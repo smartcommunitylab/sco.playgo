@@ -2554,14 +2554,14 @@ ion-header-bar .title {
   /* padding: 4px; */
   color: #fff;
   text-align: center;
-  width: 90px;
+  width: 80px;
   margin: auto;
-  height: 90px;
+  height: 80px;
 }
 
 .tracking-dashboard .tracking-ds-button i {
-  font-size: 15vw;
-  padding: 8px;
+  font-size: 14vw;
+  line-height: 80px;
   margin: auto;
   display: table;
 }
@@ -3839,4 +3839,7 @@ text-align: center;
 }
 .icon-disabled {
   color: #D3D3D3!important;
+}
+.icon-disabled-gray{
+  color:#8A8A8A!important;
 }
