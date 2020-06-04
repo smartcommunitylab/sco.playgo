@@ -409,7 +409,7 @@
   },
   {
     "file": "js/app.js",
-    "hash": "8ee8c71554bd2cd8e35fbbaa41a6c29a"
+    "hash": "f027a2a28bcef2e35e2f144ab6dc9d18"
   },
   {
     "file": "js/controllers/BookmarksCtrl.js",
@@ -1017,7 +1017,7 @@
   },
   {
     "file": "templates/corona/coronaPopup.html",
-    "hash": "b514bad6053daba10299ee9c1d050aec"
+    "hash": "859256ab4a789bfda69c62c6f7291dc0"
   },
   {
     "file": "templates/corona/homeCorona.html",

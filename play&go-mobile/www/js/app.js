@@ -1602,16 +1602,14 @@ angular.module('viaggia', [
       gamification_engine_choosing: "Il sistema sta scegliendo una sfida di coppia per te. Abreve la potrai visualizzare",
       high_school_label: "High School Challenge",
       pop_up_not_expired_template: 'Questa  è una versione di prova e terminerà il ',
-      label_warning_corona_title: 'ATTENZIONE: nuove misure di contenimento COVID-19',
-      label_warning_corona_message: '<b>Tra lunedi e sabato</b>, tutte le corse seguono l\'orario festivo.<br> <b>La domenica ed i festivi </b>tutte le corse sono sospese.<br>Tocca per ulteriori INFO',
-      label_warning_corona_extended: '<b>NUOVE MISURE CONTENIMENTO CORONAVIRUS:</b> <br>\
-- azzeramento servizio festivo  <br>\
-- applicazione orario festivo a giornate feriali lun/sab  <br>\
-- istituzione servizio a chiamata elastibus  <br>\
-<b>Per esigenze di lavoro e urgenti ragioni sanitarie </b> (comprese le necessità di recarsi da parenti non autosufficienti) sarà possibile <b>contattare il numero verde 800390270 (Elastibus) </b>tutti i giorni dalle 8.00 alle 17.00, per richiedere uno specifico trasporto gratuito, purché la richiesta arrivi entro le 17 del giorno precedente. I servizi di trasporto (gratuiti) saranno svolti dalle imprese del Consorzio Trentino Autonoleggiatori. <br>\
-<br>\
-<b>I provvedimenti hanno validità a tempo indeterminato, fino a revoca da parte delle Autorità Competenti che li hanno deliberati. <br>\
-<br>',
+      label_warning_corona_title: 'ATTENZIONE: nuove disposizioni in vigore dal 31 maggio 2020',
+      label_warning_corona_message: 'Viene ripristinato il servizio festivo. Tocca per ulteriori INFO',
+      message_popup_first: 'Viene ripristinato il servizio festivo, con orario ridotto, per i Servizi Urbani di ',
+      message_popup_second: ' e ',
+      message_popup_third: 'e la ',
+      message_popup_forth: ' Funivia Trento - Sardagna',
+      message_popup_fifth: 'Rimane disponibile il servizio Elastibus. Per consultare le disposizioni in vigore clicca ',
+      message_popup_sixth: 'QUI' ,
       corona_home_title: 'Attenzione: TUTTE le attività di Play&Go sono SOSPESE causa COVID-19.',
       corona_home_subtitle: 'Le sfide, le classifiche e tutte le altre attività di Play&Go sono congelate fino a data da destinarsi. Per ulteriori informazioni sulle modifiche alla mobilità, consulta ',
       label_this_page:' questa pagina',
@@ -2185,15 +2183,14 @@ angular.module('viaggia', [
       gamification_engine_choosing: "The system is choosing a group challenge for you. Shortly you will see it here",
       high_school_label: "High School Challenge",
       pop_up_not_expired_template: 'The actual version of the app end on ',
-      label_warning_corona_title: 'WARNING: new containment measures COVID-19',
-      label_warning_corona_message: '<b>From Monday to Saturday</b>, all rides follow public holidays timetables<b> On Sundays and public holidays </b> all rides are suspended. <br> Touch for more INFO',
-      label_warning_corona_extended: '- No holiday service <br>\
--  Holiday timetables application from Monday to Saturday  <br>\
-- Elastibus service on call  <br>\
-<b>For work needs and urgent health reasons </b> (including the need to go to relatives) it will be possible to  <b> contact the toll-free number 800390270 (Elastibus) </b>every day from 8.00 to 17.00 , to request a specific free transport, only if that the call arrives before 5 pm of the previous day. The transport services (free of charge) will be carried out by the companies of the Trentino Autonoleggiatori Consortium. <br>\
-<br>\
-<b>The measures are valid for an indefinitely, until revoked by the Competent Authorities that have approved them.<br>\
-<br>',
+      label_warning_corona_title: 'WARNING: new containment measures starting from 31 May 2020',
+      label_warning_corona_message: 'The holiday service is restored.<br> Touch for further INFO',
+      message_popup_first: 'The holiday service is restored, with limited timetable, for urban services of  ',
+      message_popup_second: ' and ',
+      message_popup_third: ' and the ',
+      message_popup_forth: ' Cablecar Trento - Sardagna',
+      message_popup_fifth: 'Elastibus service is still available. For further information click ',
+      message_popup_sixth: 'HERE' ,
 corona_home_title: 'Warning: ALL Play&Go activities are SUSPENDED due to COVID-19.',
 corona_home_subtitle: 'The challenges, rankings and all other Play&Go activities are frozen until further notice. For more information on changes to mobility services, see',
 label_this_page:' this page',
