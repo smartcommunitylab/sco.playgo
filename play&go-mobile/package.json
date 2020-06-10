@@ -50,6 +50,7 @@
     "cordova-plugin-wkwebviewxhrfix": "file:../cordova-plugin-wkwebviewxhrfix",
     "cordova-plugin-x-toast": "^2.7.2",
     "cordova-plugin-zip": "^3.1.0",
+    "cordova-res": "^0.14.0",
     "cordova-sqlite-storage": "5.0.0",
     "cordova.plugins.diagnostic": "5.0.2",
     "es6-promise-plugin": "^4.2.2",
