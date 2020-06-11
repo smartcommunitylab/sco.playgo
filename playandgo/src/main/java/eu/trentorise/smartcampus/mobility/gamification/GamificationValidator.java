@@ -838,11 +838,11 @@ public class GamificationValidator {
 			case WALK:
 				return 10.0;
 			case BIKE:
-				return 20.0;
+				return 25.0;
 			case BUS:
-				return 30.0;
+				return 40.0;
 			case TRAIN:
-				return 30.0;
+				return 60.0;
 			default:
 				return 0.0;	
 		}	
@@ -850,13 +850,13 @@ public class GamificationValidator {
 	private static double getModePoint(String mode) {
 		switch(mode) {
 		case WALK:
-			return 15.0;
+			return 10.0;
 		case BIKE:
-			return 7.5;
+			return 6;
 		case BUS:
-			return 5.0;
+			return 3.75;
 		case TRAIN:
-			return 5.0;
+			return 2.5;
 		default:
 			return 0.0;	
 		}	
