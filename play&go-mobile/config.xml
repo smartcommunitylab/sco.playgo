@@ -4,8 +4,8 @@
     xmlns="http://www.w3.org/ns/widgets" 
     xmlns:cdv="http://cordova.apache.org/ns/1.0" 
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <name>Play&amp;Go Ferrara</name>
-    <description>Play&amp;Go Ferrara</description>
+    <name>Ferrara Play&amp;Go</name>
+    <description>Ferrara Play&amp;Go</description>
     <author email="info@smartcommunitylab.it" href="http://www.smartcommunitylab.it/">Smart Community Lab</author>
     <content src="index.html" />
 

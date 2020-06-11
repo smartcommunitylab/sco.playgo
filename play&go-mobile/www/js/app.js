@@ -1124,7 +1124,7 @@ angular.module('viaggia', [
       error_from_message_feedback: 'Luogo di partenza non valido',
       error_to_message_feedback: 'Luogo di destinazione non valido',
       error_time_message_feedback: 'Selezionare un\'ora recente',
-      credits_project: 'Un progetto di:',
+      credits_project: 'Un\'iniziativa di:',
       credits_collaboration: 'In collaborazione con:',
       credits_participation: 'Con la partecipazione di:',
       credits_info: 'Per informazioni:',
