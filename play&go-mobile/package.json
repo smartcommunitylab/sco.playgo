@@ -187,12 +187,11 @@
       "cordova-plugin-file-transfer": {},
       "cordova-plugin-googleplus": {
         "REVERSED_CLIENT_ID": "com.googleusercontent.apps.593393059512-hlehbganu86qqi1pr8jb2deknfllmvlc",
-        "WEB_APPLICATION_CLIENT_ID": "593393059512-7gcsbj3up6ubrdb9k3omeokq4jaa3vlk.apps.googleusercontent.com",
+        "WEB_APPLICATION_CLIENT_ID": "593393059512-dc7osu158504dbv30fg2urqc61qgskf6.apps.googleusercontent.com",
         "PLAY_SERVICES_VERSION": "15.0.1"
       }
     },
     "platforms": [
-      "ios",
       "android"
     ]
   }

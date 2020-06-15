@@ -1579,7 +1579,8 @@ angular.module('viaggia', [
       label_this_page: ' questa pagina',
       label_title_tracking_not_yet: 'Impossibile avviare l\'attività selezionata!',
       track_boat: 'Battello',
-      track_car_pooling: 'Car pooling'
+      track_car_pooling: 'Car pooling',
+      menu_disabled:'Funzione attualmente non disponibile'
 
 
     });
@@ -2163,9 +2164,8 @@ angular.module('viaggia', [
       label_this_page: ' this page',
       label_title_tracking_not_yet: 'The selected activity is temporarily blocked!',
       track_boat: 'Boat',
-      track_car_pooling: 'Car pooling'
-
-
+      track_car_pooling: 'Car pooling',
+      menu_disabled:'Fucntion currently not available'
 
     });
 
