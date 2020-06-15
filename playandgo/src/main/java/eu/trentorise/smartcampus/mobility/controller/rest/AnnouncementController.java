@@ -3,7 +3,6 @@ package eu.trentorise.smartcampus.mobility.controller.rest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,10 +20,6 @@ public class AnnouncementController {
 	@Autowired
 	private AnnouncementsHelper helper;
 	
-	@Autowired
-	@Value("${feed.entries}")
-	private Integer feedEntries = null;	
-
 	@RequestMapping(method = RequestMethod.GET, value = "/announcements/news/{appId}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	public @ResponseBody Announcements getNews(@PathVariable String appId, @RequestParam(required = false) Integer skip, @RequestParam(required = false) Integer limit, HttpServletResponse response) throws Exception {
 		return helper.getAnnouncement("news", appId, skip, limit);
