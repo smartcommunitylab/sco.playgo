@@ -131,7 +131,9 @@
         <variable name="MOTION_USAGE_DESCRIPTION" value="Using the accelerometer increases battery-efficiency by intelligently toggling location-tracking only when the device is detected to be moving"/>
     </plugin> -->
     <plugin name="cordova-plugin-googleplus" source="npm">
-        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.593393059512-hlehbganu86qqi1pr8jb2deknfllmvlc" />
+        <variable name="REVERSED_CLIENT_ID" value="*reverse_client_id*" />
+        <variable name="WEB_APPLICATION_CLIENT_ID" value="*cliend_id*" />
+
     </plugin>
     <config-file parent="CFBundleURLTypes" target="*-Info.plist">
         <array>

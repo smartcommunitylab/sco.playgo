@@ -41,10 +41,7 @@
 		<ion-content class="leftmenu">
 			<ion-list>
 				<div class="fs-header"></div>
-				<!-- <a class="item item-avatar" ng-click="openProfile();">
-					<img ng-src="{{urlImg}}">
-					<h2>{{currentUser.nickName}}</h2>
-				</a> -->
+				
 				<a class="item user-menu-name" nav-clear menu-close ng-click="openProfile();">
 					<div class="profile-container">
 						<img class="bar-profile-img" ng-if="profileImg" ng-src="{{profileImg}}"
@@ -52,47 +49,26 @@
 					</div>
 					<div class="user-menu-name">{{currentUser.nickName}}</div>
 				</a>
-				<!-- <ion-item nav-clear menu-close ng-click="openProfile();" class="menu-main item-icon-left">
-					<a ng-if="currentUser" class="item item-avatar" ng-click="openProfile();">
-						<img ng-if="profileImg" ng-src="{{profileImg}}" ng-click="changeProfile()">
-						<h2>{{currentUser.nickName}}</h2>
-					</a>
-					<div ng-if="!currentUser">
-						<i class="icon ion-person"></i>{{currentUser.nickName}}
-					</div>
-				</ion-item> -->
+				
 				<div class="menu-separator">
 
 				</div>
-				<!-- <ion-item nav-clear menu-close href="#/app/home" class="menu-main item-icon-left">
-                    <i class="icon ic_home"></i>
-                </ion-item> -->
+				
 				<ion-item nav-clear menu-close ng-click="goHome()" class="menu-main item-icon-left">
 					<i class="icon ic_home"></i>{{'menu_home' | translate}}
 				</ion-item>
 
-				<!-- <ion-item nav-clear menu-close href="#/app/bookmarks" class="menu-main item-icon-left">
-					<i class="icon ic_bookmark"></i>{{'menu_bookmarks' | translate}}
-				</ion-item> -->
-				<!-- <div>
-					<ion-item class="item item-icon-left item-icon-right menu-main" ng-click="toggleGroupRealTime()" ng-class="{active: isGroupRealTimeShown()}">
-						<i class="icon ic_mobility"></i> {{'menu_info_transports' | translate}}
-						<i class="icon" ng-class="isGroupRealTimeShown() ? 'ion-arrow-up-b' : 'ion-arrow-down-b'"></i>
-					</ion-item>
-					<div>
-						<ion-item class="item-icon-left item-accordion  menu-rt" ng-repeat="m in infomenu" ng-show="isGroupRealTimeShown()" nav-clear
-						 menu-close item-icon-left ng-click="goPath(m.state)">
-							<i class="icon" ng-class="m.icon"></i>{{m.label | translate}}
-						</ion-item>
-					</div>
-				</div> -->
-				<!-- <ion-item class="item item-icon-left item-icon-right menu-main" nav-clear menu-close ng-click="openSchool()" class="menu-main item-icon-left">
-					<i class="icon ion-university"></i>{{'high_school_label' | translate}}<i class="icon ion-android-bulb icon-high-school"></i>
-				</ion-item> -->
-				<ion-item nav-clear menu-close ng-click="openPrizes()" class="menu-main item-icon-left">
+				
+				<!-- <ion-item nav-clear menu-close ng-click="openPrizes()" class="menu-main item-icon-left menu-disabled">
+					<i class="icon ic_prize"></i>{{'registration_prizes' | translate}}
+				</ion-item>	 -->
+				<ion-item nav-clear menu-close ng-click="menuDisabled()" class="menu-main item-icon-left menu-disabled">
 					<i class="icon ic_prize"></i>{{'registration_prizes' | translate}}
 				</ion-item>
-				<ion-item nav-clear menu-close ng-click="openRules()" class="menu-main item-icon-left">
+				<!-- <ion-item nav-clear menu-close ng-click="openRules()" class="menu-main item-icon-left menu-disabled">
+					<i class="icon ic_game_rules"></i>{{'menu_rules' | translate}}
+				</ion-item> -->
+				<ion-item nav-clear menu-close ng-click="menuDisabled()" class="menu-main item-icon-left menu-disabled">
 					<i class="icon ic_game_rules"></i>{{'menu_rules' | translate}}
 				</ion-item>
 				<ion-item nav-clear menu-close ng-click="openNews()" class="menu-main item-icon-left">
@@ -101,7 +77,11 @@
 				<ion-item nav-clear menu-close href="{{contactLink}}" class="item-icon-left menu-main ">
 					<i class="icon ic_segnala_problemi"></i>{{'menu_betatesting_bug' | translate}}
 				</ion-item>
-				<ion-item nav-clear menu-close ng-click="openFAQ()" class="menu-main item-icon-left">
+				<!-- <ion-item nav-clear menu-close ng-click="openFAQ()" class="menu-main item-icon-left menu-disabled">
+					<i class="icon ion-help"></i>{{'btn_faq' | translate}}
+				</ion-item>	 -->
+	
+			 <ion-item nav-clear menu-close ng-click="menuDisabled()" class="menu-main item-icon-left menu-disabled">
 					<i class="icon ion-help"></i>{{'btn_faq' | translate}}
 				</ion-item>
 				<ion-item nav-clear menu-close ng-click="openCredits()" class="menu-last item-icon-left">
