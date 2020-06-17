@@ -134,7 +134,7 @@ angular.module('viaggia', [
   .run(function ($ionicPlatform, $ionicLoading, $ionicPopup, $filter, $ionicHistory, $state, $cordovaFile, $q, $rootScope, $translate, trackService, DataManager, DiaryDbSrv, Config, GeoLocate, notificationService, LoginService) {
 
     $rootScope.locationWatchID = undefined;
-    $rootScope.coronaVirus =true;
+    $rootScope.coronaVirus =false;
 
     var geolocate = function () {
       var defer = $q.defer();
