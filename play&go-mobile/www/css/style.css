@@ -2825,7 +2825,6 @@ ion-header-bar .title {
   /* height: 20px!important;
      width: 20px!important; */
   font-size: 30px !important;
-  min-width: 11%;
 }
 
 .modes-buttons {
@@ -2842,6 +2841,8 @@ ion-header-bar .title {
 .modes-buttons .button-map {
   background-color: #2975a7 !important;
   color: white;
+  min-width: 11%;
+
 }
 
 .button-stop-map {
