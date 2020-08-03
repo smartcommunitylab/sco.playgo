@@ -302,7 +302,7 @@ public class ChallengesUtils {
 						case CHAL_MODEL_GROUP_COMPETITIVE_TIME: {
 							row_status = (Double) challenge.getFields().get(CHAL_FIELDS_CHALLENGE_SCORE);
 							double other_row_status = (Double) otherAttendeeScores.get(CHAL_FIELDS_CHALLENGE_SCORE);
-							double challengeTarget = (Double) challenge.getFields().get(CHAL_FIELDS_CHALLENGE_TARGET);
+							double challengeTarget = Math.ceil((Double) challenge.getFields().get(CHAL_FIELDS_CHALLENGE_TARGET));
 							target = (int)challengeTarget;
 							int other_status = 0;
 							if (challengeTarget != 0) {
@@ -346,7 +346,7 @@ public class ChallengesUtils {
 						case CHAL_MODEL_GROUP_COOPERATIVE: {
 							row_status = (Double) challenge.getFields().get(CHAL_FIELDS_CHALLENGE_SCORE);
 							double other_row_status = (Double) otherAttendeeScores.get(CHAL_FIELDS_CHALLENGE_SCORE);
-							double challengeTarget = (Double) challenge.getFields().get(CHAL_FIELDS_CHALLENGE_TARGET);
+							double challengeTarget = Math.ceil((Double) challenge.getFields().get(CHAL_FIELDS_CHALLENGE_TARGET));
 							target = (int)challengeTarget;
 							int other_status = 0;
 							if (challengeTarget != 0) {
@@ -501,7 +501,7 @@ public class ChallengesUtils {
 		}
 		case CHAL_MODEL_GROUP_COOPERATIVE : {
 			Double reward = (Double) challenge.getFields().getOrDefault(CHAL_FIELDS_CHALLENGE_REWARD, "");
-			Double target = (Double) challenge.getFields().get(CHAL_FIELDS_CHALLENGE_TARGET);
+			Double target = Math.ceil((Double) challenge.getFields().get(CHAL_FIELDS_CHALLENGE_TARGET));
 			if (otherPlayer != null) {
 				String nickname = otherPlayer.getNickname();
 				challenge.getFields().put("opponent", nickname);
