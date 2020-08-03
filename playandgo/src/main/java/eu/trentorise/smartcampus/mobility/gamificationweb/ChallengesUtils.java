@@ -501,7 +501,8 @@ public class ChallengesUtils {
 		}
 		case CHAL_MODEL_GROUP_COOPERATIVE : {
 			Double reward = (Double) challenge.getFields().getOrDefault(CHAL_FIELDS_CHALLENGE_REWARD, "");
-			Double target = Math.ceil((Double) challenge.getFields().get(CHAL_FIELDS_CHALLENGE_TARGET));
+			Double target = (Double) challenge.getFields().get(CHAL_FIELDS_CHALLENGE_TARGET);
+			if (target != null) target = Math.ceil(target);
 			if (otherPlayer != null) {
 				String nickname = otherPlayer.getNickname();
 				challenge.getFields().put("opponent", nickname);
