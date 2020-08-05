@@ -1,6 +1,6 @@
 angular.module('viaggia.controllers.home', [])
 
-  .controller('HomeCtrl', function ($scope, $state, GameSrv, profileService, $rootScope, $ionicPlatform, $timeout, $interval, $filter, $location, $ionicHistory, marketService, notificationService, Config, GeoLocate, mapService, ionicMaterialMotion, ionicMaterialInk, bookmarkService, planService, $ionicLoading, $ionicPopup, trackService, Toast, tutorial, GameSrv, DiaryDbSrv, BT) {
+  .controller('HomeCtrl', function ($scope, $ionicModal, $state, GameSrv, profileService, $rootScope, $ionicPlatform, $timeout, $interval, $filter, $location, $ionicHistory, marketService, notificationService, Config, GeoLocate, mapService, ionicMaterialMotion, ionicMaterialInk, bookmarkService, planService, $ionicLoading, $ionicPopup, trackService, Toast, tutorial, GameSrv, DiaryDbSrv, BT) {
 
     $scope.challenges = null;
     $scope.buttonProposedEnabled = false;
@@ -372,6 +372,68 @@ angular.module('viaggia.controllers.home', [])
         Config.loaded();
       }
     }
+    $scope.trackCarpooling = function() {
+     // trackAndMap('carPooling',false)
+      $ionicModal.fromTemplateUrl('templates/carpoolModal.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+      }).then(function (modal) {
+        $scope.modal = modal;
+        $scope.step='1';
+        $scope.selection='';
+        $scope.openModal();
+      });
+    };
+    $scope.closeCarPooling = function () {
+      $scope.modal.hide();
+      $scope.step='1';
+      $scope.selection='';
+  };
+  $scope.chooseRole = function (role) {
+    $scope.selection=role;
+    $scope.step='2';
+  }
+  $scope.generate = function() {
+    cordova.plugins.qrcodejs.encode('TEXT_TYPE', 'http://www.nytimes.com', function(base64EncodedQRImage) {
+      console.info('QRCodeJS response is ' + base64EncodedQRImage);
+      $scope.imgBase64=base64EncodedQRImage;
+    }, (err) => {
+      console.error('QRCodeJS error is ' + JSON.stringify(err));
+    });
+  }
+  $scope.scan = function() {
+    cordova.plugins.barcodeScanner.scan(
+      function (result) {
+        if (result.text){
+          //transform it to img
+          $scope.code = result.text;
+          $scope.generate();
+        }
+        if (result.cancelled){
+          //cancelled by the user
+        }
+      },
+      function (error) {
+          alert("Scanning failed: " + error);
+      },
+      {
+          preferFrontCamera : false, 
+          showFlipCameraButton : true, 
+          showTorchButton : true, 
+          torchOn: false, 
+          saveHistory: true, 
+          resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+          formats : "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
+          orientation : "portrait", // Android only (portrait|landscape), default unset so it rotates with the device
+          disableAnimations : true, // iOS
+          disableSuccessBeep: true // iOS and Android
+      }
+   );
+  }
+    $scope.openModal = function () {
+      $scope.modal.show();
+    };
+
     $scope.trackAndMap = function (transportType,enabled) {
       //init multimodal id used for db 
       if (!enabled) {
@@ -388,6 +450,13 @@ angular.module('viaggia.controllers.home', [])
       $scope.stopTracking();
     }
 
+    $scope.startCarpooling=function (role) {
+      //toast role
+      Toast.show(role, "short", "bottom");
+
+    $scope.trackAndMap('carPooling',true);
+    }
+    
     $scope.startTracking = function (transportType) {
       if (!$rootScope.syncRunning) {
         $scope.localizationAlwaysAllowed().then(function (loc) {

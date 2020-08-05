@@ -163,7 +163,7 @@ angular.module('viaggia', [
     }
     $ionicPlatform.ready(function () {
       
-      initAppUpdate();
+      //initAppUpdate();
 
       if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -1580,7 +1580,15 @@ angular.module('viaggia', [
       label_title_tracking_not_yet: 'Impossibile avviare l\'attività selezionata!',
       track_boat: 'Battello',
       track_car_pooling: 'Car pooling',
-      menu_disabled:'Funzione attualmente non disponibile'
+      menu_disabled:'Funzione attualmente non disponibile',
+      select_type_carpooling:'Seleziona il tuo viaggio',
+      select_driver_carpooling:'Autista',
+      select_passenger_carpooling:'Passeggero',
+      show_qrcode:'Mostra questo QR Code ai passeggeri',
+      start_carpooling:"Inizia",
+      show_qrcode_title:"Punta al QR Code dell'autista",
+      show_qrcode:"Inquadra",
+      show_qrcode_manual:'Oppure inseriscilo manualmente'
 
 
     });
@@ -2165,7 +2173,16 @@ angular.module('viaggia', [
       label_title_tracking_not_yet: 'The selected activity is temporarily blocked!',
       track_boat: 'Boat',
       track_car_pooling: 'Car pooling',
-      menu_disabled:'Fucntion currently not available'
+      menu_disabled:'Fucntion currently not available',
+      select_type_carpooling:'Select your journey',
+      select_driver_carpooling:'Driver',
+      select_passenger_carpooling:'Passenger',
+      show_qrcode:'Show this QR Code to the passengers',
+      start_carpooling:"Start",
+      show_qrcode_title:"Point to the QR Code",
+      show_qrcode:"Scan",
+      show_qrcode_manual:'Oppure inseriscilo manualmente'
+
 
     });
 
