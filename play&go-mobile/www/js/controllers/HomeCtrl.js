@@ -296,16 +296,16 @@ angular.module('viaggia.controllers.home', [])
                 title: $filter('translate')("pop_up_bt_title"),
                 template: $filter('translate')("pop_up_bt"),
                 buttons: [{
-                    text: $filter('translate')("btn_close"),
-                    type: 'button-cancel'
-                  },
-                  {
-                    text: $filter('translate')("pop_up_bt_button_enable"),
-                    type: 'button-custom',
-                    onTap: function () {
-                      bluetoothSerial.enable();
-                    }
+                  text: $filter('translate')("btn_close"),
+                  type: 'button-cancel'
+                },
+                {
+                  text: $filter('translate')("pop_up_bt_button_enable"),
+                  type: 'button-custom',
+                  onTap: function () {
+                    bluetoothSerial.enable();
                   }
+                }
                 ]
               });
             }
@@ -334,16 +334,16 @@ angular.module('viaggia.controllers.home', [])
               title: $filter('translate')("pop_up_low_accuracy_title"),
               template: $filter('translate')("pop_up_low_accuracy_template"),
               buttons: [{
-                  text: $filter('translate')("btn_close"),
-                  type: 'button-cancel'
-                },
-                {
-                  text: $filter('translate')("pop_up_low_accuracy_button_go_on"),
-                  type: 'button-custom',
-                  onTap: function () {
-                    startTransportTrack(transportType);
-                  }
+                text: $filter('translate')("btn_close"),
+                type: 'button-cancel'
+              },
+              {
+                text: $filter('translate')("pop_up_low_accuracy_button_go_on"),
+                type: 'button-custom',
+                onTap: function () {
+                  startTransportTrack(transportType);
                 }
+              }
               ]
             });
           } else if (Config.isErrorGPSNoSignal(error)) {
@@ -372,77 +372,102 @@ angular.module('viaggia.controllers.home', [])
         Config.loaded();
       }
     }
-    $scope.trackCarpooling = function() {
-     // trackAndMap('carPooling',false)
+    $scope.carPoolingData = {
+      code: '',
+      imgBase64: ''
+    }
+    $scope.trackCarpooling = function () {
+      // trackAndMap('carPooling',false)
       $ionicModal.fromTemplateUrl('templates/carpoolModal.html', {
         scope: $scope,
         animation: 'slide-in-up'
       }).then(function (modal) {
         $scope.modal = modal;
-        $scope.step='1';
-        $scope.selection='';
+        $scope.step = 1;
+        $scope.selection = '';
         $scope.openModal();
       });
     };
     $scope.closeCarPooling = function () {
       $scope.modal.hide();
-      $scope.step='1';
-      $scope.selection='';
-  };
-  $scope.chooseRole = function (role) {
-    $scope.selection=role;
-    $scope.step='2';
-  }
-  $scope.generate = function() {
-    cordova.plugins.qrcodejs.encode('TEXT_TYPE', 'http://www.nytimes.com', function(base64EncodedQRImage) {
-      console.info('QRCodeJS response is ' + base64EncodedQRImage);
-      $scope.imgBase64=base64EncodedQRImage;
-    }, (err) => {
-      console.error('QRCodeJS error is ' + JSON.stringify(err));
-    });
-  }
-  $scope.scan = function() {
-    cordova.plugins.barcodeScanner.scan(
-      function (result) {
-        if (result.text){
-          //transform it to img
-          $scope.code = result.text;
-          $scope.generate();
-        }
-        if (result.cancelled){
-          //cancelled by the user
-        }
-      },
-      function (error) {
-          alert("Scanning failed: " + error);
-      },
-      {
-          preferFrontCamera : false, 
-          showFlipCameraButton : true, 
-          showTorchButton : true, 
-          torchOn: false, 
-          saveHistory: true, 
-          resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
-          formats : "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
-          orientation : "portrait", // Android only (portrait|landscape), default unset so it rotates with the device
-          disableAnimations : true, // iOS
-          disableSuccessBeep: true // iOS and Android
+      $scope.step = 1;
+      $scope.selection = '';
+    };
+    $scope.chooseRole = function (role) {
+      $scope.selection = role;
+      $scope.step = 2;
+      $scope.carPoolingData.imgBase64 = '';
+      $scope.carPoolingData.code = '';
+      if (role == 'driver') {
+        $scope.generate();
       }
-   );
-  }
+    }
+    function randomIntFromInterval(min, max) { // min and max included 
+      return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+    function pad(n, width, z) {
+      z = z || '0';
+      n = n + '';
+      return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+    }
+    $scope.generate = function (result) {
+      var text = '';
+      if (!result) {
+        //generate code randomly;
+        text= pad(randomIntFromInterval(0,99999),5);
+
+      } 
+      else text=result
+      cordova.plugins.qrcodejs.encode('TEXT_TYPE', text, function (base64EncodedQRImage) {
+        console.info('QRCodeJS response is ' + base64EncodedQRImage);
+        $scope.carPoolingData.imgBase64 = base64EncodedQRImage;
+        $scope.carPoolingData.code = text;
+      }, (err) => {
+        console.error('QRCodeJS error is ' + JSON.stringify(err));
+      });
+    }
+    $scope.scan = function () {
+      cordova.plugins.barcodeScanner.scan(
+        function (result) {
+          if (result.text) {
+            //transform it to img
+            $scope.carPoolingData.code = result.text;
+            $scope.generate($scope.carPoolingData.code );
+          }
+          if (result.cancelled) {
+            //cancelled by the user
+          }
+        },
+        function (error) {
+          alert("Scanning failed: " + error);
+        },
+        {
+          preferFrontCamera: false,
+          showFlipCameraButton: true,
+          showTorchButton: true,
+          torchOn: false,
+          saveHistory: true,
+          resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+          formats: "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
+          orientation: "portrait", // Android only (portrait|landscape), default unset so it rotates with the device
+          disableAnimations: true, // iOS
+          disableSuccessBeep: true // iOS and Android
+        }
+      );
+    }
     $scope.openModal = function () {
       $scope.modal.show();
     };
 
-    $scope.trackAndMap = function (transportType,enabled) {
+    $scope.trackAndMap = function (transportType, enabled) {
       //init multimodal id used for db 
       if (!enabled) {
         $scope.openTrackingCorona();
-      } else 
-      if (!$rootScope.syncRunning) {
-        $scope.startTracking(transportType);
-        $state.go('app.mapTracking');
-      }
+      } else
+        if (!$rootScope.syncRunning) {
+          $scope.startTracking(transportType);
+          $state.go('app.mapTracking');
+        }
 
     }
     $scope.stopTrackingHome = function () {
@@ -450,13 +475,15 @@ angular.module('viaggia.controllers.home', [])
       $scope.stopTracking();
     }
 
-    $scope.startCarpooling=function (role) {
+    $scope.startCarpooling = function (role) {
       //toast role
-      Toast.show(role, "short", "bottom");
-
-    $scope.trackAndMap('carPooling',true);
+      Toast.show($filter('translate')("car_pool_started"), "short", "bottom");
+      $scope.modal.hide();
+      $scope.trackAndMap('carPooling', true);
     }
-    
+    $scope.backCarPooling = function (){
+      $scope.step--;
+    }
     $scope.startTracking = function (transportType) {
       if (!$rootScope.syncRunning) {
         $scope.localizationAlwaysAllowed().then(function (loc) {
@@ -487,18 +514,18 @@ angular.module('viaggia.controllers.home', [])
             title: $filter('translate')("my_trip_empty_list"),
             template: $filter('translate')("no_saved_tracks_to_track"),
             buttons: [{
-                text: $filter('translate')("pop_up_close"),
-                type: 'button-cancel'
-              },
-              {
-                text: $filter('translate')("pop_up_plan"),
-                type: 'button-custom',
-                onTap: function () {
-                  confirmPopup.close();
-                  planService.setPlanConfigure(null);
-                  $state.go('app.plan');
-                }
+              text: $filter('translate')("pop_up_close"),
+              type: 'button-cancel'
+            },
+            {
+              text: $filter('translate')("pop_up_plan"),
+              type: 'button-custom',
+              onTap: function () {
+                confirmPopup.close();
+                planService.setPlanConfigure(null);
+                $state.go('app.plan');
               }
+            }
             ]
           });
         }

@@ -1584,11 +1584,13 @@ angular.module('viaggia', [
       select_type_carpooling:'Seleziona il tuo viaggio',
       select_driver_carpooling:'Autista',
       select_passenger_carpooling:'Passeggero',
-      show_qrcode:'Mostra questo QR Code ai passeggeri',
+      // show_qrcode:'Mostra questo QR Code ai passeggeri',
       start_carpooling:"Inizia",
       show_qrcode_title:"Punta al QR Code dell'autista",
-      show_qrcode:"Inquadra",
-      show_qrcode_manual:'Oppure inseriscilo manualmente'
+      show_qrcode:"Usa questo QR code per associare i tuoi passeggeri al viaggio.",
+      show_qrcode_manual:'Oppure inseriscilo manualmente',
+      car_pool_started:'Il tuo viaggio in Car Pooling é iniziato'
+
 
 
     });
@@ -2177,12 +2179,12 @@ angular.module('viaggia', [
       select_type_carpooling:'Select your journey',
       select_driver_carpooling:'Driver',
       select_passenger_carpooling:'Passenger',
-      show_qrcode:'Show this QR Code to the passengers',
+      // show_qrcode:'Show this QR Code to the passengers',
       start_carpooling:"Start",
       show_qrcode_title:"Point to the QR Code",
-      show_qrcode:"Scan",
-      show_qrcode_manual:'Oppure inseriscilo manualmente'
-
+      show_qrcode:"Use this QR Code for combine your passengers to your journey.",
+      show_qrcode_manual:'Or insert manually',
+      car_pool_started:'Your Car Polling journey has started'
 
     });
 

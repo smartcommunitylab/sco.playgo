@@ -1,14 +1,16 @@
 <ion-modal-view>
-    <ion-header-bar align-title="left" class="bar-positive-100">
+    <!-- <ion-header-bar align-title="left" class="bar-positive-100">
         <div class="buttons"  ng-click="closeCarPooling()">
             <i class="icon close-modal" ng-class="{'ion-android-arrow-back': platform.isAndroid(), 'ion-ios-arrow-back': !platform.isAndroid()}"></i>
         </div>
         <h1 class="title">{{title}}</h1>
 
-    </ion-header-bar>
-    <ion-content class="car-pool-modal" scroll="false">
-        <div ng-if="step=='1'">
-            <div class="car-pool-title">{{'select_type_carpooling'|translate|uppercase}}</div>
+    </ion-header-bar> -->
+    <ion-content class="car-pool-modal" scroll="true">
+        <div class="back-modal-car text-left"   ng-if="step>1"><i ng-click="backCarPooling()" class="icon close-modal" ng-class="{'ion-android-arrow-back': platform.isAndroid(), 'ion-ios-arrow-back': !platform.isAndroid()}"></i></div>
+        <div class="close-modal-car text-right" ><i class="icon ion-close-round" ng-click="closeCarPooling()"></i></div>
+        <div ng-if="step==1">
+            <div class="row     car-pool-title">{{'select_type_carpooling'|translate|uppercase}}</div>
             <div class="car-pool-type text-center">
                 <div><button class="button" ng-click="chooseRole('driver')">{{'select_driver_carpooling'|translate}}</button>
                 </div>
@@ -18,38 +20,52 @@
                 </div>
             </div>
         </div>
-        <div ng-if="step=='2'">
+        <div ng-if="step==2">
             <div ng-if="selection=='driver'" >
-                <div ng-init="generate()">
-                    <div class="car-pool-driver-title text-center">{{'show_qrcode'|translate}}</div>
+                <div>
+                    <div class="row car-pool-driver-title text-center">{{'show_qrcode'|translate}}</div>
                     <div class="text-center">
-                        <img data-ng-src="{{imgBase64}}" />
+                        <img data-ng-src="{{carPoolingData.imgBase64}}" />
+                    </div>
+                    <div class="car-pool-driver-title text-center">{{'show_qrcode_manual'|translate}}</div>
+                    <div class="text-center car-pool-driver-title">
+                        <span>{{carPoolingData.code}}</span>
                     </div>
                 </div>
             </div>
             <div ng-if="selection=='passenger'" class="text-center">
-                <div ng-if="!imgBase64">
-                <div>
+                <div ng-if="!carPoolingData.imgBase64">
+                <div class="car-pool-driver-title">
                     {{'show_qrcode_title'|translate}}
                 </div>
-                <button ng-click="scan()">{{'show_qrcode'|translate}}</button>
-            </div>
-                <div class="text-center">
-                    <img data-ng-src="{{imgBase64}}" />
-                    <span  >{{code}} </span>
+                <div class="car-pool-type text-center">
+                    <div><button class="button" ng-click="scan()"><i class="icon ion-camera"></i></button>
+                    </div>
                 </div>
-                <div ng-if="!imgBase64"></div>
-                <div>
+            </div>
+            <div ng-if="carPoolingData.imgBase64">
+
+                <div class="text-center">
+                    <img class="img-passenger" data-ng-src="{{carPoolingData.imgBase64}}" />
+                </div>
+                <div class="car-pool-driver-title">
+                    {{carPoolingData.code}}
+                </div>            </div>
+                <div ng-if="!carPoolingData.imgBase64">
+
+                <div class="car-pool-driver-title">
                     {{'show_qrcode_manual'|translate}}
                 </div>
-                <label class="item item-input">
-                    <input type="number" >
+                <label class="item item-input input-qr-code">
+                    <input  ng-model="carPoolingData.code" >
                   </label>    
                 </div>
             </div>
-            <div class="start-track">
-                <button class="button" ng-click="startCarpooling(selection)" ng-model="code">{{'start_carpooling'|translate}}</button>
+                <div class="start-track">
+                    <button class="button" ng-click="startCarpooling(selection)" >{{'start_carpooling'|translate}}</button>
+                </div>
             </div>
+
         </div>
     </ion-content>
 </ion-modal-view>

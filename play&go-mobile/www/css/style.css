@@ -3852,6 +3852,7 @@ text-align: center;
 .car-pool-modal {
   background-color: #2975A7;
   color: white;
+  
 }
 .car-pool-title {
  text-align: center;
@@ -3901,4 +3902,27 @@ text-align: center;
  .start-track{
    text-align: center;
    margin-top: 20px;
+ }
+ .input-qr-code{
+  width: 50%;
+  margin: auto;
+ }
+ .input-qr-code input {
+  border: none;
+  color: white;
+ }
+ .img-passenger{
+   margin-top: 40px;
+ }
+ .close-modal-car{
+  position: relative;
+  padding-right: 8px;
+  width: 50%;
+  float: right;
+ }
+ .back-modal-car{
+  position: relative;
+  padding-right: 8px;
+  width: 50%;
+  float: left;
  }
