@@ -9,7 +9,7 @@
   },
   {
     "file": "css/style.css",
-    "hash": "a208660855b1e6b3917d9848ce81a7f4"
+    "hash": "e41e088c6df95b36dd4399b89458da42"
   },
   {
     "file": "data/bus.csv",
@@ -409,7 +409,7 @@
   },
   {
     "file": "js/app.js",
-    "hash": "f8776ba40e13a9e07845ae45de568ad4"
+    "hash": "7a86537d83c847992d8e59f8db3dfc37"
   },
   {
     "file": "js/controllers/BookmarksCtrl.js",
@@ -1017,7 +1017,7 @@
   },
   {
     "file": "templates/corona/coronaPopup.html",
-    "hash": "859256ab4a789bfda69c62c6f7291dc0"
+    "hash": "1faa9533e08d414c40e8c63231326e83"
   },
   {
     "file": "templates/corona/homeCorona.html",

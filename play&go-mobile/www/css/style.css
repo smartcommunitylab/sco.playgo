@@ -3731,6 +3731,7 @@ text-align: center;
 }
 .coronaPopup .popup {
   min-width: 85% !important;  /* height: 230px; */
+  height: 50%;
   background-color: #2975a7 !important;
   color: white;
 }
@@ -3809,9 +3810,9 @@ text-align: center;
 }
 .coronaGamePopup .close-button{
   position: absolute;
-  right: 15px;
+  right: 6px;
   top: -50px;
-}
+  }
 .coronaGamePopup a {
   color: white;
 }
