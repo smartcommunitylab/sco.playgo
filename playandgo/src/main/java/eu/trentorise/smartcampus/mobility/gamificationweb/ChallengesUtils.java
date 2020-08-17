@@ -302,7 +302,7 @@ public class ChallengesUtils {
 						case CHAL_MODEL_GROUP_COMPETITIVE_TIME: {
 							row_status = (Double) challenge.getFields().get(CHAL_FIELDS_CHALLENGE_SCORE);
 							double other_row_status = (Double) otherAttendeeScores.get(CHAL_FIELDS_CHALLENGE_SCORE);
-							double challengeTarget = (Double) challenge.getFields().get(CHAL_FIELDS_CHALLENGE_TARGET);
+							double challengeTarget = Math.ceil((Double) challenge.getFields().get(CHAL_FIELDS_CHALLENGE_TARGET));
 							target = (int)challengeTarget;
 							int other_status = 0;
 							if (challengeTarget != 0) {
@@ -346,7 +346,7 @@ public class ChallengesUtils {
 						case CHAL_MODEL_GROUP_COOPERATIVE: {
 							row_status = (Double) challenge.getFields().get(CHAL_FIELDS_CHALLENGE_SCORE);
 							double other_row_status = (Double) otherAttendeeScores.get(CHAL_FIELDS_CHALLENGE_SCORE);
-							double challengeTarget = (Double) challenge.getFields().get(CHAL_FIELDS_CHALLENGE_TARGET);
+							double challengeTarget = Math.ceil((Double) challenge.getFields().get(CHAL_FIELDS_CHALLENGE_TARGET));
 							target = (int)challengeTarget;
 							int other_status = 0;
 							if (challengeTarget != 0) {
@@ -502,6 +502,7 @@ public class ChallengesUtils {
 		case CHAL_MODEL_GROUP_COOPERATIVE : {
 			Double reward = (Double) challenge.getFields().getOrDefault(CHAL_FIELDS_CHALLENGE_REWARD, "");
 			Double target = (Double) challenge.getFields().get(CHAL_FIELDS_CHALLENGE_TARGET);
+			if (target != null) target = Math.ceil(target);
 			if (otherPlayer != null) {
 				String nickname = otherPlayer.getNickname();
 				challenge.getFields().put("opponent", nickname);
@@ -552,6 +553,8 @@ public class ChallengesUtils {
 	
 	// Method retrieveCorrectStatusFromCounterName: used to get the correct player status starting from counter name field
 	private double retrieveCorrectStatusFromCounterName(String cName, String periodType, List<PointConcept> pointConcept, Long chalStart, Long chalEnd){
+		if (chalEnd <= chalStart) return 0;
+		
 		Range<Long> challengeRange = Range.open(chalStart, chalEnd);
 		double actualStatus = 0; // km or trips
 		if(cName != null && !cName.isEmpty()){
@@ -574,6 +577,8 @@ public class ChallengesUtils {
 	}
 	
 	private int retrieveRepeatitiveStatusFromCounterName(String cName, String periodType, List<PointConcept> pointConcept, Long chalStart, Long chalEnd, double target){
+		if (chalEnd <= chalStart) return 0;
+
 		Range<Long> challengeRange = Range.open(chalStart, chalEnd);
 		int countSuccesses = 0; // km or trips
 		if(cName != null && !cName.isEmpty()){
