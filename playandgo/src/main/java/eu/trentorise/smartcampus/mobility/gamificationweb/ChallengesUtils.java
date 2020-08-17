@@ -553,6 +553,8 @@ public class ChallengesUtils {
 	
 	// Method retrieveCorrectStatusFromCounterName: used to get the correct player status starting from counter name field
 	private double retrieveCorrectStatusFromCounterName(String cName, String periodType, List<PointConcept> pointConcept, Long chalStart, Long chalEnd){
+		if (chalEnd <= chalStart) return 0;
+		
 		Range<Long> challengeRange = Range.open(chalStart, chalEnd);
 		double actualStatus = 0; // km or trips
 		if(cName != null && !cName.isEmpty()){
@@ -575,6 +577,8 @@ public class ChallengesUtils {
 	}
 	
 	private int retrieveRepeatitiveStatusFromCounterName(String cName, String periodType, List<PointConcept> pointConcept, Long chalStart, Long chalEnd, double target){
+		if (chalEnd <= chalStart) return 0;
+
 		Range<Long> challengeRange = Range.open(chalStart, chalEnd);
 		int countSuccesses = 0; // km or trips
 		if(cName != null && !cName.isEmpty()){

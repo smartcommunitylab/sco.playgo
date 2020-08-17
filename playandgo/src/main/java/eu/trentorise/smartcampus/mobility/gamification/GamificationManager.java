@@ -381,6 +381,21 @@ public class GamificationManager {
 		logger.debug("Sending to " + gamificationUrl + "/gengine/execute ('checkin') = " + content);
 		HTTPConnector.doBasicAuthenticationPost(gamificationUrl + "/gengine/execute", content, "application/json", "application/json", game.getUser(), game.getPassword());
 		
+	}
+
+	/**
+	 * @param appId
+	 * @param userId
+	 * @param userId2
+	 * @param travelId
+	 * @param geolocationEvents
+	 * @param trackingData
+	 * @return
+	 */
+	public boolean sendSharedTravelDataToGamificationEngine(String appId, String userId,  String travelId, Collection<Geolocation> geolocationEvents, Map<String, Object> trackingData) {
+		logger.info("Send shared tracking data for user " + userId + ", trip " + travelId);
+		return sendFreeTrackingDataToGamificationEngine(appId, userId, travelId, geolocationEvents, "carpooling", trackingData);
+
 	}	
 	
 }

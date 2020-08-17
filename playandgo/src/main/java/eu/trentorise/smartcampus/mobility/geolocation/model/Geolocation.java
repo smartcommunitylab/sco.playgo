@@ -8,6 +8,7 @@ public class Geolocation implements Comparable<Geolocation> {
 	private String userId;
 	private String travelId;
 	private String multimodalId;
+	private String sharedTravelId;
 	
 	private String uuid;
 	private String device_id;
@@ -232,6 +233,14 @@ public class Geolocation implements Comparable<Geolocation> {
 
 	public void setCertificate(String certificate) {
 		this.certificate = certificate;
+	}
+	
+	public String getSharedTravelId() {
+		return sharedTravelId;
+	}
+
+	public void setSharedTravelId(String sharedTravelId) {
+		this.sharedTravelId = sharedTravelId;
 	}
 
 	@Override

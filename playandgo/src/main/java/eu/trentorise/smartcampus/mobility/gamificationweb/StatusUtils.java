@@ -10,6 +10,8 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -34,6 +36,7 @@ import eu.trentorise.smartcampus.mobility.gamificationweb.model.PointConceptPeri
 public class StatusUtils {
 
 
+	private static transient final Logger logger = LoggerFactory.getLogger(StatusUtils.class);
 
 	private static final String STATE = "state";
 	private static final String PLAYER_ID = "playerId";
@@ -77,43 +80,48 @@ public class StatusUtils {
 	public PlayerStatus convertPlayerData(String profile, String playerId, String gameId, String nickName, String gamificationUrl, int challType, String language)
 			throws Exception {
 
-		PlayerStatus ps = new PlayerStatus();
-		
-		Map<String, Object> stateMap = mapper.readValue(profile, Map.class);
-		
-		Map<String, Object> state = (Map<String, Object>)stateMap.get("state");
-		List<BadgeCollectionConcept> badges = mapper.convertValue(state.get("BadgeCollectionConcept"), new TypeReference<List<BadgeCollectionConcept>>() {});
-		badges.forEach(x -> {
-			x.getBadgeEarned().forEach(y -> {
-				y.setUrl(getUrlFromBadgeName(gamificationUrl, y.getName()));
+		try {
+			PlayerStatus ps = new PlayerStatus();
+			
+			Map<String, Object> stateMap = mapper.readValue(profile, Map.class);
+			
+			Map<String, Object> state = (Map<String, Object>)stateMap.get("state");
+			List<BadgeCollectionConcept> badges = mapper.convertValue(state.get("BadgeCollectionConcept"), new TypeReference<List<BadgeCollectionConcept>>() {});
+			badges.forEach(x -> {
+				x.getBadgeEarned().forEach(y -> {
+					y.setUrl(getUrlFromBadgeName(gamificationUrl, y.getName()));
+				});
 			});
-		});
-		ps.setBadgeCollectionConcept(badges);
-		
-		List<Map> gePointsMap = mapper.convertValue(state.get("PointConcept"), new TypeReference<List<Map>>() {});
-		List<PointConcept> points = convertGEPointConcept(gePointsMap);
-		
-		ChallengeConcept challenges = challUtils.convertChallengeData(playerId, gameId, profile, challType, language, points, badges);
-		ps.setChallengeConcept(challenges);
-	
-		List<PlayerLevel> levels = mapper.convertValue((List)stateMap.get("levels"), new TypeReference<List<PlayerLevel>>() {});
-		ps.setLevels(levels);		
+			ps.setBadgeCollectionConcept(badges);
+			
+			List<Map> gePointsMap = mapper.convertValue(state.get("PointConcept"), new TypeReference<List<Map>>() {});
+			List<PointConcept> points = convertGEPointConcept(gePointsMap);
+			
+			ChallengeConcept challenges = challUtils.convertChallengeData(playerId, gameId, profile, challType, language, points, badges);
+			ps.setChallengeConcept(challenges);
 
-		Inventory inventory = mapper.convertValue(stateMap.get("inventory"), Inventory.class);
-		ps.setInventory(inventory);	
-		
-		Map<String, Object> playerData = buildPlayerData(playerId, gameId, nickName);
-		ps.setPlayerData(playerData);
-		
-		points.removeIf(x -> !PC_GREEN_LEAVES.equals(x.getName()) || !PC_WEEKLY.equals(x.getPeriodType()));
-		ps.setPointConcept(points);		
-		
-		Calendar c = Calendar.getInstance();
-		Calendar from = Calendar.getInstance(); from.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY); from.set(Calendar.HOUR_OF_DAY, 12); from.set(Calendar.MINUTE, 0); from.set(Calendar.SECOND, 0);
-		Calendar to = Calendar.getInstance(); to.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY); to.set(Calendar.HOUR_OF_DAY, 12); to.set(Calendar.MINUTE, 0); to.set(Calendar.SECOND, 0);
-		ps.setCanInvite(c.before(to) && c.after(from));
-		
-		return ps;
+			List<PlayerLevel> levels = mapper.convertValue((List)stateMap.get("levels"), new TypeReference<List<PlayerLevel>>() {});
+			ps.setLevels(levels);		
+
+			Inventory inventory = mapper.convertValue(stateMap.get("inventory"), Inventory.class);
+			ps.setInventory(inventory);	
+			
+			Map<String, Object> playerData = buildPlayerData(playerId, gameId, nickName);
+			ps.setPlayerData(playerData);
+			
+			points.removeIf(x -> !PC_GREEN_LEAVES.equals(x.getName()) || !PC_WEEKLY.equals(x.getPeriodType()));
+			ps.setPointConcept(points);		
+			
+			Calendar c = Calendar.getInstance();
+			Calendar from = Calendar.getInstance(); from.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY); from.set(Calendar.HOUR_OF_DAY, 12); from.set(Calendar.MINUTE, 0); from.set(Calendar.SECOND, 0);
+			Calendar to = Calendar.getInstance(); to.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY); to.set(Calendar.HOUR_OF_DAY, 12); to.set(Calendar.MINUTE, 0); to.set(Calendar.SECOND, 0);
+			ps.setCanInvite(c.before(to) && c.after(from));
+			
+			return ps;
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			throw e;
+		}
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })

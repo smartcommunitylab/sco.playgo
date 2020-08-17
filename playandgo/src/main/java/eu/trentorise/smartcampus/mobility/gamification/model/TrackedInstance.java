@@ -28,6 +28,7 @@ public class TrackedInstance {
 	private String userId;
 	
 	private String multimodalId;
+	private String sharedTravelId;
 	
 	private ItineraryObject itinerary;
 	private String freeTrackingTransport;
@@ -276,6 +277,13 @@ public class TrackedInstance {
 	public String toString() {
 		return id;
 	}
-	
+
+	public String getSharedTravelId() {
+		return sharedTravelId;
+	}
+
+	public void setSharedTravelId(String sharedTravelId) {
+		this.sharedTravelId = sharedTravelId;
+	}
 	
 }
