@@ -862,4 +862,75 @@ public class GamificationValidator {
 		}	
 	}
 
+
+
+	/**
+	 * @param geolocationEvents
+	 * @param geolocationEvents2
+	 * @param appId
+	 * @return
+	 */
+	public ValidationResult validateSharedTrip(Collection<Geolocation> passengerTrip, Collection<Geolocation> driverTrip, String appId) {
+		if (driverTrip == null) {
+			return null;
+		}
+		AppInfo app = appSetup.findAppById(appId);
+		GameInfo game = gameSetup.findGameById(app.getGameId());
+
+		ValidationResult vr = new ValidationResult();
+		vr.setValidationStatus(TrackValidator.validateShared(passengerTrip, driverTrip, game.getAreas()));
+
+		return vr;
+	}
+
+
+
+	/**
+	 * @param appId
+	 * @param userId
+	 * @param geolocationEvents
+	 * @param validationStatus
+	 * @param overriddenDistances
+	 * @return
+	 */
+	public Map<String, Object> computeSharedTravelScoreForPassenger(String appId, String userId, Collection<Geolocation> geolocationEvents, ValidationStatus validationStatus, Map<String, Double> overriddenDistances) {
+		Map<String, Object> results = Maps.newTreeMap();
+		results.put("estimatedScore", 10);
+		results.put("driverTrip", false);
+		double distance = 0d;
+		if (overriddenDistances == null) overriddenDistances = Collections.emptyMap();
+		if (overriddenDistances.containsKey("car")) {
+			distance = overriddenDistances.get("car") / 1000.0;
+		} else if (validationStatus.getEffectiveDistances().containsKey(MODE_TYPE.CAR)) {
+			distance = validationStatus.getEffectiveDistances().get(MODE_TYPE.CAR) / 1000.0; 
+		}
+		results.put("carpoolingDistance", distance);
+		return results;
+	}
+	/**
+	 * @param appId
+	 * @param userId
+	 * @param geolocationEvents
+	 * @param validationStatus
+	 * @param overriddenDistances
+	 * @param firstPair 
+	 * @return
+	 */
+	public Map<String, Object> computeSharedTravelScoreForDriver(String appId, String userId, Collection<Geolocation> geolocationEvents, ValidationStatus validationStatus, Map<String, Double> overriddenDistances, boolean firstPair) {
+		Map<String, Object> results = Maps.newTreeMap();
+		results.put("estimatedScore", 5 + (firstPair ? 5 : 0));
+		results.put("driverTrip", true);
+		results.put("firstPair", firstPair);
+		
+		double distance = 0d;
+		if (overriddenDistances == null) overriddenDistances = Collections.emptyMap();
+		if (overriddenDistances.containsKey("car")) {
+			distance = overriddenDistances.get("car") / 1000.0;
+		} else if (validationStatus.getEffectiveDistances().containsKey(MODE_TYPE.CAR)) {
+			distance = validationStatus.getEffectiveDistances().get(MODE_TYPE.CAR) / 1000.0; 
+		}
+		results.put("carpoolingDistance", distance);
+		return results;
+	}
+
 }

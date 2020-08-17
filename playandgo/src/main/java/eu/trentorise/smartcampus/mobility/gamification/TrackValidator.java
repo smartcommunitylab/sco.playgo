@@ -68,6 +68,8 @@ public class TrackValidator {
 
 	public static final double MIN_COVERAGE_THRESHOLD = 30; // %
 
+	public static final double SHARED_TRIP_DISTANCE_THRESHOLD = 1000; // meters 
+
 	public static final double DISTANCE_THRESHOLD = 250; // meters 
 	public static final long DATA_HOLE_THRESHOLD = 10*60; // seconds
 	public static final double BIKE_DISTANCE_THRESHOLD = 100;// meters 
@@ -843,6 +845,61 @@ public class TrackValidator {
 		
 		return res;
 	}
+	
+	/**
+	 * Validate planned trip
+	 * @param track
+	 * @param areas
+	 * @return
+	 */
+	public static ValidationStatus validateShared(Collection<Geolocation> passengerTrack, Collection<Geolocation> driverTrack, List<Shape> areas) {
+		ValidationStatus status = new ValidationStatus();
+		// set parameters
+		status.setTripType(TRIP_TYPE.SHARED);
+		status.setValidityThreshold(VALIDITY_THRESHOLD);
+		status.setMatchThreshold(ACCURACY_THRESHOLD);
+
+		// basic validation
+		List<Geolocation> points = prevalidate(passengerTrack, status, areas, SHARED_TRIP_DISTANCE_THRESHOLD);
+		if (status.getValidationOutcome() != null) {
+			if (ERROR_TYPE.TOO_SHORT.equals(status.getError())) {
+				status.setError(ERROR_TYPE.DOES_NOT_MATCH);
+			}
+			return status;
+		}
+		List<Geolocation> driverPoints = prevalidate(driverTrack, status, areas, SHARED_TRIP_DISTANCE_THRESHOLD);
+		if (status.getValidationOutcome() != null) {
+			if (ERROR_TYPE.TOO_SHORT.equals(status.getError())) {
+				status.setError(ERROR_TYPE.DOES_NOT_MATCH);
+			}
+			return status;
+		}
+		
+		status.setValidationOutcome(TravelValidity.PENDING);
+		
+		
+		if (driverTrack != null) {
+			points = fillTrace(points, 100.0 / 1000 / 2 / Math.sqrt(2));
+			// check leg coverage: if is more than threshold (e.g., 80%) - valid, if less than minimum threshold - invalid. Otherwise pending
+			double matchedLength = 0, minMatchedLength = 0, totalLength = 0;
+			int effectiveLength = driverPoints.size();
+			int invalid = trackMatch(driverPoints, points, status.getMatchThreshold());
+			double subtrackPrecision =  100.0 * (effectiveLength-invalid) / (effectiveLength);
+			if (subtrackPrecision > COVERAGE_THRESHOLD) {
+				matchedLength = status.getDistance();
+			}
+			minMatchedLength = matchedLength * subtrackPrecision / 100.0;
+			totalLength = status.getDistance();
+
+			if ((100.0 * matchedLength / totalLength) > COVERAGE_THRESHOLD) {
+				status.setValidationOutcome(TravelValidity.VALID);
+			}
+			if ((100.0 * minMatchedLength / totalLength) < MIN_COVERAGE_THRESHOLD) {
+				status.setValidationOutcome(TravelValidity.INVALID);
+			}
+		} 
+		return status;
+	}
 
 	private static class MatchModel {
 		
@@ -882,4 +939,5 @@ public class TrackValidator {
 		
 	}
 
+	
 }
