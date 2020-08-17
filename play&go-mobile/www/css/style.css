@@ -3857,7 +3857,7 @@ text-align: center;
 .car-pool-title {
  text-align: center;
  font-size: 28px;
- margin: 20px;;
+ margin: 20px 0px;
 }
 
 /* .car-pool-type {
@@ -3897,7 +3897,7 @@ text-align: center;
  .car-pool-driver-title {
   text-align: center;
   font-size: 19px;
-  margin: 20px;
+  margin: 20px 0px;
  }
  .start-track{
    text-align: center;

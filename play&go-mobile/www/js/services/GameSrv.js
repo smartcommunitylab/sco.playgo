@@ -70,6 +70,22 @@ angular.module('viaggia.services.game', [])
         params: tripParams,
         state: "openEventTripDetail(message)"
       },
+      TRAVEL_CARPOOLING: {
+        string: "msg_trip_car",
+        color: "#FF9D33",
+        iconColor: "#B65F00",
+        icon: "ion-model-s",
+        params: tripParams,
+        state: "openEventTripDetail(message)"
+      },
+      TRAVEL_BOAT: {
+        string: "msg_trip_boat",
+        color: "#FF9D33",
+        iconColor: "#B65F00",
+        icon: "icon-boat",
+        params: tripParams,
+        state: "openEventTripDetail(message)"
+      },
       TRAVEL_MULTIMODAL: {
         string: "msg_trip_multimodal",
         color: "#2681A4",
@@ -397,7 +413,7 @@ angular.module('viaggia.services.game', [])
     }
     var checkTravelType = function (travelId) {
 
-      if (travelId.indexOf("walk_") != -1 || travelId.indexOf("bike_") != -1 || travelId.indexOf("bus_") != -1 || travelId.indexOf("train_") != -1) {
+      if (travelId.indexOf("walk_") != -1 || travelId.indexOf("bike_") != -1 || travelId.indexOf("bus_") != -1 || travelId.indexOf("train_") != -1|| travelId.indexOf("carPooling_") != -1|| travelId.indexOf("boat_") != -1) {
         return "FREETRACKING";
       } else {
         return "PLANNED"
@@ -413,6 +429,10 @@ angular.module('viaggia.services.game', [])
         travelModes.push("train")
       if (travelId.indexOf("bus_") != -1)
         travelModes.push("bus")
+        if (travelId.indexOf("carPooling_") != -1)
+        travelModes.push("carpooling")
+        if (travelId.indexOf("boat_") != -1)
+        travelModes.push("boat")
 
 
       return travelModes;

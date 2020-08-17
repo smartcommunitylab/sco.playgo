@@ -163,7 +163,7 @@ angular.module('viaggia', [
     }
     $ionicPlatform.ready(function () {
       
-      //initAppUpdate();
+      initAppUpdate();
 
       if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -1416,6 +1416,8 @@ angular.module('viaggia', [
       msg_trip_bike: 'Ore {{time}}.<br> {{travelValidity}}, {{points}} punti.',
       msg_trip_bus: 'Ore {{time}}.<br> {{travelValidity}}, {{points}} punti.',
       msg_trip_train: 'Ore {{time}}.<br> {{travelValidity}}, {{points}} punti.',
+      msg_trip_car: 'Ore {{time}}.<br> {{travelValidity}}, {{points}} punti.',
+      msg_trip_boat: 'Ore {{time}}.<br> {{travelValidity}}, {{points}} punti.',
       msg_trip_multimodal: 'Ore {{time}}.<br> {{travelValidity}}, {{points}} punti.',
       msg_new_level: 'Hai raggiunto il livello {{levelName}}',
       travel_pending_state: 'Viaggio in attesa di validazione',
