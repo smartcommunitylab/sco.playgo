@@ -120,6 +120,7 @@ public class DomainStorage {
 			update.set("toCheck", tracked.getToCheck());
 			update.set("appId", tracked.getAppId());
 			update.set("multimodalId", tracked.getMultimodalId());
+			update.set("sharedTravelId", tracked.getSharedTravelId());
 			
 			template.updateFirst(query, update, TRACKED);
 		}

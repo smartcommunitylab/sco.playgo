@@ -356,6 +356,7 @@ public class GeolocationsProcessor {
 				res.getGeolocationEvents().addAll(geolocationsByItinerary.get(key));
 				String sharedId = res.getGeolocationEvents().stream().filter(e -> e.getSharedTravelId() != null).findFirst().map(e -> e.getSharedTravelId()).orElse(null);
 				res.setSharedTravelId(sharedId);
+				logger.info("Shared Id: " + res.getSharedTravelId());
 				logger.info("Resulting events: " + res.getGeolocationEvents().size());
 			}
 
@@ -494,6 +495,7 @@ public class GeolocationsProcessor {
 	}
 	
 	private void sendSharedTravel(TrackedInstance res, String userId, String travelId, String appId) throws Exception {
+		logger.debug("Sending shared travel: " + travelId + ", sharedId = " + res.getSharedTravelId());
 		if (!res.getComplete()) {
 			String sharedId = res.getSharedTravelId();
 			if (isDriver(sharedId)) {
