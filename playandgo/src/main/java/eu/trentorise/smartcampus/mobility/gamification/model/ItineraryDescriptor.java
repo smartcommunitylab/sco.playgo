@@ -16,6 +16,8 @@
 
 package eu.trentorise.smartcampus.mobility.gamification.model;
 
+import java.util.List;
+
 import eu.trentorise.smartcampus.mobility.model.ItineraryRecurrency;
 
 /**
@@ -36,6 +38,8 @@ public class ItineraryDescriptor implements Comparable<ItineraryDescriptor> {
 	private String freeTrackingTransport;
 	
 	private TrackedInstance instance;
+	
+	private List<TrackedInstance> related;
 	
 	public ItineraryDescriptor() {
 	}
@@ -157,6 +161,15 @@ public class ItineraryDescriptor implements Comparable<ItineraryDescriptor> {
 	public int compareTo(ItineraryDescriptor o) {
 		return new Long(o.startTime).compareTo(new Long(startTime));
 	}
-	
+
+
+	public List<TrackedInstance> getRelated() {
+		return related;
+	}
+
+
+	public void setRelated(List<TrackedInstance> related) {
+		this.related = related;
+	}
 	
 }

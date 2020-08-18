@@ -400,25 +400,6 @@ public class GamificationController {
 	@PostMapping("/gamification/console/validate")
 	public @ResponseBody void validate(@RequestParam(required = false) Long fromDate, @RequestParam(required = false) Long toDate, @RequestParam(required = false) Boolean excludeZeroPoints, @RequestParam(required = false) Boolean toCheck, @RequestParam(required = false) Boolean pendingOnly, @RequestParam(required = false) String filterUserId, @RequestParam(required = false) String filterTravelId, @RequestHeader(required = true, value = "appId") String appId, HttpServletResponse response) throws Exception {
 
-//		Criteria criteria = new Criteria("appId").is(appId);
-//
-//		if (excludeZeroPoints != null && excludeZeroPoints.booleanValue()) {
-//			criteria = criteria.and("estimatedScore").gt(0);
-//		}
-//		if (toCheck != null && toCheck.booleanValue()) {
-//			criteria = criteria.and("toCheck").is(true);
-//		}	
-//		
-//		if (fromDate != null) {
-//			String fd = shortSdf.format(new Date(fromDate));
-//			criteria = criteria.and("day").gte(fd);
-//		}
-//		
-//		if (toDate != null) {
-//			String td = shortSdf.format(new Date(toDate));
-//			criteria = criteria.andOperator(new Criteria("day").lte(td));
-//		}
-//		
 		
 		Criteria criteria = generateFilterCriteria(appId, filterUserId, filterTravelId, fromDate, toDate, excludeZeroPoints, false, toCheck, pendingOnly);
 		Query query = new Query(criteria);	
@@ -440,7 +421,7 @@ public class GamificationController {
 						storage.saveTrackedInstance(ti);
 					}
 
-				} else {
+				} else if (StringUtils.isEmpty(ti.getSharedTravelId())) {
 					logger.info("Validating free tracking " + ti.getId());
 					
 					ValidationResult vr = gamificationValidator.validateFreeTracking(ti.getGeolocationEvents(), ti.getFreeTrackingTransport(), appId);
@@ -462,6 +443,38 @@ public class GamificationController {
 					}					
 					ti.setScore((Long) data.get("estimatedScore"));
 					storage.saveTrackedInstance(ti);
+				} else {
+					logger.info("Validating shared tracking " + ti.getId());
+					String sharedId = ti.getSharedTravelId();
+					if (gamificationValidator.isDriver(sharedId)) {
+						String passengerTravelId = gamificationValidator.getPassengerTravelId(sharedId);
+						query = Query.query(Criteria
+								.where("appId").is(appId)
+								.and("sharedTravelId").is(passengerTravelId)
+								.and("complete").is(true)
+								.and("userId").ne(ti.getUserId()));
+						List<TrackedInstance> list = storage.searchDomainObjects(query, TrackedInstance.class);
+						if (!list.isEmpty()) {
+							for (TrackedInstance passengerTravel: list) {
+								validateSharedTripPair(passengerTravel, ti);
+								storage.saveTrackedInstance(passengerTravel);
+							}
+							storage.saveTrackedInstance(ti);
+						}
+					} else {
+						String driverTravelId = gamificationValidator.getDriverTravelId(sharedId);
+						query = Query.query(Criteria
+								.where("appId").is(appId)
+								.and("sharedTravelId").is(driverTravelId)
+								.and("complete").is(true)
+								.and("userId").ne(ti.getUserId()));
+						TrackedInstance driverTravel = storage.searchDomainObject(query, TrackedInstance.class);
+						if (driverTravel != null) {
+							validateSharedTripPair(ti, driverTravel);
+							storage.saveTrackedInstance(driverTravel);
+							storage.saveTrackedInstance(ti);
+						}
+					}
 				}
 			} catch (Exception e) {
 				// TODO fix log
@@ -471,40 +484,38 @@ public class GamificationController {
 		}
 	}
 	
-//	@PostMapping("/gamification/console/assignScore")
-//	public @ResponseBody TrackedInstance assignScore(@PathVariable String instanceId, HttpServletResponse response) throws Exception {
-//		Map<String, Object> pars = new TreeMap<String, Object>();
-//		pars.put("id", instanceId);
-//		TrackedInstance instance = storage.searchDomainObject(pars, TrackedInstance.class);
-//		if (instance.getScoreStatus() != null && !ScoreStatus.UNASSIGNED.equals(instance.getScoreStatus())) {
-//			response.setStatus(HttpServletResponse.SC_CONFLICT);
-//			return null;
-//		}
-//		
-//		if (instance.getItinerary() != null) {
-//			Map<String, Object> trackingData = gamificationValidator.computePlannedJourneyScore(instance.getAppId(), instance.getItinerary().getData(), instance.getGeolocationEvents(), false);
-//			if (trackingData.containsKey("estimatedScore")) {
-//				instance.setScore((Long) trackingData.get("estimatedScore"));
-//			}
-//			trackingData.put(TRAVEL_ID, instance.getId());
-//			trackingData.put(START_TIME, getStartTime(instance));
-//			gamificationManager.sendIntineraryDataToGamificationEngine(instance.getAppId(), instance.getUserId(), instance.getClientId() + "_" + instance.getDay(), instance.getItinerary(), trackingData);
-//			instance.setScoreStatus(ScoreStatus.SENT);
-//		} else if (instance.getFreeTrackingTransport() != null) {
-//			Map<String, Object> trackingData = gamificationValidator.computeFreeTrackingScore(instance.getAppId(), instance.getGeolocationEvents(), instance.getFreeTrackingTransport(), instance.getValidationResult().getValidationStatus());
-//			trackingData.put(TRAVEL_ID, instance.getId());
-//			trackingData.put(START_TIME, getStartTime(instance));
-//			if (trackingData.containsKey("estimatedScore")) {
-//				instance.setScore((Long) trackingData.get("estimatedScore"));
-//			}
-//			
-//			gamificationManager.sendFreeTrackingDataToGamificationEngine(instance.getAppId(), instance.getUserId(), instance.getClientId(), instance.getGeolocationEvents(), instance.getFreeTrackingTransport(), trackingData);
-//			instance.setScoreStatus(ScoreStatus.SENT);
-//		}
-//		
-//		storage.saveTrackedInstance(instance);
-//		return instance;
-//	}
+	private void validateSharedTripPair(TrackedInstance passengerTravel, TrackedInstance driverTravel) throws ParseException {
+		ValidationResult vr = gamificationValidator.validateSharedTripPassenger(passengerTravel.getGeolocationEvents(), driverTravel.getGeolocationEvents(), passengerTravel.getAppId());
+		passengerTravel.setValidationResult(vr);
+		
+		if (driverTravel.getValidationResult() == null || driverTravel.getValidationResult().getValidationStatus() == null) {
+			ValidationResult driverVr = gamificationValidator.validateSharedTripDriver(driverTravel.getGeolocationEvents(), passengerTravel.getAppId());
+			driverTravel.setValidationResult(driverVr);
+		}
+		
+		// passenger trip is valid: points are assigned to both
+		if (vr != null && !TravelValidity.INVALID.equals(vr.getTravelValidity())) {
+			boolean firstTime = !ScoreStatus.SENT.equals(driverTravel.getScoreStatus());
+			Map<String, Object> trackingData = gamificationValidator.computeSharedTravelScoreForDriver(passengerTravel.getAppId(), driverTravel.getUserId(), driverTravel.getGeolocationEvents(), vr.getValidationStatus(), driverTravel.getOverriddenDistances(), firstTime);
+			if (trackingData.containsKey("estimatedScore")) {
+				long score = driverTravel.getScore() != null ? driverTravel.getScore() : 0l;
+				driverTravel.setScore(score + (Long) trackingData.get("estimatedScore"));
+			}
+			if (driverTravel.getScoreStatus() == null || ScoreStatus.UNASSIGNED.equals(driverTravel.getScoreStatus())) {
+				driverTravel.setScoreStatus(ScoreStatus.COMPUTED);
+			}					
+			
+			trackingData = gamificationValidator.computeSharedTravelScoreForPassenger(passengerTravel.getAppId(), passengerTravel.getUserId(), passengerTravel.getGeolocationEvents(), vr.getValidationStatus(), passengerTravel.getOverriddenDistances());
+			if (passengerTravel.getScoreStatus() == null || ScoreStatus.UNASSIGNED.equals(passengerTravel.getScoreStatus())) {
+				passengerTravel.setScoreStatus(ScoreStatus.COMPUTED);
+			}
+			if (trackingData.containsKey("estimatedScore")) {
+				passengerTravel.setScore((Long) trackingData.get("estimatedScore"));
+			}
+		} else {
+			logger.debug("Validation result null, not sending data to gamification");
+		}
+	}
 	
 
 	@PostMapping("/gamification/console/itinerary/changeValidity/{instanceId}")
@@ -590,13 +601,13 @@ public class GamificationController {
 				if (forceQueue) {
 					gamificationManager.removeIdFromQueue(instance.getClientId() + "_" + instance.getDay());
 				}
-				if (gamificationManager.sendIntineraryDataToGamificationEngine(instance.getAppId(), instance.getUserId(), instance.getClientId() + "_" + instance.getDay(), instance.getItinerary(),
+				if (gamificationManager.sendItineraryDataToGamificationEngine(instance.getAppId(), instance.getUserId(), instance.getClientId() + "_" + instance.getDay(), instance.getItinerary(),
 						trackingData)) {
 					instance.setScoreStatus(ScoreStatus.SENT);
 					logger.info("Sent: " + instance.getId());
 					instance.setApproved(true);
 				}
-			} else if (instance.getFreeTrackingTransport() != null) {
+			} else if (instance.getFreeTrackingTransport() != null && StringUtils.isEmpty(instance.getSharedTravelId())) {
 				Map<String, Object> trackingData = gamificationValidator.computeFreeTrackingScore(instance.getAppId(), instance.getUserId(), instance.getGeolocationEvents(), instance.getFreeTrackingTransport(), instance.getValidationResult().getValidationStatus(), instance.getOverriddenDistances());
 				instance.setScoreStatus(ScoreStatus.COMPUTED);				
 				if (trackingData.containsKey("estimatedScore")) {
@@ -605,12 +616,46 @@ public class GamificationController {
 				trackingData.put(TRAVEL_ID, instance.getId());
 				trackingData.put(START_TIME, getStartTime(instance));
 				if (forceQueue) {
-					gamificationManager.removeIdFromQueue(instance.getClientId());				}				
+					gamificationManager.removeIdFromQueue(instance.getClientId());				
+				}				
 				if (gamificationManager.sendFreeTrackingDataToGamificationEngine(instance.getAppId(), instance.getUserId(), instance.getClientId(), instance.getGeolocationEvents(),
 						instance.getFreeTrackingTransport(), trackingData)) {
 					instance.setScoreStatus(ScoreStatus.SENT);
 					logger.info("Sent: " + instance.getId());
 					instance.setApproved(true);
+				}
+			} else {
+				String sharedId = instance.getSharedTravelId();
+				if (gamificationValidator.isDriver(sharedId)) {
+					String passengerTravelId = gamificationValidator.getPassengerTravelId(sharedId);
+					Query query = Query.query(Criteria
+							.where("appId").is(instance.getAppId())
+							.and("sharedTravelId").is(passengerTravelId)
+							.and("complete").is(true)
+							.and("userId").ne(instance.getUserId()));
+					List<TrackedInstance> list = storage.searchDomainObjects(query, TrackedInstance.class);
+					if (!list.isEmpty()) {
+						instance.setScore(0l);
+						for (TrackedInstance passengerTravel: list) {
+							sendSharedTripPair(passengerTravel,instance, forceQueue);
+							storage.saveTrackedInstance(passengerTravel);
+						}
+						instance.setApproved(true);
+					}
+				} else {
+					String driverTravelId = gamificationValidator.getDriverTravelId(sharedId);
+					Query query = Query.query(Criteria
+							.where("appId").is(instance.getAppId())
+							.and("sharedTravelId").is(driverTravelId)
+							.and("complete").is(true)
+							.and("userId").ne(instance.getUserId()));
+					TrackedInstance driverTravel = storage.searchDomainObject(query, TrackedInstance.class);
+					if (driverTravel != null) {
+						sendSharedTripPair(instance, driverTravel, forceQueue);
+						driverTravel.setApproved(true);
+						storage.saveTrackedInstance(driverTravel);
+						instance.setApproved(true);
+					}
 				}
 			}
 		} else {
@@ -620,6 +665,54 @@ public class GamificationController {
 
 		storage.saveTrackedInstance(instance);
 	}
+
+	/**
+	 * @param instance
+	 * @param userId
+	 * @param id
+	 * @param appId
+	 * @param driverTravel
+	 * @throws ParseException 
+	 */
+	private void sendSharedTripPair(TrackedInstance passengerTravel, TrackedInstance driverTravel, boolean forceQueue) throws ParseException {
+			// passenger trip is valid: points are assigned to both
+			if (passengerTravel.getValidationResult() != null && !TravelValidity.INVALID.equals(passengerTravel.getValidationResult().getTravelValidity())) {
+				if (!Boolean.TRUE.equals(driverTravel.getApproved())) {
+					boolean firstTime = !ScoreStatus.SENT.equals(driverTravel.getScoreStatus());
+					Map<String, Object> trackingData = gamificationValidator.computeSharedTravelScoreForDriver(passengerTravel.getAppId(), driverTravel.getUserId(), driverTravel.getGeolocationEvents(), passengerTravel.getValidationResult().getValidationStatus(), driverTravel.getOverriddenDistances(), firstTime);
+					if (trackingData.containsKey("estimatedScore")) {
+						long score = driverTravel.getScore() != null ? driverTravel.getScore() : 0l;
+						driverTravel.setScore(score + (Long) trackingData.get("estimatedScore"));
+					}
+					trackingData.put(TRAVEL_ID, driverTravel.getId());
+					trackingData.put(START_TIME, getStartTime(driverTravel));
+					if (forceQueue) {
+						gamificationManager.removeIdFromQueue(driverTravel.getClientId());				
+					}				
+					if (gamificationManager.sendSharedTravelDataToGamificationEngine(passengerTravel.getAppId(), driverTravel.getUserId(), driverTravel.getId(), driverTravel.getGeolocationEvents(), trackingData)) {
+						driverTravel.setScoreStatus(ScoreStatus.SENT);
+					}
+				}
+				if (!Boolean.TRUE.equals(passengerTravel.getApproved())) {
+					Map<String, Object> trackingData = gamificationValidator.computeSharedTravelScoreForPassenger(passengerTravel.getAppId(), passengerTravel.getUserId(), passengerTravel.getGeolocationEvents(), passengerTravel.getValidationResult().getValidationStatus(), passengerTravel.getOverriddenDistances());
+					passengerTravel.setScoreStatus(ScoreStatus.COMPUTED);
+					if (forceQueue) {
+						gamificationManager.removeIdFromQueue(passengerTravel.getClientId());				
+					}				
+					if (trackingData.containsKey("estimatedScore")) {
+						passengerTravel.setScore((Long) trackingData.get("estimatedScore"));
+					}
+					trackingData.put(TRAVEL_ID, passengerTravel.getId());
+					trackingData.put(START_TIME, getStartTime(passengerTravel));
+					if (gamificationManager.sendSharedTravelDataToGamificationEngine(passengerTravel.getAppId(), passengerTravel.getUserId(), passengerTravel.getId(), passengerTravel.getGeolocationEvents(), trackingData)) {
+						passengerTravel.setScoreStatus(ScoreStatus.SENT);
+					}
+				}
+
+			} else {
+				logger.debug("Validation result null, not sending data to gamification");
+			}
+		}
 
 	@PostMapping("/gamification/console/synchronize")
 	public @ResponseBody void synchronize(@RequestHeader(required = true, value = "appId") String appId) throws Exception {
@@ -839,11 +932,27 @@ public class GamificationController {
 						descr.setEndTime(o.getItinerary().getData().getEndtime());
 						descr.setTripName(o.getItinerary().getName() + " (" + o.getId() + ")");
 						descr.setRecurrency(o.getItinerary().getRecurrency());
+					} else if (StringUtils.isEmpty(o.getSharedTravelId())) {
+						descr.setFreeTrackingTransport(o.getFreeTrackingTransport());
+						descr.setTripName(o.getId());
+						gamificationValidator.setPolylines(o);						
 					} else {
 						descr.setFreeTrackingTransport(o.getFreeTrackingTransport());
 						descr.setTripName(o.getId());
-						
-						gamificationValidator.setPolylines(o);						
+						String sharedId = o.getSharedTravelId();
+						if (gamificationValidator.isDriver(sharedId)) {
+							String passengerTravelId = gamificationValidator.getPassengerTravelId(sharedId);
+							query = Query.query(Criteria
+									.where("appId").is(appId)
+									.and("sharedTravelId").is(passengerTravelId));
+							descr.setRelated(storage.searchDomainObjects(query, TrackedInstance.class));
+						} else {
+							String driverTravelId = gamificationValidator.getDriverTravelId(sharedId);
+							query = Query.query(Criteria
+									.where("appId").is(appId)
+									.and("sharedTravelId").is(driverTravelId));
+							descr.setRelated(storage.searchDomainObjects(query, TrackedInstance.class));
+						}
 					}
 					descr.setInstance(o);
 					

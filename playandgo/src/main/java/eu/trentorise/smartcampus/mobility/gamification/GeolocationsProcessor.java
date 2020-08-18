@@ -356,7 +356,6 @@ public class GeolocationsProcessor {
 				res.getGeolocationEvents().addAll(geolocationsByItinerary.get(key));
 				String sharedId = res.getGeolocationEvents().stream().filter(e -> e.getSharedTravelId() != null).findFirst().map(e -> e.getSharedTravelId()).orElse(null);
 				res.setSharedTravelId(sharedId);
-				logger.info("Shared Id: " + res.getSharedTravelId());
 				logger.info("Resulting events: " + res.getGeolocationEvents().size());
 			}
 
@@ -451,7 +450,7 @@ public class GeolocationsProcessor {
 				}
 				trackingData.put(TRAVEL_ID, res.getId());
 				trackingData.put(START_TIME, getStartTime(res));
-				if (gamificationManager.sendIntineraryDataToGamificationEngine(appId, userId, travelId + "_" + day, res.getItinerary(), trackingData)) {
+				if (gamificationManager.sendItineraryDataToGamificationEngine(appId, userId, travelId + "_" + day, res.getItinerary(), trackingData)) {
 					res.setScoreStatus(ScoreStatus.SENT);
 				}
 			}
@@ -495,44 +494,61 @@ public class GeolocationsProcessor {
 	}
 	
 	private void sendSharedTravel(TrackedInstance res, String userId, String travelId, String appId) throws Exception {
-		logger.debug("Sending shared travel: " + travelId + ", sharedId = " + res.getSharedTravelId());
+		logger.info("Sending shared travel: " + travelId + ", sharedId = " + res.getSharedTravelId());
 		if (!res.getComplete()) {
 			String sharedId = res.getSharedTravelId();
-			if (isDriver(sharedId)) {
-				String passengerTravelId = getPassengerTravelId(sharedId);
-				Query query = Query.query(Criteria.where("appId").is(appId).and("sharedTravelId").is(passengerTravelId).and("complete").is(true));
+			if (gamificationValidator.isDriver(sharedId)) {
+				String passengerTravelId = gamificationValidator.getPassengerTravelId(sharedId);
+				Query query = Query.query(Criteria
+						.where("appId").is(appId)
+						.and("sharedTravelId").is(passengerTravelId)
+						.and("complete").is(true)
+						.and("userId").ne(userId));
 				List<TrackedInstance> list = storage.searchDomainObjects(query, TrackedInstance.class);
 				if (!list.isEmpty()) {
 					for (TrackedInstance passengerTravel: list) {
 						validateSharedTripPair(passengerTravel, passengerTravel.getUserId(), travelId, appId, res);
+						storage.saveTrackedInstance(passengerTravel);
 					}
 				}
 			} else {
-				String driverTravelId = getDriverTravelId(sharedId);
-				Query query = Query.query(Criteria.where("appId").is(appId).and("sharedTravelId").is(driverTravelId).and("complete").is(true));
+				String driverTravelId = gamificationValidator.getDriverTravelId(sharedId);
+				Query query = Query.query(Criteria
+						.where("appId").is(appId)
+						.and("sharedTravelId").is(driverTravelId)
+						.and("complete").is(true)
+						.and("userId").ne(userId));
 				TrackedInstance driverTravel = storage.searchDomainObject(query, TrackedInstance.class);
 				if (driverTravel != null) {
 					validateSharedTripPair(res, userId, travelId, appId, driverTravel);
+					storage.saveTrackedInstance(driverTravel);
 				}
 			}
 		}
 		res.setComplete(true);
 	}
 
-	protected void validateSharedTripPair(TrackedInstance passengerTravel, String passengerId, String passengerTravelId, String appId, TrackedInstance driverTravel) throws ParseException {
-		ValidationResult vr = gamificationValidator.validateSharedTrip(passengerTravel.getGeolocationEvents(), driverTravel.getGeolocationEvents(), appId);
+	private void validateSharedTripPair(TrackedInstance passengerTravel, String passengerId, String passengerTravelId, String appId, TrackedInstance driverTravel) throws ParseException {
+		ValidationResult vr = gamificationValidator.validateSharedTripPassenger(passengerTravel.getGeolocationEvents(), driverTravel.getGeolocationEvents(), appId);
 		passengerTravel.setValidationResult(vr);
+		
+		if (driverTravel.getValidationResult() == null || driverTravel.getValidationResult().getValidationStatus() == null) {
+			ValidationResult driverVr = gamificationValidator.validateSharedTripDriver(driverTravel.getGeolocationEvents(), appId);
+			driverTravel.setValidationResult(driverVr);
+		}
+		
 		// passenger trip is valid: points are assigned to both
 		if (vr != null && !TravelValidity.INVALID.equals(vr.getTravelValidity())) {
 			boolean firstTime = !ScoreStatus.SENT.equals(driverTravel.getScoreStatus());
 			Map<String, Object> trackingData = gamificationValidator.computeSharedTravelScoreForDriver(appId, driverTravel.getUserId(), driverTravel.getGeolocationEvents(), vr.getValidationStatus(), driverTravel.getOverriddenDistances(), firstTime);
 			if (trackingData.containsKey("estimatedScore")) {
-				driverTravel.setScore((Long) trackingData.get("estimatedScore"));
+				long score = driverTravel.getScore() != null ? driverTravel.getScore() : 0l;
+				driverTravel.setScore(score + (Long) trackingData.get("estimatedScore"));
 			}
 			trackingData.put(TRAVEL_ID, driverTravel.getId());
 			trackingData.put(START_TIME, getStartTime(driverTravel));
 			if (gamificationManager.sendSharedTravelDataToGamificationEngine(appId, driverTravel.getUserId(), driverTravel.getId(), driverTravel.getGeolocationEvents(), trackingData)) {
-				passengerTravel.setScoreStatus(ScoreStatus.SENT);
+				driverTravel.setScoreStatus(ScoreStatus.SENT);
 			}
 			
 			trackingData = gamificationValidator.computeSharedTravelScoreForPassenger(appId, passengerId, passengerTravel.getGeolocationEvents(), vr.getValidationStatus(), passengerTravel.getOverriddenDistances());
@@ -548,30 +564,6 @@ public class GeolocationsProcessor {
 		} else {
 			logger.debug("Validation result null, not sending data to gamification");
 		}
-	}
-
-	/**
-	 * @param sharedId
-	 * @return
-	 */
-	private String getDriverTravelId(String sharedId) {
-		return "D"+sharedId.substring(1);
-	}
-
-	/**
-	 * @param sharedId
-	 * @return
-	 */
-	private String getPassengerTravelId(String sharedId) {
-		return "P"+sharedId.substring(1);
-	}
-
-	/**
-	 * @param sharedId
-	 * @return
-	 */
-	private boolean isDriver(String sharedId) {
-		return sharedId.charAt(0) == 'D';
 	}
 
 	private long getStartTime(TrackedInstance trackedInstance) throws ParseException {
