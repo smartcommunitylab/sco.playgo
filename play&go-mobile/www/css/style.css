@@ -3875,6 +3875,9 @@ text-align: center;
   position: relative;
   width: 50%;
 }
+.car-pool-type  button i:before{
+  font-size: 50px!important;
+}
 .car-pool-type:after {
   content: "";
   display: block;
@@ -3897,6 +3900,11 @@ text-align: center;
  .car-pool-driver-title {
   text-align: center;
   font-size: 19px;
+  margin: 20px 0px;
+ }
+ .car-pool-driver-title-small{
+  text-align: center;
+  font-size: 14px;
   margin: 20px 0px;
  }
  .start-track{

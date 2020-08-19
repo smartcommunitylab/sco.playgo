@@ -66,13 +66,16 @@
                     <div class="car-pool-driver-title">
                         {{'show_qrcode_manual'|translate}}
                     </div>
+                    <div class="car-pool-driver-title-small">
+                        {{'show_qrcode_manual_warning'|translate}}
+                    </div>
                     <label class="item item-input input-qr-code">
-                        <input type="tel" ng-model="carPoolingData.code">
+                        <input type="tel" ng-change="" ng-model="carPoolingData.code">
                     </label>
                 </div>
             </div>
             <div class="start-track">
-                <button class="button" ng-disabled="!carPoolingData.code"
+                <button class="button" ng-disabled="!carPoolingData.code || carPoolingData.code.length!=5"
                     ng-click="startCarpooling(selection)">{{'start_carpooling'|translate}}</button>
             </div>
         </div>
