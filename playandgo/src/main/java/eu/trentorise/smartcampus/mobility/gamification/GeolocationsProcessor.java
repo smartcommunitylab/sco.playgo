@@ -494,7 +494,7 @@ public class GeolocationsProcessor {
 	}
 	
 	private void sendSharedTravel(TrackedInstance res, String userId, String travelId, String appId) throws Exception {
-		logger.info("Sending shared travel: " + travelId + ", sharedId = " + res.getSharedTravelId());
+		logger.info("processing shared travel: " + travelId + ", sharedId = " + res.getSharedTravelId());
 		if (!res.getComplete()) {
 			String sharedId = res.getSharedTravelId();
 			if (gamificationValidator.isDriver(sharedId)) {
@@ -532,7 +532,7 @@ public class GeolocationsProcessor {
 		ValidationResult vr = gamificationValidator.validateSharedTripPassenger(passengerTravel.getGeolocationEvents(), driverTravel.getGeolocationEvents(), appId);
 		passengerTravel.setValidationResult(vr);
 		
-		if (driverTravel.getValidationResult() == null || driverTravel.getValidationResult().getValidationStatus() == null) {
+		if (driverTravel.getValidationResult() == null || driverTravel.getValidationResult().getValidationStatus() == null || TravelValidity.PENDING.equals(driverTravel.getValidationResult().getValidationStatus().getValidationOutcome())) {
 			ValidationResult driverVr = gamificationValidator.validateSharedTripDriver(driverTravel.getGeolocationEvents(), appId);
 			driverTravel.setValidationResult(driverVr);
 		}

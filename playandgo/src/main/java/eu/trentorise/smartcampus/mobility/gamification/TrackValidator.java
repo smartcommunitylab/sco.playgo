@@ -923,7 +923,7 @@ public class TrackValidator {
 			return status;
 		}
 
-		status.setValidationOutcome(TravelValidity.PENDING);
+		status.setValidationOutcome(TravelValidity.VALID);
 		return status;
 	}
 

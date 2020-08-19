@@ -455,6 +455,7 @@ public class GamificationController {
 								.and("userId").ne(ti.getUserId()));
 						List<TrackedInstance> list = storage.searchDomainObjects(query, TrackedInstance.class);
 						if (!list.isEmpty()) {
+							ti.setScore(0l);
 							for (TrackedInstance passengerTravel: list) {
 								validateSharedTripPair(passengerTravel, ti);
 								storage.saveTrackedInstance(passengerTravel);
@@ -488,7 +489,7 @@ public class GamificationController {
 		ValidationResult vr = gamificationValidator.validateSharedTripPassenger(passengerTravel.getGeolocationEvents(), driverTravel.getGeolocationEvents(), passengerTravel.getAppId());
 		passengerTravel.setValidationResult(vr);
 		
-		if (driverTravel.getValidationResult() == null || driverTravel.getValidationResult().getValidationStatus() == null) {
+		if (driverTravel.getValidationResult() == null || driverTravel.getValidationResult().getValidationStatus() == null || TravelValidity.PENDING.equals(driverTravel.getValidationResult().getValidationStatus().getValidationOutcome())) {
 			ValidationResult driverVr = gamificationValidator.validateSharedTripDriver(driverTravel.getGeolocationEvents(), passengerTravel.getAppId());
 			driverTravel.setValidationResult(driverVr);
 		}
