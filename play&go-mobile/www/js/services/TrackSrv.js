@@ -2,6 +2,7 @@ angular.module('viaggia.services.tracking', [])
   .factory('trackService', function (Config, $q, $http, $state, $timeout, $filter, $ionicHistory, LoginService, $ionicPlatform, $ionicPopup, $rootScope, Utils, GeoLocate, BT) {
     var trackService = {};
     var bgGeo = {};
+    var carPoolTravelId = null;
     var appVersion = function () {
       return Config.getVersion();
     };
@@ -195,6 +196,13 @@ angular.module('viaggia.services.tracking', [])
       return 0;
     }
 
+    // get and set Car Pool travel id for extra
+    trackService.getCarTravelId = function () {
+      return carPoolTravelId;
+    }
+    trackService.setCarTravelId = function (role, travelId) {
+      carPoolTravelId = role + travelId;
+    }
     /**
      * Start direct tracking of the specified transport type
      */
@@ -215,11 +223,11 @@ angular.module('viaggia.services.tracking', [])
         }
         // default duration set to 1 month
         trackService.start(tripId, multimodalId, {
-            data: {
-              startime: ts,
-              endtime: ts + 2 * 24 * 60 * 60 * 1000
-            }
-          }, null)
+          data: {
+            startime: ts,
+            endtime: ts + 2 * 24 * 60 * 60 * 1000
+          }
+        }, null)
           .then(function () {
             if (transport === 'bus') {
               BT.startScan(function (btId) {
@@ -233,8 +241,26 @@ angular.module('viaggia.services.tracking', [])
                   }; // <-- add some arbitrary extras-data
                   //                      // Insert it.
                   bgGeo.insertLocation(location, function () {
-                    bgGeo.finish(taskId);
+                    if (taskId)
+                      bgGeo.finish(taskId);
                   });
+                });
+              });
+            }
+            if (transport === 'car') {
+              var travelId = trackService.getCarTravelId();
+              launchGeoConfiguration({}, function (location, taskId) {
+                location.extras = {
+                  idTrip: tripId,
+                  multimodalId: multimodalId,
+                  start: ts,
+                  transportType: transport,
+                  sharedTravelId: travelId
+                };
+                //                      // Insert it.
+                bgGeo.insertLocation(location, function () {
+                  if (taskId)
+                    bgGeo.finish(taskId);
                 });
               });
             }
@@ -267,13 +293,14 @@ angular.module('viaggia.services.tracking', [])
               }; // <-- add some arbitrary extras-data
               //                      // Insert it.
               bgGeo.insertLocation(location, function () {
-                bgGeo.finish(taskId);
+                if (taskId)
+                  bgGeo.finish(taskId);
               });
               trip.tripId = tripId;
               localStorage.setItem(Config.getAppId() + '_temporary', JSON.stringify(trip));
               trackService.start(tripId, null, {
-                  data: trip
-                }, callback, startTimestamp)
+                data: trip
+              }, callback, startTimestamp)
                 .then(function () {
                   deferred.resolve();
                 }, function (errorCode) {
@@ -317,7 +344,8 @@ angular.module('viaggia.services.tracking', [])
       var trackId = localStorage.getItem(Config.getAppId() + '_tripId');
       var deferred = $q.defer();
       bgGeo.getLocations(function (locations, taskId) {
-        bgGeo.finish(taskId);
+        if (taskId)
+          bgGeo.finish(taskId);
         var tripLocs = [];
         locations.forEach(function (l) {
           if (l.extras && trackId == l.extras.idTrip) {
@@ -421,7 +449,8 @@ angular.module('viaggia.services.tracking', [])
               }; // <-- add some arbitrary extras-data
               //                      // Insert it.
               bgGeo.insertLocation(location, function () {
-                bgGeo.finish(taskId);
+                if (taskId)
+                  bgGeo.finish(taskId);
               });
               deferred.resolve();
             }, function (err) {
@@ -553,7 +582,8 @@ angular.module('viaggia.services.tracking', [])
         bgGeo.configure(trackingConfigure, callbackFn, failureFn);
         bgGeo.start(function () {
           bgGeo.getLocations(function (locations, taskId) {
-            bgGeo.finish(taskId);
+            if (taskId)
+              bgGeo.finish(taskId);
             if (locations == null || locations.length == 0) {
               $rootScope.syncRunning = false;
               deferred.resolve(true);
@@ -1156,4 +1186,4 @@ angular.module('viaggia.services.tracking', [])
     return svc;
   })
 
-;
+  ;

@@ -17,17 +17,17 @@
             </div>
             <div class="car-pool-type text-center">
                 <div><button class="button"
-                        ng-click="chooseRole('driver')">{{'select_driver_carpooling'|translate}}</button>
+                        ng-click="chooseRole('D')">{{'select_driver_carpooling'|translate}}</button>
                 </div>
             </div>
             <div class="car-pool-type text-center">
                 <div><button class="button"
-                        ng-click="chooseRole('passenger')">{{'select_passenger_carpooling'|translate}}</button>
+                        ng-click="chooseRole('P')">{{'select_passenger_carpooling'|translate}}</button>
                 </div>
             </div>
         </div>
         <div ng-if="step==2">
-            <div ng-if="selection=='driver'">
+            <div ng-if="selection=='D'">
                 <div>
                     <div class="row car-pool-driver-title text-center">{{'show_qrcode'|translate}}</div>
                     <div class="text-center">
@@ -39,7 +39,7 @@
                     </div>
                 </div>
             </div>
-            <div ng-if="selection=='passenger'">
+            <div ng-if="selection=='P'">
                 <div>
                     <div ng-if="!carPoolingData.imgBase64">
                         <div class="row car-pool-driver-title text-center">
@@ -67,7 +67,7 @@
                         {{'show_qrcode_manual'|translate}}
                     </div>
                     <label class="item item-input input-qr-code">
-                        <input type="number" ng-model="carPoolingData.code">
+                        <input type="tel" ng-model="carPoolingData.code">
                     </label>
                 </div>
             </div>

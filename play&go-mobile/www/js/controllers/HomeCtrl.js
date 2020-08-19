@@ -398,7 +398,7 @@ angular.module('viaggia.controllers.home', [])
       $scope.step = 2;
       $scope.carPoolingData.imgBase64 = '';
       $scope.carPoolingData.code = '';
-      if (role == 'driver') {
+      if (role == 'D') {
         $scope.generate();
       }
     }
@@ -479,7 +479,8 @@ angular.module('viaggia.controllers.home', [])
       //toast role
       Toast.show($filter('translate')("car_pool_started"), "short", "bottom");
       $scope.modal.hide();
-      $scope.trackAndMap('carPooling', true);
+      trackService.setCarTravelId(role,$scope.carPoolingData.code);
+      $scope.trackAndMap('car', true);
     }
     $scope.backCarPooling = function (){
       $scope.step--;
