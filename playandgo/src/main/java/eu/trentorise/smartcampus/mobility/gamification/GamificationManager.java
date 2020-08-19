@@ -100,7 +100,7 @@ public class GamificationManager {
 		return result;
 	}
 	
-	public synchronized boolean sendIntineraryDataToGamificationEngine(String appId, String playerId, String publishKey, ItineraryObject itinerary, Map<String, Object> trackingData) throws Exception {
+	public synchronized boolean sendItineraryDataToGamificationEngine(String appId, String playerId, String publishKey, ItineraryObject itinerary, Map<String, Object> trackingData) throws Exception {
 		logger.info("Send data for user " + playerId + ", trip " + itinerary.getClientId());
 		if (publishQueue.contains(publishKey)) {
 			logger.info("Already sent, returning " + playerId + ", trip " + itinerary.getClientId());
@@ -381,6 +381,20 @@ public class GamificationManager {
 		logger.debug("Sending to " + gamificationUrl + "/gengine/execute ('checkin') = " + content);
 		HTTPConnector.doBasicAuthenticationPost(gamificationUrl + "/gengine/execute", content, "application/json", "application/json", game.getUser(), game.getPassword());
 		
+	}
+
+	/**
+	 * @param appId
+	 * @param userId
+	 * @param travelId
+	 * @param geolocationEvents
+	 * @param trackingData
+	 * @return
+	 */
+	public boolean sendSharedTravelDataToGamificationEngine(String appId, String userId,  String travelId, Collection<Geolocation> geolocationEvents, Map<String, Object> trackingData) {
+		logger.info("Send shared tracking data for user " + userId + ", trip " + travelId);
+		return sendFreeTrackingDataToGamificationEngine(appId, userId, travelId, geolocationEvents, "carpooling", trackingData);
+
 	}	
 	
 }

@@ -13,6 +13,7 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -391,7 +392,7 @@ public class DiaryController {
 					}
 				}
 				de.setTravelModes(modes);					
-			} else if (instance.getFreeTrackingTransport() != null) {
+			} else if (instance.getFreeTrackingTransport() != null && StringUtils.isEmpty(instance.getSharedTravelId())) {
 				if (MODE_TYPE.OTHER.equals(TrackValidator.toModeType(instance.getFreeTrackingTransport()))) {
 					logger.warn("OTHER transport type found for " + instance.getId());
 					continue;
@@ -409,7 +410,19 @@ public class DiaryController {
 				
 				// TODO: remove
 				de.setTravelModes(Sets.newHashSet(instance.getFreeTrackingTransport()));
+			} else {
+				de.setTravelType(TravelType.SHARED);
+
+				logger.debug("DATA: "+instance+", "+ instance.getValidationResult()+", "+ instance.getValidationResult().getDistance());
+				Double val = instance.getValidationResult().getDistance(); 
+				Map<String, Double> distances = Collections.singletonMap(instance.getFreeTrackingTransport(), val);
+				de.setTravelDistances(distances);
+				
+				// TODO: remove
+				de.setTravelModes(Sets.newHashSet(instance.getFreeTrackingTransport()));
+				
 			}
+			
 			if (instance.getChangedValidity() != null) {
 				de.setTravelValidity(instance.getChangedValidity());	
 			} else {
