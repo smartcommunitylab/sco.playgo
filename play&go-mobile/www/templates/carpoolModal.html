@@ -29,26 +29,27 @@
         <div ng-if="step==2">
             <div ng-if="selection=='D'">
                 <div>
-                    <div class="row car-pool-driver-title text-center">{{'show_qrcode'|translate}}</div>
+                    <div class="row header-modal car-pool-driver-title text-center">{{'show_qrcode'|translate}}</div>
                     <div class="text-center">
-                        <img data-ng-src="{{carPoolingData.imgBase64}}" />
+                        <img class="qr-code" data-ng-src="{{carPoolingData.imgBase64}}" />
                     </div>
-                    <div class="car-pool-driver-title text-center">{{'show_qrcode_manual'|translate}}</div>
-                    <div class="text-center car-pool-driver-title">
-                        <span>{{carPoolingData.code}}</span>
+                    <div class="car-pool-driver-subtitle text-center">{{'show_qrcode_manual'|translate}}</div>
+                    <div class="text-center car-pool-driver-title ">
+                        <span class="modal-code">{{carPoolingData.code}}</span>
                     </div>
                 </div>
             </div>
             <div ng-if="selection=='P'">
                 <div>
                     <div ng-if="!carPoolingData.imgBase64">
-                        <div class="row car-pool-driver-title text-center">
+                        <div class="row  header-modal car-pool-driver-title text-center">
                             <div style="margin: auto;">
                                 {{'show_qrcode_title'|translate}}
                             </div>
                         </div>
-                        <div class="car-pool-type text-center">
-                            <div><button class="button" ng-click="scan()"><i class="icon ion-camera"></i></button>
+                        <div >
+                            <div>
+                                <div class="button-camera" ng-click="scan()"><i class="icon ion-camera"></i></div>
                             </div>
                         </div>
                     </div>
@@ -63,7 +64,7 @@
                 </div>
                 <div ng-if="!carPoolingData.imgBase64">
 
-                    <div class="car-pool-driver-title">
+                    <div class="header-modal car-pool-driver-title">
                         {{'show_qrcode_manual'|translate}}
                     </div>
                     <div class="car-pool-driver-title-small">
@@ -74,7 +75,7 @@
                     </label>
                 </div>
             </div>
-            <div class="start-track">
+            <div class="start-track text-center">
                 <button class="button" ng-disabled="!carPoolingData.code || carPoolingData.code.length!=5"
                     ng-click="startCarpooling(selection)">{{'start_carpooling'|translate}}</button>
             </div>

@@ -1590,7 +1590,7 @@ angular.module('viaggia', [
       start_carpooling:"Inizia",
       show_qrcode_title:"Punta al QR Code dell'autista",
       show_qrcode:"Usa questo QR code per associare i tuoi passeggeri al viaggio.",
-      show_qrcode_manual:'Oppure inseriscilo manualmente',
+      show_qrcode_manual:'Oppure usa questo codice:',
       car_pool_started:'Il tuo viaggio in Car Pooling é iniziato',
       show_qrcode_manual_warning:"ATTENZIONE! Verifica che il codice sia corretto, in caso contrario il viaggio NON sará riconosciuto!"
 

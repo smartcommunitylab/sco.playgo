@@ -157,6 +157,7 @@
     </config-file>
     <icon src="config/instances/FERRARA/resources/android/icon/drawable-xhdpi-icon.png" />
     <platform name="android">
+    <preference name="orientation" value="portrait" />
     <preference name="CodePushDeploymentKey" value="SPDZz-bYoi8DtN3ZB-JKtXS4_gul1CgsHKHTG" />
 </platform>
 <platform name="ios">

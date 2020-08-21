@@ -157,6 +157,7 @@
     </config-file>
     <icon src="*resource_folder*/resources/android/icon/drawable-xhdpi-icon.png" />
     <platform name="android">
+    <preference name="orientation" value="portrait" />
     <preference name="CodePushDeploymentKey" value="*code_push_android*" />
 </platform>
 <platform name="ios">
