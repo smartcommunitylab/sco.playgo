@@ -26,7 +26,7 @@
 
 				<label th:text="#{survey.acc1}">acc1</label> <br />
 				<ol>
-				  <li th:each="prod: ${#numbers.sequence(1, 24)}">
+				  <li th:each="prod: ${#numbers.sequence(1, 25)}">
 				  <div>
           <fieldset th:id="|fs${prod}|">
             <p><span th:text="#{survey.q + ${prod}}">Q</span></p>

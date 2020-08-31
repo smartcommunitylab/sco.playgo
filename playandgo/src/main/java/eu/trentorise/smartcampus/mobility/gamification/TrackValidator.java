@@ -852,7 +852,7 @@ public class TrackValidator {
 	 * @param areas
 	 * @return
 	 */
-	public static ValidationStatus validateShared(Collection<Geolocation> passengerTrack, Collection<Geolocation> driverTrack, List<Shape> areas) {
+	public static ValidationStatus validateSharedPassenger(Collection<Geolocation> passengerTrack, Collection<Geolocation> driverTrack, List<Shape> areas) {
 		ValidationStatus status = new ValidationStatus();
 		// set parameters
 		status.setTripType(TRIP_TYPE.SHARED);
@@ -900,6 +900,33 @@ public class TrackValidator {
 		} 
 		return status;
 	}
+	
+	/**
+	 * Validate planned trip
+	 * @param track
+	 * @param areas
+	 * @return
+	 */
+	public static ValidationStatus validateSharedDriver(Collection<Geolocation> driverTrack, List<Shape> areas) {
+		ValidationStatus status = new ValidationStatus();
+		// set parameters
+		status.setTripType(TRIP_TYPE.SHARED);
+		status.setValidityThreshold(VALIDITY_THRESHOLD);
+		status.setMatchThreshold(ACCURACY_THRESHOLD);
+
+		// basic validation
+		prevalidate(driverTrack, status, areas, SHARED_TRIP_DISTANCE_THRESHOLD);
+		if (status.getValidationOutcome() != null) {
+			if (ERROR_TYPE.TOO_SHORT.equals(status.getError())) {
+				status.setError(ERROR_TYPE.DOES_NOT_MATCH);
+			}
+			return status;
+		}
+
+		status.setValidationOutcome(TravelValidity.VALID);
+		return status;
+	}
+
 
 	private static class MatchModel {
 		
@@ -939,5 +966,4 @@ public class TrackValidator {
 		
 	}
 
-	
 }
