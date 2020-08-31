@@ -16,13 +16,21 @@
                 <div style="margin: auto;">{{'select_type_carpooling'|translate|uppercase}}</div>
             </div>
             <div class="car-pool-type text-center">
-                <div><button class="button"
-                        ng-click="chooseRole('D')">{{'select_driver_carpooling'|translate}}</button>
+                <div>
+                    <button class="button"
+                        ng-click="chooseRole('D')">
+                        <p>{{'select_driver_carpooling'|translate}}</p>
+                        <img src="img/svg/driver.svg">
+                    </button>
                 </div>
             </div>
             <div class="car-pool-type text-center">
-                <div><button class="button"
-                        ng-click="chooseRole('P')">{{'select_passenger_carpooling'|translate}}</button>
+                <div>
+                    <button class="button"
+                        ng-click="chooseRole('P')">
+                        <p>{{'select_passenger_carpooling'|translate}}</p>
+                        <img src="img/svg/passenger.svg">
+                    </button>
                 </div>
             </div>
         </div>
