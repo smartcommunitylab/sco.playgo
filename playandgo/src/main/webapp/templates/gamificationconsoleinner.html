@@ -115,7 +115,7 @@
 							<div ng-if="selectedUser == user">
 								<div ng-repeat="itinerary in userMap[user]" class="itinerary-row">
 									<div ng-class="{'incomplete': itinerary.instance.complete == false}">
-										<div ng-click="selectInstance(itinerary.instance)" class="instance-row"
+										<div ng-click="selectItinerary(itinerary)" class="instance-row"
 											ng-class="{'selected':selectedInstance == itinerary.instance, 'valid': hasValidStyle(itinerary.instance), 'invalid': hasInvalidStyle(itinerary.instance), 'pending': hasPendingStyle(itinerary.instance)}"
 										>
 											<div class="row">
@@ -127,7 +127,7 @@
 													></span> <span ng-show="itinerary.instance.validationResult.tooFast" class="glyphicon glyphicon-road" title="Too fast" data-toggle="tooltip"></span> 
 													<span ng-show="!itinerary.instance.validationResult.inAreas" class="glyphicon glyphicon-flag" title="Not in areas" data-toggle="tooltip"></span>
 													<br />
-													<i>Type: </i><b>{{itinerary.instance.itinerary == null ? ('Free tracking - ' + itinerary.instance.freeTrackingTransport) : 'Planned'}}</b>
+													<i>Type: </i><b>{{tripType(itinerary)}}</b>
 													<i>{{itinerary.instance.validationResult.plannedAsFreeTracking ? '(as free tracking)' : ''}}</i>
 												</div>
 												<div class="col-md-6 text-right">
@@ -207,13 +207,23 @@
 					<div id="right-scrollable" style="width: 100%; height: 100%;">
 						<div class="row" ng-if="selectedInstance != null">
 							<div class="col-md-4">
-								<h3 style="color: green;">Planned</h3>
-								<p>{{selectedInstance.itinerary.data.startime|date:'HH:mm'}} - {{selectedInstance.itinerary.data.endtime|date:'HH:mm'}}</p>
-								<p ng-show="selectedInstance.freeTrackingTransport">
-									<b>Free tracking tranport:</b> {{selectedInstance.freeTrackingTransport}}
-								</p>
-								<hr />
-								<p ng-repeat="leg in selectedInstance.itinerary.data.leg">{{leg.transport.type}}</p>
+							  <div ng-if="selectedInstance.itinerary">
+									<h3 style="color: green;">Planned</h3>
+									<p>{{selectedInstance.itinerary.data.startime|date:'HH:mm'}} - {{selectedInstance.itinerary.data.endtime|date:'HH:mm'}}</p>
+									<p ng-show="selectedInstance.freeTrackingTransport">
+										<b>Free tracking tranport:</b> {{selectedInstance.freeTrackingTransport}}
+									</p>
+									<hr />
+									<p ng-repeat="leg in selectedInstance.itinerary.data.leg">{{leg.transport.type}}</p>
+								</div>
+								<div ng-if="isShared(selectedInstance) && isDriver(selectedInstance.sharedTravelId)">
+                  <h3 style="color: green;">Passenger trips <input type="checkbox" ng-click="toggleRelated()" class="routeCheckbox"></h3>
+                  <p ng-repeat="rel in selectedItinerary.related">{{rel.id}} (User {{rel.userId}})</p>
+								</div>
+                <div ng-if="isShared(selectedInstance) && !isDriver(selectedInstance.sharedTravelId)">
+                  <h3 style="color: green;">Driver trip <input type="checkbox" ng-click="toggleRelated()" class="routeCheckbox"></h3>
+                  <p ng-repeat="rel in selectedItinerary.related">{{rel.id}} (User {{rel.userId}})</p>
+                </div>								
 							</div>
 							<div class="col-md-4">
 								<h3>

@@ -23,7 +23,7 @@ public class DiaryEntry implements Comparable<DiaryEntry> {
 	}
 	
 	public enum TravelType {
-		PLANNED, FREETRACKING
+		PLANNED, FREETRACKING, SHARED
 	}	
 
 	private long timestamp;

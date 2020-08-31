@@ -100,7 +100,7 @@ public class GamificationManager {
 		return result;
 	}
 	
-	public synchronized boolean sendIntineraryDataToGamificationEngine(String appId, String playerId, String publishKey, ItineraryObject itinerary, Map<String, Object> trackingData) throws Exception {
+	public synchronized boolean sendItineraryDataToGamificationEngine(String appId, String playerId, String publishKey, ItineraryObject itinerary, Map<String, Object> trackingData) throws Exception {
 		logger.info("Send data for user " + playerId + ", trip " + itinerary.getClientId());
 		if (publishQueue.contains(publishKey)) {
 			logger.info("Already sent, returning " + playerId + ", trip " + itinerary.getClientId());
@@ -386,7 +386,6 @@ public class GamificationManager {
 	/**
 	 * @param appId
 	 * @param userId
-	 * @param userId2
 	 * @param travelId
 	 * @param geolocationEvents
 	 * @param trackingData

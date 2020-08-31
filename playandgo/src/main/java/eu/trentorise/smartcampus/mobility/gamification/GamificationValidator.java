@@ -870,7 +870,7 @@ public class GamificationValidator {
 	 * @param appId
 	 * @return
 	 */
-	public ValidationResult validateSharedTrip(Collection<Geolocation> passengerTrip, Collection<Geolocation> driverTrip, String appId) {
+	public ValidationResult validateSharedTripPassenger(Collection<Geolocation> passengerTrip, Collection<Geolocation> driverTrip, String appId) {
 		if (driverTrip == null) {
 			return null;
 		}
@@ -878,12 +878,29 @@ public class GamificationValidator {
 		GameInfo game = gameSetup.findGameById(app.getGameId());
 
 		ValidationResult vr = new ValidationResult();
-		vr.setValidationStatus(TrackValidator.validateShared(passengerTrip, driverTrip, game.getAreas()));
+		vr.setValidationStatus(TrackValidator.validateSharedPassenger(passengerTrip, driverTrip, game.getAreas()));
 
 		return vr;
 	}
 
+	/**
+	 * @param geolocationEvents
+	 * @param geolocationEvents2
+	 * @param appId
+	 * @return
+	 */
+	public ValidationResult validateSharedTripDriver(Collection<Geolocation> driverTrip, String appId) {
+		if (driverTrip == null) {
+			return null;
+		}
+		AppInfo app = appSetup.findAppById(appId);
+		GameInfo game = gameSetup.findGameById(app.getGameId());
 
+		ValidationResult vr = new ValidationResult();
+		vr.setValidationStatus(TrackValidator.validateSharedDriver(driverTrip, game.getAreas()));
+
+		return vr;
+	}
 
 	/**
 	 * @param appId
@@ -895,7 +912,7 @@ public class GamificationValidator {
 	 */
 	public Map<String, Object> computeSharedTravelScoreForPassenger(String appId, String userId, Collection<Geolocation> geolocationEvents, ValidationStatus validationStatus, Map<String, Double> overriddenDistances) {
 		Map<String, Object> results = Maps.newTreeMap();
-		results.put("estimatedScore", 10);
+		results.put("estimatedScore", 10l);
 		results.put("driverTrip", false);
 		double distance = 0d;
 		if (overriddenDistances == null) overriddenDistances = Collections.emptyMap();
@@ -903,6 +920,8 @@ public class GamificationValidator {
 			distance = overriddenDistances.get("car") / 1000.0;
 		} else if (validationStatus.getEffectiveDistances().containsKey(MODE_TYPE.CAR)) {
 			distance = validationStatus.getEffectiveDistances().get(MODE_TYPE.CAR) / 1000.0; 
+		} else {
+			distance = validationStatus.getDistance() / 1000.0; 
 		}
 		results.put("carpoolingDistance", distance);
 		return results;
@@ -918,7 +937,7 @@ public class GamificationValidator {
 	 */
 	public Map<String, Object> computeSharedTravelScoreForDriver(String appId, String userId, Collection<Geolocation> geolocationEvents, ValidationStatus validationStatus, Map<String, Double> overriddenDistances, boolean firstPair) {
 		Map<String, Object> results = Maps.newTreeMap();
-		results.put("estimatedScore", 5 + (firstPair ? 5 : 0));
+		results.put("estimatedScore", 5l + (firstPair ? 5l : 0l));
 		results.put("driverTrip", true);
 		results.put("firstPair", firstPair);
 		
@@ -928,9 +947,35 @@ public class GamificationValidator {
 			distance = overriddenDistances.get("car") / 1000.0;
 		} else if (validationStatus.getEffectiveDistances().containsKey(MODE_TYPE.CAR)) {
 			distance = validationStatus.getEffectiveDistances().get(MODE_TYPE.CAR) / 1000.0; 
+		} else {
+			distance = validationStatus.getDistance() / 1000.0; 
 		}
 		results.put("carpoolingDistance", distance);
 		return results;
 	}
 
+	/**
+	 * @param sharedId
+	 * @return
+	 */
+	public String getDriverTravelId(String sharedId) {
+		return "D"+sharedId.substring(1);
+	}
+
+	/**
+	 * @param sharedId
+	 * @return
+	 */
+	public String getPassengerTravelId(String sharedId) {
+		return "P"+sharedId.substring(1);
+	}
+
+
+	/**
+	 * @param sharedId
+	 * @return
+	 */
+	public boolean isDriver(String sharedId) {
+		return sharedId.charAt(0) == 'D';
+	}
 }
