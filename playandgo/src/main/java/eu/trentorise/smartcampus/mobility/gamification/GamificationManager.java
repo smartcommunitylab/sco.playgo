@@ -335,7 +335,10 @@ public class GamificationManager {
 		for (MessageNotification msg: nots) {
 			Map msgData = msg.getData();
 			if (msgData.get("travelId") != null) {
-				result.put((String)msgData.get("travelId"), (Double)msgData.get("score"));
+				Double value = result.get((String)msgData.get("travelId"));
+				if (value == null) value = 0d;
+				if (msgData.get("score") != null) value += (Double)msgData.get("score");
+				result.put((String)msgData.get("travelId"), value);
 			} else {
 				logger.warn("TravelId null in GE for user = " + userId + ", app = " + appId);
 			}
