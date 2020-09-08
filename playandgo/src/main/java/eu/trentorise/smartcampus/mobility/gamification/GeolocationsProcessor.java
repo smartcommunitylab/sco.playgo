@@ -547,7 +547,7 @@ public class GeolocationsProcessor {
 			}
 			trackingData.put(TRAVEL_ID, driverTravel.getId());
 			trackingData.put(START_TIME, getStartTime(driverTravel));
-			if (gamificationManager.sendSharedTravelDataToGamificationEngine(appId, driverTravel.getUserId(), driverTravel.getId(), driverTravel.getGeolocationEvents(), trackingData)) {
+			if (gamificationManager.sendSharedTravelDataToGamificationEngine(appId, driverTravel.getUserId(), passengerTravel.getUserId(), driverTravel.getId(), driverTravel.getGeolocationEvents(), trackingData)) {
 				driverTravel.setScoreStatus(ScoreStatus.SENT);
 			}
 			
@@ -558,7 +558,7 @@ public class GeolocationsProcessor {
 			}
 			trackingData.put(TRAVEL_ID, passengerTravel.getId());
 			trackingData.put(START_TIME, getStartTime(passengerTravel));
-			if (gamificationManager.sendSharedTravelDataToGamificationEngine(appId, passengerId, passengerTravelId, passengerTravel.getGeolocationEvents(), trackingData)) {
+			if (gamificationManager.sendSharedTravelDataToGamificationEngine(appId, passengerId, driverTravel.getUserId(), passengerTravelId, passengerTravel.getGeolocationEvents(), trackingData)) {
 				passengerTravel.setScoreStatus(ScoreStatus.SENT);
 			}
 		} else {

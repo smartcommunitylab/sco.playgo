@@ -690,7 +690,7 @@ public class GamificationController {
 					if (forceQueue) {
 						gamificationManager.removeIdFromQueue(driverTravel.getClientId());				
 					}				
-					if (gamificationManager.sendSharedTravelDataToGamificationEngine(passengerTravel.getAppId(), driverTravel.getUserId(), driverTravel.getId(), driverTravel.getGeolocationEvents(), trackingData)) {
+					if (gamificationManager.sendSharedTravelDataToGamificationEngine(passengerTravel.getAppId(), driverTravel.getUserId(), passengerTravel.getUserId(), driverTravel.getId(), driverTravel.getGeolocationEvents(), trackingData)) {
 						driverTravel.setScoreStatus(ScoreStatus.SENT);
 					}
 				}
@@ -705,7 +705,7 @@ public class GamificationController {
 					}
 					trackingData.put(TRAVEL_ID, passengerTravel.getId());
 					trackingData.put(START_TIME, getStartTime(passengerTravel));
-					if (gamificationManager.sendSharedTravelDataToGamificationEngine(passengerTravel.getAppId(), passengerTravel.getUserId(), passengerTravel.getId(), passengerTravel.getGeolocationEvents(), trackingData)) {
+					if (gamificationManager.sendSharedTravelDataToGamificationEngine(passengerTravel.getAppId(), passengerTravel.getUserId(), driverTravel.getUserId(), passengerTravel.getId(), passengerTravel.getGeolocationEvents(), trackingData)) {
 						passengerTravel.setScoreStatus(ScoreStatus.SENT);
 					}
 				}
