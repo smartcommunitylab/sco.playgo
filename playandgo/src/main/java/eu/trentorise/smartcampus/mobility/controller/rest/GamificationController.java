@@ -883,10 +883,16 @@ public class GamificationController {
 					if (!scores.containsKey(o.getId())) {
 						logger.info("Missing travel score in GE: " + o.getId());
 					}
-					if (scores.containsKey(o.getId()) && !ScoreStatus.ASSIGNED.equals(o.getScoreStatus())) {
+					Double score = scores.get(o.getId());
+
+					if (score != null && !ScoreStatus.ASSIGNED.equals(o.getScoreStatus())) {
 						logger.info("Set assigned status to trip " + o.getId());
 						o.setScore(scores.get(o.getId()).longValue());
 						o.setScoreStatus(ScoreStatus.ASSIGNED);
+						storage.saveTrackedInstance(o);
+					} else if (score != null && o.getScore() < score.longValue()) {
+						logger.info("Update assigned status to trip " + o.getId() +": from " + o.getScore() +" to " + score);
+						o.setScore(score.longValue());
 						storage.saveTrackedInstance(o);
 					}
 				}
