@@ -539,7 +539,7 @@ public class GeolocationsProcessor {
 		
 		// passenger trip is valid: points are assigned to both
 		if (vr != null && !TravelValidity.INVALID.equals(vr.getTravelValidity())) {
-			boolean firstTime = !ScoreStatus.SENT.equals(driverTravel.getScoreStatus());
+			boolean firstTime = !ScoreStatus.SENT.equals(driverTravel.getScoreStatus()) && !ScoreStatus.ASSIGNED.equals(driverTravel.getScoreStatus());
 			Map<String, Object> trackingData = gamificationValidator.computeSharedTravelScoreForDriver(appId, driverTravel.getUserId(), driverTravel.getGeolocationEvents(), vr.getValidationStatus(), driverTravel.getOverriddenDistances(), firstTime);
 			if (trackingData.containsKey("estimatedScore")) {
 				long score = driverTravel.getScore() != null ? driverTravel.getScore() : 0l;
@@ -547,8 +547,8 @@ public class GeolocationsProcessor {
 			}
 			trackingData.put(TRAVEL_ID, driverTravel.getId());
 			trackingData.put(START_TIME, getStartTime(driverTravel));
-			if (gamificationManager.sendSharedTravelDataToGamificationEngine(appId, driverTravel.getUserId(), driverTravel.getId(), driverTravel.getGeolocationEvents(), trackingData)) {
-				driverTravel.setScoreStatus(ScoreStatus.SENT);
+			if (gamificationManager.sendSharedTravelDataToGamificationEngine(appId, driverTravel.getUserId(), passengerTravel.getUserId(), driverTravel.getId(), driverTravel.getGeolocationEvents(), trackingData)) {
+				if (firstTime) driverTravel.setScoreStatus(ScoreStatus.SENT);
 			}
 			
 			trackingData = gamificationValidator.computeSharedTravelScoreForPassenger(appId, passengerId, passengerTravel.getGeolocationEvents(), vr.getValidationStatus(), passengerTravel.getOverriddenDistances());
@@ -558,7 +558,7 @@ public class GeolocationsProcessor {
 			}
 			trackingData.put(TRAVEL_ID, passengerTravel.getId());
 			trackingData.put(START_TIME, getStartTime(passengerTravel));
-			if (gamificationManager.sendSharedTravelDataToGamificationEngine(appId, passengerId, passengerTravelId, passengerTravel.getGeolocationEvents(), trackingData)) {
+			if (gamificationManager.sendSharedTravelDataToGamificationEngine(appId, passengerId, driverTravel.getUserId(), passengerTravelId, passengerTravel.getGeolocationEvents(), trackingData)) {
 				passengerTravel.setScoreStatus(ScoreStatus.SENT);
 			}
 		} else {

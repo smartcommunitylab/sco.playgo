@@ -690,7 +690,7 @@ public class GamificationController {
 					if (forceQueue) {
 						gamificationManager.removeIdFromQueue(driverTravel.getClientId());				
 					}				
-					if (gamificationManager.sendSharedTravelDataToGamificationEngine(passengerTravel.getAppId(), driverTravel.getUserId(), driverTravel.getId(), driverTravel.getGeolocationEvents(), trackingData)) {
+					if (gamificationManager.sendSharedTravelDataToGamificationEngine(passengerTravel.getAppId(), driverTravel.getUserId(), passengerTravel.getUserId(), driverTravel.getId(), driverTravel.getGeolocationEvents(), trackingData)) {
 						driverTravel.setScoreStatus(ScoreStatus.SENT);
 					}
 				}
@@ -705,7 +705,7 @@ public class GamificationController {
 					}
 					trackingData.put(TRAVEL_ID, passengerTravel.getId());
 					trackingData.put(START_TIME, getStartTime(passengerTravel));
-					if (gamificationManager.sendSharedTravelDataToGamificationEngine(passengerTravel.getAppId(), passengerTravel.getUserId(), passengerTravel.getId(), passengerTravel.getGeolocationEvents(), trackingData)) {
+					if (gamificationManager.sendSharedTravelDataToGamificationEngine(passengerTravel.getAppId(), passengerTravel.getUserId(), driverTravel.getUserId(), passengerTravel.getId(), passengerTravel.getGeolocationEvents(), trackingData)) {
 						passengerTravel.setScoreStatus(ScoreStatus.SENT);
 					}
 				}
@@ -883,10 +883,16 @@ public class GamificationController {
 					if (!scores.containsKey(o.getId())) {
 						logger.info("Missing travel score in GE: " + o.getId());
 					}
-					if (scores.containsKey(o.getId()) && !ScoreStatus.ASSIGNED.equals(o.getScoreStatus())) {
+					Double score = scores.get(o.getId());
+
+					if (score != null && !ScoreStatus.ASSIGNED.equals(o.getScoreStatus())) {
 						logger.info("Set assigned status to trip " + o.getId());
 						o.setScore(scores.get(o.getId()).longValue());
 						o.setScoreStatus(ScoreStatus.ASSIGNED);
+						storage.saveTrackedInstance(o);
+					} else if (score != null && o.getScore() < score.longValue()) {
+						logger.info("Update assigned status to trip " + o.getId() +": from " + o.getScore() +" to " + score);
+						o.setScore(score.longValue());
 						storage.saveTrackedInstance(o);
 					}
 				}

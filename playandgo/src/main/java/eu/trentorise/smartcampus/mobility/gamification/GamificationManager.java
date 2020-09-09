@@ -18,7 +18,6 @@ package eu.trentorise.smartcampus.mobility.gamification;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -120,10 +119,6 @@ public class GamificationManager {
 	public void removeIdFromQueue(String id) {
 		publishQueue.remove(id);
 	}		
-	
-	public void removeIdsFromQueue(String... ids) {
-		publishQueue.removeAll(Arrays.asList(ids));
-	}	
 	
 	private boolean saveFreetracking(String travelId, String appId, String playerId, Collection<Geolocation> geolocationEvents, String ttype, Map<String, Object> trackingData) {
 		if ((Long)trackingData.get("estimatedScore") == 0) {
@@ -340,7 +335,10 @@ public class GamificationManager {
 		for (MessageNotification msg: nots) {
 			Map msgData = msg.getData();
 			if (msgData.get("travelId") != null) {
-				result.put((String)msgData.get("travelId"), (Double)msgData.get("score"));
+				Double value = result.get((String)msgData.get("travelId"));
+				if (value == null) value = 0d;
+				if (msgData.get("score") != null) value += (Double)msgData.get("score");
+				result.put((String)msgData.get("travelId"), value);
 			} else {
 				logger.warn("TravelId null in GE for user = " + userId + ", app = " + appId);
 			}
@@ -391,9 +389,19 @@ public class GamificationManager {
 	 * @param trackingData
 	 * @return
 	 */
-	public boolean sendSharedTravelDataToGamificationEngine(String appId, String userId,  String travelId, Collection<Geolocation> geolocationEvents, Map<String, Object> trackingData) {
+	public boolean sendSharedTravelDataToGamificationEngine(String appId, String userId, String otherId,  String travelId, Collection<Geolocation> geolocationEvents, Map<String, Object> trackingData) {
 		logger.info("Send shared tracking data for user " + userId + ", trip " + travelId);
-		return sendFreeTrackingDataToGamificationEngine(appId, userId, travelId, geolocationEvents, "carpooling", trackingData);
+		String key = travelId + "_" + userId + "_" + otherId;
+		logger.info("Send shared tracking data " + key);
+		if (publishQueue.contains(key)) {
+			logger.info("publishQueue contains shared travel key " + key + ", returning");
+			return false;
+		}
+		boolean result = saveFreeTracking(travelId, appId, userId, geolocationEvents, "carpooling", trackingData);
+		if (result) {
+			publishQueue.add(key);
+		}
+		return result;
 
 	}	
 	
