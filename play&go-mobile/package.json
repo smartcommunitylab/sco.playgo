@@ -9,7 +9,6 @@
     "code-push": "^3.0.1",
     "cordova": "^9.0.0",
     "cordova-android": "8.1.0",
-    "cordova-android-support-gradle-release": "^3.0.1",
     "cordova-background-geolocation": "file:../../cordova-background-geolocation",
     "cordova-common": "^4.0.0",
     "cordova-custom-config": "^5.1.0",
@@ -129,9 +128,6 @@
       "ionic-plugin-keyboard": {},
       "cordova-plugin-globalization": {},
       "cordova-plugin-crop": {},
-      "cordova-android-support-gradle-release": {
-        "ANDROID_SUPPORT_VERSION": "28.+"
-      },
       "cordova-plugin-androidx": {},
       "cordova-plugin-local-notification": {},
       "cordova-plugin-cocoapod-support": {},
@@ -195,7 +191,10 @@
       "phonegap-plugin-barcodescanner": {
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
       },
-      "cordova-plugin-qrcodejs": {}
+      "cordova-plugin-qrcodejs": {},
+      "cordova-android-support-gradle-release": {
+        "ANDROID_SUPPORT_VERSION": "29.+"
+      }
     },
     "platforms": [
       "android"

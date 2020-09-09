@@ -41,9 +41,9 @@
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
     <preference name="android-minSdkVersion" value="19" />
-    <preference name="android-targetSdkVersion" value="28" />
+    <preference name="android-targetSdkVersion" value="29" />
     <plugin name="cordova-android-support-gradle-release">
-        <variable name="ANDROID_SUPPORT_VERSION" value="28.+" />
+        <variable name="ANDROID_SUPPORT_VERSION" value="29.+" />
     </plugin>
     <preference name="FadeSplashScreen" value="false" />
     <preference name="ShowSplashScreenSpinner" value="false" />
