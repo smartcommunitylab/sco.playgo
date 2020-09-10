@@ -1580,6 +1580,8 @@ angular.module('viaggia', [
       not_yet_home_subtitle: 'Il tracciamento del mezzo da lei selezionato non e` attualmente supportato, ma lo sara` a breve',
       label_this_page: ' questa pagina',
       label_title_tracking_not_yet: 'Impossibile avviare l\'attività selezionata!',
+      label_title_carpooling_tracking_not:'Impossibile avviare l\'attività selezionata!',
+      not_carpooling_subtitle:'Per avviare il tracciamento selezionato devi terminare l\'attivitá in corso',
       track_boat: 'Battello',
       track_car_pooling: 'Car pooling',
       menu_disabled:'Funzione attualmente non disponibile',
@@ -2191,7 +2193,10 @@ angular.module('viaggia', [
       show_qrcode:"Have your passengers read this QRCode to add them to the trip.",
       show_qrcode_manual:'Or have them enter this code:',
       car_pool_started:'Your Car Polling journey has started',
-      show_qrcode_manual_warning:"WARNING! Check that the code is correct, otherwise the journey will NOT be validated!"
+      show_qrcode_manual_warning:"WARNING! Check that the code is correct, otherwise the journey will NOT be validated!",
+      label_title_carpooling_tracking_not:'The selected activity is temporarily blocked!',
+      not_carpooling_subtitle:'To start the selected tracking mode you have to finish the current activity',
+      
 
 
     });
