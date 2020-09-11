@@ -2196,7 +2196,8 @@ angular.module('viaggia', [
       show_qrcode_manual_warning:"WARNING! Check that the code is correct, otherwise the journey will NOT be validated!",
       label_title_carpooling_tracking_not:'The selected activity is temporarily blocked!',
       not_carpooling_subtitle:'To start the selected tracking mode you have to finish the current activity',
-      
+      show_qrcode_manual_passenger:'Or insert here the driver code',
+
 
 
     });
