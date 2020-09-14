@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="it.smartcommunitylab.playgoferrara" version="0.0.2" android-versionCode="3" 
-    xmlns:android="http://schemas.android.com/apk/res/android" 
-    xmlns="http://www.w3.org/ns/widgets" 
-    xmlns:cdv="http://cordova.apache.org/ns/1.0" 
+<widget id="it.smartcommunitylab.playgoferrara" version="0.0.2" android-versionCode="3"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns="http://www.w3.org/ns/widgets"
+    xmlns:cdv="http://cordova.apache.org/ns/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <name>Ferrara Play&amp;Go</name>
     <description>Ferrara Play&amp;Go</description>
@@ -11,7 +11,6 @@
 
     <plugin name="cordova-plugin-whitelist" spec="1" />
     <allow-navigation href="*" />
-
     <allow-intent href="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -25,7 +24,7 @@
     <access origin="tel:*" launch-external="yes" />
     <access origin="mailto:*" launch-external="yes" />
     <access origin="geo:*" launch-external="yes" />
-        <feature name="CDVWKWebViewEngine">
+    <feature name="CDVWKWebViewEngine">
         <param name="ios-package" value="CDVWKWebViewEngine" />
     </feature>
 
@@ -115,12 +114,12 @@
         <splash src="config/instances/FERRARA/resources/ios/splash/Default~iphone.png" width="320" height="480" />
         <!-- <preference name="deployment-target" value="9.0" />
 <preference name="pods_use_frameworks" value="true" /> -->
-<pod name="GoogleSignIn" version="5.0.0" />
-<!-- 
+        <pod name="GoogleSignIn" version="5.0.0" />
+        <!-- 
 <pod name="FBSDKCoreKit" version="5.8.0" />
 <pod name="FBSDKLoginKit" version="5.8.0" />
 <pod name="FBSDKShareKit" version="5.8.0" />     -->
-</platform>
+    </platform>
     <!-- <plugin name="cordova-background-geolocation">
         <variable name="LICENSE" value="6af31309a1796013f00927f4c396b898ac881efac6d398a165301e06e0a6a9c7"/>
         <variable name="GOOGLE_API_VERSION" value="11.6.0"/>
@@ -156,11 +155,12 @@
         </array>
     </config-file>
     <icon src="config/instances/FERRARA/resources/android/icon/drawable-xhdpi-icon.png" />
+   
     <platform name="android">
-    <preference name="orientation" value="portrait" />
-    <preference name="CodePushDeploymentKey" value="k2sQaDTl6LkeyQ9AHIxZHG2sU9De0iKJuA0KS" />
-</platform>
-<platform name="ios">
-    <preference name="CodePushDeploymentKey" value="l2s7Bcjt6Yye6gW39BGs3cAl2vcr_x0lE1Von" />
-</platform>
+        <preference name="orientation" value="portrait" />
+        <preference name="CodePushDeploymentKey" value="SPDZz-bYoi8DtN3ZB-JKtXS4_gul1CgsHKHTG" />
+    </platform>
+    <platform name="ios">
+        <preference name="CodePushDeploymentKey" value="l2s7Bcjt6Yye6gW39BGs3cAl2vcr_x0lE1Von" />
+    </platform>
 </widget>
