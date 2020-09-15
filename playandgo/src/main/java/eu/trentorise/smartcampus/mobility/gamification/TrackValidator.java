@@ -881,16 +881,10 @@ public class TrackValidator {
 		// basic validation
 		List<Geolocation> points = prevalidate(passengerTrack, status, areas, SHARED_TRIP_DISTANCE_THRESHOLD);
 		if (status.getValidationOutcome() != null) {
-			if (ERROR_TYPE.TOO_SHORT.equals(status.getError())) {
-				status.setError(ERROR_TYPE.DOES_NOT_MATCH);
-			}
 			return status;
 		}
 		List<Geolocation> driverPoints = prevalidate(driverTrack, status, areas, SHARED_TRIP_DISTANCE_THRESHOLD);
 		if (status.getValidationOutcome() != null) {
-			if (ERROR_TYPE.TOO_SHORT.equals(status.getError())) {
-				status.setError(ERROR_TYPE.DOES_NOT_MATCH);
-			}
 			return status;
 		}
 		
@@ -915,6 +909,7 @@ public class TrackValidator {
 			}
 			if ((100.0 * minMatchedLength / totalLength) < MIN_COVERAGE_THRESHOLD) {
 				status.setValidationOutcome(TravelValidity.INVALID);
+				status.setError(ERROR_TYPE.SHARED_DOES_NOT_MATCH);
 			}
 		} 
 		return status;
@@ -936,9 +931,6 @@ public class TrackValidator {
 		// basic validation
 		prevalidate(driverTrack, status, areas, SHARED_TRIP_DISTANCE_THRESHOLD);
 		if (status.getValidationOutcome() != null) {
-			if (ERROR_TYPE.TOO_SHORT.equals(status.getError())) {
-				status.setError(ERROR_TYPE.DOES_NOT_MATCH);
-			}
 			return status;
 		}
 
