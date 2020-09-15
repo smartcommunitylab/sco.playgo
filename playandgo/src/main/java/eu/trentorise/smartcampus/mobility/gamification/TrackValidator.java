@@ -415,7 +415,7 @@ public class TrackValidator {
 	public static ValidationStatus validateFreeTrain(Collection<Geolocation> track, List<List<Geolocation>> referenceTracks, List<Shape> areas) {
 		MODE_TYPE mode = MODE_TYPE.TRAIN; 
 		double speedThreshold = 15, timeThreshold = 3*60*1000, minTrackThreshold = 1*60*1000; 
-		return validateFreePTMode(track, referenceTracks, areas, mode, speedThreshold, timeThreshold, minTrackThreshold, false);
+		return validateFreePTMode(track, referenceTracks, areas, mode, speedThreshold, timeThreshold, minTrackThreshold, false, DISTANCE_THRESHOLD);
 	}
 	
 	/**
@@ -429,9 +429,9 @@ public class TrackValidator {
 	 * @return
 	 */
 	public static ValidationStatus validateFreeBoat(Collection<Geolocation> track, List<List<Geolocation>> referenceTracks, List<Shape> areas) {
-		MODE_TYPE mode = MODE_TYPE.TRAIN; 
+		MODE_TYPE mode = MODE_TYPE.BOAT; 
 		double speedThreshold = 8, timeThreshold = 3*60*1000, minTrackThreshold = 1*60*1000; 
-		return validateFreePTMode(track, referenceTracks, areas, mode, speedThreshold, timeThreshold, minTrackThreshold, false);
+		return validateFreePTMode(track, referenceTracks, areas, mode, speedThreshold, timeThreshold, minTrackThreshold, false, 1000);
 	}
 
 	/**
@@ -447,7 +447,7 @@ public class TrackValidator {
 	public static ValidationStatus validateFreeBus(Collection<Geolocation> track, List<List<Geolocation>> referenceTracks, List<Shape> areas) {
 		MODE_TYPE mode = MODE_TYPE.BUS; 
 		double speedThreshold = 10, timeThreshold = 1*60*1000, minTrackThreshold = 30*1000; 
-		return validateFreePTMode(track, referenceTracks, areas, mode, speedThreshold, timeThreshold, minTrackThreshold, true);
+		return validateFreePTMode(track, referenceTracks, areas, mode, speedThreshold, timeThreshold, minTrackThreshold, true, DISTANCE_THRESHOLD);
 	}
 	
 	private static ValidationStatus validateFreePTMode(
@@ -458,7 +458,8 @@ public class TrackValidator {
 			double speedThreshold, 
 			double timeThreshold, 
 			double minTrackThreshold,
-			boolean checkCertificate) 
+			boolean checkCertificate,
+			double distanceThreshold) 
 	{
 		ValidationStatus status = new ValidationStatus();
 		// set parameters
@@ -469,7 +470,7 @@ public class TrackValidator {
 		status.setCoverageThreshold(COVERAGE_THRESHOLD);
 
 		// basic validation
-		List<Geolocation> points = prevalidate(track, status, areas, DISTANCE_THRESHOLD);
+		List<Geolocation> points = prevalidate(track, status, areas, distanceThreshold);
 		if (status.getValidationOutcome() != null) {
 			// no too short error for PT trips. Replace with DOES_NOT_MATCH error. 
 			if (ERROR_TYPE.TOO_SHORT.equals(status.getError())) {

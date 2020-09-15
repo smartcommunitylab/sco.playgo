@@ -435,6 +435,9 @@ public class PlayerController {
 	// /data/game/{gameId}/player/{playerId}/challenges
 	
 	private void assignBoatChallenge(String playerId, String gameId, String appId) {
+		// HARDCODED
+		if (LocalDate.now().isAfter(LocalDate.parse("2020-10-04"))) return;
+
 		RestTemplate restTemplate = new RestTemplate();
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("bonusPointType", "green leaves");
@@ -447,7 +450,7 @@ public class PlayerController {
 		challenge.setStart(new Date(now));
 		
 //		Date end = new Date(now + 2 * 7 * 24 * 60 * 60 * 1000L);
-		LocalDateTime ldt = LocalDateTime.now().plusDays(10).with(ChronoField.DAY_OF_WEEK, 6).truncatedTo(ChronoUnit.DAYS).minusSeconds(1);
+		LocalDateTime ldt = LocalDate.parse("2020-10-04").plusDays(1).atStartOfDay().truncatedTo(ChronoUnit.DAYS).minusSeconds(1);
 		Date end = new Date(ldt.atZone(ZoneOffset.systemDefault()).toInstant().toEpochMilli());
 		
 		challenge.setEnd(end);
@@ -463,9 +466,6 @@ public class PlayerController {
 	}
 
 	private void assignSurveyChallenge(String playerId, String gameId, String appId) {
-		// HARDCODED
-		if (LocalDate.now().isAfter(LocalDate.parse("2020-10-04"))) return;
-		
 		RestTemplate restTemplate = new RestTemplate();
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("bonusPointType", "green leaves");
