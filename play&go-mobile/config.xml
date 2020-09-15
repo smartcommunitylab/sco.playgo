@@ -41,9 +41,9 @@
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
     <preference name="android-minSdkVersion" value="19" />
-    <preference name="android-targetSdkVersion" value="28" />
+    <preference name="android-targetSdkVersion" value="29" />
     <plugin name="cordova-android-support-gradle-release">
-        <variable name="ANDROID_SUPPORT_VERSION" value="28.+" />
+        <variable name="ANDROID_SUPPORT_VERSION" value="29.+" />
     </plugin>
     <preference name="FadeSplashScreen" value="false" />
     <preference name="ShowSplashScreenSpinner" value="false" />
@@ -158,7 +158,7 @@
     <icon src="config/instances/FERRARA/resources/android/icon/drawable-xhdpi-icon.png" />
     <platform name="android">
     <preference name="orientation" value="portrait" />
-    <preference name="CodePushDeploymentKey" value="SPDZz-bYoi8DtN3ZB-JKtXS4_gul1CgsHKHTG" />
+    <preference name="CodePushDeploymentKey" value="k2sQaDTl6LkeyQ9AHIxZHG2sU9De0iKJuA0KS" />
 </platform>
 <platform name="ios">
     <preference name="CodePushDeploymentKey" value="l2s7Bcjt6Yye6gW39BGs3cAl2vcr_x0lE1Von" />

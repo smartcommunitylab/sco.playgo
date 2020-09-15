@@ -422,7 +422,7 @@ angular.module('viaggia.controllers.home', [])
         console.info('QRCodeJS response is ' + base64EncodedQRImage);
         $scope.carPoolingData.imgBase64 = base64EncodedQRImage;
         $scope.carPoolingData.code = text;
-      }, (err) => {
+      }, function(err) {
         console.error('QRCodeJS error is ' + JSON.stringify(err));
       });
     }
@@ -462,7 +462,7 @@ angular.module('viaggia.controllers.home', [])
     $scope.trackAndMap = function (transportType, enabled) {
       //init multimodal id used for db 
       if (!enabled) {
-        $scope.openTrackingCorona();
+        $scope.openTrackingNotEnabled();
       } else
         if (!$rootScope.syncRunning) {
           $scope.startTracking(transportType);
@@ -608,7 +608,7 @@ angular.module('viaggia.controllers.home', [])
       return counter;
     }
     $scope.showTutorial = function () {
-      tutorial.showTutorial('main', 'main', 5, $scope);
+      tutorial.showTutorial('main', 'main', 4, $scope);
     }
     $scope.expand = function (index) {
       $scope.expansion[index] = !$scope.expansion[index];

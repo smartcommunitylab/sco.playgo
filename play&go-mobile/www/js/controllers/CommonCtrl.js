@@ -125,7 +125,11 @@ angular.module('viaggia.controllers.common', [])
     $scope.changeTracking = function (type, enabled) {
       //se type e' uguale al tipo attuale non cambiare
       if (enabled) {
-        if (!$scope.actualTracking(type) && trackService.trackingIsGoingOn()) {
+        //check if carcappoling
+        if (trackService.trackingIsGoingOn() && (type=='car' || $scope.actualTracking('car'))){
+$scope.openCarPoolingTrackingProblem();
+        }
+        else if (!$scope.actualTracking(type) && trackService.trackingIsGoingOn()) {
           //show popup if u want change the tracking mean
           $ionicPopup.show({
             title: $filter('translate')("pop_up_change_free_track_title"),
@@ -152,9 +156,10 @@ angular.module('viaggia.controllers.common', [])
 
         }
       } else {
-        $scope.openTrackingCorona();
+        $scope.openTrackingNotEnabled();
       }
     }
+
     $scope.stopTracking = function () {
       Config.loading();
       $scope.trackingIsOn = false;
@@ -667,7 +672,19 @@ angular.module('viaggia.controllers.common', [])
         console.log("network error");
       }).finally(Config.loaded)
     };
-    $scope.openTrackingCorona = function () {
+    $scope.openCarPoolingTrackingProblem = function () {
+      $scope.titleCorona = $filter('translate')('label_title_carpooling_tracking_not');
+      $scope.alertPopup = $ionicPopup.alert({
+        title: $scope.titleCorona,
+        templateUrl: 'templates/notCarPoolingPopup.html',
+        scope: $scope,
+        cssClass: 'notYetGamePopup'
+      });
+
+      $scope.alertPopup.then(function (res) {
+      });
+    }
+    $scope.openTrackingNotEnabled = function () {
       $scope.titleCorona = $filter('translate')('label_title_tracking_not_yet');
       $scope.messageCorona = $filter('translate')('label_warning_not_yet_extended');
       $scope.alertPopup = $ionicPopup.alert({
