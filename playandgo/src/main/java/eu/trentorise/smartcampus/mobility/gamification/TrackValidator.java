@@ -405,7 +405,7 @@ public class TrackValidator {
 	/**
 	 * Validate free tracking: train. Take reference train shapes as input.
 	 * Preprocess track data; check if contains more than 2 points; split into blocks with 15km/h - 3 mins for stop - at least 1 min fast track; 
-	 * match fragments against reference trac with 150m error and 80% coverage. Consider VALID if at least 80% of length is matched. If no
+	 * match fragments against reference track with 150m error and 80% coverage. Consider VALID if at least 80% of length is matched. If no
 	 * fast fragment found consider PENDING with TOO_SLOW error. Otherwise consider PENDING.
 	 * @param track
 	 * @param referenceTracks
@@ -415,6 +415,22 @@ public class TrackValidator {
 	public static ValidationStatus validateFreeTrain(Collection<Geolocation> track, List<List<Geolocation>> referenceTracks, List<Shape> areas) {
 		MODE_TYPE mode = MODE_TYPE.TRAIN; 
 		double speedThreshold = 15, timeThreshold = 3*60*1000, minTrackThreshold = 1*60*1000; 
+		return validateFreePTMode(track, referenceTracks, areas, mode, speedThreshold, timeThreshold, minTrackThreshold, false);
+	}
+	
+	/**
+	 * Validate free tracking: boat. Take reference boat shapes as input.
+	 * Preprocess track data; check if contains more than 2 points; split into blocks with 8km/h - 3 mins for stop - at least 1 min fast track; 
+	 * match fragments against reference k with 150m error and 80% coverage. Consider VALID if at least 80% of length is matched. If no
+	 * fast fragment found consider PENDING with TOO_SLOW error. Otherwise consider PENDING.
+	 * @param track
+	 * @param referenceTracks
+	 * @param areas
+	 * @return
+	 */
+	public static ValidationStatus validateFreeBoat(Collection<Geolocation> track, List<List<Geolocation>> referenceTracks, List<Shape> areas) {
+		MODE_TYPE mode = MODE_TYPE.TRAIN; 
+		double speedThreshold = 8, timeThreshold = 3*60*1000, minTrackThreshold = 1*60*1000; 
 		return validateFreePTMode(track, referenceTracks, areas, mode, speedThreshold, timeThreshold, minTrackThreshold, false);
 	}
 
@@ -721,6 +737,8 @@ public class TrackValidator {
 			return MODE_TYPE.BUS;
 		case "train": 
 			return MODE_TYPE.TRAIN;
+		case "boat": 
+			return MODE_TYPE.BOAT;
 		case "bike":
 			return MODE_TYPE.BIKE;
 		case "walk":

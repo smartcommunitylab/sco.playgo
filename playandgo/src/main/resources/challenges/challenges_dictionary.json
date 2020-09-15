@@ -55,6 +55,20 @@
 			"en": "the train"
 		}
 	}],
+  "boat": [{
+    "negative": false,
+    "word": {
+      "it": "in battello",
+      "en": "by boat"
+    }
+  },
+  {
+    "negative": true,
+    "word": {
+      "it": "il battello",
+      "en": "the boat"
+    }
+  }],
 	"bus": [{
 		"negative": false,
 		"word": {

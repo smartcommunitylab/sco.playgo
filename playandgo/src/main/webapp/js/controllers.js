@@ -76,7 +76,7 @@ var plannerControllers = angular.module('plannerControllers', [])
 					// CARWITHPARKING(0,11),SHAREDCAR(0,4),SHAREDCAR_WITHOUT_STATION(0,4),BUS(0,2),TRAIN(0,2),WALK(12,0),SHUTTLE(0,2),
 					// PARK_AND_RIDE(0,4);
 
-					$scope.ttypes = [ null, "BICYCLE", "SHAREDBIKE", "BUS", "TRAIN", "TRANSIT", "WALK", "CAR", "CARWITHPARKING", "PARK_AND_RIDE" ];
+					$scope.ttypes = [ null, "BICYCLE", "SHAREDBIKE", "BUS", "TRAIN", "BOAT", "TRANSIT", "WALK", "CAR", "CARWITHPARKING", "PARK_AND_RIDE" ];
 					$scope.rtypes = [ null, "fastest", "healthy", "leastWalking", "leastChanges", "greenest", "safest" ];
 					$scope.stypes = [ null, "fastest", "healthy", "leastWalking", "leastChanges", "greenest", "safest", "fastestAndCheapest" ];
 					$scope.smartplannerParameters = [ "maxWalkDistance", "maxTotalWalkDistance", "extraTransport", "maxChanges" ];

@@ -32,6 +32,7 @@ public class ChallengesConfig {
     private static final String WALK_TRIPS = "Walk_Trips";
     private static final String BIKE_TRIPS = "Bike_Trips";
     private static final String TRAIN_KM = "Train_Km";
+    
     public static final String BUS_TRIPS = "Bus_Trips";
     public static final String TRAIN_TRIPS = "Train_Trips";
     private static final String ZERO_IMPACT_TRIPS = "ZeroImpact_Trips";
