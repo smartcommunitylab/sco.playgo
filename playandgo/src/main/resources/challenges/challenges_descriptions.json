@@ -19,120 +19,128 @@
 		"modelName": "repetitiveBehaviour",
 		"filter": "NoBikeSharing_Trips",
 		"description": {
-			"it": "Per vincere la sfida vale il numero di itinerari effettuati al giorno senza utilizzare il bike sharing pianificati e tracciati con Viaggia Play&Go e compiuti durante la validita' della sfida.",
-			"en": "To win this challenge, we take into account the total number of itineraries you have done within the day without using bike sharing with Viaggia Play&Go and which you have taken in between the beginning and end time for this challenge."
+			"it": "Per vincere la sfida vale il numero di itinerari effettuati al giorno senza utilizzare il bike sharing pianificati e tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida.",
+			"en": "To win this challenge, we take into account the total number of itineraries you have done within the day without using bike sharing with Ferrara Play&Go and which you have taken in between the beginning and end time for this challenge."
 		}
 	},
 	{
 		"modelName": "repetitiveBehaviour",
 		"filter": "NoBus_Trips",
 		"description": {
-			"it": "Per vincere la sfida vale il numero di itinerari effettuati al giorno senza utilizzare il trasporto pubblico tracciati con Viaggia Play&Go e compiuti durante la validita' della sfida.",
-			"en": "To win this challenge, we take into account the total number of itineraries you have done within the day without using the bus with Viaggia Play&Go and which you have taken in between the beginning and end time for this challenge."
+			"it": "Per vincere la sfida vale il numero di itinerari effettuati al giorno senza utilizzare il trasporto pubblico tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida.",
+			"en": "To win this challenge, we take into account the total number of itineraries you have done within the day without using the bus with Ferrara Play&Go and which you have taken in between the beginning and end time for this challenge."
 		}
 	},
 	{
 		"modelName": "repetitiveBehaviour",
 		"filter": "NoTrain_Trips",
 		"description": {
-			"it": "Per vincere la sfida vale il numero di itinerari effettuati al giorno senza utilizzare il treno tracciati con Viaggia Play&Go e compiuti durante la validita' della sfida.",
-			"en": "To win this challenge, we take into account the total number of itineraries you have done within the day with Viaggia Play&Go without using the train and which you have taken in between the beginning and end time for this challenge."
+			"it": "Per vincere la sfida vale il numero di itinerari effettuati al giorno senza utilizzare il treno tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida.",
+			"en": "To win this challenge, we take into account the total number of itineraries you have done within the day with Ferrara Play&Go without using the train and which you have taken in between the beginning and end time for this challenge."
 		}
 	},
 	{
 		"modelName": "repetitiveBehaviour",
 		"filter": "NoBike_Trips",
 		"description": {
-			"it": "Per vincere la sfida vale il numero di itinerari effettuati al giorno senza utilizzare la bici tracciati con Viaggia Play&Go e compiuti durante la validita' della sfida.",
-			"en": "To win this challenge, we take into account the total number of itineraries you have done within the day with Viaggia Play&Go without using the bike and which you have taken in between the beginning and end time for this challenge."
+			"it": "Per vincere la sfida vale il numero di itinerari effettuati al giorno senza utilizzare la bici tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida.",
+			"en": "To win this challenge, we take into account the total number of itineraries you have done within the day with Ferrara Play&Go without using the bike and which you have taken in between the beginning and end time for this challenge."
 		}
 	},
 	{
 		"modelName": "repetitiveBehaviour",
 		"filter": "NoCar_Trips",
 		"description": {
-			"it": "Per vincere la sfida vale il numero di itinerari effettuati al giorno senza utilizzare l'automobile tracciati con Viaggia Play&Go e compiuti durante la validita' della sfida.",
-			"en": "To win this challenge, we take into account the total number of itineraries you have done within the day with Viaggia Play&Go without using the car and which you have taken in between the beginning and end time for this challenge."
+			"it": "Per vincere la sfida vale il numero di itinerari effettuati al giorno senza utilizzare l'automobile tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida.",
+			"en": "To win this challenge, we take into account the total number of itineraries you have done within the day with Ferrara Play&Go without using the car and which you have taken in between the beginning and end time for this challenge."
 		}
 	},
 	{
 		"modelName": "repetitiveBehaviour",
 		"filter": "NoWalk_Trips",
 		"description": {
-			"it": "Per vincere la sfida vale il numero di itinerari effettuati al giorno senza utilizzare spostamenti a piedi tracciati con Viaggia Play&Go e compiuti durante la validita' della sfida.",
-			"en": "To win this challenge, we take into account the total number of itineraries you have done within the day with Viaggia Play&Go without walking and which you have taken in between the beginning and end time for this challenge."
+			"it": "Per vincere la sfida vale il numero di itinerari effettuati al giorno senza utilizzare spostamenti a piedi tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida.",
+			"en": "To win this challenge, we take into account the total number of itineraries you have done within the day with Ferrara Play&Go without walking and which you have taken in between the beginning and end time for this challenge."
 		}
 	},
 	{
 		"modelName": "repetitiveBehaviour",
 		"filter": "BikeSharing_Trips",
 		"description": {
-			"it": "Per vincere la sfida vale il numero di itinerari al giorno che utilizzano il bike sharing tracciati con Viaggia Play&Go e compiuti durante la validita' della sfida.",
-			"en": "To win this challenge, we take into account the total number of itineraries you have done within the day by bike sharing with Viaggia Play&Go and which you have taken in between the beginning and end time for this challenge."
+			"it": "Per vincere la sfida vale il numero di itinerari al giorno che utilizzano il bike sharing tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida.",
+			"en": "To win this challenge, we take into account the total number of itineraries you have done within the day by bike sharing with Ferrara Play&Go and which you have taken in between the beginning and end time for this challenge."
 		}
 	},
 	{
 		"modelName": "repetitiveBehaviour",
 		"filter": "Bus_Trips",
 		"description": {
-			"it": "Per vincere la sfida vale il numero di itinerari al giorno che utilizzano l'autobus tracciati con Viaggia Play&Go e compiuti durante la validita' della sfida.",
-			"en": "To win this challenge, we take into account the total number of itineraries you have done within the day by bus with Viaggia Play&Go and which you have taken in between the beginning and end time for this challenge."
+			"it": "Per vincere la sfida vale il numero di itinerari al giorno che utilizzano l'autobus tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida.",
+			"en": "To win this challenge, we take into account the total number of itineraries you have done within the day by bus with Ferrara Play&Go and which you have taken in between the beginning and end time for this challenge."
 		}
 	},
 	{
 		"modelName": "repetitiveBehaviour",
 		"filter": "Train_Trips",
 		"description": {
-			"it": "Per vincere la sfida vale il numero di itinerari al giorno che utilizzano il treno tracciati con Viaggia Play&Go e compiuti durante la validita' della sfida.",
-			"en": "To win this challenge, we take into account the total number of itineraries you have done within the day by train with Viaggia Play&Go and which you have taken in between the beginning and end time for this challenge."
+			"it": "Per vincere la sfida vale il numero di itinerari al giorno che utilizzano il treno tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida.",
+			"en": "To win this challenge, we take into account the total number of itineraries you have done within the day by train with Ferrara Play&Go and which you have taken in between the beginning and end time for this challenge."
 		}
 	},
+  {
+    "modelName": "repetitiveBehaviour",
+    "filter": "Boat_Trips",
+    "description": {
+      "it": "Per vincere la sfida vale il numero di itinerari al giorno che utilizzano il battello tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida.",
+      "en": "To win this challenge, we take into account the total number of itineraries you have done within the day by boat with Ferrara Play&Go and which you have taken in between the beginning and end time for this challenge."
+    }
+  },
 	{
 		"modelName": "repetitiveBehaviour",
 		"filter": "Walk_Trips",
 		"description": {
-			"it": "Per vincere la sfida vale il numero di itinerari a piedi al giorno tracciati con Viaggia Play&Go e compiuti durante la validita' della sfida.",
-			"en": "To win this challenge, we take into account the total number of itineraries you have done within the day by walking with Viaggia Play&Go and which you have taken in between the beginning and end time for this challenge."
+			"it": "Per vincere la sfida vale il numero di itinerari a piedi al giorno tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida.",
+			"en": "To win this challenge, we take into account the total number of itineraries you have done within the day by walking with Ferrara Play&Go and which you have taken in between the beginning and end time for this challenge."
 		}
 	},
 	{
 		"modelName": "repetitiveBehaviour",
 		"filter": "Cable_Trips",
 		"description": {
-			"it": "Per vincere la sfida vale il numero di itinerari al giorno che utilizzano la funivia Trento-Sardagna pianificati e tracciati con Viaggia Play&Go e compiuti durante la validita' della sfida.",
-			"en": "To win this challenge, we take into account the total number of itineraries you have done by Trento-Sardagna cable with Viaggia Play&Go within the day and which you have taken in between the beginning and end time for this challenge."
+			"it": "Per vincere la sfida vale il numero di itinerari al giorno che utilizzano la funivia Trento-Sardagna pianificati e tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida.",
+			"en": "To win this challenge, we take into account the total number of itineraries you have done by Trento-Sardagna cable with Ferrara Play&Go within the day and which you have taken in between the beginning and end time for this challenge."
 		}
 	},
 	{
 		"modelName": "repetitiveBehaviour",
 		"filter": "Bike_Km",
 		"description": {
-			"it": "Per vincere la sfida vale la somma dei Km viaggiati in bici o bike sharing al giorno nel corso degli itinerari tracciati con Viaggia Play&Go e compiuti durante la validita' della sfida.",
-			"en": "To win this challenge, we take into account the total number of Km. you have travelled within the day by bike or bike sharing during all itineraries that you have planned with Viaggia Play&Go and which you have taken in between the beginning and end time for this challenge."
+			"it": "Per vincere la sfida vale la somma dei Km viaggiati in bici o bike sharing al giorno nel corso degli itinerari tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida.",
+			"en": "To win this challenge, we take into account the total number of Km. you have travelled within the day by bike or bike sharing during all itineraries that you have planned with Ferrara Play&Go and which you have taken in between the beginning and end time for this challenge."
 		}
 	},
 	{
 		"modelName": "repetitiveBehaviour",
 		"filter": "BikeSharing_Km",
 		"description": {
-			"it": "Per vincere la sfida vale la somma dei Km viaggiati in bike sharing al giorno nel corso degli itinerari pianificati e tracciati con Viaggia Play&Go e compiuti durante la validita' della sfida.",
-			"en": "To win this challenge, we take into account the total number of Km. you have travelled within the day by bike sharing during all itineraries that you have tracked with Viaggia Play&Go and which you have taken in between the beginning and end time for this challenge."
+			"it": "Per vincere la sfida vale la somma dei Km viaggiati in bike sharing al giorno nel corso degli itinerari pianificati e tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida.",
+			"en": "To win this challenge, we take into account the total number of Km. you have travelled within the day by bike sharing during all itineraries that you have tracked with Ferrara Play&Go and which you have taken in between the beginning and end time for this challenge."
 		}
 	},
 	{
 		"modelName": "repetitiveBehaviour",
 		"filter": "Walk_Km",
 		"description": {
-			"it": "Per vincere la sfida vale la somma dei Km camminati al giorno (solo tratte superiori a 250 metri) nel corso degli itinerari tracciati con Viaggia Play&Go e compiuti durante la validita' della sfida.",
-			"en": "To win this challenge, we take into account the total number of Km. you have walked within the day (with distance greater than 250m) during all itineraries that you have tracked with Viaggia Play&Go and which you have taken in between the beginning and end time for this challenge."
+			"it": "Per vincere la sfida vale la somma dei Km camminati al giorno (solo tratte superiori a 250 metri) nel corso degli itinerari tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida.",
+			"en": "To win this challenge, we take into account the total number of Km. you have walked within the day (with distance greater than 250m) during all itineraries that you have tracked with Ferrara Play&Go and which you have taken in between the beginning and end time for this challenge."
 		}
 	},
 	{
 		"modelName": "repetitiveBehaviour",
 		"filter": "ParkAndRide_Trips",
 		"description": {
-			"it": "Per vincere la sfida vale il numero di itinerari al giorno che utilizzano il park and ride pianificati e tracciati con Viaggia Play&Go e compiuti durante la validita' della sfida. I parcheggi Park&Ride sono: Stazione FS Villazzano, Ex-Zuffo, Monte Baldo, Via Lidorno, Ghiaie via Fersina, Via Ragazzi del '99, Via Alessandro Manzoni - Rovereto, Parcheggio Municipio - Rovereto.",
-			"en": "To win this challenge, we take into account the total number of itineraries you have done within the day using park and ride with Viaggia Play&Go and which you have taken in between the beginning and end time for this challenge. Park&Ride parkings are: Stazione FS Villazzano, Ex-Zuffo, Monte Baldo, Via Lidorno, Ghiaie via Fersina, Via Ragazzi del '99, Via Alessandro Manzoni - Rovereto, Parcheggio Municipio - Rovereto."
+			"it": "Per vincere la sfida vale il numero di itinerari al giorno che utilizzano il park and ride pianificati e tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida. I parcheggi Park&Ride sono: Stazione FS Villazzano, Ex-Zuffo, Monte Baldo, Via Lidorno, Ghiaie via Fersina, Via Ragazzi del '99, Via Alessandro Manzoni - Rovereto, Parcheggio Municipio - Rovereto.",
+			"en": "To win this challenge, we take into account the total number of itineraries you have done within the day using park and ride with Ferrara Play&Go and which you have taken in between the beginning and end time for this challenge. Park&Ride parkings are: Stazione FS Villazzano, Ex-Zuffo, Monte Baldo, Via Lidorno, Ghiaie via Fersina, Via Ragazzi del '99, Via Alessandro Manzoni - Rovereto, Parcheggio Municipio - Rovereto."
 		}
 	},
 	{
@@ -147,32 +155,32 @@
 		"modelName": "percentageIncrement",
 		"filter": "Bike_Km",
 		"description": {
-			"it": "Per vincere la sfida vale la somma dei Km viaggiati in bici o bike sharing nel corso degli itinerari tracciati con Viaggia Play&Go e compiuti durante la validita' della sfida.",
-			"en": "To win this challenge, we take into account the total number of Km. you have travelled by bike or bike sharing during all itineraries that you have tracked with Viaggia Play&Go and which you have taken in between the beginning and end time for this challenge."
+			"it": "Per vincere la sfida vale la somma dei Km viaggiati in bici o bike sharing nel corso degli itinerari tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida.",
+			"en": "To win this challenge, we take into account the total number of Km. you have travelled by bike or bike sharing during all itineraries that you have tracked with Ferrara Play&Go and which you have taken in between the beginning and end time for this challenge."
 		}
 	},
 	{
 		"modelName": "percentageIncrement",
 		"filter": "BikeSharing_Km",
 		"description": {
-			"it": "Per vincere la sfida vale la somma dei Km viaggiati in bike sharing nel corso degli itinerari tracciati con Viaggia Play&Go e compiuti durante la validita' della sfida.",
-			"en": "To win this challenge, we take into account the total number of Km. you have travelled by bike sharing during all itineraries that you have tracked with Viaggia Play&Go and which you have taken in between the beginning and end time for this challenge."
+			"it": "Per vincere la sfida vale la somma dei Km viaggiati in bike sharing nel corso degli itinerari tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida.",
+			"en": "To win this challenge, we take into account the total number of Km. you have travelled by bike sharing during all itineraries that you have tracked with Ferrara Play&Go and which you have taken in between the beginning and end time for this challenge."
 		}
 	},
 	{
 		"modelName": "percentageIncrement",
 		"filter": "Walk_Km",
 		"description": {
-			"it": "Per vincere la sfida vale la somma dei Km camminati (solo tratte superiori a 250 metri) nel corso degli itinerari tracciati con Viaggia Play&Go e compiuti durante la validita' della sfida.",
-			"en": "To win this challenge, we take into account the total number of Km. you have walked (with distance greater than 250m) during all itineraries that you have tracked with Viaggia Play&Go and which you have taken in between the beginning and end time for this challenge."
+			"it": "Per vincere la sfida vale la somma dei Km camminati (solo tratte superiori a 250 metri) nel corso degli itinerari tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida.",
+			"en": "To win this challenge, we take into account the total number of Km. you have walked (with distance greater than 250m) during all itineraries that you have tracked with Ferrara Play&Go and which you have taken in between the beginning and end time for this challenge."
 		}
 	},
 	{
 		"modelName": "percentageIncrement",
 		"filter": "Walk_Trips",
 		"description": {
-			"it": "Per vincere la sfida vale il numero di itinerari a piedi tracciati con Viaggia Play&Go e compiuti durante la validita' della sfida.",
-			"en": "To win this challenge, we take into account the total number of itineraries you have done by walking with Viaggia Play&Go and which you have taken in between the beginning and end time for this challenge."
+			"it": "Per vincere la sfida vale il numero di itinerari a piedi tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida.",
+			"en": "To win this challenge, we take into account the total number of itineraries you have done by walking with Ferrara Play&Go and which you have taken in between the beginning and end time for this challenge."
 		}
 	},
 	{
@@ -187,32 +195,40 @@
 		"modelName": "percentageIncrement",
 		"filter": "BikeSharing_Trips",
 		"description": {
-			"it": "Per vincere la sfida vale il numero di itinerari che utilizzano il bike sharing pianificati e tracciati on Viaggia Play&Go e compiuti durante la validita' della sfida.",
-			"en": "To win this challenge, we take into account the total number of itineraries you have planned and tracked by bike sharing with Viaggia Play&Go and which you have taken in between the beginning and end time for this challenge."
+			"it": "Per vincere la sfida vale il numero di itinerari che utilizzano il bike sharing pianificati e tracciati on Ferrara Play&Go e compiuti durante la validita' della sfida.",
+			"en": "To win this challenge, we take into account the total number of itineraries you have planned and tracked by bike sharing with Ferrara Play&Go and which you have taken in between the beginning and end time for this challenge."
 		}
 	},
 	{
 		"modelName": "percentageIncrement",
 		"filter": "Train_Trips",
 		"description": {
-			"it": "Per vincere la sfida vale il numero di itinerari che utilizzano il treno tracciati con Viaggia Play&Go e compiuti durante la validita' della sfida.",
-			"en": "To win this challenge, we take into account the total number of itineraries you have done by train with Viaggia Play&Go and which you have taken in between the beginning and end time for this challenge."
+			"it": "Per vincere la sfida vale il numero di itinerari che utilizzano il treno tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida.",
+			"en": "To win this challenge, we take into account the total number of itineraries you have done by train with Ferrara Play&Go and which you have taken in between the beginning and end time for this challenge."
 		}
 	},
+  {
+    "modelName": "percentageIncrement",
+    "filter": "Boat_Trips",
+    "description": {
+      "it": "Per vincere la sfida vale il numero di itinerari che utilizzano il battello tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida.",
+      "en": "To win this challenge, we take into account the total number of itineraries you have done by boat with Ferrara Play&Go and which you have taken in between the beginning and end time for this challenge."
+    }
+  },
 	{
 		"modelName": "percentageIncrement",
 		"filter": "Bus_Trips",
 		"description": {
-			"it": "Per vincere la sfida vale il numero di itinerari in autobus tracciati con Viaggia Play&Go e compiuti durante la validita' della sfida.",
-			"en": "To win this challenge, we take into account the total number of itineraries you have done by bus with Viaggia Play&Go and which you have taken in between the beginning and end time for this challenge."
+			"it": "Per vincere la sfida vale il numero di itinerari in autobus tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida.",
+			"en": "To win this challenge, we take into account the total number of itineraries you have done by bus with Ferrara Play&Go and which you have taken in between the beginning and end time for this challenge."
 		}
 	},
 	{
 		"modelName": "percentageIncrement",
 		"filter": "Cable_Trips",
 		"description": {
-			"it": "Per vincere la sfida vale il numero di itinerari che utilizzano la funivia Trento-Sardagna pianificati e tracciati con Viaggia Play&Go e compiuti durante la validita' della sfida.",
-			"en": "To win this challenge, we take into account the total number of itineraries you have done by Trento-Sardagna cable with Viaggia Play&Go and which you have taken in between the beginning and end time for this challenge."
+			"it": "Per vincere la sfida vale il numero di itinerari che utilizzano la funivia Trento-Sardagna pianificati e tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida.",
+			"en": "To win this challenge, we take into account the total number of itineraries you have done by Trento-Sardagna cable with Ferrara Play&Go and which you have taken in between the beginning and end time for this challenge."
 		}
 	},
 	{
@@ -227,8 +243,8 @@
 		"modelName": "percentageIncrement",
 		"filter": "NoCar_Trips",
 		"description": {
-			"it": "Per vincere la sfida vale il numero di itinerari effettuati senza utilizzare l'automobile tracciati con Viaggia Play&Go e compiuti durante la validita' della sfida.",
-			"en": "To win this challenge, we take into account the total number of itineraries you have done with Viaggia Play&Go withouth using the car and which you have taken in between the beginning and end time for this challenge."
+			"it": "Per vincere la sfida vale il numero di itinerari effettuati senza utilizzare l'automobile tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida.",
+			"en": "To win this challenge, we take into account the total number of itineraries you have done with Ferrara Play&Go withouth using the car and which you have taken in between the beginning and end time for this challenge."
 		}
 	},
 	{
@@ -251,8 +267,8 @@
 		"modelName": "percentageIncrement",
 		"filter": "Promoted_Trips",
 		"description": {
-			"it": "Gli itinerari 'promoted' sono quelli consigliati ed evidenziati in verde da Viaggia Play&Go.",
-			"en": "The 'promoted' itineraries are those suggested by Viaggia Play&Go App and marked in green."
+			"it": "Gli itinerari 'promoted' sono quelli consigliati ed evidenziati in verde da Ferrara Play&Go.",
+			"en": "The 'promoted' itineraries are those suggested by Ferrara Play&Go App and marked in green."
 		}
 	},
 	{
@@ -267,128 +283,136 @@
 		"modelName": "absoluteIncrement",
 		"filter": "NoBikeSharing_Trips",
 		"description": {
-			"it": "Per vincere la sfida vale il numero di itinerari effettuati senza utilizzare il bike sharing pianificati e tracciati con Viaggia Play&Go e compiuti durante la validita' della sfida.",
-			"en": "To win this challenge, we take into account the total number of itineraries you have done withouth using bike sharing with Viaggia Play&Go and which you have taken in between the beginning and end time for this challenge."
+			"it": "Per vincere la sfida vale il numero di itinerari effettuati senza utilizzare il bike sharing pianificati e tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida.",
+			"en": "To win this challenge, we take into account the total number of itineraries you have done withouth using bike sharing with Ferrara Play&Go and which you have taken in between the beginning and end time for this challenge."
 		}
 	},
 	{
 		"modelName": "absoluteIncrement",
 		"filter": "NoBus_Trips",
 		"description": {
-			"it": "Per vincere la sfida vale il numero di itinerari effettuati senza utilizzare il trasporto pubblico tracciati con Viaggia Play&Go e compiuti durante la validita' della sfida.",
-			"en": "To win this challenge, we take into account the total number of itineraries you have done withouth using the bus with Viaggia Play&Go and which you have taken in between the beginning and end time for this challenge."
+			"it": "Per vincere la sfida vale il numero di itinerari effettuati senza utilizzare il trasporto pubblico tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida.",
+			"en": "To win this challenge, we take into account the total number of itineraries you have done withouth using the bus with Ferrara Play&Go and which you have taken in between the beginning and end time for this challenge."
 		}
 	},
 	{
 		"modelName": "absoluteIncrement",
 		"filter": "NoTrain_Trips",
 		"description": {
-			"it": "Per vincere la sfida vale il numero di itinerari effettuati senza utilizzare il treno tracciati con Viaggia Play&Go e compiuti durante la validita' della sfida.",
-			"en": "To win this challenge, we take into account the total number of itineraries you have done with Viaggia Play&Go withouth using the train and which you have taken in between the beginning and end time for this challenge."
+			"it": "Per vincere la sfida vale il numero di itinerari effettuati senza utilizzare il treno tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida.",
+			"en": "To win this challenge, we take into account the total number of itineraries you have done with Ferrara Play&Go withouth using the train and which you have taken in between the beginning and end time for this challenge."
 		}
 	},
 	{
 		"modelName": "absoluteIncrement",
 		"filter": "NoBike_Trips",
 		"description": {
-			"it": "Per vincere la sfida vale il numero di itinerari effettuati senza utilizzare la bici tracciati con Viaggia Play&Go e compiuti durante la validita' della sfida.",
-			"en": "To win this challenge, we take into account the total number of itineraries you have done with Viaggia Play&Go withouth using the bike and which you have taken in between the beginning and end time for this challenge."
+			"it": "Per vincere la sfida vale il numero di itinerari effettuati senza utilizzare la bici tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida.",
+			"en": "To win this challenge, we take into account the total number of itineraries you have done with Ferrara Play&Go withouth using the bike and which you have taken in between the beginning and end time for this challenge."
 		}
 	},
 	{
 		"modelName": "absoluteIncrement",
 		"filter": "NoCar_Trips",
 		"description": {
-			"it": "Per vincere la sfida vale il numero di itinerari effettuati senza utilizzare l'automobile tracciati con Viaggia Play&Go e compiuti durante la validita' della sfida.",
-			"en": "To win this challenge, we take into account the total number of itineraries you have done with Viaggia Play&Go withouth using the car and which you have taken in between the beginning and end time for this challenge."
+			"it": "Per vincere la sfida vale il numero di itinerari effettuati senza utilizzare l'automobile tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida.",
+			"en": "To win this challenge, we take into account the total number of itineraries you have done with Ferrara Play&Go withouth using the car and which you have taken in between the beginning and end time for this challenge."
 		}
 	},
 	{
 		"modelName": "absoluteIncrement",
 		"filter": "NoWalk_Trips",
 		"description": {
-			"it": "Per vincere la sfida vale il numero di itinerari effettuati senza utilizzare spostamenti a piedi tracciati con Viaggia Play&Go e compiuti durante la validita' della sfida.",
-			"en": "To win this challenge, we take into account the total number of itineraries you have done with Viaggia Play&Go withouth walking and which you have taken in between the beginning and end time for this challenge."
+			"it": "Per vincere la sfida vale il numero di itinerari effettuati senza utilizzare spostamenti a piedi tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida.",
+			"en": "To win this challenge, we take into account the total number of itineraries you have done with Ferrara Play&Go withouth walking and which you have taken in between the beginning and end time for this challenge."
 		}
 	},
 	{
 		"modelName": "absoluteIncrement",
 		"filter": "BikeSharing_Trips",
 		"description": {
-			"it": "Per vincere la sfida vale il numero di itinerari che utilizzano il bike sharing tracciati con Viaggia Play&Go e compiuti durante la validita' della sfida.",
-			"en": "To win this challenge, we take into account the total number of itineraries you have done by bike sharing with Viaggia Play&Go and which you have taken in between the beginning and end time for this challenge."
+			"it": "Per vincere la sfida vale il numero di itinerari che utilizzano il bike sharing tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida.",
+			"en": "To win this challenge, we take into account the total number of itineraries you have done by bike sharing with Ferrara Play&Go and which you have taken in between the beginning and end time for this challenge."
 		}
 	},
 	{
 		"modelName": "absoluteIncrement",
 		"filter": "Bus_Trips",
 		"description": {
-			"it": "Per vincere la sfida vale il numero di itinerari che utilizzano l'autobus tracciati con Viaggia Play&Go e compiuti durante la validita' della sfida.",
-			"en": "To win this challenge, we take into account the total number of itineraries you have done by bus with Viaggia Play&Go and which you have taken in between the beginning and end time for this challenge."
+			"it": "Per vincere la sfida vale il numero di itinerari che utilizzano l'autobus tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida.",
+			"en": "To win this challenge, we take into account the total number of itineraries you have done by bus with Ferrara Play&Go and which you have taken in between the beginning and end time for this challenge."
 		}
 	},
 	{
 		"modelName": "absoluteIncrement",
 		"filter": "Train_Trips",
 		"description": {
-			"it": "Per vincere la sfida vale il numero di itinerari che utilizzano il treno tracciati con Viaggia Play&Go e compiuti durante la validita' della sfida.",
-			"en": "To win this challenge, we take into account the total number of itineraries you have done by train with Viaggia Play&Go and which you have taken in between the beginning and end time for this challenge."
+			"it": "Per vincere la sfida vale il numero di itinerari che utilizzano il treno tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida.",
+			"en": "To win this challenge, we take into account the total number of itineraries you have done by train with Ferrara Play&Go and which you have taken in between the beginning and end time for this challenge."
 		}
 	},
+  {
+    "modelName": "absoluteIncrement",
+    "filter": "Boat_Trips",
+    "description": {
+      "it": "Per vincere la sfida vale il numero di itinerari che utilizzano il battello tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida.",
+      "en": "To win this challenge, we take into account the total number of itineraries you have done by boat with Ferrara Play&Go and which you have taken in between the beginning and end time for this challenge."
+    }
+  },
 	{
 		"modelName": "absoluteIncrement",
 		"filter": "Promoted_Trips",
 		"description": {
-			"it": "Gli itinerari 'promoted' sono quelli consigliati ed evidenziati in verde da Viaggia Play&Go.",
-			"en": "The 'promoted' itineraries are those suggested by Viaggia Play&Go App and marked in green."
+			"it": "Gli itinerari 'promoted' sono quelli consigliati ed evidenziati in verde da Ferrara Play&Go.",
+			"en": "The 'promoted' itineraries are those suggested by Ferrara Play&Go App and marked in green."
 		}
 	},
 	{
 		"modelName": "absoluteIncrement",
 		"filter": "Walk_Trips",
 		"description": {
-			"it": "Per vincere la sfida vale il numero di itinerari a piedi tracciati con Viaggia Play&Go e compiuti durante la validita' della sfida.",
-			"en": "To win this challenge, we take into account the total number of itineraries you have done by walking with Viaggia Play&Go and which you have taken in between the beginning and end time for this challenge."
+			"it": "Per vincere la sfida vale il numero di itinerari a piedi tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida.",
+			"en": "To win this challenge, we take into account the total number of itineraries you have done by walking with Ferrara Play&Go and which you have taken in between the beginning and end time for this challenge."
 		}
 	},
 	{
 		"modelName": "absoluteIncrement",
 		"filter": "Cable_Trips",
 		"description": {
-			"it": "Per vincere la sfida vale il numero di itinerari che utilizzano la funivia Trento-Sardagna pianificati e tracciati con Viaggia Play&Go e compiuti durante la validita' della sfida.",
-			"en": "To win this challenge, we take into account the total number of itineraries you have done by Trento-Sardagna cable with Viaggia Play&Go and which you have taken in between the beginning and end time for this challenge."
+			"it": "Per vincere la sfida vale il numero di itinerari che utilizzano la funivia Trento-Sardagna pianificati e tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida.",
+			"en": "To win this challenge, we take into account the total number of itineraries you have done by Trento-Sardagna cable with Ferrara Play&Go and which you have taken in between the beginning and end time for this challenge."
 		}
 	},
 	{
 		"modelName": "absoluteIncrement",
 		"filter": "Bike_Km",
 		"description": {
-			"it": "Per vincere la sfida vale la somma dei Km viaggiati in bici o bike sharing nel corso degli itinerari tracciati con Viaggia Play&Go e compiuti durante la validita' della sfida.",
-			"en": "To win this challenge, we take into account the total number of Km. you have travelled by bike or bike sharing during all itineraries that you have planned with Viaggia Play&Go and which you have taken in between the beginning and end time for this challenge."
+			"it": "Per vincere la sfida vale la somma dei Km viaggiati in bici o bike sharing nel corso degli itinerari tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida.",
+			"en": "To win this challenge, we take into account the total number of Km. you have travelled by bike or bike sharing during all itineraries that you have planned with Ferrara Play&Go and which you have taken in between the beginning and end time for this challenge."
 		}
 	},
 	{
 		"modelName": "absoluteIncrement",
 		"filter": "BikeSharing_Km",
 		"description": {
-			"it": "Per vincere la sfida vale la somma dei Km viaggiati in bike sharing nel corso degli itinerari pianificati e tracciati con Viaggia Play&Go e compiuti durante la validita' della sfida.",
-			"en": "To win this challenge, we take into account the total number of Km. you have travelled by bike sharing during all itineraries that you have tracked with Viaggia Play&Go and which you have taken in between the beginning and end time for this challenge."
+			"it": "Per vincere la sfida vale la somma dei Km viaggiati in bike sharing nel corso degli itinerari pianificati e tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida.",
+			"en": "To win this challenge, we take into account the total number of Km. you have travelled by bike sharing during all itineraries that you have tracked with Ferrara Play&Go and which you have taken in between the beginning and end time for this challenge."
 		}
 	},
 	{
 		"modelName": "absoluteIncrement",
 		"filter": "Walk_Km",
 		"description": {
-			"it": "Per vincere la sfida vale la somma dei Km camminati (solo tratte superiori a 250 metri) nel corso degli itinerari tracciati con Viaggia Play&Go e compiuti durante la validita' della sfida.",
-			"en": "To win this challenge, we take into account the total number of Km. you have walked (with distance greater than 250m) during all itineraries that you have tracked with Viaggia Play&Go and which you have taken in between the beginning and end time for this challenge."
+			"it": "Per vincere la sfida vale la somma dei Km camminati (solo tratte superiori a 250 metri) nel corso degli itinerari tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida.",
+			"en": "To win this challenge, we take into account the total number of Km. you have walked (with distance greater than 250m) during all itineraries that you have tracked with Ferrara Play&Go and which you have taken in between the beginning and end time for this challenge."
 		}
 	},
 	{
 		"modelName": "absoluteIncrement",
 		"filter": "ParkAndRide_Trips",
 		"description": {
-			"it": "Per vincere la sfida vale il numero di itinerari che utilizzano il park and ride pianificati e tracciati con Viaggia Play&Go e compiuti durante la validita' della sfida. I parcheggi Park&Ride sono: Stazione FS Villazzano, Ex-Zuffo, Monte Baldo, Via Lidorno, Ghiaie via Fersina, Via Ragazzi del '99, Via Alessandro Manzoni - Rovereto, Parcheggio Municipio - Rovereto.",
-			"en": "To win this challenge, we take into account the total number of itineraries you have done using park and ride with Viaggia Play&Go and which you have taken in between the beginning and end time for this challenge. Park&Ride parkings are: Stazione FS Villazzano, Ex-Zuffo, Monte Baldo, Via Lidorno, Ghiaie via Fersina, Via Ragazzi del '99, Via Alessandro Manzoni - Rovereto, Parcheggio Municipio - Rovereto."
+			"it": "Per vincere la sfida vale il numero di itinerari che utilizzano il park and ride pianificati e tracciati con Ferrara Play&Go e compiuti durante la validita' della sfida. I parcheggi Park&Ride sono: Stazione FS Villazzano, Ex-Zuffo, Monte Baldo, Via Lidorno, Ghiaie via Fersina, Via Ragazzi del '99, Via Alessandro Manzoni - Rovereto, Parcheggio Municipio - Rovereto.",
+			"en": "To win this challenge, we take into account the total number of itineraries you have done using park and ride with Ferrara Play&Go and which you have taken in between the beginning and end time for this challenge. Park&Ride parkings are: Stazione FS Villazzano, Ex-Zuffo, Monte Baldo, Via Lidorno, Ghiaie via Fersina, Via Ragazzi del '99, Via Alessandro Manzoni - Rovereto, Parcheggio Municipio - Rovereto."
 		}
 	},
 	{
@@ -475,8 +499,8 @@
 		"modelName": "checkin",
 		"filter": "notte_dei_ricercatori",
 		"description": {
-			"it": "Per vincere questa sfida partecipa alla Notte dei Ricercatori al MUSE (Venerdi' 29 settembre, dalle 17 alle 22), cerca lo stand Viaggia Play&Go e registrarti presso di esso (Piano -1).",
-			"en": "To win this challenge join the Researchers’ Night at MUSE (Friday September 29, from 5PM to 10PM), come to the Viaggia Play&Go stand (Floor -1) and complete the check-in.”"
+			"it": "Per vincere questa sfida partecipa alla Notte dei Ricercatori al MUSE (Venerdi' 29 settembre, dalle 17 alle 22), cerca lo stand Ferrara Play&Go e registrarti presso di esso (Piano -1).",
+			"en": "To win this challenge join the Researchers’ Night at MUSE (Friday September 29, from 5PM to 10PM), come to the Ferrara Play&Go stand (Floor -1) and complete the check-in.”"
 		}
 	},
 	{
@@ -525,6 +549,14 @@
     "description": {
       "it": "Per vincere la sfida compila il breve questionario che visualizzi al seguente \\<a href='<surveylink>' target='_system'>indirizzo\\</a>.",
       "en": "To win this challenge, complete a short questionnaire that you can access \\<a href='<surveylink>' target='_system'>here\\</a>."
+    }
+  },  
+  {
+    "modelName": "survey",
+    "filter": "boat",
+    "description": {
+      "it": "Per vincere la sfida compila il breve questionario che visualizzi al seguente \\<a href='<surveylink>' target='_system'>indirizzo\\</a>  dopo aver fatto un giro in battello.",
+      "en": "To win this challenge, complete a short questionnaire that you can access \\<a href='<surveylink>' target='_system'>here\\</a> once you have complete a boat trip."
     }
   },  
 	{

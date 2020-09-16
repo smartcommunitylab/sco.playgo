@@ -185,7 +185,7 @@ public class GamificationWebController {
 			ed.setGameId(gameId);
 			ed.setPlayerId(playerId);
 			ed.setActionId(survey+"_survey_complete");
-			ed.setData(Collections.emptyMap());
+			ed.setData(Collections.singletonMap("type", survey));
 
 			String content = JsonUtils.toJSON(ed);
 			GameInfo game = gameSetup.findGameById(gameId);

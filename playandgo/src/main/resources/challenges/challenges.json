@@ -137,6 +137,14 @@
 			"en": "Fill out the survey and gain a bonus of <bonusScore> <bonusPointType> points."
 		}
 	},
+  {
+    "name": "survey",
+    "filter": "boat",
+    "description": {
+      "it": "Fai un viaggio in battello, compila il questionario e guadagna <bonusScore> punti <bonusPointType>.",
+      "en": "Complete a boat trip, fill out the survey and gain a bonus of <bonusScore> <bonusPointType> points."
+    }
+  },
 	{
 		"name": "poiCheckin",
 		"filter": "Fai la cosa giusta",

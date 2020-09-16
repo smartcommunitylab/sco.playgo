@@ -57,6 +57,7 @@ gamificationConsole.controller('GameCtrl', function($scope, $timeout, $http) {
 	$scope.ttypeconversion = {
 			"BUS" : "BUS",
 			"TRAIN" : "TRAIN",
+			"BOAT": "BOAT",
 			"BIKE" : "BICYCLE",
 			"WALK" : "WALK"
 	}
@@ -586,7 +587,28 @@ gamificationConsole.controller('GameCtrl', function($scope, $timeout, $http) {
 				$scope.layers.push(line);
 			});		
 			}
-			
+			if (instance.routesPolylines["boat"] != null && document.getElementById("allRoutesCheckbox").checked) {
+				instance.routesPolylines["boat"].forEach(function(polyline) {
+					var path = google.maps.geometry.encoding.decodePath(polyline);
+					var line = new google.maps.Polyline({
+						path : path,
+						strokeColor : 'brown',
+						strokeOpacity : 0.8,
+						strokeWeight : 5,
+						map : $scope.map
+					});
+					$scope.layers.push(line);
+					
+					line = new google.maps.Polyline({
+						path : path,
+						strokeColor : 'black',
+						strokeOpacity : 1,
+						strokeWeight : 1,
+						map : $scope.map
+					});		
+					$scope.layers.push(line);
+				});		
+			}			
 			if (instance.routesPolylines["bus"] != null) {
 			Object.keys(instance.routesPolylines["bus"]).forEach(function(route) {
 				var index = $scope.selectedRoutes.indexOf(route);

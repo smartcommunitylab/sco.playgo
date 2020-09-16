@@ -1,5 +1,6 @@
 package eu.trentorise.smartcampus.mobility.gamificationweb;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.temporal.ChronoField;
@@ -387,6 +388,8 @@ public class PlayerController {
 				if (game.getSend() != null && game.getSend()) {
 					logger.info("Assigning survey challenge");
 					assignSurveyChallenge(id, gameId, appId);
+					logger.info("Assigning boat challenge");
+					assignBoatChallenge(id, gameId, appId);
 					logger.info("Assigning initial challenge");
 					assignInitialChallenge(id, gameId, appId);
 					logger.info("Saving player");
@@ -430,6 +433,38 @@ public class PlayerController {
 	}
 
 	// /data/game/{gameId}/player/{playerId}/challenges
+	
+	private void assignBoatChallenge(String playerId, String gameId, String appId) {
+		// HARDCODED
+		if (LocalDate.now().isAfter(LocalDate.parse("2020-10-04"))) return;
+
+		RestTemplate restTemplate = new RestTemplate();
+		Map<String, Object> data = new HashMap<String, Object>();
+		data.put("bonusPointType", "green leaves");
+		data.put("bonusScore", new Double(100.0));
+		data.put("surveyType", "boat");
+		data.put("link", ""); // TODO
+		
+		ChallengeAssignmentDTO challenge = new ChallengeAssignmentDTO();
+		long now = System.currentTimeMillis();
+		challenge.setStart(new Date(now));
+		
+//		Date end = new Date(now + 2 * 7 * 24 * 60 * 60 * 1000L);
+		LocalDateTime ldt = LocalDate.parse("2020-10-04").plusDays(1).atStartOfDay().truncatedTo(ChronoUnit.DAYS).minusSeconds(1);
+		Date end = new Date(ldt.atZone(ZoneOffset.systemDefault()).toInstant().toEpochMilli());
+		
+		challenge.setEnd(end);
+
+		challenge.setModelName("survey");
+		challenge.setInstanceName("boat_survey-" + Long.toHexString(now) + "-" + Integer.toHexString((playerId + gameId).hashCode()));
+		
+		challenge.setData(data);
+		
+		String partialUrl = "game/" + gameId + "/player/" + playerId + "/challenges";
+		ResponseEntity<String> tmp_res = restTemplate.exchange(gamificationUrl + "data/" + partialUrl, HttpMethod.POST, new HttpEntity<Object>(challenge, appSetup.createAuthHeaders(appId)), String.class);
+		logger.info("Sent boat survey challenge to gamification engine(mobile-access) " + tmp_res.getStatusCode());		
+	}
+
 	private void assignSurveyChallenge(String playerId, String gameId, String appId) {
 		RestTemplate restTemplate = new RestTemplate();
 		Map<String, Object> data = new HashMap<String, Object>();
@@ -455,7 +490,7 @@ public class PlayerController {
 		
 		String partialUrl = "game/" + gameId + "/player/" + playerId + "/challenges";
 		ResponseEntity<String> tmp_res = restTemplate.exchange(gamificationUrl + "data/" + partialUrl, HttpMethod.POST, new HttpEntity<Object>(challenge, appSetup.createAuthHeaders(appId)), String.class);
-		logger.info("Sent player registration to gamification engine(mobile-access) " + tmp_res.getStatusCode());
+		logger.info("Sent start survey challenge to gamification engine(mobile-access) " + tmp_res.getStatusCode());
 	}	
 	
 	private List<BadgeCollectionConcept> buildBadgeCollectionConcepts(List<Badge> badges) {

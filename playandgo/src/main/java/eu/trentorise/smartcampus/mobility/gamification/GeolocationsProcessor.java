@@ -465,7 +465,7 @@ public class GeolocationsProcessor {
 //				// TODO reenabled
 //				boolean isGroup = gamificationValidator.isTripsGroup(res.getGeolocationEvents(), userId, appId, res.getFreeTrackingTransport());
 //				if (isGroup) {
-//					if ("bus".equals(res.getFreeTrackingTransport()) || "train".equals(res.getFreeTrackingTransport())) {
+//					if ("bus".equals(res.getFreeTrackingTransport()) || "train".equals(res.getFreeTrackingTransport()) || "boat".equals(res.getFreeTrackingTransport())) {
 //						vr.getValidationStatus().setValidationOutcome(TravelValidity.PENDING);
 //						logger.info("In a group");
 //					}

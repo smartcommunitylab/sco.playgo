@@ -79,6 +79,7 @@ public class GamificationValidator {
 	 * 
 	 */
 	private static final String TRAIN = "Train_Km";
+	private static final String BOAT = "Boat_Km";
 
 	/**
 	 * 
@@ -95,7 +96,7 @@ public class GamificationValidator {
 	 */
 	private static final String WALK = "Walk_Km";
 
-	private static final Set<String> TYPES = Sets.newHashSet(WALK, BIKE, BUS, TRAIN);
+	private static final Set<String> TYPES = Sets.newHashSet(WALK, BIKE, BUS, TRAIN, BOAT);
 	
 	public static final int SAME_TRIP_INTERVAL = 5 * 60 * 1000; // 5 minutes
 
@@ -117,7 +118,11 @@ public class GamificationValidator {
 	MongoTemplate template;	
 
 	public List<List<Geolocation>> TRAIN_SHAPES = new ArrayList<>();
+	public List<List<Geolocation>> BOAT_SHAPES = new ArrayList<>();
+
 	public List<String> TRAIN_POLYLINES = new ArrayList<>();
+	public List<String> BOAT_POLYLINES = new ArrayList<>();
+
 	public TTDescriptor BUS_DESCRIPTOR = null;
 
 	@Autowired
@@ -133,6 +138,15 @@ public class GamificationValidator {
 			}
 			TRAIN_POLYLINES = TRAIN_SHAPES.stream().map(x -> GamificationHelper.encodePoly(x)).collect(Collectors.toList());
 		}
+		
+		final File[] boatFiles = (new File(shapeFolder+"/boat")).listFiles();
+		if (boatFiles != null) {
+			for (File f : boatFiles) {
+				BOAT_SHAPES.add(TrackValidator.parseShape(new FileInputStream(f)).get(0));
+			}
+			BOAT_POLYLINES = BOAT_SHAPES.stream().map(x -> GamificationHelper.encodePoly(x)).collect(Collectors.toList());
+		}
+		
 		BUS_DESCRIPTOR = new TTDescriptor();
 		loadBusFolder(new File(shapeFolder+"/bus"));
 		BUS_DESCRIPTOR.build(100);
@@ -188,6 +202,7 @@ public class GamificationValidator {
 		double bikeDist = 0; // km
 		double walkDist = 0; // km
 		double trainDist = 0; // km
+		double boatDist = 0; // km
 		double busDist = 0; // km
 		double carDist = 0; // km
 		double transitDist = 0;
@@ -233,7 +248,7 @@ public class GamificationValidator {
 
 		if (log) {
 			logger.debug("Analysis results:");
-			logger.debug("Distances [walk = " + walkDist + ", bike = " + bikeDist + ", train = " + trainDist + ", bus = " + busDist + ", car = " + carDist + "]");
+			logger.debug("Distances [walk = " + walkDist + ", bike = " + bikeDist + ", train = " + trainDist + ", boat = " + boatDist +", bus = " + busDist + ", car = " + carDist + "]");
 			logger.debug("Park and ride = " + pnr + " , Bikesharing = " + bikeSharing);
 			logger.debug("Park = " + parkName);
 			logger.debug("Bikesharing = " + startBikesharingName + " / " + endBikesharingName);
@@ -249,6 +264,9 @@ public class GamificationValidator {
 		}		
 		if (trainDist > 0) {
 			score += getScore(TRAIN, trainDist, userDayData.get(TRAIN));
+		}				
+		if (trainDist > 0) {
+			score += getScore(BOAT, boatDist, userDayData.get(BOAT));
 		}				
 		
 		if (pnr) {
@@ -271,6 +289,9 @@ public class GamificationValidator {
 		}
 		if (trainDist > 0) {
 			data.put("trainDistance", trainDist);
+		}
+		if (trainDist > 0) {
+			data.put("boatDistance", boatDist);
 		}
 		if (transitDist > 0) {
 			data.put("transitDistance", transitDist);
@@ -324,6 +345,7 @@ public class GamificationValidator {
 		double bikeDist = 0; // km
 		double walkDist = 0; // km
 		double trainDist = 0; // km
+		double boatDist = 0; // km
 		double busDist = 0; // km
 		double carDist = 0; // km
 //		double traansitDist = 0;
@@ -403,6 +425,11 @@ public class GamificationValidator {
 				logger.info("Overridden train distance: " + distance);
 				trainDist = distance;
 			}
+			if (overriddenDistances.containsKey("boat")) {
+				double distance = overriddenDistances.get("boat") / 1000.0;
+				logger.info("Overridden boat distance: " + distance);
+				boatDist = distance;
+			}
 		}
 		
 
@@ -425,6 +452,9 @@ public class GamificationValidator {
 		if (trainDist > 0) {
 			score += getScore(TRAIN, trainDist, userDayData.get(TRAIN));
 		}
+		if (boatDist > 0) {
+			score += getScore(BOAT, boatDist, userDayData.get(BOAT));
+		}
 
 		if (pnr) {
 			score += 15;
@@ -446,6 +476,9 @@ public class GamificationValidator {
 		}
 		if (trainDist > 0) {
 			data.put("trainDistance", trainDist);
+		}
+		if (boatDist > 0) {
+			data.put("boatDistance", boatDist);
 		}
 //		if (transitDist > 0) {
 //			data.put("transitDistance", transitDist);
@@ -534,6 +567,15 @@ public class GamificationValidator {
 				}
 				result.put("trainDistance", distance);
 				score += getScore(TRAIN, distance, userDayData.get(TRAIN));
+			} if ("boat".equals(ttype)) {
+				if (overriddenDistances.containsKey("boat")) {
+					distance = overriddenDistances.get("boat") / 1000.0;
+					logger.info("Overridden boat distance: " + distance);
+				} else if (vs.getEffectiveDistances().containsKey(MODE_TYPE.BOAT)) {						
+					distance = vs.getEffectiveDistances().get(MODE_TYPE.BOAT) / 1000.0;
+				}
+				result.put("boatDistance", distance);
+				score += getScore(BOAT, distance, userDayData.get(BOAT));
 			}
 			
 //			if (zeroImpact) {
@@ -602,6 +644,9 @@ public class GamificationValidator {
 		case "train": 
 			vr.setValidationStatus(TrackValidator.validateFreeTrain(geolocations, TRAIN_SHAPES, game.getAreas()));
 			break;
+		case "boat": 
+			vr.setValidationStatus(TrackValidator.validateFreeBoat(geolocations, BOAT_SHAPES, game.getAreas()));
+			break;
 		}
 		return vr;
 		
@@ -622,6 +667,10 @@ public class GamificationValidator {
 			break;
 		case "train": 
 			polys.put("train",TRAIN_POLYLINES);
+			instance.setRoutesPolylines(polys);
+			break;
+		case "boat": 
+			polys.put("boat",BOAT_POLYLINES);
 			instance.setRoutesPolylines(polys);
 			break;
 		}
@@ -843,6 +892,8 @@ public class GamificationValidator {
 				return 40.0;
 			case TRAIN:
 				return 60.0;
+			case BOAT:
+				return 60.0;
 			default:
 				return 0.0;	
 		}	
@@ -856,6 +907,8 @@ public class GamificationValidator {
 		case BUS:
 			return 3.75;
 		case TRAIN:
+			return 2.5;
+		case BOAT:
 			return 2.5;
 		default:
 			return 0.0;	

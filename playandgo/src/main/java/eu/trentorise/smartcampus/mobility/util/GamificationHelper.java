@@ -367,7 +367,7 @@ public class GamificationHelper {
 	}
 
 	public static String convertFreetrackingType(String tt) {
-		if ("bus".equals(tt) || "train".equals(tt)) {
+		if ("bus".equals(tt) || "train".equals(tt) || "boat".equals(tt)) {
 			return "transit";
 		}
 		return tt;
@@ -416,4 +416,43 @@ public class GamificationHelper {
 		
 		return convertTType(ttypes.iterator().next());
 	}	
+//	
+//	public static void main(String[] args) {
+//		String encoded = "yivpGsdpfA~AXxBr@lB`@`B\\pAXdBj@rA^tAThA`@bAVnBp@hAl@j@x@j@l@pAvB`@pAt@~BV~@ZfCb@zBVlBf@tCZbCXrBRvAThB\\bBZfCZxB`@|BTjBb@~B^zC^hC??b@|B\\zBZrB^jCb@xC`@vB\\dB\\pCZvBd@`DVpBr@hD\\nC^|B^vBd@vCn@jE\\lCZ|Bb@lC\\zBXxB`@`C\\lBVhBZrB^vBZrBXvB^tBXnB\\lBZvBf@|Bj@dC^dB`@jBh@dCj@nCl@dC`@xA`@pBh@hBl@bCd@xBh@`Cd@lB`@jBd@|A^nBb@nBl@dCf@vBd@tBh@lBn@hC`@hBh@hCj@rBj@xBd@tBb@bBf@zBl@jCl@dC^dBj@bCf@xBf@pBv@fDl@hCl@dCp@jCh@zCf@`D?nCQtCO~DEpDQlCQtCGxCIzBE|CBrDNlDPtCXnC^tC`@zCj@~C^lCNjC^~DJxCHrC@xC???~BCjCFvBDhECnB?vCAnCBxC@pBJxC??HzBNjBNnBN~BRbCHlCBlCC~DMnFSdDMlCMfDI|BSbD[xBm@nAs@xA{@zA{@xAuAzBuAxB}AjB{AjB}AtBuAnBqAhAgBhAoBlB_BlBeAjBe@rB[bBc@pCg@`Cy@`Ds@`Cy@fCoAtBu@~A}A|DaAvCsAjD{@|B{@~Cc@~By@lBu@~Aq@rBs@`B{@lCsA~Cs@nB{@zB}@~Bm@`C{@nCo@rBg@pBaApEq@rCk@~Bu@xCoA|Ck@jCs@|Bm@bC}@jCq@tBk@hBm@|Bm@jB}@xCaAvC??q@rBq@rBcAbC}@`CcAlCkApC{@jBeAfCaAfBmAtAsA`AgCx@yAn@oBv@eCdAyBv@sBp@_Bl@aCdAwBx@eCx@cBz@s@xAm@rBO~A]pBKrAQxA??QbBWjCObCMjCKtBK`CMhCUnESjBYfC_@jBWlBg@hCc@zCa@fC_@vB[rCe@rCe@bDm@vCa@jDi@rCc@tCe@dDg@zDe@jC]pBc@xCe@vCm@vDc@nC??a@lCe@|Be@xC_@`C_@zCe@xBc@zC{@tFg@~Ck@rC[hCc@bCYpB]hB[zB[bCi@dDe@nB[dC_@vBc@lC]zB]tBUfAWrBe@rDg@`CSnB_@pBc@fCe@vCi@|Cc@lCY|Bk@|Ce@~CYvBa@`Co@dC";
+//		int index = 0, len = encoded.length();
+//		int lat = 0, lng = 0;
+//		int pos = 0;
+//		List<Geolocation> list = new ArrayList<>();
+//		while (index < len) {
+//			int b, shift = 0, result = 0;
+//			do {
+//				b = encoded.charAt(index++) - 63;
+//				result |= (b & 0x1f) << shift;
+//				shift += 5;
+//			} while (b >= 0x20);
+//			int dlat = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+//			lat += dlat;
+//			shift = 0;
+//			result = 0;
+//			do {
+//				b = encoded.charAt(index++) - 63;
+//				result |= (b & 0x1f) << shift;
+//				shift += 5;
+//			} while (b >= 0x20);
+//			int dlng = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+//			lng += dlng;
+//
+//			Geolocation onLeg = new Geolocation();
+//			onLeg.setLatitude((((double) lat / 1E5)));
+//			onLeg.setLongitude((((double) lng / 1E5)));
+//			list.add(onLeg);
+//		}
+//		
+//		Collections.reverse(list);
+//		pos = 0;
+//		for (Geolocation onLeg : list) {
+//			System.err.println("BR,"+onLeg.getLatitude()+","+onLeg.getLongitude()+","+pos++);
+//
+//		}
+//	}
 }
