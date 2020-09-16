@@ -42,7 +42,7 @@ public class ValidationStatus {
 
 	private static final SimpleDateFormat DT_FORMATTER = new SimpleDateFormat("HH:mm:ss");
 
-	public enum TRIP_TYPE {FREE, PLANNED};
+	public enum TRIP_TYPE {FREE, PLANNED, SHARED};
 	public enum MODE_TYPE {WALK, BIKE, BUS, TRAIN, MULTI, OTHER, CAR};
 	
 	public enum ERROR_TYPE {TOO_SHORT, TOO_SLOW, TOO_FAST, OUT_OF_AREA, DOES_NOT_MATCH, DATA_HOLE, NO_DATA};

@@ -25,6 +25,7 @@ gamificationConsole.controller('GameCtrl', function($scope, $timeout, $http) {
 	$scope.fixpaths = false;
 //	$scope.showroutes = false;
 	$scope.selectedRoutes = [];
+	$scope.relatedLayers = [];
 	$scope.removeoutliers = false;
 	$scope.eventsMarkers = new Map();
 	$scope.fromDate = Date.today().previous().saturday().previous().saturday();
@@ -157,22 +158,8 @@ gamificationConsole.controller('GameCtrl', function($scope, $timeout, $http) {
 	}
 
 	$scope.selectItinerary = function(itinerary) {
-		resetLayers();
-		$scope.selectedInstance = null;
 		$scope.selectedItinerary = itinerary;
-// itinerary.instances.sort(function(a, b) {
-// if (!a.day && !b.day)
-// return 0;
-// if (!a.day)
-// return -1;
-// if (!b.day)
-// return 1;
-// return a.day.localeCompare(b.day);
-// });
-		
-		// if (itinerary.instances.length == 1) {
-		// $scope.selectInstance(itinerary.instances[0]);
-		// }
+		$scope.selectInstance(itinerary.instance);
 	}
 
 	$scope.validColor = function(totals) {
@@ -196,13 +183,14 @@ gamificationConsole.controller('GameCtrl', function($scope, $timeout, $http) {
 	}	
 
 	var resetLayers = function() {
-		if (!$scope.layers)
-			return;
-
 		$scope.layers.forEach(function(l) {
 			l.setMap(null);
 		});
 		$scope.layers = [];
+		$scope.relatedLayers.forEach(function(l) {
+			l.setMap(null);
+		});
+		$scope.relatedLayers = [];
 	}
 
 	$scope.revalidate = function() {
@@ -453,6 +441,29 @@ gamificationConsole.controller('GameCtrl', function($scope, $timeout, $http) {
 			checkboxes[i].checked = checkbox.checked;
 			$scope.setRoute(checkboxes[i].id, checkbox.checked);
 		}			
+	}
+	
+	$scope.toggleRelated = function() {
+		if ($scope.relatedLayers.length == 0){
+			$scope.selectedItinerary.related.forEach(function(rel) {
+				var line = new google.maps.Polyline({
+					path : rel.geolocationEvents.map(function(g) {
+						return {lat: g.latitude, lng: g.longitude};
+					}),
+					strokeColor : 'green',
+					strokeOpacity : 0.8,
+					strokeWeight : 3,
+					map : $scope.map
+				});
+				$scope.relatedLayers.push(line);
+
+			});
+		} else {
+			$scope.relatedLayers.forEach(function(layer) {
+				layer.setMap(null);
+			});
+			$scope.relatedLayers = [];
+		}
 	}
 	
 	$scope.selectInstance = function(instance) {
@@ -883,6 +894,24 @@ gamificationConsole.controller('GameCtrl', function($scope, $timeout, $http) {
 			gestureHandling: 'greedy'			
 		}
 		$scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+	}
+	
+	$scope.tripType = function(itinerary) {
+		if (itinerary.instance.itinerary != null ) {
+			return 'Planned'
+		}
+		if ($scope.isShared(itinerary.instance)) {
+			return 'Shared - ' + ($scope.isDriver(itinerary.instance.sharedTravelId) ? 'Driver' : 'Passenger') + ' (' + itinerary.instance.sharedTravelId+ ')';
+		}
+		return ('Free tracking - ' + itinerary.instance.freeTrackingTransport);
+	}
+
+	$scope.isShared = function(instance) {
+		return instance.sharedTravelId != null;
+	}
+
+	$scope.isDriver = function(id) {
+		return id.indexOf('D') == 0;
 	}
 	
 	$scope.initMap();

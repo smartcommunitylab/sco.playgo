@@ -18,6 +18,8 @@ import org.apache.commons.logging.LogFactory;
 import org.bson.types.ObjectId;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -319,6 +321,9 @@ public class GeolocationsProcessor {
 		if (StringUtils.hasText((String) location.getExtras().get("multimodalId"))) {
 			geolocation.setMultimodalId((String) location.getExtras().get("multimodalId"));
 		}		
+		if (StringUtils.hasText((String) location.getExtras().get("sharedTravelId"))) {
+			geolocation.setSharedTravelId((String) location.getExtras().get("sharedTravelId"));
+		}		
 
 		return geolocation;
 	}
@@ -349,6 +354,8 @@ public class GeolocationsProcessor {
 			if (geolocationsByItinerary.get(key) != null) {
 				logger.info("Adding " + geolocationsByItinerary.get(key).size() + " geolocations to existing " + res.getGeolocationEvents().size() + ".");
 				res.getGeolocationEvents().addAll(geolocationsByItinerary.get(key));
+				String sharedId = res.getGeolocationEvents().stream().filter(e -> e.getSharedTravelId() != null).findFirst().map(e -> e.getSharedTravelId()).orElse(null);
+				res.setSharedTravelId(sharedId);
 				logger.info("Resulting events: " + res.getGeolocationEvents().size());
 			}
 
@@ -363,8 +370,10 @@ public class GeolocationsProcessor {
 	private void sendTrackedInstance(String userId, String appId, TrackedInstance res) throws Exception {
 		if (res.getItinerary() != null) {
 			sendPlanned(res, userId, res.getClientId(), res.getDay(), appId);
-		} else if (res.getFreeTrackingTransport() != null) {
+		} else if (res.getFreeTrackingTransport() != null && StringUtils.isEmpty(res.getSharedTravelId())) {
 			sendFreeTracking(res, userId, res.getClientId(), appId);
+		} else if (!StringUtils.isEmpty(res.getSharedTravelId())) {
+			sendSharedTravel(res, userId, res.getClientId(), appId);
 		}
 //		storage.saveTrackedInstance(res);
 	}
@@ -441,7 +450,7 @@ public class GeolocationsProcessor {
 				}
 				trackingData.put(TRAVEL_ID, res.getId());
 				trackingData.put(START_TIME, getStartTime(res));
-				if (gamificationManager.sendIntineraryDataToGamificationEngine(appId, userId, travelId + "_" + day, res.getItinerary(), trackingData)) {
+				if (gamificationManager.sendItineraryDataToGamificationEngine(appId, userId, travelId + "_" + day, res.getItinerary(), trackingData)) {
 					res.setScoreStatus(ScoreStatus.SENT);
 				}
 			}
@@ -483,6 +492,80 @@ public class GeolocationsProcessor {
 		}
 		res.setComplete(true);
 	}
+	
+	private void sendSharedTravel(TrackedInstance res, String userId, String travelId, String appId) throws Exception {
+		logger.info("processing shared travel: " + travelId + ", sharedId = " + res.getSharedTravelId());
+		if (!res.getComplete()) {
+			String sharedId = res.getSharedTravelId();
+			if (gamificationValidator.isDriver(sharedId)) {
+				String passengerTravelId = gamificationValidator.getPassengerTravelId(sharedId);
+				Query query = Query.query(Criteria
+						.where("appId").is(appId)
+						.and("sharedTravelId").is(passengerTravelId)
+						.and("complete").is(true)
+						.and("userId").ne(userId));
+				List<TrackedInstance> list = storage.searchDomainObjects(query, TrackedInstance.class);
+				if (!list.isEmpty()) {
+					for (TrackedInstance passengerTravel: list) {
+						validateSharedTripPair(passengerTravel, passengerTravel.getUserId(), travelId, appId, res);
+						storage.saveTrackedInstance(passengerTravel);
+					}
+				}
+			} else {
+				String driverTravelId = gamificationValidator.getDriverTravelId(sharedId);
+				Query query = Query.query(Criteria
+						.where("appId").is(appId)
+						.and("sharedTravelId").is(driverTravelId)
+						.and("complete").is(true)
+						.and("userId").ne(userId));
+				TrackedInstance driverTravel = storage.searchDomainObject(query, TrackedInstance.class);
+				if (driverTravel != null) {
+					validateSharedTripPair(res, userId, travelId, appId, driverTravel);
+					storage.saveTrackedInstance(driverTravel);
+				}
+			}
+		}
+		res.setComplete(true);
+	}
+
+	private void validateSharedTripPair(TrackedInstance passengerTravel, String passengerId, String passengerTravelId, String appId, TrackedInstance driverTravel) throws ParseException {
+		ValidationResult vr = gamificationValidator.validateSharedTripPassenger(passengerTravel.getGeolocationEvents(), driverTravel.getGeolocationEvents(), appId);
+		passengerTravel.setValidationResult(vr);
+		
+		if (driverTravel.getValidationResult() == null || driverTravel.getValidationResult().getValidationStatus() == null || TravelValidity.PENDING.equals(driverTravel.getValidationResult().getValidationStatus().getValidationOutcome())) {
+			ValidationResult driverVr = gamificationValidator.validateSharedTripDriver(driverTravel.getGeolocationEvents(), appId);
+			driverTravel.setValidationResult(driverVr);
+		}
+		
+		// passenger trip is valid: points are assigned to both
+		if (vr != null && !TravelValidity.INVALID.equals(vr.getTravelValidity())) {
+			boolean firstTime = !ScoreStatus.SENT.equals(driverTravel.getScoreStatus());
+			Map<String, Object> trackingData = gamificationValidator.computeSharedTravelScoreForDriver(appId, driverTravel.getUserId(), driverTravel.getGeolocationEvents(), vr.getValidationStatus(), driverTravel.getOverriddenDistances(), firstTime);
+			if (trackingData.containsKey("estimatedScore")) {
+				long score = driverTravel.getScore() != null ? driverTravel.getScore() : 0l;
+				driverTravel.setScore(score + (Long) trackingData.get("estimatedScore"));
+			}
+			trackingData.put(TRAVEL_ID, driverTravel.getId());
+			trackingData.put(START_TIME, getStartTime(driverTravel));
+			if (gamificationManager.sendSharedTravelDataToGamificationEngine(appId, driverTravel.getUserId(), driverTravel.getId(), driverTravel.getGeolocationEvents(), trackingData)) {
+				driverTravel.setScoreStatus(ScoreStatus.SENT);
+			}
+			
+			trackingData = gamificationValidator.computeSharedTravelScoreForPassenger(appId, passengerId, passengerTravel.getGeolocationEvents(), vr.getValidationStatus(), passengerTravel.getOverriddenDistances());
+			passengerTravel.setScoreStatus(ScoreStatus.COMPUTED);
+			if (trackingData.containsKey("estimatedScore")) {
+				passengerTravel.setScore((Long) trackingData.get("estimatedScore"));
+			}
+			trackingData.put(TRAVEL_ID, passengerTravel.getId());
+			trackingData.put(START_TIME, getStartTime(passengerTravel));
+			if (gamificationManager.sendSharedTravelDataToGamificationEngine(appId, passengerId, passengerTravelId, passengerTravel.getGeolocationEvents(), trackingData)) {
+				passengerTravel.setScoreStatus(ScoreStatus.SENT);
+			}
+		} else {
+			logger.debug("Validation result null, not sending data to gamification");
+		}
+	}
+
 
 	private long getStartTime(TrackedInstance trackedInstance) throws ParseException {
 		long time = 0;

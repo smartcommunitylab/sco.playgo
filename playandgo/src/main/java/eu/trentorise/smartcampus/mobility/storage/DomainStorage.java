@@ -19,6 +19,7 @@ import eu.trentorise.smartcampus.mobility.gamification.model.PlanObject;
 import eu.trentorise.smartcampus.mobility.gamification.model.SavedTrip;
 import eu.trentorise.smartcampus.mobility.gamification.model.TrackedInstance;
 import eu.trentorise.smartcampus.mobility.geolocation.model.Geolocation;
+import eu.trentorise.smartcampus.mobility.model.Announcement;
 import eu.trentorise.smartcampus.mobility.model.RouteMonitoring;
 import eu.trentorise.smartcampus.network.JsonUtils;
 import it.sayservice.platform.smartplanner.data.message.journey.SingleJourney;
@@ -31,6 +32,7 @@ public class DomainStorage {
 	private static final String GEOLOCATIONS = "geolocations";
 	private static final String TRACKED = "trackedInstances";
 	private static final String SAVED = "savedtrips";
+	private static final String NEWS = "news";
 	private static final String MONITORING = "routesMonitoring";
 	
 	@Autowired
@@ -57,6 +59,9 @@ public class DomainStorage {
 		if (cls == SavedTrip.class) {
 			return SAVED;
 		}	
+		if (cls == Announcement.class) {
+			return NEWS;
+		}
 		if (cls == RouteMonitoringObject.class || cls == RouteMonitoring.class) {
 			return MONITORING;
 		}			
@@ -115,6 +120,7 @@ public class DomainStorage {
 			update.set("toCheck", tracked.getToCheck());
 			update.set("appId", tracked.getAppId());
 			update.set("multimodalId", tracked.getMultimodalId());
+			update.set("sharedTravelId", tracked.getSharedTravelId());
 			
 			template.updateFirst(query, update, TRACKED);
 		}
@@ -197,5 +203,11 @@ public class DomainStorage {
 	public void savePlanRequest(SingleJourney journeyRequest, String userId, String appName) {
 		template.save(new PlanObject(journeyRequest, userId, appName));
 	}
+	
+	public void saveNews(Announcement announcment) {
+		template.save(announcment, "news");
+	}
+
+
 	
 }
