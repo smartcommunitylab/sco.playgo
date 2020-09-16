@@ -372,7 +372,7 @@ angular.module('smartcommunitylab.services.login', [])
 
 			// Open the OAuth consent page in the InAppBrowser
 			if (!authWindow) {
-				authWindow = $window.open(authUrl, '_blank', 'location=no,toolbar=no');
+				authWindow = cordova.InAppBrowser.open(authUrl, '_blank', 'location=no,toolbar=no');
 				processThat = !!authWindow;
 			}
 
@@ -916,7 +916,7 @@ angular.module('smartcommunitylab.services.login', [])
 		}
 
 		if (!email || !isEmailValid(email)) {
-			$window.open(url + '?lang=' + getLang(), '_system', 'location=no,toolbar=no');
+			cordova.InAppBrowser.open(url + '?lang=' + getLang(), '_system', 'location=no,toolbar=no');
 		} else {
 			var deferred = $q.defer();
 

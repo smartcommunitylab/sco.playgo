@@ -9,7 +9,7 @@
   },
   {
     "file": "css/style.css",
-    "hash": "d29cb2684dc4c288c38c00eadf2c9c9c"
+    "hash": "6676065b4be22d5560e3439ad0f64cdd"
   },
   {
     "file": "data/bus.csv",
@@ -409,7 +409,7 @@
   },
   {
     "file": "js/app.js",
-    "hash": "7a86537d83c847992d8e59f8db3dfc37"
+    "hash": "2962a3243192dd93957d6a8b67585772"
   },
   {
     "file": "js/controllers/BookmarksCtrl.js",
@@ -497,7 +497,7 @@
   },
   {
     "file": "js/controllers/TTCtrl.js",
-    "hash": "754d20198ad170e5677590e985c6b473"
+    "hash": "d77aff5c8ac9b573405775c6e5865555"
   },
   {
     "file": "js/directives/Directives.js",
@@ -545,7 +545,7 @@
   },
   {
     "file": "js/services/LoginService.js",
-    "hash": "25220b180036c963416cf4fb178da8c3"
+    "hash": "23114f96aa06cb6b341ad735b82e27f4"
   },
   {
     "file": "js/services/MapSrv.js",
@@ -1342,5 +1342,9 @@
   {
     "file": "templates/welcomePopup.html",
     "hash": "9ffcdbb4320533cda1d81d739e866bcc"
+  },
+  {
+    "file": "templates/workInProgressPopup.html",
+    "hash": "79dbea0dfccc9d912e18afd57a89435d"
   }
 ]

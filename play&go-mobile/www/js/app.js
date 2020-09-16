@@ -1613,7 +1613,10 @@ angular.module('viaggia', [
       corona_home_title: 'Attenzione: TUTTE le attività di Play&Go sono SOSPESE causa COVID-19.',
       corona_home_subtitle: 'Le sfide, le classifiche e tutte le altre attività di Play&Go sono congelate fino a data da destinarsi. Per ulteriori informazioni sulle modifiche alla mobilità, consulta ',
       label_this_page:' questa pagina',
-      label_title_tracking_corona:'Impossibile avviare l\'attività selezionata!'
+      label_title_tracking_corona:'Impossibile avviare l\'attività selezionata!',
+      message_popup_sixth: 'QUI',
+      title_work_in_progress: 'In lavorazione',
+      message_work_in_progress: 'Stiamo aggiornando gli orari. Saranno disponibili a breve. Ci scusiamo per il disagio.'
 
 
     });
@@ -2194,9 +2197,10 @@ angular.module('viaggia', [
 corona_home_title: 'Warning: ALL Play&Go activities are SUSPENDED due to COVID-19.',
 corona_home_subtitle: 'The challenges, rankings and all other Play&Go activities are frozen until further notice. For more information on changes to mobility services, see',
 label_this_page:' this page',
-label_title_tracking_corona:'The selected activity is temporarily blocked!'
-
-
+label_title_tracking_corona:'The selected activity is temporarily blocked!',
+message_popup_sixth: 'HERE',
+title_work_in_progress: 'Work In Progress',
+message_work_in_progress: 'We are updating the timetables. They will be available soon. We apologize for the inconvenience.'
 
     });
 
