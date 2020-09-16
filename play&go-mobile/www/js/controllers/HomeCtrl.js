@@ -57,7 +57,7 @@ angular.module('viaggia.controllers.home', [])
       });
     }
     $scope.openSponsorLink = function (link) {
-      window.open(link, '_system', 'location=yes');
+      cordova.InAppBrowser.open(link, '_system', 'location=yes');
       return false;
     }
     var localDataInit = function () {
@@ -458,19 +458,17 @@ angular.module('viaggia.controllers.home', [])
     $scope.openModal = function () {
       $scope.modal.show();
     };
-    beforeStart = function (from, to) {
-      var today = moment();
-      var from = moment(from, "DD/MM/YYYY");
-      var to = moment(to, "DD/MM/YYYY");
-      if (today >= from && today <= to) {
-        return true;
-      }
-      return false;
-    }
+
+  
     $scope.trackAndMap = function (transportType, enabled) {
       //init multimodal id used for db 
-      if (beforeStart("23/09/2020","26/09/2020")) {
+      if ($scope.isBetween("23/09/2020 00:00:00","26/09/2020 00:00:00")) {
         $scope.beforeStartPopup();
+        return;
+      }
+      if (transportType=="boat"){
+        if (!$scope.isBetween("03/10/2020 00:00:00","04/10/2020 23:59:59"))
+        $scope.noBoatPopup();
         return;
       }
       if (!enabled) {

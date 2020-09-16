@@ -223,7 +223,7 @@ angular.module('viaggia.controllers.login', [])
     }
 
     $scope.passwordRecover = function () {
-      window.open(Config.getAACURL() + '/internal/reset?lang=en', '_system', 'location=no,toolbar=no')
+      cordova.InAppBrowser.open(Config.getAACURL() + '/internal/reset?lang=en', '_system', 'location=no,toolbar=no')
     }
     $scope.signin = function () {
       Config.loading();
@@ -294,7 +294,7 @@ angular.module('viaggia.controllers.login', [])
     }
 
     $scope.resend = function () {
-      window.open(Config.getAACURL() + '/internal/resend?lang=en', '_system', 'location=no,toolbar=no')
+      cordova.InAppBrowser.open(Config.getAACURL() + '/internal/resend?lang=en', '_system', 'location=no,toolbar=no')
     }
 
 

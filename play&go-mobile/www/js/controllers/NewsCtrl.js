@@ -51,6 +51,6 @@ angular.module('viaggia.controllers.news', [])
   });
 
   $scope.clickLink = function (link) {
-    window.open(link, '_system', 'location=yes')
+    cordova.InAppBrowser.open(link, '_system', 'location=yes')
   }
 })
