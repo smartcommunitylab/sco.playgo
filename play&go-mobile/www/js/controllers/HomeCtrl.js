@@ -57,7 +57,7 @@ angular.module('viaggia.controllers.home', [])
       });
     }
     $scope.openSponsorLink = function (link) {
-      window.open(link, '_system', 'location=yes');
+      cordova.InAppBrowser.open(link, '_system', 'location=yes');
       return false;
     }
     var localDataInit = function () {
@@ -414,15 +414,15 @@ angular.module('viaggia.controllers.home', [])
       var text = '';
       if (!result) {
         //generate code randomly;
-        text= pad(randomIntFromInterval(0,99999),5);
+        text = pad(randomIntFromInterval(0, 99999), 5);
 
-      } 
-      else text=result
+      }
+      else text = result
       cordova.plugins.qrcodejs.encode('TEXT_TYPE', text, function (base64EncodedQRImage) {
         console.info('QRCodeJS response is ' + base64EncodedQRImage);
         $scope.carPoolingData.imgBase64 = base64EncodedQRImage;
         $scope.carPoolingData.code = text;
-      }, function(err) {
+      }, function (err) {
         console.error('QRCodeJS error is ' + JSON.stringify(err));
       });
     }
@@ -432,7 +432,7 @@ angular.module('viaggia.controllers.home', [])
           if (result.text) {
             //transform it to img
             $scope.carPoolingData.code = result.text;
-            $scope.generate($scope.carPoolingData.code );
+            $scope.generate($scope.carPoolingData.code);
           }
           if (result.cancelled) {
             //cancelled by the user
@@ -459,8 +459,18 @@ angular.module('viaggia.controllers.home', [])
       $scope.modal.show();
     };
 
+  
     $scope.trackAndMap = function (transportType, enabled) {
       //init multimodal id used for db 
+      if ($scope.isBetween("23/09/2020 00:00:00","26/09/2020 00:00:00")) {
+        $scope.beforeStartPopup();
+        return;
+      }
+      if (transportType=="boat"){
+        if (!$scope.isBetween("03/10/2020 00:00:00","04/10/2020 23:59:59"))
+        $scope.noBoatPopup();
+        return;
+      }
       if (!enabled) {
         $scope.openTrackingNotEnabled();
       } else
@@ -479,10 +489,10 @@ angular.module('viaggia.controllers.home', [])
       //toast role
       Toast.show($filter('translate')("car_pool_started"), "short", "bottom");
       $scope.modal.hide();
-      trackService.setCarTravelId(role,$scope.carPoolingData.code);
+      trackService.setCarTravelId(role, $scope.carPoolingData.code);
       $scope.trackAndMap('car', true);
     }
-    $scope.backCarPooling = function (){
+    $scope.backCarPooling = function () {
       $scope.step--;
     }
     $scope.startTracking = function (transportType) {

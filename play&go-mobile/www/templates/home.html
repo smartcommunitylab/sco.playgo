@@ -98,7 +98,7 @@
                 <button class="col button button-map icon ic_train"  
                   ng-class="{'actual-track':actualTracking('train')}" ng-click="changeTracking('train',true)"></button>
                 <button class="col button button-map icon icon-boat icon-disabled-gray"  
-                  ng-class="{'actual-track':actualTracking('boat')}" ng-click="changeTracking('boat',false)"></button>
+                  ng-class="{'actual-track':actualTracking('boat')}" ng-click="changeTracking('boat',true)"></button>
                 <button class="col button button-map icon ion-model-s "  
                   ng-class="{'actual-track':actualTracking('car')}"
                   ng-click="changeTracking('car',false)"></button>
@@ -175,8 +175,8 @@
             </a>
           </div>
           <div class="col">
-            <a ng-click="trackAndMap('boat',false)">
-              <div class="tracking-ds-button tracking-disabled">
+            <a ng-click="trackAndMap('boat',true)">
+              <div class="tracking-ds-button">
                 <i class="icon icon-boat"></i>
                 <!-- <span>{{'menu_real_time_train' | translate}}</span> -->
               </div>

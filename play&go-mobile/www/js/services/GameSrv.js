@@ -180,6 +180,7 @@ angular.module('viaggia.services.game', [])
       "Bike_Km": "Bike_Km"
 
     }
+   
     var ERROR_TRIP = {
       NO_DATA: {
         message: "error_trip_no_data"
@@ -198,6 +199,10 @@ angular.module('viaggia.services.game', [])
       },
       VALID_0: {
         message: "error_valid_0"
+      },
+      SHARED_DOES_NOT_MATCH: {
+        message: "shared_does_not_match"
+
       }
     }
     var ArrMax = null;

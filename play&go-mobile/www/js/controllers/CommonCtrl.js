@@ -1,6 +1,6 @@
 angular.module('viaggia.controllers.common', [])
 
-  .controller('AppCtrl', function ($scope, Toast,$rootScope, $locale, $q, $state, $ionicSideMenuDelegate, GameSrv, $cordovaCamera, profileService, trackService, $ionicHistory, $location, $timeout, $ionicScrollDelegate, $ionicPopup, $ionicModal, $filter, $ionicLoading, DataManager, Config, planService, Utils, tutorial) {
+  .controller('AppCtrl', function ($scope, Toast, $rootScope, $locale, $q, $state, $ionicSideMenuDelegate, GameSrv, $cordovaCamera, profileService, trackService, $ionicHistory, $location, $timeout, $ionicScrollDelegate, $ionicPopup, $ionicModal, $filter, $ionicLoading, DataManager, Config, planService, Utils, tutorial) {
 
     $locale.NUMBER_FORMATS.GROUP_SEP = '';
     /* menu group */
@@ -122,12 +122,27 @@ angular.module('viaggia.controllers.common', [])
         historyRoot: true
       });
     }
+    $scope.isBetween = function (from, to) {
+      var today = moment();
+      var from = moment(from, "DD/MM/YYYY hh:mm:ss");
+      var to = moment(to, "DD/MM/YYYY hh:mm:ss");
+      if (today >= from && today <= to) {
+        return true;
+      }
+      return false;
+    }
     $scope.changeTracking = function (type, enabled) {
+      if (type=="boat"){
+        if (!$scope.isBetween("03/10/2020 00:00:00","04/10/2020 23:59:59"))
+        $scope.noBoatPopup();
+        return;
+      }
       //se type e' uguale al tipo attuale non cambiare
+      
       if (enabled) {
         //check if carcappoling
-        if (trackService.trackingIsGoingOn() && (type=='car' || $scope.actualTracking('car'))){
-$scope.openCarPoolingTrackingProblem();
+        if (trackService.trackingIsGoingOn() && (type == 'car' || $scope.actualTracking('car'))) {
+          $scope.openCarPoolingTrackingProblem();
         }
         else if (!$scope.actualTracking(type) && trackService.trackingIsGoingOn()) {
           //show popup if u want change the tracking mean
@@ -253,7 +268,7 @@ $scope.openCarPoolingTrackingProblem();
         $scope.firstOpenPopup.close();
       }
       var url = Config.getGamificationURL() + "/faq";
-      window.open(url, "_system", "location=yes");
+      cordova.InAppBrowser.open(url, "_system", "location=yes");
     }
     $scope.openRules = function () {
       if (!!$scope.firstOpenPopup) {
@@ -265,7 +280,7 @@ $scope.openCarPoolingTrackingProblem();
     };
 
     $scope.openExtLink = function (link) {
-      window.open(link, "_system", "location=yes");
+      cordova.InAppBrowser.open(link, "_system", "location=yes");
     }
 
     $scope.openPrizes = function () {
@@ -273,14 +288,14 @@ $scope.openCarPoolingTrackingProblem();
         $scope.firstOpenPopup.close();
       }
       var url = Config.getGamificationURL() + "/prizes";
-      window.open(url, "_system", "location=yes");
+      cordova.InAppBrowser.open(url, "_system", "location=yes");
     };
     $scope.openSchool = function () {
       if (!!$scope.firstOpenPopup) {
         $scope.firstOpenPopup.close();
       }
       var url = "https://www.smartcommunitylab.it/playgo-high-school-challenge/";
-      window.open(url, "_system", "location=yes");
+      cordova.InAppBrowser.open(url, "_system", "location=yes");
     };
     $scope.forceTutorial = function () {
       if (!!$scope.firstOpenPopup) {
@@ -672,11 +687,36 @@ $scope.openCarPoolingTrackingProblem();
         console.log("network error");
       }).finally(Config.loaded)
     };
+    $scope.noBoatPopup = function () {
+      $scope.titleCorona = $filter('translate')('label_title_noBoat');
+      $scope.labelNoBoath=$filter('translate')('label_message_noBoat');
+      $scope.alertPopup = $ionicPopup.alert({
+        title: $scope.titleCorona,
+        templateUrl: 'templates/noBoatPopup.html',
+        scope: $scope,
+        cssClass: 'notYetGamePopup'
+      });
+
+      $scope.alertPopup.then(function (res) {
+      });
+    }
     $scope.openCarPoolingTrackingProblem = function () {
       $scope.titleCorona = $filter('translate')('label_title_carpooling_tracking_not');
       $scope.alertPopup = $ionicPopup.alert({
         title: $scope.titleCorona,
         templateUrl: 'templates/notCarPoolingPopup.html',
+        scope: $scope,
+        cssClass: 'notYetGamePopup'
+      });
+
+      $scope.alertPopup.then(function (res) {
+      });
+    }
+    $scope.beforeStartPopup = function () {
+      $scope.titleCorona = $filter('translate')('label_title_before_start');
+      $scope.alertPopup = $ionicPopup.alert({
+        title: $scope.titleCorona,
+        templateUrl: 'templates/beforeStartPopup.html',
         scope: $scope,
         cssClass: 'notYetGamePopup'
       });
