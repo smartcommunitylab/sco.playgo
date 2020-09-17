@@ -310,7 +310,6 @@ public class GeolocationsProcessor {
 
 		geolocation.setRecorded_at(new Date(location.getTimestamp().getTime()));
 
-		// TODO: check
 		geolocation.setCreated_at(new Date(now++));
 
 		geolocation.setGeofence(location.getGeofence());
@@ -411,7 +410,6 @@ public class GeolocationsProcessor {
 			if (res.getItinerary() == null) {
 				if (travelId.contains("_temporary_")) {
 					logger.error("Orphan temporary, skipping clientId: " + travelId);
-					// TODO check
 					return null;
 				}
 				String ftt = freeTracks.get(key);

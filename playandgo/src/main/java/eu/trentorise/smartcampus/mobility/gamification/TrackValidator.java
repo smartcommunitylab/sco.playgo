@@ -579,7 +579,6 @@ public class TrackValidator {
 	public static ValidationStatus validateFreeWalk(Collection<Geolocation> track, List<Shape> areas) {
 
 		MODE_TYPE mode = MODE_TYPE.WALK; 
-		// TODO timeThreshold = 10 * 1000
 		double speedThreshold = WALK_SPEED_THRESHOLD, timeThreshold = 30 * 1000, minTrackThreshold = 60*1000, avgSpeedThreshold = WALK_AVG_SPEED_THRESHOLD, guaranteedAvgSpeedThreshold = WALK_GUARANTEED_AVG_SPEED_THRESHOLD; 
 
 		
@@ -910,7 +909,10 @@ public class TrackValidator {
 			if ((100.0 * minMatchedLength / totalLength) < MIN_COVERAGE_THRESHOLD) {
 				status.setValidationOutcome(TravelValidity.INVALID);
 				status.setError(ERROR_TYPE.SHARED_DOES_NOT_MATCH);
+				return status;
 			}
+			// TODO check timing
+			
 		} 
 		return status;
 	}

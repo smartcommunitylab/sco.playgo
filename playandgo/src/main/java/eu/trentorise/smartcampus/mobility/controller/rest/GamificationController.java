@@ -253,7 +253,6 @@ public class GamificationController {
 			}
 			if (res == null) {
 				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-				// TODO report problem better
 				logger.info("Start planned journey, itinerary not found.");
 				return;
 			}
@@ -288,7 +287,6 @@ public class GamificationController {
 			storage.saveTrackedInstance(res2);
 
 		} catch (Exception e) {
-			// TODO correct log, report relevant info
 			logger.error("Error in start planned journey: " + e.getMessage(), e);
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
@@ -478,7 +476,6 @@ public class GamificationController {
 					}
 				}
 			} catch (Exception e) {
-				// TODO fix log
 				logger.error("Failed to validate tracked itinerary: " + ti.getId(), e);
 			}
 
@@ -735,7 +732,6 @@ public class GamificationController {
 		});
 	}
 	
-	// TODO update
 	@GetMapping("/gamification/console/report")
 	public @ResponseBody void generareReport(HttpServletResponse response, @RequestParam(required = true, value = "appId") String appId, @RequestParam(required = false) Long fromDate, @RequestParam(required = false) Long toDate) throws IOException {
 		Criteria criteria = new Criteria("appId").is(appId).and("changedValidity").ne(null).and("approved").ne(true);
@@ -760,7 +756,6 @@ public class GamificationController {
 		StringBuffer sb = new StringBuffer("userId;id;freeTracking;itineraryName;score;valid\r\n");
 		for (TrackedInstance ti : instances) {
 			if (ti.getScore() == null) {
-				// TODO freetracking, planned as freetracking...
 				if (ti.getItinerary() != null) {
 					Itinerary itinerary = ti.getItinerary().getData();
 					long score = gamificationValidator.computeEstimatedGameScore(ti.getAppId(), ti.getUserId(), itinerary, ti.getGeolocationEvents(), false);

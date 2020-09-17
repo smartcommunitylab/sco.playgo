@@ -590,7 +590,6 @@ public class GamificationValidator {
 	}	
 	
 
-	// TODO: remove?
 	public long computeEstimatedGameScore(String appId, String userId, Itinerary itinerary, Collection<Geolocation> geolocations, boolean log) {
 		Long score = (Long) (computeEstimatedPlannedJourneyScore(appId, userId, itinerary, geolocations, log).get("estimatedScore"));
 		itinerary.getCustomData().put("estimatedScore", score);
