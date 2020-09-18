@@ -1,5 +1,7 @@
 <div class="close-button" ng-click="closePopup()">X</div>
-    <ion-content no-bounce class="not-yet-content">
-        <div class="warning-not-yet" ng-bind-html="labelNoBoath"> </div>
-    </ion-content >
+<ion-content no-bounce class="not-yet-content">
+    <div class="warning-not-yet">{{'label_message_noBoat'|translate}} <a href="#"
+            onclick="cordova.InAppBrowser.open('http://metropolidipaesaggio.it/', '_system', 'location=yes'); return false;">{{'label_metropolis'|translate}}</a>
     </div>
+</ion-content>
+</div>

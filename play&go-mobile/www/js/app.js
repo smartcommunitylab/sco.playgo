@@ -1599,8 +1599,9 @@ angular.module('viaggia', [
       label_title_before_start:'ATTENZIONE',
       label_message_before_start:'Il tracciamento é attualmente bloccato. A breve sará possibile nuovamente giocare',
       label_title_noBoat:'ATTENZIONE',
-      label_message_noBoat:'È possibile tracciare viaggi in battello solamente durante le sperimentazioni pilota di <a href="http://metropolidipaesaggio.it/">Metropoli di Paesaggio</a>',
-      shared_does_not_match:"Il viaggio in macchina non corrispone a quello registrato dagli altri componenti"
+      label_metropolis:'Metropoli di Paesaggio',
+      label_message_noBoat:'È possibile tracciare viaggi in battello solamente durante le sperimentazioni pilota di ',
+      shared_does_not_match:"Il viaggio in macchina non corrispone a quello registrato dagli altri componenti",
     });
 
     // ====================================================================================================================================================================================
@@ -2202,7 +2203,8 @@ angular.module('viaggia', [
       label_title_before_start:'WARNING',
       label_message_before_start:'The tracking is not  working. Shortly you can play again',
       label_title_noBoat:'WARNING',
-      label_message_noBoat:'Boat trips will be activated during pilot days of  <a href="http://metropolidipaesaggio.it/">Landscape Metropolis</a>',
+      label_message_noBoat:'Boat trips will be activated during pilot days of ',
+      label_metropolis:'Landscape Metropolis',
       shared_does_not_match:"The journey by cat does not match that recorded by the other members"
 
 

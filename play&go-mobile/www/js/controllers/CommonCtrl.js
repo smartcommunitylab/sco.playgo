@@ -689,7 +689,7 @@ angular.module('viaggia.controllers.common', [])
     };
     $scope.noBoatPopup = function () {
       $scope.titleCorona = $filter('translate')('label_title_noBoat');
-      $scope.labelNoBoath=$filter('translate')('label_message_noBoat');
+      // $scope.labelNoBoath=$filter('translate')('label_message_noBoat');
       $scope.alertPopup = $ionicPopup.alert({
         title: $scope.titleCorona,
         templateUrl: 'templates/noBoatPopup.html',

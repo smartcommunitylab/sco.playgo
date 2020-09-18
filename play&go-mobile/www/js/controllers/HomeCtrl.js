@@ -468,8 +468,10 @@ angular.module('viaggia.controllers.home', [])
       }
       if (transportType=="boat"){
         if (!$scope.isBetween("03/10/2020 00:00:00","04/10/2020 23:59:59"))
-        $scope.noBoatPopup();
+        {
+          $scope.noBoatPopup();
         return;
+      }
       }
       if (!enabled) {
         $scope.openTrackingNotEnabled();
