@@ -9,7 +9,6 @@ public class Summary {
 	
 	public Summary() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Summary(String user, String scores, String notifications) {

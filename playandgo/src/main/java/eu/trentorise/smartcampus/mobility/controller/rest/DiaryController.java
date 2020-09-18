@@ -384,7 +384,6 @@ public class DiaryController {
 
 				de.setTravelDistances(distances);
 				
-				// TODO: remove
 				Set<String> modes = Sets.newHashSet();
 				for (Leg leg: instance.getItinerary().getData().getLeg()) {
 					if (leg.getTransport() != null) {
@@ -408,7 +407,6 @@ public class DiaryController {
 				Map<String, Double> distances = Collections.singletonMap(instance.getFreeTrackingTransport(), val);
 				de.setTravelDistances(distances);
 				
-				// TODO: remove
 				de.setTravelModes(Sets.newHashSet(instance.getFreeTrackingTransport()));
 			} else {
 				de.setTravelType(TravelType.SHARED);
@@ -418,7 +416,6 @@ public class DiaryController {
 				Map<String, Double> distances = Collections.singletonMap(instance.getFreeTrackingTransport(), val);
 				de.setTravelDistances(distances);
 				
-				// TODO: remove
 				de.setTravelModes(Sets.newHashSet(instance.getFreeTrackingTransport()));
 				
 			}

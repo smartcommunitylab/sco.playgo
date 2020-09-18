@@ -31,7 +31,7 @@ public class DiaryEntry implements Comparable<DiaryEntry> {
 	private String entityId;
 
 	private TravelType travelType;
-	private Set<String> travelModes; //  TODO: remove
+	private Set<String> travelModes;
 	private Map<String, Double> travelDistances;
 	private Date travelDate;
 	private Double travelLength;

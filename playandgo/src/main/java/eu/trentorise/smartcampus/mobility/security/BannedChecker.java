@@ -18,7 +18,6 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.io.Resources;
 
-// TODO reenabled
 @Component
 public class BannedChecker {
 

@@ -41,7 +41,6 @@ public class WeekPrizeData {
 	}
 
 	public WeekPrizeData() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public WeekPrizeData(int weekNum, String prize, String target, String sponsor) {

@@ -441,22 +441,21 @@ public class PlayerController {
 		RestTemplate restTemplate = new RestTemplate();
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("bonusPointType", "green leaves");
-		data.put("bonusScore", new Double(100.0));
+		data.put("bonusScore", new Double(200.0));
 		data.put("surveyType", "boat");
-		data.put("link", ""); // TODO
+		data.put("link", ""); 
 		
 		ChallengeAssignmentDTO challenge = new ChallengeAssignmentDTO();
-		long now = System.currentTimeMillis();
-		challenge.setStart(new Date(now));
 		
-//		Date end = new Date(now + 2 * 7 * 24 * 60 * 60 * 1000L);
+		LocalDateTime ldf = LocalDate.parse("2020-10-03").atStartOfDay().truncatedTo(ChronoUnit.DAYS);
+		Date start = new Date(ldf.atZone(ZoneOffset.systemDefault()).toInstant().toEpochMilli());
+		challenge.setStart(start);
+
 		LocalDateTime ldt = LocalDate.parse("2020-10-04").plusDays(1).atStartOfDay().truncatedTo(ChronoUnit.DAYS).minusSeconds(1);
 		Date end = new Date(ldt.atZone(ZoneOffset.systemDefault()).toInstant().toEpochMilli());
-		
 		challenge.setEnd(end);
-
 		challenge.setModelName("survey");
-		challenge.setInstanceName("boat_survey-" + Long.toHexString(now) + "-" + Integer.toHexString((playerId + gameId).hashCode()));
+		challenge.setInstanceName("boat_survey-" + Long.toHexString(System.currentTimeMillis()) + "-" + Integer.toHexString((playerId + gameId).hashCode()));
 		
 		challenge.setData(data);
 		
@@ -471,7 +470,7 @@ public class PlayerController {
 		data.put("bonusPointType", "green leaves");
 		data.put("bonusScore", new Double(100.0));
 		data.put("surveyType", "start");
-		data.put("link", ""); // TODO
+		data.put("link", "");
 		
 		ChallengeAssignmentDTO challenge = new ChallengeAssignmentDTO();
 		long now = System.currentTimeMillis();

@@ -359,7 +359,6 @@ public class GamificationHelper {
 		if (tt.equals(TType.BICYCLE) || tt.equals(TType.SHAREDBIKE) || tt.equals(TType.SHAREDBIKE_WITHOUT_STATION)) {
 			return "bike";
 		}
-		// TODO: no transit: bus/train
 		if (tt.equals(TType.BUS) || tt.equals(TType.TRAIN) || tt.equals(TType.TRANSIT) || tt.equals(TType.GONDOLA)) {
 			return "transit";
 		}

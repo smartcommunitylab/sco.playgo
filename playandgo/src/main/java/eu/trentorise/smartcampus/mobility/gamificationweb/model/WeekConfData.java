@@ -69,7 +69,6 @@ public class WeekConfData {
 	}
 
 	public WeekConfData() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public WeekConfData(int weekNum, String weekTheme, String weekThemeEng, boolean challenges, boolean prizes, boolean prizesLast,
