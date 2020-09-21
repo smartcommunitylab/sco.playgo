@@ -33,52 +33,12 @@ var app = {
 
 app.initialize();
 
-angular.module('ngIOS9UIWebViewPatch', ['ng']).config(['$provide', function ($provide) {
-  'use strict';
-
-  $provide.decorator('$browser', ['$delegate', '$window', function ($delegate, $window) {
-
-    if (isIOS9UIWebView($window.navigator.userAgent)) {
-      return applyIOS9Shim($delegate);
-    }
-
-    return $delegate;
-
-    function isIOS9UIWebView(userAgent) {
-      return /(iPhone|iPad|iPod).* OS 9_\d/.test(userAgent) && !/Version\/9\./.test(userAgent);
-    }
-
-    function applyIOS9Shim(browser) {
-      var pendingLocationUrl = null;
-      var originalUrlFn = browser.url;
-
-      browser.url = function () {
-        if (arguments.length) {
-          pendingLocationUrl = arguments[0];
-          return originalUrlFn.apply(browser, arguments);
-        }
-
-        return pendingLocationUrl || originalUrlFn.apply(browser, arguments);
-      };
-
-      window.addEventListener('popstate', clearPendingLocationUrl, false);
-      window.addEventListener('hashchange', clearPendingLocationUrl, false);
-
-      function clearPendingLocationUrl() {
-        pendingLocationUrl = null;
-      }
-
-      return browser;
-    }
-  }]);
-}]);
 
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 angular.module('viaggia', [
   'ionic',
-  'ngIOS9UIWebViewPatch',
   'ionic-material',
   'ng-mfb',
   'ionic-datepicker',
@@ -365,7 +325,7 @@ angular.module('viaggia', [
     });
   })
 
-  .config(function ($stateProvider, $compileProvider, $urlRouterProvider, $translateProvider, $ionicConfigProvider) {
+  .config(function ($stateProvider, $compileProvider, $urlRouterProvider, $translateProvider, $compileProvider, $ionicConfigProvider) {
     $ionicConfigProvider.views.swipeBackEnabled(false);
     $ionicConfigProvider.tabs.position('bottom');
 
@@ -2207,11 +2167,12 @@ angular.module('viaggia', [
       label_metropolis:'Landscape Metropolis',
       shared_does_not_match:"The journey by cat does not match that recorded by the other members"
 
-
-
     });
 
     $translateProvider.preferredLanguage(DEFAULT_LANG);
     $translateProvider.fallbackLanguage(DEFAULT_LANG);
-    $compileProvider.aHrefSanitizationWhitelist(/.*/);
+// fix "Failed to load webpage with error: unsupported URL"
+$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|sms|tel|geo|ftp|mailto|file|ghttps?|ms-appx-web|ms-appx|x-wmapp0|ionic):/);
+// sanitize the images to open ionic://localhost/ on iOS
+$compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|file|content|blob|ms-appx|ms-appx-web|x-wmapp0|ionic):|data:image\//);
   });

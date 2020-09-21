@@ -30,10 +30,10 @@
     "FERRARA": {
         "resource_folder": "config/instances/FERRARA",
         "widget_id": "it.smartcommunitylab.playgoferrara",
-        "version": "0.0.2",
+        "version": "1.0.0",
         "version_code": "3",
         "app_name": "Ferrara Play&amp;Go",
-        "code_push_android":"SPDZz-bYoi8DtN3ZB-JKtXS4_gul1CgsHKHTG",
+        "code_push_android":"k2sQaDTl6LkeyQ9AHIxZHG2sU9De0iKJuA0KS",
         "code_push_ios":"l2s7Bcjt6Yye6gW39BGs3cAl2vcr_x0lE1Von",
         "background_license":"68544394ff6a6dc790596dfb7165cfd739382a736de43248b9cb52b643f13f8a",
         "reverse_client_id":"com.googleusercontent.apps.593393059512-hlehbganu86qqi1pr8jb2deknfllmvlc",
