@@ -13,21 +13,6 @@ angular.module('viaggia.controllers.timetable', ['ionic'])
         $scope.allMarkers = null;
         $scope.titleCorona = $filter('translate')('label_warning_corona_title');
         $scope.subtitleCorona = $filter('translate')('label_warning_corona_message');
-        if (ref=='extraurbano' && !agencyId) {
-            $scope.titleWorkInProgress = $filter('translate')('title_work_in_progress');
-            $scope.workInProgressPopup = $ionicPopup.alert({
-                title:$scope.titleWorkInProgress,
-                templateUrl: 'templates/workInProgressPopup.html',
-                scope: $scope,
-                cssClass: 'workInProgressPopup'
-            });
-
-            $scope.workInProgressPopup.then(function (res) {
-            });
-        }
-        $scope.closeWorkPopup = function () {
-            $scope.workInProgressPopup.close();
-        }
         $scope.openPopUp = function () {
             // $scope.messageCorona = $filter('translate')('label_warning_corona_extended');
             $scope.messageZero = $filter('translate')('message_popup_zero');
