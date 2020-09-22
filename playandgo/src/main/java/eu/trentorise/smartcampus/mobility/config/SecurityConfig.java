@@ -269,8 +269,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     		http.rememberMe();		
 
     		http.authorizeRequests()
-    			.antMatchers("/policies/console/**","/web/notification/**","/gamification/console/**").hasAnyAuthority("ROLE_CONSOLE")
     			.antMatchers("/announcements/**").permitAll()
+    			.antMatchers("/policies/console/**","/web/notification/**","/gamification/console/**").hasAnyAuthority("ROLE_CONSOLE")
     			.and()
     		.formLogin().loginPage("/login").permitAll().and().logout().permitAll();	    		
     	}    	
