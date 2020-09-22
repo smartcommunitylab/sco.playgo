@@ -268,7 +268,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     		http.csrf().disable();
     		http.rememberMe();		
 
-    		http.authorizeRequests().antMatchers("/policies/console/**","/web/notification/**","/gamification/console/**").hasAnyAuthority("ROLE_CONSOLE").and()
+    		http.authorizeRequests()
+    			.antMatchers("/policies/console/**","/web/notification/**","/gamification/console/**").hasAnyAuthority("ROLE_CONSOLE")
+    			.antMatchers("/announcements/**").permitAll()
+    			.and()
     		.formLogin().loginPage("/login").permitAll().and().logout().permitAll();	    		
     	}    	
     	
