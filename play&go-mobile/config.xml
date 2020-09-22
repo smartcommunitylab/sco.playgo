@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-versionCode="3" id="it.smartcommunitylab.playgoferrara" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget android-versionCode="3" id="it.smartcommunitylab.playgoferrara" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Ferrara Play&amp;Go</name>
     <description>Ferrara Play&amp;Go</description>
     <author email="info@smartcommunitylab.it" href="http://www.smartcommunitylab.it/">Smart Community Lab</author>
@@ -129,11 +129,6 @@
     </config-file>
     <icon src="config/instances/FERRARA/resources/android/icon/drawable-xhdpi-icon.png" />
     <platform name="android">
-        <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application">
-            <application android:usesCleartextTraffic="true" />
-        </edit-config>
-    </platform>
-    <platform name="android">
         <preference name="orientation" value="portrait" />
         <preference name="CodePushDeploymentKey" value="k2sQaDTl6LkeyQ9AHIxZHG2sU9De0iKJuA0KS" />
     </platform>
@@ -141,4 +136,5 @@
         <preference name="CodePushDeploymentKey" value="l2s7Bcjt6Yye6gW39BGs3cAl2vcr_x0lE1Von" />
     </platform>
     <engine name="android" spec="8.1.0" />
+    <engine name="ios" spec="^5.1.1" />
 </widget>

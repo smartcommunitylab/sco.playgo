@@ -134,8 +134,8 @@ angular.module('viaggia.controllers.common', [])
     $scope.changeTracking = function (type, enabled) {
       if (type=="boat"){
         if (!$scope.isBetween("03/10/2020 00:00:00","04/10/2020 23:59:59"))
-        $scope.noBoatPopup();
-        return;
+{        $scope.noBoatPopup();
+        return;}
       }
       //se type e' uguale al tipo attuale non cambiare
       
@@ -689,7 +689,7 @@ angular.module('viaggia.controllers.common', [])
     };
     $scope.noBoatPopup = function () {
       $scope.titleCorona = $filter('translate')('label_title_noBoat');
-      $scope.labelNoBoath=$filter('translate')('label_message_noBoat');
+      // $scope.labelNoBoath=$filter('translate')('label_message_noBoat');
       $scope.alertPopup = $ionicPopup.alert({
         title: $scope.titleCorona,
         templateUrl: 'templates/noBoatPopup.html',

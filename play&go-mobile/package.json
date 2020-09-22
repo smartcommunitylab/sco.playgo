@@ -23,7 +23,7 @@
     "cordova-plugin-camera": "4.1.0",
     "cordova-plugin-cocoalumberjack": "0.0.4",
     "cordova-plugin-cocoapod-support": "1.6.2",
-    "cordova-plugin-code-push": "^1.12.2",
+    "cordova-plugin-code-push": "^1.12.1",
     "cordova-plugin-compat": "^1.2.0",
     "cordova-plugin-console": "^1.1.0",
     "cordova-plugin-crop": "^0.4.0",
@@ -125,7 +125,6 @@
       "cordova-plugin-device-orientation": {},
       "cordova-plugin-bluetooth-serial": {},
       "cordova-plugin-request-location-accuracy": {},
-      "ionic-plugin-keyboard": {},
       "cordova-plugin-globalization": {},
       "cordova-plugin-crop": {},
       "cordova-plugin-androidx": {},
@@ -172,7 +171,6 @@
       "cordova.plugins.diagnostic": {
         "ANDROID_SUPPORT_VERSION": "28.+"
       },
-      "cordova-plugin-code-push": {},
       "cordova-plugin-zip": {},
       "cordova-background-geolocation": {
         "GOOGLE_API_VERSION": "16.+",
@@ -194,10 +192,14 @@
       "cordova-android-support-gradle-release": {
         "ANDROID_SUPPORT_VERSION": "29.+"
       },
-      "cordova-plugin-inappbrowser": {}
+      "cordova-plugin-inappbrowser": {},
+      "code-push": {},
+      "ionic-plugin-keyboard": {},
+      "cordova-plugin-code-push": {}
     },
     "platforms": [
-      "android"
+      "android",
+      "ios"
     ]
   }
 }

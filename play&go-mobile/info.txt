@@ -34,7 +34,6 @@ Config.xml file:
     <access launch-external="yes" origin="mailto:*" />
     <access launch-external="yes" origin="geo:*" />
     <preference name="webviewbounce" value="false" />
-    <preference name="UIWebViewBounce" value="false" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="auto-hide-splash-screen" value="false" />
