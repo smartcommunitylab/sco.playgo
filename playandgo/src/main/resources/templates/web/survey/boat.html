@@ -34,25 +34,26 @@
 
         <div style="text-align: left" th:utext="#{surveyboat.acc2}">acc1</div> <br />
 
-        <div class="form-group">
+        <div class="form-group q">
           <label th:text="#{surveyboat.comune}">Reason</label> 
-          <textarea style="width:100%" name="comune" rows="1"></textarea>
+          <input class="form-control" type="text" style="width:100%" >
         </div>
-        <div class="form-group">
+        
+        <div class="form-group q">
           <label th:text="#{surveyboat.q2}">Reason</label> 
-          <textarea style="width:100%" name="q2" rows="5"></textarea>
+          <textarea class="form-control"  style="width:100%" name="q2" rows="5"></textarea>
         </div>
-        <div class="form-group">
+        <div class="form-group q">
           <label th:text="#{surveyboat.q3}">Reason</label> 
-          <textarea style="width:100%" name="q3" rows="5"></textarea>
+          <textarea class="form-control"  style="width:100%" name="q3" rows="5"></textarea>
         </div>
-        <div class="form-group">
+        <div class="form-group q">
           <label th:text="#{surveyboat.q4}">Reason</label> 
-          <textarea style="width:100%" name="q4" rows="5"></textarea>
+          <textarea class="form-control" style="width:100%" name="q4" rows="5"></textarea>
         </div>
         <div class="form-group">
           <label th:text="#{surveyboat.q5}">Reason</label> 
-          <textarea style="width:100%" name="q5" rows="5"></textarea>
+          <input class="form-control" type="email" style="width:100%" name="q5">
         </div>
 				
 			  <div class="form-group">
@@ -96,62 +97,57 @@
       $('form').submit();     
     }
   });
-  
-  function highlightIncomplete(event, proceed) {
-    var next = true;
-    var qsn = $('fieldset').length;
     
-    for (i = 1; i <= qsn; i++) {
-      var v = $("input[name='q" + i + "']")
+  function highlightIncomplete(event, proceed) {
+    var next = true;    
+    $('.q').each(function(idx) {
+    	var v = $(this).find('textarea, input, select'); 
       if (!v.val()) {
-    	  $('#fs' + i).addClass('has-error');
-    	  next = false;
+        $(this).addClass('has-error');
+        next = false;
       } else {
-        $('#fs' + i).removeClass('has-error');
+        $(this).removeClass('has-error');
       }
-    }   
-        
+    });
     if (next) {
       checkData(proceed)
     }
   }
   
-function checkData(proceed) {
-  var qsn = $('fieldset').length;
-  
-  var disabled = false;
-    
-  for (i = 1; i <= qsn; i++) {
-    var v = $("input[name='q" + i + "']")
-    if (!v.val()) {
-      disabled = true;
-      break;
-    }
-  }  
-  
-  if (!disabled) {
-    $('select:visible').each(function() {
-      if ($(this).val().length === 0) {
-        disabled = true;
-        return;
-      } 
-    }); 
-  }
-  
-  if (!disabled) {
-    if (first && proceed) {
-      $('.first-page').hide(); 
-      $('.second-page').show();
-      disabled = true;
-      first = false;
-    }
-
-  }
-  
-  $('#send').prop('disabled', disabled);
-  return disabled;
-}
-  
+	function checkData(proceed) {
+	  var disabled = false;
+	
+	  $('.q').each(function(idx) {
+	      var v = $(this).find('textarea, input, select'); 
+	      if (!v.val()) {
+	          disabled = true;
+	      }
+	  });
+	  
+	  if (!disabled) {
+	    $('select:visible').each(function() {
+	      if ($(this).val().length === 0) {
+	        disabled = true;
+	        return;
+	      } 
+	    }); 
+	  }
+	  
+	  if (!disabled) {
+	    if (first && proceed) {
+	      $('.first-page').hide(); 
+	      $('.second-page').show();
+	      disabled = true;
+	      first = false;
+	    }
+	
+	  }
+	  
+	  $('#send').prop('disabled', disabled);
+	  return disabled;
+	}
+	  
+  $('textarea').change(highlightIncomplete);
   $('input').change(highlightIncomplete);
   $('select').change(highlightIncomplete);
   checkData();
