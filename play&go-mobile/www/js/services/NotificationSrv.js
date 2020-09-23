@@ -324,7 +324,7 @@ angular.module('viaggia.services.notification', [])
     return notificationService;
   })
 
-  .factory('feedService', function ($q, $rootScope, $http) {
+  .factory('feedService', function ($q, $rootScope, $http,LoginService,Config) {
     var cache = [];
 
     var load = function (url, feedKey, forceLoad) {
@@ -337,10 +337,21 @@ angular.module('viaggia.services.notification', [])
           deferred.resolve(cache = JSON.parse(localStorage['entries_' + feedKey]));
         }
       } else {
-        $http.get(url).then(function (page) {
+        LoginService.getValidAACtoken().then(
+          function (token) {
+            $http({
+                method: 'GET',
+                url: url,
+                headers: {
+                  'Authorization': 'Bearer ' + token,
+                  'appId': Config.getAppGameId(),
+                },
+                timeout: Config.getHTTPConfig().timeout
+              })
+              .success(function (detail) {
           //download and parse the new feeds
           var x2js = new X2JS();
-          var jsonObj = x2js.xml_str2json(page.data);
+          var jsonObj = x2js.xml_str2json(detail.data);
           if (jsonObj && jsonObj.rss && jsonObj.rss.channel && jsonObj.rss.channel.item) {
             var res = jsonObj.rss.channel.item;
             localStorage['entries_' + feedKey] = JSON.stringify(res);
@@ -348,11 +359,13 @@ angular.module('viaggia.services.notification', [])
             cache = res;
             deferred.resolve(res);
           } else {
-            deferred.reject();
-          }
-        }, function (err) {
-          deferred.reject();
-        });
+            deferred.resolve([]);
+          }              })
+  
+              .error(function (page) {
+                deferred.reject(response);
+              });
+          });
       }
 
       return deferred.promise;
