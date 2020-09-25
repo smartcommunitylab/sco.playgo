@@ -1890,6 +1890,8 @@ ion-header-bar .title {
   border-color: #DB4437;
   background-color: #DB4437;
   color: #FFFFFF;
+  margin:0px;
+  width: 75%;
 }
 
 .login .login-button-facebook {
@@ -1897,6 +1899,18 @@ ion-header-bar .title {
   border-color: #3a5795;
   background-color: #3a5795;
   color: #FFFFFF;
+  margin:0px;
+  width: 75%;
+
+}
+.login .login-button-apple {
+  text-transform: uppercase;
+  border-color: black;
+  background-color: black;
+  color: #FFFFFF;
+  margin:0px;
+  width: 75%;
+
 }
 
 .login .login-button-internal {
@@ -1904,6 +1918,7 @@ ion-header-bar .title {
   border-color: #4EB0E6;
   background-color: #4EB0E6;
   color: #FFFFFF;
+  
 }
 
 .login .login-button-signup {
