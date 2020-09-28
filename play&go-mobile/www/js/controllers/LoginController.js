@@ -237,7 +237,7 @@ angular.module('viaggia.controllers.login', [])
 
     $ionicPlatform.ready(function () {
       //check platform 
-      if (ionic.Platform.isIOS())
+      if (ionic.Platform.isIOS() && window.cordova.plugins.SignInWithApple)
       {
         $scope.isIOS =true;
       }
