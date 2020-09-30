@@ -16,11 +16,8 @@
 
 package eu.trentorise.smartcampus.mobility.geolocation.model;
 
-import java.io.BufferedReader;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
@@ -30,6 +27,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.regex.Matcher;
@@ -39,6 +37,10 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.databind.MappingIterator;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.csv.CsvMapper;
+import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Lists;
@@ -92,8 +94,9 @@ public class TTDescriptor {
 	 * @param tripSrc
 	 * @param stopTimeSrc
 	 * @param shapeSrc
+	 * @throws Exception 
 	 */
-	public synchronized void load(InputStream stopSrc, InputStream tripSrc, InputStream stopTimeSrc, InputStream shapeSrc) {
+	public synchronized void load(InputStream stopSrc, InputStream tripSrc, InputStream stopTimeSrc, InputStream shapeSrc) throws Exception {
 		loadShapes(shapeSrc);
 		loadStops(stopSrc);
 		loadStopTimes(stopTimeSrc, loadTrips(tripSrc));
@@ -286,30 +289,27 @@ public class TTDescriptor {
 	}
 
 	
-	public void loadStopTimes(InputStream stopTimeSrc, Map<String, TTLineDescriptor> tripMap) {
-		List<String[]> stopTimes = new BufferedReader(new InputStreamReader(stopTimeSrc))
-		.lines()
-		.map(s -> s.split(","))
-		.filter(a -> !a[0].isEmpty() && !a[0].equals("trip_id"))
-		.collect(Collectors.toList());
-		
+	public void loadStopTimes(InputStream stopTimeSrc, Map<String, TTLineDescriptor> tripMap) throws Exception {
+		CsvSchema bootstrapSchema = CsvSchema.emptySchema().withHeader();
+		ObjectMapper mapper = new CsvMapper();
+		MappingIterator<GTFSStopTime> values = mapper.readerFor(GTFSStopTime.class).with(bootstrapSchema).readValues(stopTimeSrc);
+
 		Map<String, Integer> minMap = new HashMap<>();
 		Map<String, Integer> maxMap = new HashMap<>();
-		
-		for (String[] str : stopTimes) {
-			if (tripMap.get(str[0]) != null) {
-				stopDescriptors.put(stopIDMap.get(str[3]), tripMap.get(str[0]));
+
+		while (values.hasNextValue()) {
+			GTFSStopTime value = values.nextValue();
+			if (tripMap.get(value.trip_id) != null) {
+				stopDescriptors.put(stopIDMap.get(value.stop_id), tripMap.get(value.trip_id));
 				int time = 0;
 				try {
-					time = timeToInt(str[1]);
+					time = timeToInt(value.arrival_time);
 				} catch (Exception e) {
-					logger.debug("Incorrect stop time string: "+ Arrays.toString(str));
+					logger.warn("Incorrect stop time string: "+ Objects.toString(value));
 					continue;
 				}
-				minMap.put(str[0], Math.min(time, minMap.getOrDefault(str[0], Integer.MAX_VALUE)));
-				maxMap.put(str[0], Math.max(time, maxMap.getOrDefault(str[0], Integer.MIN_VALUE)));
-//			} else {
-//				continue;
+				minMap.put(value.trip_id, Math.min(time, minMap.getOrDefault(value.trip_id, Integer.MAX_VALUE)));
+				maxMap.put(value.trip_id, Math.max(time, maxMap.getOrDefault(value.trip_id, Integer.MIN_VALUE)));
 			}
 		}
 		updateShapeTimes(minMap, maxMap, tripMap);
@@ -377,25 +377,23 @@ public class TTDescriptor {
 		return c.get(Calendar.HOUR_OF_DAY) * 60 + c.get(Calendar.MINUTE);
 	}
 
-	public Map<String, TTLineDescriptor> loadTrips(InputStream tripSrc) {
+	public Map<String, TTLineDescriptor> loadTrips(InputStream tripSrc) throws Exception {
+		CsvSchema bootstrapSchema = CsvSchema.emptySchema().withHeader();
+		ObjectMapper mapper = new CsvMapper();
+		MappingIterator<GTFSTrip> values = mapper.readerFor(GTFSTrip.class).with(bootstrapSchema).readValues(tripSrc);
+
 		Map<String, TTLineDescriptor> tripMap = new HashMap<>();
-		List<String[]> trips = new BufferedReader(new InputStreamReader(tripSrc))
-		.lines()
-		.map(s -> s.split(","))
-		.filter(a -> !a[0].isEmpty() && !a[0].equals("route_id")).collect(Collectors.toList());
-		for (String[] tripStr : trips) {
-			String route = tripStr[0];
+		while (values.hasNext()) {
+			GTFSTrip trip = values.nextValue();
+			String route = trip.route_id;
 			routeIDMap.putIfAbsent(route, routeIDMap.size());
 			Integer routeId = routeIDMap.get(route);
 			routeMap.putIfAbsent(routeId, route);
-			if (tripStr.length < 6) {
-				continue;
-			}
-			Integer shapeId = shapeIDMap.get(tripStr[5]);
+			Integer shapeId = shapeIDMap.get(trip.shape_id);
 			if (shapeId == null) {
 				continue;
 			}
-			tripMap.put(tripStr[2], new TTLineDescriptor(shapeId, routeId));
+			tripMap.put(trip.trip_id, new TTLineDescriptor(shapeId, routeId));
 		}
 		return tripMap;
 	}
@@ -403,47 +401,43 @@ public class TTDescriptor {
 	/**
 	 * Load stops from GTFS stops.txt
 	 * @param stopSrc
+	 * @throws Exception 
 	 */
-	public void loadStops(InputStream stopSrc) {
-		List<String[]> lines = new BufferedReader(new InputStreamReader(stopSrc))
-				.lines()
-				.map(s -> s.split(",")).collect(Collectors.toList());
-		String[] firstLine = lines.get(0);
-		if (!"stop_id".equals(firstLine[0].trim())) return;
-		int lat_idx = 0, lng_idx = 0;
-		for (int i = 0; i < firstLine.length; i++) {
-			if ("stop_lat".equals(firstLine[i])) lat_idx = i;
-			if ("stop_lon".equals(firstLine[i])) lng_idx = i;
-		}
-		
-		List<String[]> stops = lines.subList(1, lines.size());
-		for (String[] stopStr : stops) {
+	public void loadStops(InputStream stopSrc) throws Exception {
+		CsvSchema bootstrapSchema = CsvSchema.emptySchema().withHeader();
+		ObjectMapper mapper = new CsvMapper();
+		MappingIterator<GTFSStop> values = mapper.readerFor(GTFSStop.class).with(bootstrapSchema).readValues(stopSrc);
+
+		while (values.hasNext()) {
+			GTFSStop stop = values.nextValue();
 			int id = stopIDMap.size();
-			stopIDMap.put(stopStr[0], id);
-			Geolocation stop = new Geolocation(Double.parseDouble(stopStr[lat_idx]), Double.parseDouble(stopStr[lng_idx]), null);
-			stopMap.put(id, stop);
+			stopIDMap.put(stop.stop_id, id);
+			Geolocation geo = new Geolocation(stop.stop_lat, stop.stop_lon, null);
+			stopMap.put(id, geo);
 		}
 	}
 
 	/**
 	 * Load shape from GTFS shape.txt
 	 * @param shapeSrc
+	 * @throws Exception 
 	 */
-	private void loadShapes(InputStream shapeSrc) {
-		Map<String, List<String[]>> shapes = new BufferedReader(new InputStreamReader(shapeSrc))
-		.lines()
-		.map(s -> s.split(","))
-		.filter(a -> !a[0].isEmpty() && !a[0].equals("shape_id"))
-		.collect(Collectors.groupingBy(a -> a[0]));
-		for (Entry<String, List<String[]>> entry : shapes.entrySet()) {
+	private void loadShapes(InputStream shapeSrc) throws Exception {
+		CsvSchema bootstrapSchema = CsvSchema.emptySchema().withHeader();
+		ObjectMapper mapper = new CsvMapper();
+		MappingIterator<GTFSShape> values = mapper.readerFor(GTFSShape.class).with(bootstrapSchema).readValues(shapeSrc);
+		Map<String, List<GTFSShape>> shapes = values.readAll().stream().collect(Collectors.groupingBy(s -> s.shape_id));
+
+		for (Entry<String, List<GTFSShape>> entry : shapes.entrySet()) {
 			int id = shapeIDMap.size();
 			shapeIDMap.put(entry.getKey(), id);
 			List<Geolocation> shape = entry.getValue().stream()
-					.sorted((a,b) -> Integer.parseInt(a[3]) - Integer.parseInt(b[3]))
-					.map(a -> new Geolocation(Double.parseDouble(a[1]), Double.parseDouble(a[2]), null))
+					.sorted((a,b) -> a.shape_pt_sequence - b.shape_pt_sequence)
+					.map(a -> new Geolocation(a.shape_pt_lat, a.shape_pt_lon, null))
 					.collect(Collectors.toList());
 			shape = TrackValidator.fillTrace(shape, 100.0 / 1000 / 2 / Math.sqrt(2));
 			shapeMap.put(id, shape);
+			
 		}
 	}
 	
@@ -505,5 +499,27 @@ public class TTDescriptor {
 		public String toString() {
 			return "TTLineDescriptor [shape=" + shape + ", route=" + route + "]";
 		}
+	}
+	
+	
+	public static class GTFSShape {
+		public String shape_id;
+		public Double shape_pt_lat,shape_pt_lon;
+		public Integer shape_pt_sequence;
+	}
+	public static class GTFSStop {
+		public String stop_id, stop_code, stop_desc, stop_name, location_type, parent_station, zone_id;
+		public Integer wheelchair_boarding;
+		public Double stop_lat,stop_lon;
+	}
+	public static class GTFSStopTime {
+		public String trip_id, arrival_time, departure_time, stop_id, stop_sequence;
+	}
+	public static class GTFSRoute {
+		public String route_id,agency_id,route_short_name,route_long_name,route_type,route_color,route_text_color;
+	}
+	public static class GTFSTrip {
+		public String route_id, service_id,trip_id,trip_headsign, direction_id,shape_id;
+		public Integer wheelchair_accessible;
 	}
 }
