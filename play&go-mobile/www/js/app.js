@@ -1252,7 +1252,7 @@ angular.module('viaggia', [
       login_signup: 'REGISTRATI',
       signin_title: 'Accedi con le tue credenziali',
       signin_pwd_reset: 'Password dimenticata?',
-      text_login_use: 'oppure accedi con',
+      text_login_use: 'oppure',
       error_popup_title: 'Errore',
       error_generic: 'La registrazione non è andata a buon fine. Riprova più tardi.',
       error_email_inuse: 'L\'indirizzo email è già in uso.',
@@ -1562,6 +1562,9 @@ angular.module('viaggia', [
       label_metropolis:'Metropoli di Paesaggio',
       label_message_noBoat:'È possibile tracciare viaggi in battello solamente durante le sperimentazioni pilota di ',
       shared_does_not_match:"Il viaggio in macchina non corrispone a quello registrato dagli altri componenti",
+      sign_in_apple:"Accedi con Apple",
+      sign_in_google:"Accedi con Google",
+      sign_in_facebook:"Accedi con Facebook",
     });
 
     // ====================================================================================================================================================================================
@@ -1857,7 +1860,7 @@ angular.module('viaggia', [
       login_signin: 'SIGN IN',
       signin_title: 'Sign in with your credentials',
       signin_pwd_reset: 'Forgot password?',
-      text_login_use: 'or sign in with',
+      text_login_use: 'or',
       error_popup_title: 'Error',
       error_generic: 'Registration failed. Please try again later.',
       error_email_inuse: 'Email address is already in use.',
@@ -2165,7 +2168,10 @@ angular.module('viaggia', [
       label_title_noBoat:'WARNING',
       label_message_noBoat:'Boat trips will be activated during pilot days of ',
       label_metropolis:'Landscape Metropolis',
-      shared_does_not_match:"The journey by cat does not match that recorded by the other members"
+      shared_does_not_match:"The journey by cat does not match that recorded by the other members",
+      sign_in_apple:"Sign in with Apple",
+      sign_in_google:"Sign in with Google",
+      sign_in_facebook:"Sign in with Facebook",
 
     });
 
