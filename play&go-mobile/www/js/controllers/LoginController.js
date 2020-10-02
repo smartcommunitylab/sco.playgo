@@ -3,7 +3,7 @@ angular.module('viaggia.controllers.login', [])
   .controller('LoginCtrl', function ($scope, $ionicSideMenuDelegate, DiaryDbSrv, $ionicLoading, $ionicPlatform, $state, $ionicHistory, $ionicPopup, $timeout, $filter, LoginService, GameSrv, Config, Toast, notificationService) {
     $ionicSideMenuDelegate.canDragContent(false);
 
-
+    $scope.isIOS =false;
     $scope.user = {
       email: '',
       password: ''
@@ -90,7 +90,47 @@ angular.module('viaggia.controllers.login', [])
         });
       }
     }
+    $scope.appleSignIn = function () {
+      $ionicLoading.show({
+        template: 'Logging in...'
+      });
+      $timeout(function () {
+        $ionicLoading.hide(); //close the popup after 3 seconds for some reason
+      }, 3000);
+      LoginService.login(LoginService.PROVIDER.APPLE).then(function (profile) {
+        //                                       check if user is valid
+        $ionicLoading.show({
+          template: $filter('translate')('user_check')
+        });
+        GameSrv.validUserForGamification(profile).then(function (valid) {
+            //$ionicLoading.hide();
 
+            if (valid) {
+              //reg push notification, not blocking
+              document.addEventListener('deviceready', onDeviceReady, false); //go on to home page
+              $state.go('app.home.home');
+              $ionicHistory.nextViewOptions({
+                disableBack: true,
+                historyRoot: true
+              });
+            } else {
+              // open popup for validating user
+              $ionicLoading.hide();
+              validateUserPopup();
+            }
+            DiaryDbSrv.dbSetup().then(function () {}, function (err) {
+              //diary db not worked
+            });
+          },
+          function (msg) {
+            Toast.show($filter('translate')('pop_up_error_server_template'), "short", "bottom");
+            $ionicLoading.hide();
+          });
+      }, function (err) {
+        Toast.show($filter('translate')('pop_up_error_server_template'), "short", "bottom");
+        $ionicLoading.hide();
+      });
+    }
     $scope.facebookSignIn = function () {
       $ionicLoading.show({
         template: 'Logging in...'
@@ -196,6 +236,12 @@ angular.module('viaggia.controllers.login', [])
     }
 
     $ionicPlatform.ready(function () {
+      //check platform 
+      if (ionic.Platform.isIOS() && window.cordova.plugins.SignInWithApple)
+      {
+        $scope.isIOS =true;
+      }
+       
       Config.init().then(function () {
         if (window.cordova && window.cordova.plugins.screenorientation && screen.lockOrientation) {
           screen.lockOrientation('portrait');
