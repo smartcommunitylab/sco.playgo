@@ -134,7 +134,7 @@ public class GamificationValidator {
 		final File[] trainFiles = (new File(shapeFolder+"/train")).listFiles();
 		if (trainFiles != null) {
 			for (File f : trainFiles) {
-				TRAIN_SHAPES.add(TrackValidator.parseShape(new FileInputStream(f)).get(0));
+				TRAIN_SHAPES.addAll(TrackValidator.parseShape(new FileInputStream(f)));
 			}
 			TRAIN_POLYLINES = TRAIN_SHAPES.stream().map(x -> GamificationHelper.encodePoly(x)).collect(Collectors.toList());
 		}
@@ -142,7 +142,7 @@ public class GamificationValidator {
 		final File[] boatFiles = (new File(shapeFolder+"/boat")).listFiles();
 		if (boatFiles != null) {
 			for (File f : boatFiles) {
-				BOAT_SHAPES.add(TrackValidator.parseShape(new FileInputStream(f)).get(0));
+				BOAT_SHAPES.addAll(TrackValidator.parseShape(new FileInputStream(f)));
 			}
 			BOAT_POLYLINES = BOAT_SHAPES.stream().map(x -> GamificationHelper.encodePoly(x)).collect(Collectors.toList());
 		}
