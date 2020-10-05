@@ -940,6 +940,22 @@ gamificationConsole.controller('GameCtrl', function($scope, $timeout, $http) {
 })
 
 gamificationConsole.controller('UsersCtrl', function($scope, $timeout, $http) {
+	
+	var download = function(url, name) {
+		$http.get(url).success(function(data){
+		      const downloadLink = document.createElement("a");
+		      const blob = new Blob([data],{type: 'text/csv'});
+		      const url = URL.createObjectURL(blob);
+		      downloadLink.href = url;
+		      downloadLink.download = name+'.csv';
+		      
+		      document.body.appendChild(downloadLink);
+		      downloadLink.click();
+		      document.body.removeChild(downloadLink);  
+		});
+
+	}
+	
 	$http.get('console/players').success(function(data){
 		if (data) {
 			data.sort(function(a,b){
@@ -948,6 +964,13 @@ gamificationConsole.controller('UsersCtrl', function($scope, $timeout, $http) {
 		}
 		$scope.users = data;
 	});
+	
+	$scope.loadLast50 = function() {
+		download('console/rating?rankingType=PREVIOUS&count=50', 'week50');
+	}
+	$scope.loadGlobal50 = function() {
+		download('console/rating?rankingType=GLOBAL&count=50', 'global50');
+	}
 	
 })
 gamificationConsole.controller('CheckinCtrl', function($scope, $timeout, $http) {

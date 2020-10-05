@@ -17,6 +17,8 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -982,11 +984,50 @@ public class GamificationController {
 		return list;
 	}
 
+	@GetMapping("/gamification/console/rating")
+	public @ResponseBody void getRating(HttpServletResponse response, 
+			@RequestParam(required = false) RankingType rankingType,
+			@RequestParam(required = false, defaultValue = "50") int count) throws Exception {
+		String appId = ((AppDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getApp().getAppId();
+    	response.setContentType("text/csv;charset=utf-8");
+		List<ClassificationData> ranking = null;
+		if (rankingType != null) {
+			switch (rankingType) {
+			case CURRENT:
+				ranking = rankingManager.getCurrentIncClassification().get(appId);
+				break;
+			case PREVIOUS:
+				ranking = rankingManager.getPreviousIncClassification().get(appId);
+				break;
+			case GLOBAL:
+			default:
+				ranking = rankingManager.getGlobalClassification().get(appId);
+			}
+		} else {
+			ranking = rankingManager.getGlobalClassification().get(appId);
+		}
+		ranking.sort((a,b) -> a.getPosition() - b.getPosition());
+		ranking = ranking.subList(0,  Math.min(count, ranking.size()));
+		String gameId = appSetup.findAppById(appId).getGameId();
+
+        try (CSVPrinter printer = new CSVPrinter(response.getWriter(), CSVFormat.EXCEL
+        	    .withHeader(new String[] {"playerId","nickname","mail","score"}).withDelimiter(','))) {
+        	for (ClassificationData data: ranking) {
+        		Player player = playerRepo.findByPlayerIdAndGameId(data.getPlayerId(), gameId);
+        		if (player != null) {
+        			printer.printRecord(data.getPlayerId(), data.getNickName(), player.getMail(), data.getScore());
+        		}
+        	}
+        }
+
+	}
+	
 	@GetMapping("/gamification/console/users")
 	public @ResponseBody List<UserDescriptor> getTrackInstancesUsers(@RequestHeader(required = true, value = "appId") String appId, @RequestParam(required = false) Long fromDate,
 			@RequestParam(required = false) Long toDate, @RequestParam(required = false) Boolean excludeZeroPoints, @RequestParam(required = false) Boolean unapprovedOnly, @RequestParam(required = false) Boolean pendingOnly,
 			@RequestParam(required = false) Boolean toCheck, @RequestParam(required = false) String filterUserId, @RequestParam(required = false) String filterTravelId,
-			@RequestParam(required = false) RankingType rankingType, @RequestParam(required = false) final Integer maxRanking) throws Exception {
+			@RequestParam(required = false) RankingType rankingType, @RequestParam(required = false) final Integer maxRanking,
+			@RequestParam(required = false) String transport) throws Exception {
 		List<UserDescriptor> userList = null;
 
 		List<ClassificationData> ranking = null;
@@ -1047,6 +1088,10 @@ public class GamificationController {
 //			}
 
 			Criteria criteria = generateFilterCriteria(appId, filterUserId, filterTravelId, fromDate, toDate, excludeZeroPoints, unapprovedOnly, toCheck, pendingOnly);
+			if (!StringUtils.isEmpty(transport)) {
+				criteria = criteria.and("freeTrackingTransport").is(transport);
+			}
+				
 			Query query = new Query(criteria);
 
 			List<TrackedInstance> tis = storage.searchDomainObjects(query, keys, TrackedInstance.class);
