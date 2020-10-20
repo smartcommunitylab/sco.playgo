@@ -436,7 +436,10 @@ public class TTDescriptor {
 					.filter(a -> a.shape_pt_lat != null && a.shape_pt_lon != null)
 					.map(a -> new Geolocation(a.shape_pt_lat, a.shape_pt_lon, null))
 					.collect(Collectors.toList());
-			shape = TrackValidator.fillTrace(shape, 100.0 / 1000 / 2 / Math.sqrt(2));
+			
+			if (shape.size() > 0) {
+				shape = TrackValidator.fillTrace(shape, 100.0 / 1000 / 2 / Math.sqrt(2));
+			} 
 			shapeMap.put(id, shape);
 			
 		}
