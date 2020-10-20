@@ -31,8 +31,10 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,6 +43,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.common.collect.Lists;
@@ -139,19 +142,25 @@ public class GamificationController {
 	
 
 	@PostMapping("/gamification/geolocations")
-	public @ResponseBody String storeGeolocationEvent(@RequestBody(required = false) GeolocationsEvent geolocationsEvent, @RequestHeader(required = true, value = "appId") String appId,
+	public @ResponseBody String storeGeolocationEvent(@RequestBody(required = false) GeolocationsEvent geolocationsEvent, @RequestHeader(required = false, value = "appId") String appId,
 			HttpServletResponse response) throws Exception {
 		try {
 			String userId = getUserId();
 			if (userId == null) {
-				logger.error("Storing geolocations, user not found.");
+				logger.error("Error storing geolocations, user not found.");
 				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 				return "";
 			}
 
+			if (StringUtils.isEmpty(appId)) {
+				logger.error("Error storing geolocations, missing appId.");
+				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+				return "";
+			}
+			
 			String gameId = getGameId(appId);
 			if (gameId == null) {
-				logger.error("Storing geolocations, gameId not found.");
+				logger.error("Error storing geolocations, gameId not found.");
 				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 				return "";
 			}
@@ -1351,6 +1360,12 @@ public class GamificationController {
 		}
 		
 		return criteria;
+	}
+	
+	@ExceptionHandler
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public void handle(HttpMessageNotReadableException e) {
+	    logger.warn("Returning HTTP 400 Bad Request", e);
 	}
 	
 }
