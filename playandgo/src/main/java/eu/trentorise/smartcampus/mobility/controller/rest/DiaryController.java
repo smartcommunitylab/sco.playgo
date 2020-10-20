@@ -384,7 +384,6 @@ public class DiaryController {
 
 				de.setTravelDistances(distances);
 				
-				// TODO: remove
 				Set<String> modes = Sets.newHashSet();
 				for (Leg leg: instance.getItinerary().getData().getLeg()) {
 					if (leg.getTransport() != null) {
@@ -408,7 +407,6 @@ public class DiaryController {
 				Map<String, Double> distances = Collections.singletonMap(instance.getFreeTrackingTransport(), val);
 				de.setTravelDistances(distances);
 				
-				// TODO: remove
 				de.setTravelModes(Sets.newHashSet(instance.getFreeTrackingTransport()));
 			} else {
 				de.setTravelType(TravelType.SHARED);
@@ -418,7 +416,6 @@ public class DiaryController {
 				Map<String, Double> distances = Collections.singletonMap(instance.getFreeTrackingTransport(), val);
 				de.setTravelDistances(distances);
 				
-				// TODO: remove
 				de.setTravelModes(Sets.newHashSet(instance.getFreeTrackingTransport()));
 				
 			}
@@ -439,6 +436,10 @@ public class DiaryController {
 					logger.info("Set assigned status to trip " + instance.getId());
 					instance.setScore(score);
 					instance.setScoreStatus(ScoreStatus.ASSIGNED);
+					storage.saveTrackedInstance(instance);
+				} else if (instance.getScore() < score) {
+					logger.info("Update assigned status to trip " + instance.getId() +": from " + instance.getScore() +" to " + score);
+					instance.setScore(score);
 					storage.saveTrackedInstance(instance);
 				}
 			} else {
