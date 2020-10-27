@@ -249,6 +249,7 @@ angular.module('viaggia.services.tracking', [])
             }
             if (transport === 'car') {
               var travelId = trackService.getCarTravelId();
+              if (travelId){
               launchGeoConfiguration({}, function (location, taskId) {
                 location.extras = {
                   idTrip: tripId,
@@ -263,6 +264,9 @@ angular.module('viaggia.services.tracking', [])
                     bgGeo.finish(taskId);
                 });
               });
+            } else {
+              deferred.reject()
+            }
             }
             deferred.resolve();
           }, function (errorCode) {
@@ -442,12 +446,11 @@ angular.module('viaggia.services.tracking', [])
           }, function (location, taskId) {
             sendServerStart(trip.data, idTrip, multimodalId, token, transportType, -1).then(function () {
               location.extras = {
-                idTrip: idTrip,
+                idTrip: idTrip, 
                 multimodalId: multimodalId,
                 start: startTimestamp,
                 transportType: transportType
-              }; // <-- add some arbitrary extras-data
-              //                      // Insert it.
+              }; 
               bgGeo.insertLocation(location, function () {
                 if (taskId)
                   bgGeo.finish(taskId);
@@ -567,8 +570,10 @@ angular.module('viaggia.services.tracking', [])
       $rootScope.syncRunning = true;
 
       LoginService.getValidAACtoken().then(function (token) {
+        //token obtained, let's configure and send data
         var trackingConfigure = Config.getTrackingConfig();
         //trackingConfigure['url'] += token;
+        //set header with token and appid
         trackingConfigure['headers'] = { // <-- Optional HTTP headers
           'Authorization': 'Bearer ' + token,
           'appId': Config.getAppGameId()
