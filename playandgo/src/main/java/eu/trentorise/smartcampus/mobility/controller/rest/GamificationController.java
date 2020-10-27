@@ -132,6 +132,7 @@ public class GamificationController {
 	private RankingManager rankingManager;
 	
 	private static Log logger = LogFactory.getLog(GamificationController.class);
+	private static Log inputLogger = LogFactory.getLog("tracklogger");
 
 	private static FastDateFormat shortSdf = FastDateFormat.getInstance("yyyy/MM/dd");
 	private static FastDateFormat reverseShortSdf = FastDateFormat.getInstance("dd/MM/yyyy");
@@ -140,7 +141,13 @@ public class GamificationController {
 
 	private ObjectMapper mapper = new ObjectMapper();
 	
-
+//	@PostMapping("/gamification/geolocations/compressed")
+//	public @ResponseBody String storeGeolocationEventCompressed(@RequestBody(required = false) GeolocationsEvent geolocationsEvent, @RequestHeader(required = false, value = "appId") String appId,
+//			HttpServletResponse response) throws Exception {
+//		
+//	}
+	
+	
 	@PostMapping("/gamification/geolocations")
 	public @ResponseBody String storeGeolocationEvent(@RequestBody(required = false) GeolocationsEvent geolocationsEvent, @RequestHeader(required = false, value = "appId") String appId,
 			HttpServletResponse response) throws Exception {
@@ -165,6 +172,7 @@ public class GamificationController {
 				return "";
 			}
 			
+			inputLogger.info("userId:" + userId + ", track: " + mapper.writeValueAsString(geolocationsEvent));
 			geolocationsProcessor.storeGeolocationEvents(geolocationsEvent, appId, userId, gameId);
 
 		} catch (Exception e) {
