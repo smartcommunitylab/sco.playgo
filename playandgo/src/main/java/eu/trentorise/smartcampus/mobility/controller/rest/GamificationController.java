@@ -132,6 +132,7 @@ public class GamificationController {
 	private RankingManager rankingManager;
 	
 	private static Log logger = LogFactory.getLog(GamificationController.class);
+	private static Log inputLogger = LogFactory.getLog("tracklogger");
 
 	private static FastDateFormat shortSdf = FastDateFormat.getInstance("yyyy/MM/dd");
 	private static FastDateFormat reverseShortSdf = FastDateFormat.getInstance("dd/MM/yyyy");
@@ -165,6 +166,7 @@ public class GamificationController {
 				return "";
 			}
 			
+			inputLogger.info("userId:" + userId + ", track: " + mapper.writeValueAsString(geolocationsEvent));
 			geolocationsProcessor.storeGeolocationEvents(geolocationsEvent, appId, userId, gameId);
 
 		} catch (Exception e) {
