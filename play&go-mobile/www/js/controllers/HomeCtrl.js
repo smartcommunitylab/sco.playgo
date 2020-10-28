@@ -335,7 +335,10 @@ angular.module('viaggia.controllers.home', [])
               template: $filter('translate')("pop_up_low_accuracy_template"),
               buttons: [{
                 text: $filter('translate')("btn_close"),
-                type: 'button-cancel'
+                type: 'button-cancel',
+                onTap: function () {
+                  $state.go('app.home.home');
+              }
               },
               {
                 text: $filter('translate')("pop_up_low_accuracy_button_go_on"),
