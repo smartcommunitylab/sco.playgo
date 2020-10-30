@@ -70,7 +70,6 @@ public class TokenHelper extends RemoteConnector {
 				aacURL += "/";
 			String url = aacURL + PATH_TOKEN + "?grant_type=client_credentials&client_id=" + clientId + "&client_secret=" + clientSecret;
 //			final HttpGet get = new HttpGet(url);
-// TODO: was get
 			final HttpPost get = new HttpPost(url);
 //			get.setHeader("Accept", "application/json");
 			try {

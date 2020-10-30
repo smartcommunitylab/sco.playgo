@@ -405,7 +405,7 @@ public class TrackValidator {
 	/**
 	 * Validate free tracking: train. Take reference train shapes as input.
 	 * Preprocess track data; check if contains more than 2 points; split into blocks with 15km/h - 3 mins for stop - at least 1 min fast track; 
-	 * match fragments against reference trac with 150m error and 80% coverage. Consider VALID if at least 80% of length is matched. If no
+	 * match fragments against reference track with 150m error and 80% coverage. Consider VALID if at least 80% of length is matched. If no
 	 * fast fragment found consider PENDING with TOO_SLOW error. Otherwise consider PENDING.
 	 * @param track
 	 * @param referenceTracks
@@ -415,7 +415,23 @@ public class TrackValidator {
 	public static ValidationStatus validateFreeTrain(Collection<Geolocation> track, List<List<Geolocation>> referenceTracks, List<Shape> areas) {
 		MODE_TYPE mode = MODE_TYPE.TRAIN; 
 		double speedThreshold = 15, timeThreshold = 3*60*1000, minTrackThreshold = 1*60*1000; 
-		return validateFreePTMode(track, referenceTracks, areas, mode, speedThreshold, timeThreshold, minTrackThreshold, false);
+		return validateFreePTMode(track, referenceTracks, areas, mode, speedThreshold, timeThreshold, minTrackThreshold, false, DISTANCE_THRESHOLD);
+	}
+	
+	/**
+	 * Validate free tracking: boat. Take reference boat shapes as input.
+	 * Preprocess track data; check if contains more than 2 points; split into blocks with 8km/h - 3 mins for stop - at least 1 min fast track; 
+	 * match fragments against reference k with 150m error and 80% coverage. Consider VALID if at least 80% of length is matched. If no
+	 * fast fragment found consider PENDING with TOO_SLOW error. Otherwise consider PENDING.
+	 * @param track
+	 * @param referenceTracks
+	 * @param areas
+	 * @return
+	 */
+	public static ValidationStatus validateFreeBoat(Collection<Geolocation> track, List<List<Geolocation>> referenceTracks, List<Shape> areas) {
+		MODE_TYPE mode = MODE_TYPE.BOAT; 
+		double speedThreshold = 8, timeThreshold = 3*60*1000, minTrackThreshold = 1*60*1000; 
+		return validateFreePTMode(track, referenceTracks, areas, mode, speedThreshold, timeThreshold, minTrackThreshold, false, 1000);
 	}
 
 	/**
@@ -431,7 +447,7 @@ public class TrackValidator {
 	public static ValidationStatus validateFreeBus(Collection<Geolocation> track, List<List<Geolocation>> referenceTracks, List<Shape> areas) {
 		MODE_TYPE mode = MODE_TYPE.BUS; 
 		double speedThreshold = 10, timeThreshold = 1*60*1000, minTrackThreshold = 30*1000; 
-		return validateFreePTMode(track, referenceTracks, areas, mode, speedThreshold, timeThreshold, minTrackThreshold, true);
+		return validateFreePTMode(track, referenceTracks, areas, mode, speedThreshold, timeThreshold, minTrackThreshold, true, DISTANCE_THRESHOLD);
 	}
 	
 	private static ValidationStatus validateFreePTMode(
@@ -442,7 +458,8 @@ public class TrackValidator {
 			double speedThreshold, 
 			double timeThreshold, 
 			double minTrackThreshold,
-			boolean checkCertificate) 
+			boolean checkCertificate,
+			double distanceThreshold) 
 	{
 		ValidationStatus status = new ValidationStatus();
 		// set parameters
@@ -453,7 +470,7 @@ public class TrackValidator {
 		status.setCoverageThreshold(COVERAGE_THRESHOLD);
 
 		// basic validation
-		List<Geolocation> points = prevalidate(track, status, areas, DISTANCE_THRESHOLD);
+		List<Geolocation> points = prevalidate(track, status, areas, distanceThreshold);
 		if (status.getValidationOutcome() != null) {
 			// no too short error for PT trips. Replace with DOES_NOT_MATCH error. 
 			if (ERROR_TYPE.TOO_SHORT.equals(status.getError())) {
@@ -562,7 +579,6 @@ public class TrackValidator {
 	public static ValidationStatus validateFreeWalk(Collection<Geolocation> track, List<Shape> areas) {
 
 		MODE_TYPE mode = MODE_TYPE.WALK; 
-		// TODO timeThreshold = 10 * 1000
 		double speedThreshold = WALK_SPEED_THRESHOLD, timeThreshold = 30 * 1000, minTrackThreshold = 60*1000, avgSpeedThreshold = WALK_AVG_SPEED_THRESHOLD, guaranteedAvgSpeedThreshold = WALK_GUARANTEED_AVG_SPEED_THRESHOLD; 
 
 		
@@ -721,6 +737,8 @@ public class TrackValidator {
 			return MODE_TYPE.BUS;
 		case "train": 
 			return MODE_TYPE.TRAIN;
+		case "boat": 
+			return MODE_TYPE.BOAT;
 		case "bike":
 			return MODE_TYPE.BIKE;
 		case "walk":
@@ -862,16 +880,10 @@ public class TrackValidator {
 		// basic validation
 		List<Geolocation> points = prevalidate(passengerTrack, status, areas, SHARED_TRIP_DISTANCE_THRESHOLD);
 		if (status.getValidationOutcome() != null) {
-			if (ERROR_TYPE.TOO_SHORT.equals(status.getError())) {
-				status.setError(ERROR_TYPE.DOES_NOT_MATCH);
-			}
 			return status;
 		}
 		List<Geolocation> driverPoints = prevalidate(driverTrack, status, areas, SHARED_TRIP_DISTANCE_THRESHOLD);
 		if (status.getValidationOutcome() != null) {
-			if (ERROR_TYPE.TOO_SHORT.equals(status.getError())) {
-				status.setError(ERROR_TYPE.DOES_NOT_MATCH);
-			}
 			return status;
 		}
 		
@@ -896,7 +908,11 @@ public class TrackValidator {
 			}
 			if ((100.0 * minMatchedLength / totalLength) < MIN_COVERAGE_THRESHOLD) {
 				status.setValidationOutcome(TravelValidity.INVALID);
+				status.setError(ERROR_TYPE.SHARED_DOES_NOT_MATCH);
+				return status;
 			}
+			// TODO check timing
+			
 		} 
 		return status;
 	}
@@ -917,9 +933,6 @@ public class TrackValidator {
 		// basic validation
 		prevalidate(driverTrack, status, areas, SHARED_TRIP_DISTANCE_THRESHOLD);
 		if (status.getValidationOutcome() != null) {
-			if (ERROR_TYPE.TOO_SHORT.equals(status.getError())) {
-				status.setError(ERROR_TYPE.DOES_NOT_MATCH);
-			}
 			return status;
 		}
 

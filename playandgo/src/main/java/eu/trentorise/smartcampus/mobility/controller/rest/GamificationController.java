@@ -17,6 +17,8 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -29,8 +31,10 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,6 +43,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.common.collect.Lists;
@@ -127,6 +132,7 @@ public class GamificationController {
 	private RankingManager rankingManager;
 	
 	private static Log logger = LogFactory.getLog(GamificationController.class);
+	private static Log inputLogger = LogFactory.getLog("tracklogger");
 
 	private static FastDateFormat shortSdf = FastDateFormat.getInstance("yyyy/MM/dd");
 	private static FastDateFormat reverseShortSdf = FastDateFormat.getInstance("dd/MM/yyyy");
@@ -137,23 +143,30 @@ public class GamificationController {
 	
 
 	@PostMapping("/gamification/geolocations")
-	public @ResponseBody String storeGeolocationEvent(@RequestBody(required = false) GeolocationsEvent geolocationsEvent, @RequestHeader(required = true, value = "appId") String appId,
+	public @ResponseBody String storeGeolocationEvent(@RequestBody(required = false) GeolocationsEvent geolocationsEvent, @RequestHeader(required = false, value = "appId") String appId,
 			HttpServletResponse response) throws Exception {
 		try {
 			String userId = getUserId();
 			if (userId == null) {
-				logger.error("Storing geolocations, user not found.");
+				logger.error("Error storing geolocations, user not found.");
 				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 				return "";
 			}
 
-			String gameId = getGameId(appId);
-			if (gameId == null) {
-				logger.error("Storing geolocations, gameId not found.");
+			if (StringUtils.isEmpty(appId)) {
+				logger.error("Error storing geolocations, missing appId.");
 				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 				return "";
 			}
 			
+			String gameId = getGameId(appId);
+			if (gameId == null) {
+				logger.error("Error storing geolocations, gameId not found.");
+				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+				return "";
+			}
+			
+			inputLogger.info("userId:" + userId + ", track: " + mapper.writeValueAsString(geolocationsEvent));
 			geolocationsProcessor.storeGeolocationEvents(geolocationsEvent, appId, userId, gameId);
 
 		} catch (Exception e) {
@@ -253,7 +266,6 @@ public class GamificationController {
 			}
 			if (res == null) {
 				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-				// TODO report problem better
 				logger.info("Start planned journey, itinerary not found.");
 				return;
 			}
@@ -288,7 +300,6 @@ public class GamificationController {
 			storage.saveTrackedInstance(res2);
 
 		} catch (Exception e) {
-			// TODO correct log, report relevant info
 			logger.error("Error in start planned journey: " + e.getMessage(), e);
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
@@ -429,7 +440,7 @@ public class GamificationController {
 ////						TODO reenabled
 //						boolean isGroup = gamificationValidator.isTripsGroup(ti.getGeolocationEvents(), ti.getUserId(), appId, ti.getFreeTrackingTransport());
 //						if (isGroup) {
-//							if ("bus".equals(ti.getFreeTrackingTransport()) || "train".equals(ti.getFreeTrackingTransport())) {
+//							if ("bus".equals(ti.getFreeTrackingTransport()) || "train".equals(ti.getFreeTrackingTransport()) || "boat".equals(ti.getFreeTrackingTransport())) {
 //								vr.getValidationStatus().setValidationOutcome(TravelValidity.PENDING);
 //								logger.info("In a group");
 //							}
@@ -478,7 +489,6 @@ public class GamificationController {
 					}
 				}
 			} catch (Exception e) {
-				// TODO fix log
 				logger.error("Failed to validate tracked itinerary: " + ti.getId(), e);
 			}
 
@@ -690,7 +700,7 @@ public class GamificationController {
 					if (forceQueue) {
 						gamificationManager.removeIdFromQueue(driverTravel.getClientId());				
 					}				
-					if (gamificationManager.sendSharedTravelDataToGamificationEngine(passengerTravel.getAppId(), driverTravel.getUserId(), driverTravel.getId(), driverTravel.getGeolocationEvents(), trackingData)) {
+					if (gamificationManager.sendSharedTravelDataToGamificationEngine(passengerTravel.getAppId(), driverTravel.getUserId(), passengerTravel.getUserId(), driverTravel.getId(), driverTravel.getGeolocationEvents(), trackingData)) {
 						driverTravel.setScoreStatus(ScoreStatus.SENT);
 					}
 				}
@@ -705,7 +715,7 @@ public class GamificationController {
 					}
 					trackingData.put(TRAVEL_ID, passengerTravel.getId());
 					trackingData.put(START_TIME, getStartTime(passengerTravel));
-					if (gamificationManager.sendSharedTravelDataToGamificationEngine(passengerTravel.getAppId(), passengerTravel.getUserId(), passengerTravel.getId(), passengerTravel.getGeolocationEvents(), trackingData)) {
+					if (gamificationManager.sendSharedTravelDataToGamificationEngine(passengerTravel.getAppId(), passengerTravel.getUserId(), driverTravel.getUserId(), passengerTravel.getId(), passengerTravel.getGeolocationEvents(), trackingData)) {
 						passengerTravel.setScoreStatus(ScoreStatus.SENT);
 					}
 				}
@@ -735,7 +745,6 @@ public class GamificationController {
 		});
 	}
 	
-	// TODO update
 	@GetMapping("/gamification/console/report")
 	public @ResponseBody void generareReport(HttpServletResponse response, @RequestParam(required = true, value = "appId") String appId, @RequestParam(required = false) Long fromDate, @RequestParam(required = false) Long toDate) throws IOException {
 		Criteria criteria = new Criteria("appId").is(appId).and("changedValidity").ne(null).and("approved").ne(true);
@@ -760,7 +769,6 @@ public class GamificationController {
 		StringBuffer sb = new StringBuffer("userId;id;freeTracking;itineraryName;score;valid\r\n");
 		for (TrackedInstance ti : instances) {
 			if (ti.getScore() == null) {
-				// TODO freetracking, planned as freetracking...
 				if (ti.getItinerary() != null) {
 					Itinerary itinerary = ti.getItinerary().getData();
 					long score = gamificationValidator.computeEstimatedGameScore(ti.getAppId(), ti.getUserId(), itinerary, ti.getGeolocationEvents(), false);
@@ -883,10 +891,16 @@ public class GamificationController {
 					if (!scores.containsKey(o.getId())) {
 						logger.info("Missing travel score in GE: " + o.getId());
 					}
-					if (scores.containsKey(o.getId()) && !ScoreStatus.ASSIGNED.equals(o.getScoreStatus())) {
+					Double score = scores.get(o.getId());
+
+					if (score != null && !ScoreStatus.ASSIGNED.equals(o.getScoreStatus())) {
 						logger.info("Set assigned status to trip " + o.getId());
 						o.setScore(scores.get(o.getId()).longValue());
 						o.setScoreStatus(ScoreStatus.ASSIGNED);
+						storage.saveTrackedInstance(o);
+					} else if (score != null && o.getScore() < score.longValue()) {
+						logger.info("Update assigned status to trip " + o.getId() +": from " + o.getScore() +" to " + score);
+						o.setScore(score.longValue());
 						storage.saveTrackedInstance(o);
 					}
 				}
@@ -981,11 +995,50 @@ public class GamificationController {
 		return list;
 	}
 
+	@GetMapping("/gamification/console/rating")
+	public @ResponseBody void getRating(HttpServletResponse response, 
+			@RequestParam(required = false) RankingType rankingType,
+			@RequestParam(required = false, defaultValue = "50") int count) throws Exception {
+		String appId = ((AppDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getApp().getAppId();
+    	response.setContentType("text/csv;charset=utf-8");
+		List<ClassificationData> ranking = null;
+		if (rankingType != null) {
+			switch (rankingType) {
+			case CURRENT:
+				ranking = rankingManager.getCurrentIncClassification().get(appId);
+				break;
+			case PREVIOUS:
+				ranking = rankingManager.getPreviousIncClassification().get(appId);
+				break;
+			case GLOBAL:
+			default:
+				ranking = rankingManager.getGlobalClassification().get(appId);
+			}
+		} else {
+			ranking = rankingManager.getGlobalClassification().get(appId);
+		}
+		ranking.sort((a,b) -> a.getPosition() - b.getPosition());
+		ranking = ranking.subList(0,  Math.min(count, ranking.size()));
+		String gameId = appSetup.findAppById(appId).getGameId();
+
+        try (CSVPrinter printer = new CSVPrinter(response.getWriter(), CSVFormat.EXCEL
+        	    .withHeader(new String[] {"playerId","nickname","mail","score"}).withDelimiter(','))) {
+        	for (ClassificationData data: ranking) {
+        		Player player = playerRepo.findByPlayerIdAndGameId(data.getPlayerId(), gameId);
+        		if (player != null) {
+        			printer.printRecord(data.getPlayerId(), data.getNickName(), player.getMail(), data.getScore());
+        		}
+        	}
+        }
+
+	}
+	
 	@GetMapping("/gamification/console/users")
 	public @ResponseBody List<UserDescriptor> getTrackInstancesUsers(@RequestHeader(required = true, value = "appId") String appId, @RequestParam(required = false) Long fromDate,
 			@RequestParam(required = false) Long toDate, @RequestParam(required = false) Boolean excludeZeroPoints, @RequestParam(required = false) Boolean unapprovedOnly, @RequestParam(required = false) Boolean pendingOnly,
 			@RequestParam(required = false) Boolean toCheck, @RequestParam(required = false) String filterUserId, @RequestParam(required = false) String filterTravelId,
-			@RequestParam(required = false) RankingType rankingType, @RequestParam(required = false) final Integer maxRanking) throws Exception {
+			@RequestParam(required = false) RankingType rankingType, @RequestParam(required = false) final Integer maxRanking,
+			@RequestParam(required = false) String transport) throws Exception {
 		List<UserDescriptor> userList = null;
 
 		List<ClassificationData> ranking = null;
@@ -1046,6 +1099,10 @@ public class GamificationController {
 //			}
 
 			Criteria criteria = generateFilterCriteria(appId, filterUserId, filterTravelId, fromDate, toDate, excludeZeroPoints, unapprovedOnly, toCheck, pendingOnly);
+			if (!StringUtils.isEmpty(transport)) {
+				criteria = criteria.and("freeTrackingTransport").is(transport);
+			}
+				
 			Query query = new Query(criteria);
 
 			List<TrackedInstance> tis = storage.searchDomainObjects(query, keys, TrackedInstance.class);
@@ -1305,6 +1362,12 @@ public class GamificationController {
 		}
 		
 		return criteria;
+	}
+	
+	@ExceptionHandler
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public void handle(HttpMessageNotReadableException e) {
+	    logger.warn("Returning HTTP 400 Bad Request", e);
 	}
 	
 }
