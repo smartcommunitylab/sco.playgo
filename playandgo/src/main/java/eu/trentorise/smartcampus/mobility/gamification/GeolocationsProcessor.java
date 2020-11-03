@@ -44,6 +44,10 @@ import eu.trentorise.smartcampus.mobility.storage.ItineraryObject;
 @Component
 public class GeolocationsProcessor {
 
+	/**
+	 * 
+	 */
+	private static final int LOCATION_STORE_INTERVAL = 2 * 24 * 3600 * 1000;
 	private static FastDateFormat shortSdf = FastDateFormat.getInstance("yyyy/MM/dd");
 	private static FastDateFormat timeSdf = FastDateFormat.getInstance("HH:mm");
 	private static FastDateFormat fullSdf = FastDateFormat.getInstance("yyyy/MM/dd HH:mm");
@@ -141,10 +145,13 @@ public class GeolocationsProcessor {
 	private void checkEventsOrder(GeolocationsEvent geolocationsEvent, String userId) {
 		if (geolocationsEvent.getLocation() != null && !geolocationsEvent.getLocation().isEmpty()) {
 			Location lastOk = geolocationsEvent.getLocation().get(geolocationsEvent.getLocation().size() - 1);
+			adjustTimestamp(lastOk);
+			
 			ArrayList<Location> toKeep = Lists.newArrayList();
 			toKeep.add(lastOk);
 			for (int i = geolocationsEvent.getLocation().size() - 2; i >= 0; i--) {
 				Location l1 = geolocationsEvent.getLocation().get(i);
+				adjustTimestamp(l1);
 
 				Date dOk = lastOk.getTimestamp();
 				Date d1 = l1.getTimestamp();
@@ -177,6 +184,32 @@ public class GeolocationsProcessor {
 			Collections.sort(geolocationsEvent.getLocation());
 		} else {
 			logger.info("No geolocations found.");
+		}
+	}
+
+	/**
+	 * Happens in strange situations: the timestamp of GPS is far in the past. Need to adjust
+	 * @param lastOk
+	 */
+	private void adjustTimestamp(Location l) {
+		Date lastDate = l.getTimestamp();
+		Long startTs = null; 
+		if (l.getExtras() != null && l.getExtras().containsKey("start")) {
+			startTs = Long.parseLong(l.getExtras().get("start").toString());
+		} else {
+			// should not happen
+			startTs = System.currentTimeMillis();
+		}
+		if (lastDate.getTime() < startTs) {
+			Calendar tsc = Calendar.getInstance();
+			tsc.setTime(l.getTimestamp());
+			Calendar sc = Calendar.getInstance();
+			sc.setTimeInMillis(startTs);
+			tsc.set(Calendar.YEAR, sc.get(Calendar.YEAR));
+			tsc.set(Calendar.MONTH, sc.get(Calendar.MONTH));
+			tsc.set(Calendar.DATE, sc.get(Calendar.DATE));
+			logger.info("Adjusting time point: " + l.getTimestamp().getTime());
+			l.setTimestamp(tsc.getTime());
 		}
 	}
 
@@ -213,21 +246,10 @@ public class GeolocationsProcessor {
 
 				if (locationTs == null) {
 					locationTs = location.getTimestamp().getTime();
-				// Happens in strange situations: the timestamp of GPS is far in the past. Need to adjust
-				} else if (location.getTimestamp().getTime() < locationTs) {
-					Calendar tsc = Calendar.getInstance();
-					tsc.setTime(location.getTimestamp());
-					Calendar sc = Calendar.getInstance();
-					sc.setTimeInMillis(locationTs);
-					tsc.set(Calendar.YEAR, sc.get(Calendar.YEAR));
-					tsc.set(Calendar.MONTH, sc.get(Calendar.MONTH));
-					tsc.set(Calendar.DATE, sc.get(Calendar.DATE));
-					logger.info("Adjusting time point: " + location.getTimestamp().getTime());
-					location.setTimestamp(tsc.getTime());
 				}
 
 				// discard event older than 2 days
-				if (now - 2 * 24 * 3600 * 1000 > location.getTimestamp().getTime()) {
+				if (now - LOCATION_STORE_INTERVAL > location.getTimestamp().getTime()) {
 					logger.info("Skipped point at time " + location.getTimestamp().getTime());
 					skippedOld++;
 //					continue;
