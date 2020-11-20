@@ -80,8 +80,8 @@ public class TrackingDataController {
 		if (Boolean.FALSE.equals(dto.getMultimodal())) {
 			criterias.add(new Criteria("freeTrackingTransport").in(dto.getMeans()));
 		}
-		if (!StringUtils.isEmpty(dto.getPlayerId())) {
-			criterias.add(new Criteria("userId").is(dto.getPlayerId()));
+		if (dto.getPlayerId() != null && dto.getPlayerId().size() > 0) {
+			criterias.add(new Criteria("userId").in(dto.getPlayerId()));
 		}
 		if (!criterias.isEmpty()) {
 			Criteria[] cs = criterias.toArray(new Criteria[criterias.size()]);
@@ -172,18 +172,18 @@ public class TrackingDataController {
 	}
 
 	public static class TrackingDataRequestDTO {
-		private String playerId;
+		private List<String> playerId;
 		private String from, to;
 		private List<String> means;
 		private Boolean multimodal;
 		
 		private List<LocationDTO> locations;
 
-		public String getPlayerId() {
+		public List<String> getPlayerId() {
 			return playerId;
 		}
 
-		public void setPlayerId(String playerId) {
+		public void setPlayerId(List<String> playerId) {
 			this.playerId = playerId;
 		}
 
