@@ -153,28 +153,43 @@ public class GamificationWebController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/gamificationweb/survey/{lang}/{survey}/{playerId:.*}")	///{socialId}
 	public 
-	ModelAndView sendSurvey(@RequestBody MultiValueMap<String,String> formData, @PathVariable String lang, @PathVariable String survey, @PathVariable String playerId) throws Exception {
-		ModelAndView model =  new ModelAndView("web/survey_complete");
+	ModelAndView sendSurvey(
+			@RequestBody MultiValueMap<String,String> formData, 
+			@PathVariable String lang, 
+			@PathVariable String survey, 
+			@PathVariable String playerId, 
+			@RequestParam(required=false, defaultValue = "survey_complete") String completeTemplate,
+			@RequestParam(required=false, defaultValue = "false") Boolean multi
+			) throws Exception {
+		ModelAndView model =  null;
+		boolean complete = false;
 		try {
 			PlayerIdentity identity = linkUtils.decryptIdentity(playerId);
 			String sId = identity.playerId;
 			String gameId = identity.gameId;
 			if(!StringUtils.isEmpty(sId)){	// case of incorrect encrypted string
 				logger.info("Survey data. Found player : " + sId);
-					Player p = playerRepositoryDao.findByPlayerIdAndGameId(sId, gameId);
-					if (!p.getSurveys().containsKey(survey)) {
-						p.addSurvey(survey, toSurveyData(formData));
-						sendSurveyToGamification(sId, gameId, survey);
-						playerRepositoryDao.save(p);
-					}
-					model.addObject("surveyComplete", true);
+				Player p = playerRepositoryDao.findByPlayerIdAndGameId(sId, gameId);
+				if (!p.getSurveys().containsKey(survey)) {
+					Map<String, Object> data = toSurveyData(formData, multi);
+					data.remove("multi");
+					data.remove("completeTemplate");
+					p.addSurvey(survey, data);
+					sendSurveyToGamification(sId, gameId, survey);
+					playerRepositoryDao.save(p);
+					model =  new ModelAndView("web/" + completeTemplate);
+					model.addObject("surveyData", data);
+				}
+				complete = true;
 			}
 			
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
-			model.addObject("surveyComplete", false);
-			
 		}
+		if (model == null) {
+			model =  new ModelAndView("web/survey_complete");
+		}
+		model.addObject("surveyComplete", complete);
 		return model;
 	}
 	
@@ -201,11 +216,12 @@ public class GamificationWebController {
 	
 	/**
 	 * @param formData
+	 * @param multi 
 	 * @return
 	 */
-	private Map<String, Object> toSurveyData(MultiValueMap<String, String> formData) {
+	private Map<String, Object> toSurveyData(MultiValueMap<String, String> formData, Boolean multi) {
 		Map<String, Object> result = new HashMap<>();
-		formData.forEach((key, list) -> result.put(key, formData.getFirst(key)));
+		formData.forEach((key, list) -> result.put(key, Boolean.TRUE.equals(multi) ? formData.get(key) : formData.getFirst(key)));
 		return result;
 	}
 
