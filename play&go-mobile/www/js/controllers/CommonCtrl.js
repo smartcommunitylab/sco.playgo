@@ -1,6 +1,6 @@
 angular.module('viaggia.controllers.common', [])
 
-  .controller('AppCtrl', function ($scope, Toast, $rootScope, $locale, $q, $state, $ionicSideMenuDelegate, GameSrv, $cordovaCamera, profileService, trackService, $ionicHistory, $location, $timeout, $ionicScrollDelegate, $ionicPopup, $ionicModal, $filter, $ionicLoading, DataManager, Config, planService, Utils, tutorial) {
+  .controller('AppCtrl', function ($scope, Toast, $rootScope, LoginService,$locale, $q, $state, $ionicSideMenuDelegate, GameSrv, $cordovaCamera, profileService, trackService, $ionicHistory, $location, $timeout, $ionicScrollDelegate, $ionicPopup, $ionicModal, $filter, $ionicLoading, DataManager, Config, planService, Utils, tutorial) {
 
     $locale.NUMBER_FORMATS.GROUP_SEP = '';
     /* menu group */
@@ -290,6 +290,13 @@ angular.module('viaggia.controllers.common', [])
       var url = Config.getGamificationURL() + "/prizes";
       cordova.InAppBrowser.open(url, "_system", "location=yes");
     };
+    $scope.openCompaniesCampaingns = function() {
+      LoginService.getValidAACtoken().then(
+        function (token) {
+          cordova.InAppBrowser.open(Config.getPGAziendaleUrl()+token, "_system", "location=yes");
+          console.log('ciao');
+        });
+    }
     $scope.openSchool = function () {
       if (!!$scope.firstOpenPopup) {
         $scope.firstOpenPopup.close();
