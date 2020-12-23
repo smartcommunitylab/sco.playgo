@@ -48,6 +48,7 @@ gamificationConsole.controller('GameCtrl', function($scope, $timeout, $http) {
 	$scope.filterTravelId = ""
 	$scope.rankingType = "NONE"
 	$scope.maxRanking = 50
+	$scope.filterMean = ""
 	
 	$scope.format = 'EEE MMM dd HH:mm';
 	$scope.dateOptions = {
@@ -97,7 +98,13 @@ gamificationConsole.controller('GameCtrl', function($scope, $timeout, $http) {
 		$http.get("console/appId").success(function(data) {	
 			$scope.appId = data;
 			spinner.spin(target);
-			$http.get("console/users?excludeZeroPoints=" + $scope.excludeZeroPoints + "&unapprovedOnly=" + $scope.unapprovedOnly + "&pendingOnly=" + $scope.pendingOnly + "&toCheck=" + $scope.toCheck + ($scope.allDates ? "" : ("&fromDate=" + $scope.fromDate.getTime() + "&toDate=" + $scope.toDate.getTime())) + "&filterUserId=" + $scope.filterUserId + "&filterTravelId=" + $scope.filterTravelId + "&rankingType=" + $scope.rankingType + "&maxRanking=" + $scope.maxRanking, {"headers" : { "appId" : $scope.appId}}).then(function(data) {
+			$scope.state = {}; 
+			
+			$http.get("console/state").then(function(state) {
+		    $scope.state = state.data;
+			});
+			
+			$http.get("console/users?excludeZeroPoints=" + $scope.excludeZeroPoints + "&unapprovedOnly=" + $scope.unapprovedOnly + "&pendingOnly=" + $scope.pendingOnly + "&toCheck=" + $scope.toCheck + ($scope.allDates ? "" : ("&fromDate=" + $scope.fromDate.getTime() + "&toDate=" + $scope.toDate.getTime())) + "&filterUserId=" + $scope.filterUserId + "&filterTravelId=" + $scope.filterTravelId + "&rankingType=" + $scope.rankingType + "&maxRanking=" + $scope.maxRanking + "&mean=" + $scope.filterMean, {"headers" : { "appId" : $scope.appId}}).then(function(data) {
 				var users = [];
 				var banned = [];
 				$scope.userTotals = {};
@@ -137,6 +144,16 @@ gamificationConsole.controller('GameCtrl', function($scope, $timeout, $http) {
 
 	load();
 
+  $scope.toggleStatus = function() {
+    if (confirm('Are you sure')) {
+      $http.put("console/" + ($scope.state.send ? "deactivate" : "activate")).then(function() {
+        $http.get("console/state").then(function(state) {
+          $scope.state = state.data;
+        });      
+      });
+    }
+  }
+
 	$scope.selectUser = function(user) {
 		if ($scope.selectedUser == user)
 			$scope.selectedUser = null;
@@ -146,7 +163,7 @@ gamificationConsole.controller('GameCtrl', function($scope, $timeout, $http) {
 			if (!$scope.userMap[user]) {
 				spinner.spin(target);
 //				console.log($scope.allDates);
-				$http.get("console/useritinerary/" + user + "?excludeZeroPoints=" + $scope.excludeZeroPoints + "&unapprovedOnly=" + $scope.unapprovedOnly + "&pendingOnly=" + $scope.pendingOnly + "&toCheck=" + $scope.toCheck  + ($scope.allDates ? "" : ("&fromDate=" + $scope.fromDate.getTime() + "&toDate=" + $scope.toDate.getTime())) + "&filterUserId=" + $scope.filterUserId + "&filterTravelId=" + $scope.filterTravelId, {"headers" : { "appId" : $scope.appId}}).then(function(data) {
+				$http.get("console/useritinerary/" + user + "?excludeZeroPoints=" + $scope.excludeZeroPoints + "&unapprovedOnly=" + $scope.unapprovedOnly + "&pendingOnly=" + $scope.pendingOnly + "&toCheck=" + $scope.toCheck  + ($scope.allDates ? "" : ("&fromDate=" + $scope.fromDate.getTime() + "&toDate=" + $scope.toDate.getTime())) + "&filterUserId=" + $scope.filterUserId + "&filterTravelId=" + $scope.filterTravelId + "&mean=" + $scope.filterMean, {"headers" : { "appId" : $scope.appId}}).then(function(data) {
 					$scope.userMap[user] = data.data;
 					spinner.stop();
 				});
@@ -200,7 +217,7 @@ gamificationConsole.controller('GameCtrl', function($scope, $timeout, $http) {
 // "&toDate=" + $scope.toDate.getTime() + "&excludeZeroPoints=" +
 // $scope.excludeZeroPoints + "&toCheck=" + $scope.toCheck, {}, {"headers" : {
 // "appId" : $scope.appId}}).then(function(data) {
-		$http.post("console/validate?excludeZeroPoints=" + $scope.excludeZeroPoints + "&toCheck=" + $scope.toCheck + "&pendingOnly=" + $scope.pendingOnly + ($scope.allDates ? "" : ("&fromDate=" + $scope.fromDate.getTime() + "&toDate=" + $scope.toDate.getTime())) + "&filterUserId=" + $scope.filterUserId + "&filterTravelId=" + $scope.filterTravelId, {}, {"headers" : { "appId" : $scope.appId}}).then(function(data) {
+		$http.post("console/validate?excludeZeroPoints=" + $scope.excludeZeroPoints + "&toCheck=" + $scope.toCheck + "&pendingOnly=" + $scope.pendingOnly + ($scope.allDates ? "" : ("&fromDate=" + $scope.fromDate.getTime() + "&toDate=" + $scope.toDate.getTime())) + "&filterUserId=" + $scope.filterUserId + "&filterTravelId=" + $scope.filterTravelId + "&mean=" + $scope.filterMean, {}, {"headers" : { "appId" : $scope.appId}}).then(function(data) {
 			load();
 			spinner.stop();
 		});
@@ -278,7 +295,7 @@ gamificationConsole.controller('GameCtrl', function($scope, $timeout, $http) {
 	
 	$scope.approveAll = function() {
 // spinner.spin(target);
-		$http.post("console/approveFiltered?excludeZeroPoints=" + $scope.excludeZeroPoints + "&toCheck=" + $scope.toCheck + "&pendingOnly=" + $scope.pendingOnly + ($scope.allDates ? "" : ("&fromDate=" + $scope.fromDate.getTime() + "&toDate=" + $scope.toDate.getTime())) + "&filterUserId=" + $scope.filterUserId + "&filterTravelId=" + $scope.filterTravelId, {}, {"headers" : { "appId" : $scope.appId}}).then(function(data) {
+		$http.post("console/approveFiltered?excludeZeroPoints=" + $scope.excludeZeroPoints + "&toCheck=" + $scope.toCheck + "&pendingOnly=" + $scope.pendingOnly + ($scope.allDates ? "" : ("&fromDate=" + $scope.fromDate.getTime() + "&toDate=" + $scope.toDate.getTime())) + "&filterUserId=" + $scope.filterUserId + "&filterTravelId=" + $scope.filterTravelId + "&mean=" + $scope.filterMean, {}, {"headers" : { "appId" : $scope.appId}}).then(function(data) {
 			load();
 			spinner.stop();
 		});

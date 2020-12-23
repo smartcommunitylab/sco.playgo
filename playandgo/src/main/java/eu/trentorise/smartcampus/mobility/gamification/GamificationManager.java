@@ -288,12 +288,16 @@ public class GamificationManager {
 				logger.warn("Not sending for banned player " + userId);
 				return false;
 			}		
+			if (!Boolean.TRUE.equals(game.getSend())) {
+				return true;
+			}
 			
 			ExecutionDataDTO ed = new ExecutionDataDTO();
 			ed.setGameId(app.getGameId());
 			ed.setPlayerId(userId);
 			ed.setActionId(SAVE_ITINERARY);
 			ed.setData(trackingData);
+			
 			
 			Long time = (Long)trackingData.remove(GamificationController.START_TIME);
 			ed.setExecutionMoment(new Date(time));
