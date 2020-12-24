@@ -140,6 +140,11 @@ public class GamificationManager {
 			return false;
 		}
 
+		if (!game.getSend()) {
+			logger.warn("Not sending for disabled game " + game.getId());
+			return false;
+		}
+		
 		try {
 			ExecutionDataDTO ed = new ExecutionDataDTO();
 			ed.setGameId(app.getGameId());
@@ -289,6 +294,7 @@ public class GamificationManager {
 				return false;
 			}		
 			if (!Boolean.TRUE.equals(game.getSend())) {
+				logger.warn("Not sending for disabled game " + game.getId());
 				return true;
 			}
 			
