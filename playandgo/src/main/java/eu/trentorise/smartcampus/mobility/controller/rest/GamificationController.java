@@ -1005,6 +1005,7 @@ public class GamificationController {
 	@GetMapping("/gamification/console/rating")
 	public @ResponseBody void getRating(HttpServletResponse response, 
 			@RequestParam(required = false) RankingType rankingType,
+			@RequestParam(required = false) String date,
 			@RequestParam(required = false, defaultValue = "50") int count) throws Exception {
 		String appId = ((AppDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getApp().getAppId();
     	response.setContentType("text/csv;charset=utf-8");
@@ -1021,6 +1022,8 @@ public class GamificationController {
 			default:
 				ranking = rankingManager.getGlobalClassification().get(appId);
 			}
+		} else if (date != null) {
+			ranking = rankingManager.getClassificationAt(appId, date);
 		} else {
 			ranking = rankingManager.getGlobalClassification().get(appId);
 		}

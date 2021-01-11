@@ -985,6 +985,10 @@ gamificationConsole.controller('UsersCtrl', function($scope, $timeout, $http) {
 	$scope.loadLast50 = function() {
 		download('console/rating?rankingType=PREVIOUS&count=50', 'week50');
 	}
+  $scope.loadWeek = function() {
+    var date = prompt('Specify reference date (yyyy-MM-dd)'); 
+    download('console/rating?date='+date+'&count=50', 'week50');
+  }
 	$scope.loadGlobal50 = function() {
 		download('console/rating?rankingType=GLOBAL&count=50', 'global50');
 	}
