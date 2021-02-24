@@ -13,7 +13,17 @@ angular.module('viaggia.controllers.timetable', ['ionic'])
         $scope.allMarkers = null;
         $scope.titleCorona = $filter('translate')('label_warning_corona_title');
         $scope.subtitleCorona = $filter('translate')('label_warning_corona_message');
+        $scope.openPopUp = function () {
+            $scope.alertPopup = $ionicPopup.alert({
+                title:$scope.titleCorona,
+                templateUrl: 'templates/corona/coronaPopup.html',
+                scope: $scope,
+                cssClass: 'coronaPopup'
+            });
 
+            $scope.alertPopup.then(function (res) {
+            });
+        }
         $scope.closePopup = function () {
             $scope.alertPopup.close();
         }

@@ -20,6 +20,7 @@
         </div>
       </div>
     </div>
+    <ng-include ng-if="coronaVirus" src="'templates/corona/homeCorona.html'"></ng-include>
     <div ng-if="actualTab=='unlock'">
       <ion-scroll class="padding-right padding-left challenges" ng-style="challengesStyle"
         delegate-handle="challengesScroll">
