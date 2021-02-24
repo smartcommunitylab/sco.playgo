@@ -23,7 +23,7 @@
     "cliendID": "aeeab816-81dd-4606-8d61-4a04222949d9",
     "clientSecID": "b100a9a8-3cb0-4bde-8043-f09272edf2a6",
     "redirectURL": "http://localhost",
-    "PGAziendaleUrl":"https://polite-wave-0900c7203.azurestaticapps.net/callback?mobileToken=",
+    "PGAziendaleUrl":"https://aziendedev.playngo.it/callback?mobileToken=",
     "smartcheck_options": [
         1,
         4,
