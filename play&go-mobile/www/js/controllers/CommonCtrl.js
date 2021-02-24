@@ -122,18 +122,10 @@ angular.module('viaggia.controllers.common', [])
         historyRoot: true
       });
     }
-    $scope.isBetween = function (from, to) {
-      var today = moment();
-      var from = moment(from, "DD/MM/YYYY hh:mm:ss");
-      var to = moment(to, "DD/MM/YYYY hh:mm:ss");
-      if (today >= from && today <= to) {
-        return true;
-      }
-      return false;
-    }
+ 
     $scope.changeTracking = function (type, enabled) {
       if (type=="boat"){
-        if (!$scope.isBetween("03/10/2020 00:00:00","04/10/2020 23:59:59"))
+        if (!$rootScope.isBetween("03/10/2020 00:00:00","04/10/2020 23:59:59"))
 {        $scope.noBoatPopup();
         return;}
       }
@@ -731,20 +723,21 @@ angular.module('viaggia.controllers.common', [])
       $scope.alertPopup.then(function (res) {
       });
     }
-    $scope.openTrackingNotEnabled = function () {
-      $scope.titleCorona = $filter('translate')('label_title_tracking_not_yet');
-      $scope.messageCorona = $filter('translate')('label_warning_not_yet_extended');
-      $scope.alertPopup = $ionicPopup.alert({
-        title: $scope.titleCorona,
-        templateUrl: 'templates/notYetPopup.html',
-        scope: $scope,
-        cssClass: 'notYetGamePopup'
-      });
-
-      $scope.alertPopup.then(function (res) {
-      });
-    }
+    $scope.openTrackingCorona = function(){
+      $scope.titleCorona = $filter('translate')('label_title_tracking_corona');
+            $scope.alertPopup = $ionicPopup.alert({
+                title:$scope.titleCorona,
+                templateUrl: 'templates/corona/coronaGamePopup.html',
+                scope: $scope,
+                cssClass: 'coronaGamePopup'
+            });
+  
+            $scope.alertPopup.then(function (res) {
+            });
+        }
+       
   })
+ 
 
 
   .factory('Toast', function ($rootScope, $timeout, $ionicPopup, $cordovaToast) {

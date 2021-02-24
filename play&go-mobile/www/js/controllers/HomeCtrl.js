@@ -465,12 +465,16 @@ angular.module('viaggia.controllers.home', [])
   
     $scope.trackAndMap = function (transportType, enabled) {
       //init multimodal id used for db 
-      // if ($scope.isBetween("23/09/2020 00:00:00","26/09/2020 00:00:00")) {
+      // if ($rootScope.isBetween("23/09/2020 00:00:00","26/09/2020 00:00:00")) {
       //   $scope.beforeStartPopup();
       //   return;
       // }
+      if ($rootScope.coronaVirus) {
+        $scope.openTrackingCorona();
+        return;
+      }
       if (transportType=="boat"){
-        if (!$scope.isBetween("03/10/2020 00:00:00","04/10/2020 23:59:59"))
+        if (!$rootScope.isBetween("03/10/2020 00:00:00","04/10/2020 23:59:59"))
         {
           $scope.noBoatPopup();
         return;

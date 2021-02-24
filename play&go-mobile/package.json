@@ -8,7 +8,7 @@
   "dependencies": {
     "code-push": "^3.0.1",
     "cordova": "^9.0.0",
-    "cordova-android": "8.1.0",
+    "cordova-android": "^8.1.0",
     "cordova-background-geolocation": "file:../../cordova-background-geolocation",
     "cordova-common": "^4.0.0",
     "cordova-custom-config": "^5.1.0",
@@ -200,8 +200,8 @@
       "cordova-plugin-sign-in-with-apple": {}
     },
     "platforms": [
-      "android",
-      "ios"
+      "ios",
+      "android"
     ]
   }
 }
