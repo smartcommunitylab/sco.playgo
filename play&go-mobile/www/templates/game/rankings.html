@@ -30,6 +30,7 @@
                           </div>
                 </div>
         </div>
+        <ng-include ng-if="coronaVirus"  src="'templates/corona/homeCorona.html'"></ng-include>
         <div ng-if="!!status && singleRankStatus && rank">
             <div class="listheader" ng-class="{hasprize: (filter.selected === 'now' && !!prize)}">
                 <div class="prize" ng-if="filter.selected === 'now' && !!prize">

@@ -23,6 +23,7 @@
                 </ion-list>
             </div>
         </div>
+        <ng-include ng-if="coronaVirus"  src="'templates/corona/homeCorona.html'"></ng-include>
         <ion-scroll class="ranking diary" ng-style="rankingStyle" delegate-handle="diaryScroll" ng-if="!noDiary()">
             <ion-list>
                 <div style="margin-top: 25px">
