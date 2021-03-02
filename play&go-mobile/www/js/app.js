@@ -326,6 +326,7 @@ angular.module('viaggia', [
         //   if (!loc) {
         //       showWarningPopUp();
         //   }})
+        if (($state.current.name != "app.login") && ($state.current.name != "app.home.home"))
         geolocate().then(function () {
           if (trackService.trackingIsGoingOn() && trackService.trackingIsFinished()) {
             trackService.stop();
@@ -1580,6 +1581,7 @@ angular.module('viaggia', [
       sign_in_apple:"Accedi con Apple",
       sign_in_google:"Accedi con Google",
       sign_in_facebook:"Accedi con Facebook",
+      lbl_geolocation:" raccoglie i dati sulla posizione per abilitare tracciamento, validazione e premiazione di viaggi sostenibili anche quando l'app é chiusa o non utilizzata"
     });
 
     // ====================================================================================================================================================================================
@@ -2189,6 +2191,7 @@ angular.module('viaggia', [
       sign_in_apple:"Sign in with Apple",
       sign_in_google:"Sign in with Google",
       sign_in_facebook:"Sign in with Facebook",
+      lbl_geolocation:" collects location data to enable the tracking, validation and rewarding of sustainable trips even when the app is closed or not in use."
 
     });
 
