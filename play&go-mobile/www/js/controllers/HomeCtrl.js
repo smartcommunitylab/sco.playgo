@@ -229,8 +229,9 @@ angular.module('viaggia.controllers.home', [])
         setChooseButton();
       }
     });
-    $scope.$on("$ionicView.enter", function (scopes, states) {
+    $scope.startHome=function() {
       Config.init().then(function () {
+
         localDataInit();
         if (window.BackgroundGeolocation) {
           $rootScope.syncRunning = true;
@@ -257,9 +258,40 @@ angular.module('viaggia.controllers.home', [])
             // $ionicLoading.hide();
             $rootScope.syncRunning = false;
           });
-
+    
         };
-      });
+      // });
+    });
+    }
+    $scope.$on("$ionicView.enter", function (scopes, states) {
+      // Get the modal
+var modal = document.getElementById("myModal");
+
+
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+cordova.plugins.diagnostic.getLocationAuthorizationStatus(function (status) {
+  if (status !=cordova.plugins.diagnostic.permissionStatus.NOT_REQUESTED) {
+    // alert("Perfetto");
+    $scope.startHome();
+  }
+  else {
+ modal.style.display = "block";
+ }
+})
+// When the user clicks on <span> (x), close the modal and run init (permission)
+span.onclick = function() {
+  modal.style.display = "none";
+  cordova.plugins.diagnostic.requestLocationAuthorization(function(status){
+    $scope.startHome();
+}, function(error){
+    console.error(error);
+}, cordova.plugins.diagnostic.locationAuthorizationMode.ALWAYS);
+  
+}
+
+     
 
     }, function (err) {
       $scope.homeCreation = false;
@@ -465,12 +497,16 @@ angular.module('viaggia.controllers.home', [])
   
     $scope.trackAndMap = function (transportType, enabled) {
       //init multimodal id used for db 
-      // if ($scope.isBetween("23/09/2020 00:00:00","26/09/2020 00:00:00")) {
+      // if ($rootScope.isBetween("23/09/2020 00:00:00","26/09/2020 00:00:00")) {
       //   $scope.beforeStartPopup();
       //   return;
       // }
+      if ($rootScope.coronaVirus) {
+        $scope.openTrackingCorona();
+        return;
+      }
       if (transportType=="boat"){
-        if (!$scope.isBetween("03/10/2020 00:00:00","04/10/2020 23:59:59"))
+        if (!$rootScope.isBetween("03/10/2020 00:00:00","04/10/2020 23:59:59"))
         {
           $scope.noBoatPopup();
         return;

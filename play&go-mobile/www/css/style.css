@@ -3992,4 +3992,166 @@ text-align: center;
     text-align: center;
     padding: 10%;
 }
+.warning-corona{
+  margin: 8px;
+  margin-top: 28px;
+  background-color: #2975a7 !important;
+  color: white;
+  text-align: justify;
+  padding: 8px;
+}
+.warning-corona-title{
+  font-weight: bold;
+  text-align: center;
+}
+.warning-corona-subtitle{
+text-align: center;
+}
+.coronaPopup .popup {
+  min-width: 85% !important;  /* height: 230px; */
+  background-color: #2975a7 !important;
+  color: white;
+}
+.coronaPopup .popup-title{
+  color: white;
+}
+ .coronaPopup .popup-head {
+  /* visibility: hidden; */
+  /* padding: 0px; */
+  color: white!important;
+  border-bottom: none;
+  padding-top: 21px;
+} 
 
+.coronaPopup .popup-body {
+  overflow: inherit !important;
+  text-align: justify;
+  position: relative;
+  height: 100vh;
+
+}
+
+.coronaPopup .popup-buttons .button:last-child {
+  /* position: absolute;
+  right: -22px;
+  bottom: -20px;
+  width: 45px;
+  cursor: pointer; */
+  background-color: white!important;
+  color:#2975a7 !important;
+}
+.coronaPopup .close-button{
+  position: absolute;
+  right: 15px;
+  top: -50px;
+}
+.coronaPopup a {
+  color: white;
+}
+.coronaPopup .body-message{
+  margin: 20px;
+}
+
+.coronaGamePopup .popup {
+  min-width: 85% !important;
+    height: 200px;
+  background-color: #2975a7 !important;
+  color: white;
+}
+.coronaGamePopup .popup-title{
+  color: white;
+}
+ .coronaGamePopup .popup-head {
+  /* visibility: hidden; */
+  /* padding: 0px; */
+  color: white!important;
+  border-bottom: none;
+  padding-top: 21px;
+} 
+
+.coronaGamePopup .popup-body {
+  overflow: inherit !important;
+  text-align: justify;
+  position: relative;
+  height: 22vh;
+
+}
+
+.coronaGamePopup .popup-buttons .button:last-child {
+  /* position: absolute;
+  right: -22px;
+  bottom: -20px;
+  width: 45px;
+  cursor: pointer; */
+  background-color: white!important;
+  color:#2975a7 !important;
+}
+.coronaGamePopup .close-button{
+  position: absolute;
+  right: 15px;
+  top: -50px;
+}
+.coronaGamePopup a {
+  color: white;
+}
+.coronaGamePopup .body-message{
+  margin: 20px;
+}
+.corona-content{
+  top:0px!important;
+}
+.disabled-corona{
+  background-color: #D3D3D3!important;
+}
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  z-index: 999;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 30% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  text-align: justify;
+  position: relative;
+}
+.modal-content .warning-modal{
+  width: 90%;
+font-size:medium;
+}
+/* The Close Button */
+.close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  background-color: red;
+  border-radius: 20px;
+  width: 22px;
+  height: 22px;
+  line-height: 22px;
+  text-align: center;
+  position: absolute;
+  right: -10px;
+  top: -10px;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}

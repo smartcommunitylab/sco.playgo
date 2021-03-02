@@ -91,11 +91,23 @@ angular.module('viaggia', [
   'smartcommunitylab.services.login'
 ])
 
-  .run(function ($ionicPlatform, $ionicLoading, $ionicPopup, $filter, $ionicHistory, $state, $cordovaFile, $q, $rootScope, $translate, trackService, DataManager, DiaryDbSrv, Config, GeoLocate, notificationService, LoginService) {
+  .run(function ($ionicPlatform, $ionicLoading,$ionicPopup, $filter, $ionicHistory, $state, $cordovaFile, $q, $rootScope, $translate, trackService, DataManager, DiaryDbSrv, Config, GeoLocate, notificationService, LoginService) {
+    $rootScope.isBetween = function (from, to) {
+      var today = moment();
+      var from = moment(from, "DD/MM/YYYY hh:mm:ss");
+      var to = moment(to, "DD/MM/YYYY hh:mm:ss");
+      if (today >= from && today <= to) {
+        return true;
+      }
+      return false;
+    }
 
     $rootScope.locationWatchID = undefined;
-    // $rootScope.coronaVirus = false;
-
+    if ($rootScope.isBetween("24/12/2020 00:00:00","09/01/2021 00:00:00")) {
+    $rootScope.coronaVirus = true;
+    } else {
+      $rootScope.coronaVirus = false;
+    }
     var geolocate = function () {
       var defer = $q.defer();
       GeoLocate.locate().then(
@@ -314,6 +326,7 @@ angular.module('viaggia', [
         //   if (!loc) {
         //       showWarningPopUp();
         //   }})
+        if (($state.current.name != "app.login") && ($state.current.name != "app.home.home"))
         geolocate().then(function () {
           if (trackService.trackingIsGoingOn() && trackService.trackingIsFinished()) {
             trackService.stop();
@@ -1537,7 +1550,10 @@ angular.module('viaggia', [
       message_popup_forth: 'Clicca',
       message_popup_fifth: 'QUI',
       message_popup_last: 'per maggiori informazioni. ',
-      corona_home_title: 'Attenzione: TUTTE le attività di Play&Go sono SOSPESE causa COVID-19.',
+      corona_home_title: 'Attenzione: TUTTE le attività di Ferrara Play&Go sono SOSPESE causa COVID-19.',
+      corona_home_subtitle: 'Le sfide, le classifiche e tutte le altre attività di Play&Go sono congelate fino al 9 gennaio 2021.',
+      label_this_page:' questa pagina',
+      label_title_tracking_corona:'Impossibile avviare l\'attività selezionata!',
       not_yet_home_subtitle: 'Il tracciamento del mezzo da lei selezionato non e` attualmente supportato, ma lo sara` a breve',
       label_this_page: ' questa pagina',
       label_title_tracking_not_yet: 'Impossibile avviare l\'attività selezionata!',
@@ -1566,6 +1582,7 @@ angular.module('viaggia', [
       sign_in_apple:"Accedi con Apple",
       sign_in_google:"Accedi con Google",
       sign_in_facebook:"Accedi con Facebook",
+      lbl_geolocation:" raccoglie i dati sulla posizione per abilitare tracciamento, validazione e premiazione di viaggi sostenibili anche quando l'app é chiusa o non utilizzata"
     });
 
     // ====================================================================================================================================================================================
@@ -2145,7 +2162,9 @@ angular.module('viaggia', [
       message_popup_forth: 'Click',
       message_popup_fifth: 'here',
       message_popup_last: 'for further information ',
-      corona_home_title: 'Warning: ALL Play&Go activities are SUSPENDED due to COVID-19.',
+      corona_home_title: 'Warning: ALL Ferrara Play&Go activities are SUSPENDED due to COVID-19.',
+      corona_home_subtitle: 'The challenges, rankings and all other Play & Go activities are frozen until January 9 2021.',
+      label_title_tracking_corona:'The selected activity is temporarily blocked!',
       not_yet_home_subtitle: 'The tracking of the mean you have chosen is not yet supported but it will be soon!',
       label_this_page: ' this page',
       label_title_tracking_not_yet: 'The selected activity is temporarily blocked!',
@@ -2174,6 +2193,7 @@ angular.module('viaggia', [
       sign_in_apple:"Sign in with Apple",
       sign_in_google:"Sign in with Google",
       sign_in_facebook:"Sign in with Facebook",
+      lbl_geolocation:" collects location data to enable the tracking, validation and rewarding of sustainable trips even when the app is closed or not in use."
 
     });
 
