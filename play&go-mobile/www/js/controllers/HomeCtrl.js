@@ -265,24 +265,24 @@ angular.module('viaggia.controllers.home', [])
     }
     $scope.$on("$ionicView.enter", function (scopes, states) {
       // Get the modal
-var modal = document.getElementById("myModal");
+var warningmodal = document.getElementById("warning-popup");
 
 
 
 // Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+var span = document.getElementsByClassName("modal-warning-close")[0];
 cordova.plugins.diagnostic.getLocationAuthorizationStatus(function (status) {
   if (status !=cordova.plugins.diagnostic.permissionStatus.NOT_REQUESTED) {
     // alert("Perfetto");
     $scope.startHome();
   }
   else {
- modal.style.display = "block";
+    warningmodal.style.display = "block";
  }
 })
-// When the user clicks on <span> (x), close the modal and run init (permission)
 span.onclick = function() {
-  modal.style.display = "none";
+  // modal.remove();
+  warningmodal.style.display = "none";
   cordova.plugins.diagnostic.requestLocationAuthorization(function(status){
     $scope.startHome();
 }, function(error){

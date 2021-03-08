@@ -30,8 +30,8 @@
     "FERRARA": {
         "resource_folder": "config/instances/FERRARA",
         "widget_id": "it.smartcommunitylab.playgoferrara",
-        "version": "1.0.1",
-        "version_code": "5",
+        "version": "1.0.2",
+        "version_code": "6",
         "app_name": "Ferrara Play&amp;Go",
         "code_push_android":"pJ9Gj38cz7qhLq9yxSaZKNgXYPoW0ju7x2jfV",
         "code_push_ios":"hUTfZqoWm6RcGDsyK0o1BjGPi2Cz3ogSeobwQ",
