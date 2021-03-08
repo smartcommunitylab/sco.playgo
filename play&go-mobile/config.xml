@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="it.smartcommunitylab.playgoferrara" version="1.0.2" android-versionCode="6"
+<widget id="it.smartcommunitylab.playgoferrara" version="1.0.1" android-versionCode="7"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns="http://www.w3.org/ns/widgets"
     xmlns:cdv="http://cordova.apache.org/ns/1.0"
@@ -155,7 +155,7 @@
    
     <platform name="android">
         <preference name="orientation" value="portrait" />
-        <preference name="CodePushDeploymentKey" value="pJ9Gj38cz7qhLq9yxSaZKNgXYPoW0ju7x2jfV" />
+        <preference name="CodePushDeploymentKey" value="k2sQaDTl6LkeyQ9AHIxZHG2sU9De0iKJuA0KS" />
     </platform>
     <platform name="ios">
         <preference name="CodePushDeploymentKey" value="hUTfZqoWm6RcGDsyK0o1BjGPi2Cz3ogSeobwQ" />
