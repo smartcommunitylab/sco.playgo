@@ -500,7 +500,7 @@
 		"filter": "notte_dei_ricercatori",
 		"description": {
 			"it": "Per vincere questa sfida partecipa alla Notte dei Ricercatori al MUSE (Venerdi' 29 settembre, dalle 17 alle 22), cerca lo stand Ferrara Play&Go e registrarti presso di esso (Piano -1).",
-			"en": "To win this challenge join the Researchers’ Night at MUSE (Friday September 29, from 5PM to 10PM), come to the Ferrara Play&Go stand (Floor -1) and complete the check-in.”"
+			"en": "To win this challenge join the Researchers' Night at MUSE (Friday September 29, from 5PM to 10PM), come to the Ferrara Play&Go stand (Floor -1) and complete the check-in.”"
 		}
 	},
 	{
@@ -557,6 +557,14 @@
     "description": {
       "it": "Per vincere la sfida compila il breve questionario che visualizzi al seguente \\<a href='<surveylink>' target='_system'>indirizzo\\</a>  dopo aver fatto un giro in battello.",
       "en": "To win this challenge, complete a short questionnaire that you can access \\<a href='<surveylink>' target='_system'>here\\</a> once you have complete a boat trip."
+    }
+  },  
+  {
+    "modelName": "survey",
+    "filter": "bellaCoincidenza",
+    "description": {
+      "it": "Per vincere la sfida compila questo breve questionario al seguente \\<a href='<surveylink>' target='_system'>indirizzo\\</a>.",
+      "en": "To win this challenge, complete the short survey that you can access \\<a href='<surveylink>' target='_system'>here\\</a>."
     }
   },  
 	{
@@ -645,5 +653,12 @@
 			"it": "Vinci una sfida di coppia e, oltre al premio previsto, ottieni altri <bonusScore> green leaves points. Puoi scegliere il tipo di sfida multiplayer che ti piace di più, cosa stai aspettando?!",
 			"en": "Win a multiplayer challenge and, in addition to the expected prize, you will receive other <bonusScore> green leaves points. You can choose the type of multiplayer challenge that you like better, what are you waiting for?!"
 		}
-	}	
+	},
+  {
+    "modelName": "multiTarget",
+    "description": {
+      "it": "Questa sfida è in collaborazione con i promotori dell'iniziativa 'Bella Coincidenza'! Per vincere devi tracciare un viaggio in treno ed un viaggio in bici nel corso di una stessa giornata durante il periodo di validità della sfida.",
+      "en": "This challenge has been defined together with the organizers of 'Bella Coincidenza' initiative. To win, you must track a train trip and a bike trip on the same day during the validity period of the challenge."
+    }
+  } 	
 ]
