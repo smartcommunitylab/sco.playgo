@@ -7,6 +7,10 @@ aacURL: http://localhost:8080/aac/
 mobilityURL: http://localhost:8080/core.mobility
 playgoURL: http://localhost:8080/sco.playgo
 
+teammgmt:
+  aacURL: http://localhost:8080/aac/
+  clientId: 123
+
 mobility:
   clientId: 
   clientSecret: 
