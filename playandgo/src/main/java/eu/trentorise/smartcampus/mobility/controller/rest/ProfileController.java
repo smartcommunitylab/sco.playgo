@@ -167,10 +167,10 @@ public class ProfileController {
 		return profiles;
 	}
 	
-//	@GetMapping("/waypoints/generate")
-//	public @ResponseBody void generateWaypointsFiles() throws Exception {
-//		generateWaypoints();
-//	}
+	@GetMapping("/waypoints/generate")
+	public @ResponseBody void generateWaypointsFiles() throws Exception {
+		generateWaypoints();
+	}
 	
 
 //	@Scheduled(cron = "0 0 4 * * *")

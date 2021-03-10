@@ -322,7 +322,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/swagger**").permitAll()
 				.antMatchers("/v2/**").permitAll()
     			.antMatchers("/announcements/**").permitAll()
-    			.antMatchers("/policies/console/**","/web/notification/**","/gamification/console/**").hasAnyAuthority("ROLE_CONSOLE")
+    			.antMatchers("/profile/**", "/waypoints/**", "/policies/console/**","/web/notification/**","/gamification/console/**").hasAnyAuthority("ROLE_CONSOLE")
     			.and()
     		.formLogin().loginPage("/login").permitAll().and().logout().permitAll();	    		
     	}    	
