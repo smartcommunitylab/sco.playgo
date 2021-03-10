@@ -260,6 +260,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }   
     
     @Configuration
+    @Order(29)
+	public static class OAuthSecurityConfig10 extends WebSecurityConfigurerAdapter {   	
+    	
+    	@Override
+    	public void configure(HttpSecurity http) throws Exception {
+    		http.csrf().disable();
+    		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    		
+    		http.antMatcher("/gamification/trackingdata").authorizeRequests()
+    			.antMatchers("/gamification/trackingdata").hasAnyAuthority("ROLE_CONSOLE")
+    			.and().httpBasic();	     		
+    	}        	
+    } 
+    
+    @Configuration
     @Order(30)                                                        
     public static class HttpSecurityConfig1 extends WebSecurityConfigurerAdapter {
     
