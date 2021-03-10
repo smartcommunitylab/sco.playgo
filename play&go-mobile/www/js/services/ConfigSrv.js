@@ -252,6 +252,9 @@ angular.module('viaggia.services.conf', [])
                 };
                 return angular.copy(mapJsonConfig['trackingConfigure']);
             },
+            getPGAziendaleUrl:function() {
+                return mapJsonConfig["PGAziendaleUrl"]
+            },
             getTimeGameLimit: function () {
                 return mapJsonConfig["timeGameLimit"];
             },

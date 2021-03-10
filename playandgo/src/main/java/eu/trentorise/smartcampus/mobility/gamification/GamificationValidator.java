@@ -265,7 +265,7 @@ public class GamificationValidator {
 		if (trainDist > 0) {
 			score += getScore(TRAIN, trainDist, userDayData.get(TRAIN));
 		}				
-		if (boatDist > 0) {
+		if (trainDist > 0) {
 			score += getScore(BOAT, boatDist, userDayData.get(BOAT));
 		}				
 		
@@ -290,7 +290,7 @@ public class GamificationValidator {
 		if (trainDist > 0) {
 			data.put("trainDistance", trainDist);
 		}
-		if (boatDist > 0) {
+		if (trainDist > 0) {
 			data.put("boatDistance", boatDist);
 		}
 		if (transitDist > 0) {

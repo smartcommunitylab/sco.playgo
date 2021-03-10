@@ -245,13 +245,5 @@
 			"it": "Vinci una sfida di coppia di qualsiasi tipo ed ottieni <bonusScore> punti green leaves addizionali.",
 			"en": "Win one multiplayer challenge of any kind to obtain additional <bonusScore> green leaves points."
 		}
-	},
-	 {
-    "name": "multiTarget",
-    "description": {
-      "it": "Bella Coincidenza! Fai almeno un viaggio in treno e uno in bici nella stessa giornata per vincere 250 Green Leaves",
-      "en": "Bella Coincidenza! Do at least a trip by train and a trip by bike in the same day to win 250 Green Leaves"
-    }
-  } 
-	
+	}	
 ]

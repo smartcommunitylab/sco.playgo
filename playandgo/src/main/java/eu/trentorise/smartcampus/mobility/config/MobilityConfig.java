@@ -8,6 +8,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
@@ -26,6 +31,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -37,6 +43,11 @@ import com.google.common.io.Resources;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.WriteConcern;
+
+import eu.trentorise.smartcampus.mobility.security.AppInfo;
+import eu.trentorise.smartcampus.mobility.security.AppSetup;
+import eu.trentorise.smartcampus.mobility.security.GameInfo;
+import eu.trentorise.smartcampus.mobility.security.GameSetup;
 
 @Configuration
 @EnableWebMvc
@@ -69,6 +80,11 @@ public class MobilityConfig implements WebMvcConfigurer {
 //	@Value("${imagesDir}")
 //	private String imagesDir;		
 
+	@Autowired
+	private AppSetup appSetup;
+	
+	@Autowired
+	private GameSetup gameSetup;		
 	
 	@Autowired
 	private MongoClient mongoClient;
@@ -161,5 +177,34 @@ public class MobilityConfig implements WebMvcConfigurer {
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }
+	
+	@Bean
+	public OncePerRequestFilter noContentFilter() {
+		return new CheckHeaderFilter();
+	}		
+	
+	private class CheckHeaderFilter extends OncePerRequestFilter {
+
+		@Override
+		protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+
+			String appId = request.getHeader("appId");
+			if (appId != null && !appId.isEmpty()) {
+				AppInfo app = MobilityConfig.this.appSetup.findAppById(appId);
+				if (app == null) {
+					response.sendError(HttpServletResponse.SC_FORBIDDEN);
+				} else if (app.getGameId() != null) {
+					GameInfo game = gameSetup.findGameById(app.getGameId());
+					// allow for data retrieval even if game is finished
+					if (game == null/* || game.getSend() == null || !game.getSend() */) {
+						response.sendError(HttpServletResponse.SC_FORBIDDEN);
+					}
+				}
+			}
+
+			filterChain.doFilter(request, response);
+		}
+	}
+	
 	
 }

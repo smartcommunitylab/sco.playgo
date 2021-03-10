@@ -62,6 +62,9 @@
 				<ion-item nav-clear menu-close ng-click="openPrizes()" class="menu-main item-icon-left">
 					<i class="icon ic_prize"></i>{{'registration_prizes' | translate}}
 				</ion-item>	
+				<!-- <ion-item nav-clear menu-close ng-click="openCompaniesCampaingns()" class="menu-main item-icon-left">
+					<i class="icon ion-ribbon-b"></i>{{'companies_campaigns' | translate}}
+				</ion-item>	 -->
 				<!-- <ion-item nav-clear menu-close ng-click="menuDisabled()" class="menu-main item-icon-left menu-disabled">
 					<i class="icon ic_prize"></i>{{'registration_prizes' | translate}}
 				</ion-item> -->
@@ -94,9 +97,9 @@
 		</ion-content>
 	</ion-side-menu>
 </ion-side-menus>
-<div id="myModal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
+<div id="warning-popup" class="modal-warning">
+    <div class="modal-warning-content">
+      <span class="modal-warning-close">&times;</span>
       <p class="warning-modal"><b>{{'login_title'|translate}} {{'login_subtitle'|translate}}</b>{{'lbl_geolocation'|translate}}</p>
     </div>
   

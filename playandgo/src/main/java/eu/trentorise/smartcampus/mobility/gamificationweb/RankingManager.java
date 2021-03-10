@@ -1,8 +1,6 @@
 package eu.trentorise.smartcampus.mobility.gamificationweb;
 
 import java.net.URLEncoder;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -137,18 +135,6 @@ public class RankingManager {
 	public LoadingCache<String, List<ClassificationData>> getGlobalClassification() {
 		return globalClassification;
 	}
-
-
-	/**
-	 * @param appId
-	 * @param date
-	 * @return
-	 * @throws Exception 
-	 */
-	public List<ClassificationData> getClassificationAt(String appId, String date) throws Exception {
-		String gameId = getGameId(appId);
-		return getFullIncClassification(gameId, appId, LocalDate.parse(date).atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli());
-	}	
 
 	private List<ClassificationData> getFullClassification(String gameId, String appId) throws Exception {
 		List<ClassificationData> classificationList = Lists.newArrayList();
@@ -286,6 +272,6 @@ public class RankingManager {
 			return gameId;
 		}
 		return null;
-	}
+	}	
 	
 }

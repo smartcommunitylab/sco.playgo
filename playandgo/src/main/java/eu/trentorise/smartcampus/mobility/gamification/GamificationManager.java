@@ -140,11 +140,6 @@ public class GamificationManager {
 			return false;
 		}
 
-		if (!game.getSend()) {
-			logger.warn("Not sending for disabled game " + game.getId());
-			return false;
-		}
-		
 		try {
 			ExecutionDataDTO ed = new ExecutionDataDTO();
 			ed.setGameId(app.getGameId());
@@ -293,17 +288,12 @@ public class GamificationManager {
 				logger.warn("Not sending for banned player " + userId);
 				return false;
 			}		
-			if (!Boolean.TRUE.equals(game.getSend())) {
-				logger.warn("Not sending for disabled game " + game.getId());
-				return true;
-			}
 			
 			ExecutionDataDTO ed = new ExecutionDataDTO();
 			ed.setGameId(app.getGameId());
 			ed.setPlayerId(userId);
 			ed.setActionId(SAVE_ITINERARY);
 			ed.setData(trackingData);
-			
 			
 			Long time = (Long)trackingData.remove(GamificationController.START_TIME);
 			ed.setExecutionMoment(new Date(time));

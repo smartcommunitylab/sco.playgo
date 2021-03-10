@@ -127,8 +127,6 @@ public class ProfileController {
         schema = builder.build();
 		
 		cryptUtils = new EncryptDecrypt(secretKey1, secretKey2);
-		
-//		generateWaypoints();
 	}
 	
 	

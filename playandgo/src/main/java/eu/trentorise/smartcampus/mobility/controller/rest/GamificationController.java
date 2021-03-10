@@ -31,7 +31,6 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
@@ -416,10 +415,10 @@ public class GamificationController {
 	
 	
 	@PostMapping("/gamification/console/validate")
-	public @ResponseBody void validate(@RequestParam(required = false) Long fromDate, @RequestParam(required = false) Long toDate, @RequestParam(required = false) Boolean excludeZeroPoints, @RequestParam(required = false) Boolean toCheck, @RequestParam(required = false) Boolean pendingOnly, @RequestParam(required = false) String filterUserId, @RequestParam(required = false) String filterTravelId, @RequestParam(required = false) String mean, @RequestHeader(required = true, value = "appId") String appId, HttpServletResponse response) throws Exception {
+	public @ResponseBody void validate(@RequestParam(required = false) Long fromDate, @RequestParam(required = false) Long toDate, @RequestParam(required = false) Boolean excludeZeroPoints, @RequestParam(required = false) Boolean toCheck, @RequestParam(required = false) Boolean pendingOnly, @RequestParam(required = false) String filterUserId, @RequestParam(required = false) String filterTravelId, @RequestHeader(required = true, value = "appId") String appId, HttpServletResponse response) throws Exception {
 
 		
-		Criteria criteria = generateFilterCriteria(appId, filterUserId, filterTravelId, mean, fromDate, toDate, excludeZeroPoints, false, toCheck, pendingOnly);
+		Criteria criteria = generateFilterCriteria(appId, filterUserId, filterTravelId, fromDate, toDate, excludeZeroPoints, false, toCheck, pendingOnly);
 		Query query = new Query(criteria);	
 		
 		List<TrackedInstance> result = storage.searchDomainObjects(query, TrackedInstance.class);
@@ -573,7 +572,7 @@ public class GamificationController {
 	}	
 
 	@PostMapping("/gamification/console/approveFiltered")
-	public @ResponseBody void approveFiltered(@RequestHeader(required = false, value = "appId") String appId, @RequestParam(required = false) Long fromDate, @RequestParam(required = false) Long toDate, @RequestParam(required = false) Boolean excludeZeroPoints, @RequestParam(required = false) Boolean toCheck, @RequestParam(required = false) Boolean pendingOnly, @RequestParam(required = false) String filterUserId, @RequestParam(required = false) String filterTravelId, @RequestParam(required = false) String mean) throws Exception {
+	public @ResponseBody void approveFiltered(@RequestHeader(required = false, value = "appId") String appId, @RequestParam(required = false) Long fromDate, @RequestParam(required = false) Long toDate, @RequestParam(required = false) Boolean excludeZeroPoints, @RequestParam(required = false) Boolean toCheck, @RequestParam(required = false) Boolean pendingOnly, @RequestParam(required = false) String filterUserId, @RequestParam(required = false) String filterTravelId) throws Exception {
 //		Criteria criteria = new Criteria("changedValidity").ne(null).and("approved").ne(true);
 //
 //		if (excludeZeroPoints != null && excludeZeroPoints.booleanValue()) {
@@ -594,7 +593,7 @@ public class GamificationController {
 //		}		
 //
 		
-		Criteria criteria = generateFilterCriteria(appId, filterUserId, filterTravelId, mean, fromDate, toDate, excludeZeroPoints, true, toCheck, pendingOnly);
+		Criteria criteria = generateFilterCriteria(appId, filterUserId, filterTravelId, fromDate, toDate, excludeZeroPoints, true, toCheck, pendingOnly);
 		Query query = new Query(criteria);	
 		
 		List<TrackedInstance> instances = storage.searchDomainObjects(query, TrackedInstance.class);
@@ -874,13 +873,13 @@ public class GamificationController {
 	public @ResponseBody List<ItineraryDescriptor> getItineraryListForUser(@PathVariable String userId, @RequestHeader(required = true, value = "appId") String appId,
 			@RequestParam(required = false) Long fromDate, @RequestParam(required = false) Long toDate, @RequestParam(required = false) Boolean excludeZeroPoints,
 			@RequestParam(required = false) Boolean unapprovedOnly, @RequestParam(required = false) Boolean pendingOnly, @RequestParam(required = false) Boolean toCheck,
-			@RequestParam(required = false) String filterUserId, @RequestParam(required = false) String filterTravelId,@RequestParam(required = false) String mean) throws Exception {
+			@RequestParam(required = false) String filterUserId, @RequestParam(required = false) String filterTravelId) throws Exception {
 		List<ItineraryDescriptor> list = new ArrayList<ItineraryDescriptor>();
 
 		try {
 			String actualUserId = (filterUserId == null || filterUserId.isEmpty()) ? userId : filterUserId;
 
-			Criteria criteria = generateFilterCriteria(appId, actualUserId, filterTravelId, mean, fromDate, toDate, excludeZeroPoints, unapprovedOnly, toCheck, pendingOnly);
+			Criteria criteria = generateFilterCriteria(appId, actualUserId, filterTravelId, fromDate, toDate, excludeZeroPoints, unapprovedOnly, toCheck, pendingOnly);
 			Query query = new Query(criteria);	
 
 			logger.debug("Start itinerary query for " + userId);
@@ -1005,7 +1004,6 @@ public class GamificationController {
 	@GetMapping("/gamification/console/rating")
 	public @ResponseBody void getRating(HttpServletResponse response, 
 			@RequestParam(required = false) RankingType rankingType,
-			@RequestParam(required = false) String date,
 			@RequestParam(required = false, defaultValue = "50") int count) throws Exception {
 		String appId = ((AppDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getApp().getAppId();
     	response.setContentType("text/csv;charset=utf-8");
@@ -1022,8 +1020,6 @@ public class GamificationController {
 			default:
 				ranking = rankingManager.getGlobalClassification().get(appId);
 			}
-		} else if (date != null) {
-			ranking = rankingManager.getClassificationAt(appId, date);
 		} else {
 			ranking = rankingManager.getGlobalClassification().get(appId);
 		}
@@ -1046,7 +1042,7 @@ public class GamificationController {
 	@GetMapping("/gamification/console/users")
 	public @ResponseBody List<UserDescriptor> getTrackInstancesUsers(@RequestHeader(required = true, value = "appId") String appId, @RequestParam(required = false) Long fromDate,
 			@RequestParam(required = false) Long toDate, @RequestParam(required = false) Boolean excludeZeroPoints, @RequestParam(required = false) Boolean unapprovedOnly, @RequestParam(required = false) Boolean pendingOnly,
-			@RequestParam(required = false) Boolean toCheck, @RequestParam(required = false) String filterUserId, @RequestParam(required = false) String filterTravelId, @RequestParam(required = false) String mean, 
+			@RequestParam(required = false) Boolean toCheck, @RequestParam(required = false) String filterUserId, @RequestParam(required = false) String filterTravelId,
 			@RequestParam(required = false) RankingType rankingType, @RequestParam(required = false) final Integer maxRanking,
 			@RequestParam(required = false) String transport) throws Exception {
 		List<UserDescriptor> userList = null;
@@ -1108,7 +1104,7 @@ public class GamificationController {
 //				criteria = criteria.andOperator(new Criteria("day").lte(td));
 //			}
 
-			Criteria criteria = generateFilterCriteria(appId, filterUserId, filterTravelId, mean, fromDate, toDate, excludeZeroPoints, unapprovedOnly, toCheck, pendingOnly);
+			Criteria criteria = generateFilterCriteria(appId, filterUserId, filterTravelId, fromDate, toDate, excludeZeroPoints, unapprovedOnly, toCheck, pendingOnly);
 			if (!StringUtils.isEmpty(transport)) {
 				criteria = criteria.and("freeTrackingTransport").is(transport);
 			}
@@ -1258,56 +1254,6 @@ public class GamificationController {
 		
 	}	
 	
-	
-	@PutMapping("/gamification/console/activate")
-	public @ResponseBody ResponseEntity<Void> activate() throws Exception {
-		String appId = ((AppDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getApp().getAppId();
-		AppInfo ai = appSetup.findAppById(appId);
-		if (ai == null) {
-			return ResponseEntity.badRequest().build();
-		}
-		try {
-			gameSetup.changeState(ai.getGameId(), true);
-		} catch (Exception e) {
-			return ResponseEntity.badRequest().build();
-		}
-
-		return null;
-	}
-	@PutMapping("/gamification/console/deactivate")
-	public @ResponseBody ResponseEntity<Void> deactivate() throws Exception {
-		String appId = ((AppDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getApp().getAppId();
-		AppInfo ai = appSetup.findAppById(appId);
-		if (ai == null) {
-			return ResponseEntity.badRequest().build();
-		}
-		try {
-			gameSetup.changeState(ai.getGameId(), false);
-		} catch (Exception e) {
-			return ResponseEntity.badRequest().build();
-		}
-
-		return null;
-	}
-	@GetMapping("/gamification/console/state")
-	public @ResponseBody ResponseEntity<GameInfo> getState() throws Exception {
-		String appId = ((AppDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getApp().getAppId();
-		AppInfo ai = appSetup.findAppById(appId);
-		if (ai == null) {
-			return ResponseEntity.badRequest().build();
-		}
-		try {
-			GameInfo info = gameSetup.findGameById(ai.getGameId());
-			GameInfo copy = new GameInfo();
-			copy.setAreas(info.getAreas());
-			copy.setStart(info.getStart());
-			copy.setSend(info.getSend());
-			return ResponseEntity.ok(copy);
-		} catch (Exception e) {
-			return ResponseEntity.badRequest().build();
-		}
-
-	}
 //	private List<TrackedInstance> aggregateFollowingTrackedInstances(List<TrackedInstance> instances) {
 //		List<TrackedInstance> sortedInstances = Lists.newArrayList(instances);
 //		Collections.sort(sortedInstances, new Comparator<TrackedInstance>() {
@@ -1384,17 +1330,7 @@ public class GamificationController {
 		return principal;
 	}
 	
-	private Criteria generateFilterCriteria(
-			String appId, 
-			String userId, 
-			String travelId, 
-			String mean,
-			Long fromDate, 
-			Long toDate, 
-			Boolean excludeZeroPoints, 
-			Boolean unapprovedOnly, 
-			Boolean toCheck, 
-			Boolean pendingOnly) {
+	private Criteria generateFilterCriteria(String appId, String userId, String travelId, Long fromDate, Long toDate, Boolean excludeZeroPoints, Boolean unapprovedOnly, Boolean toCheck, Boolean pendingOnly) {
 		Criteria criteria = new Criteria("appId").is(appId);
 		
 		if (userId != null && !userId.isEmpty()) {
@@ -1428,10 +1364,6 @@ public class GamificationController {
 			if (pendingOnly != null && pendingOnly) {
 				criteria = criteria.orOperator(new Criteria("validationResult.validationStatus.validationOutcome").is(TravelValidity.PENDING).and("changedValidity").is(null),
 						new Criteria("changedValidity").is(TravelValidity.PENDING), new Criteria("validationResult.validationStatus.validationOutcome").is(null));
-			}
-			
-			if (!StringUtils.isEmpty(mean))  {
-				criteria.and("freeTrackingTransport").is(mean);
 			}
 		}
 		

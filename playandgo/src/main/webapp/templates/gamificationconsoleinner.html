@@ -1,8 +1,4 @@
 	<div id="console" class="console" ng-controller="GameCtrl">
-	  <div class="row padding">
-	   <div class="col xpadding text-right">
-         <b>Status: {{state.send ? 'Active' : 'Inactive'}}</b> <button class="btn btn-sm btn-primary" ng-click="toggleStatus()">{{state.send ? 'Deactivate' : 'Activate'}}</div>
-	  </div>
 		<div class="row">
 			<div class="col-md-4">
 				<form id="parsForm" name="parsForm" dl-enter-key="reload()">
@@ -59,7 +55,7 @@
 						</div>
 						<br/>
 						<div class="row small">
-              <div class="col-md-3">
+              <div class="col-md-6">
 	              <label>User Id:</label>
 	              <input type="text" class="form-control" id="userId" ng-model="filterUserId">
               </div>
@@ -67,19 +63,8 @@
                 <label>Travel Id:</label>
                 <input type="text" class="form-control" id="travelId" ng-model="filterTravelId">
               </div>
-              <div class="col-md-3">
-                <label>Transport:</label>
-                <select class="form-control" id="userId" ng-model="filterMean">
-                  <option value="">All</option>
-                  <option value="bike">Bike</option>
-                  <option value="walk">Walk</option>
-                  <option value="car">Car</option>
-                  <option value="bus">Bus</option>
-                  <option value="train">Train</option>
-                  <option value="boat">Boat</option>
-                </select>
-              </div>
-            </div>
+						</div>
+            <br/>
 
 			<div class="row small">
 				<div class="col-md-10">
