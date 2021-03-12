@@ -103,7 +103,7 @@ angular.module('viaggia', [
     }
 
     $rootScope.locationWatchID = undefined;
-    if ($rootScope.isBetween("24/12/2020 00:00:00","09/01/2021 00:00:00")) {
+    if ($rootScope.isBetween("13/03/2021 00:00:00","10/04/2021 00:00:00")) {
     $rootScope.coronaVirus = true;
     } else {
       $rootScope.coronaVirus = false;
@@ -1551,7 +1551,7 @@ angular.module('viaggia', [
       message_popup_fifth: 'QUI',
       message_popup_last: 'per maggiori informazioni. ',
       corona_home_title: 'Attenzione: TUTTE le attività di Ferrara Play&Go sono SOSPESE causa COVID-19.',
-      corona_home_subtitle: 'Le sfide, le classifiche e tutte le altre attività di Play&Go sono congelate fino al 9 gennaio 2021.',
+      corona_home_subtitle: 'Le sfide, le classifiche e tutte le altre attività di Play&Go sono congelate fino al 9 aprile 2021.',
       label_this_page:' questa pagina',
       label_title_tracking_corona:'Impossibile avviare l\'attività selezionata!',
       not_yet_home_subtitle: 'Il tracciamento del mezzo da lei selezionato non e` attualmente supportato, ma lo sara` a breve',
@@ -2163,7 +2163,7 @@ angular.module('viaggia', [
       message_popup_fifth: 'here',
       message_popup_last: 'for further information ',
       corona_home_title: 'Warning: ALL Ferrara Play&Go activities are SUSPENDED due to COVID-19.',
-      corona_home_subtitle: 'The challenges, rankings and all other Play & Go activities are frozen until January 9 2021.',
+      corona_home_subtitle: 'The challenges, rankings and all other Play & Go activities are frozen until 9th April 2021.',
       label_title_tracking_corona:'The selected activity is temporarily blocked!',
       not_yet_home_subtitle: 'The tracking of the mean you have chosen is not yet supported but it will be soon!',
       label_this_page: ' this page',
