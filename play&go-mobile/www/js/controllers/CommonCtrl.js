@@ -270,6 +270,9 @@ angular.module('viaggia.controllers.common', [])
       $scope.openRulesModal();
 
     };
+    $scope.openPrivacy = function () {
+      cordova.InAppBrowser.open("https://ferrara.smartcommunitylab.it/playandgo/gamificationweb/privacy", "_system", "location=yes");
+    };
 
     $scope.openExtLink = function (link) {
       cordova.InAppBrowser.open(link, "_system", "location=yes");
