@@ -35,9 +35,7 @@ import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -57,6 +55,7 @@ import eu.trentorise.smartcampus.mobility.security.AppInfo;
 import eu.trentorise.smartcampus.mobility.security.AppSetup;
 import eu.trentorise.smartcampus.mobility.security.GameInfo;
 import eu.trentorise.smartcampus.mobility.security.GameSetup;
+import eu.trentorise.smartcampus.mobility.storage.DomainStorage;
 import eu.trentorise.smartcampus.mobility.storage.ItineraryObject;
 import eu.trentorise.smartcampus.mobility.util.GamificationHelper;
 import it.sayservice.platform.smartplanner.data.message.Itinerary;
@@ -65,16 +64,6 @@ import it.sayservice.platform.smartplanner.data.message.TType;
 
 @Component
 public class GamificationValidator {
-
-//	private static final String ON_FOOT = "on_foot";
-//	private static final String ON_BICYCLE = "on_bicycle";
-//	private static final String IN_VEHICLE = "in_vehicle";
-//	private static final String WALKING = "walking";
-//	private static final String RUNNING = "running";
-//	private static final String UNKNOWN = "unknown";
-//	private static final String EMPTY = "unknown";
-//	private static final double SPACE_ERROR = 0.1;
-	
 	/**
 	 * 
 	 */
@@ -102,9 +91,6 @@ public class GamificationValidator {
 
 	private static final Logger logger = LoggerFactory.getLogger(GamificationValidator.class);
 
-//	private static final List<TType> FAST_TRANSPORTS = Lists.newArrayList(TType.BUS, TType.CAR, TType.GONDOLA, TType.SHUTTLE, TType.TRAIN, TType.TRANSIT);
-//	private static final Set<String> WALKLIKE = Sets.newHashSet(ON_FOOT, WALKING, RUNNING, UNKNOWN, EMPTY);
-
 	@Autowired
 	private AppSetup appSetup;
 	
@@ -114,8 +100,7 @@ public class GamificationValidator {
 	private GamificationCache gamificationCache;
 
 	@Autowired
-	@Qualifier("mongoTemplate")
-	MongoTemplate template;	
+	private DomainStorage storage;
 
 	public List<List<Geolocation>> TRAIN_SHAPES = new ArrayList<>();
 	public List<List<Geolocation>> BOAT_SHAPES = new ArrayList<>();
@@ -150,6 +135,34 @@ public class GamificationValidator {
 		BUS_DESCRIPTOR = new TTDescriptor();
 		loadBusFolder(new File(shapeFolder+"/bus"));
 		BUS_DESCRIPTOR.build(100);
+		
+//		Query query = Query.query(Criteria.where("freeTrackingTransport").is("bike").and("scoreStatus").is("ASSIGNED"));
+//		long skip = 0l;
+//		int res = 0;
+//		
+//		int unchanged = 0;
+//		int total = 0;
+//		do {
+//			query.skip(skip);
+//			query.limit(50);
+//			List<TrackedInstance> result = storage.searchDomainObjects(query, TrackedInstance.class);
+//			for(TrackedInstance ti: result) {
+//				Double bike = ti.getValidationResult().getValidationStatus().getEffectiveDistances().get(MODE_TYPE.BIKE);
+//				Double other = ti.getValidationResult().getValidationStatus().getEffectiveDistances().get(MODE_TYPE.OTHER);
+//				ValidationStatus validationStatus = TrackValidator.validateFreeBike(ti.getGeolocationEvents(), null);
+//				Double newBike = validationStatus.getEffectiveDistances().get(MODE_TYPE.BIKE);
+//				Double newOther = validationStatus.getEffectiveDistances().get(MODE_TYPE.OTHER);
+//				if (newBike == null) continue;
+//				
+//				if (other.equals(newOther)) unchanged++;
+//				else System.err.println(ti.getId() + ";" + bike + ";" + other + ";" + newBike + ";" + newOther);
+//			}
+//			skip += 50;
+//			res = result.size();
+//			total += res;
+//		} while (res > 0);
+//		System.err.println("total = " + total);
+//		System.err.println("unchanged = " + unchanged);
 	}
 	
 	

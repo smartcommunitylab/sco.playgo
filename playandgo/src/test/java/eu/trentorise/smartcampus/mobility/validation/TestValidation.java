@@ -45,7 +45,7 @@ import eu.trentorise.smartcampus.mobility.util.GamificationHelper;
  * @author raman
  *
  */
-public class TestBusValidation {
+public class TestValidation {
 
 	public List<List<Geolocation>> TRAIN_SHAPES = new ArrayList<>();
 	public List<String> TRAIN_POLYLINES = new ArrayList<>();
@@ -101,7 +101,7 @@ public class TestBusValidation {
 	public void testBusTrip() throws JsonParseException, JsonMappingException, IOException {
 		
 		ObjectMapper mapper = new ObjectMapper();
-		Map map = mapper.readValue(TestBusValidation.class.getResourceAsStream("/bustrip2.json"), Map.class);
+		Map map = mapper.readValue(TestValidation.class.getResourceAsStream("/bustrip2.json"), Map.class);
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		List<Geolocation> track = ((Collection<?>)map.get("geolocationEvents")).stream().map(o -> mapper.convertValue(o, Geolocation.class)).collect(Collectors.toList());
 		Map<String, String> shapes = BUS_DESCRIPTOR.filteredPolylines(track);
@@ -115,10 +115,22 @@ public class TestBusValidation {
 	public void testTrainTrip() throws JsonParseException, JsonMappingException, IOException {
 		
 		ObjectMapper mapper = new ObjectMapper();
-		Map map = mapper.readValue(TestBusValidation.class.getResourceAsStream("/traintrip.json"), Map.class);
+		Map map = mapper.readValue(TestValidation.class.getResourceAsStream("/traintrip.json"), Map.class);
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		List<Geolocation> track = ((Collection<?>)map.get("geolocationEvents")).stream().map(o -> mapper.convertValue(o, Geolocation.class)).collect(Collectors.toList());
 		ValidationStatus validateFreeBus = TrackValidator.validateFreeTrain(track, TRAIN_SHAPES, null);
+		System.err.println(validateFreeBus);
+		
+	}
+
+	@Test
+	public void testBikeTrip() throws JsonParseException, JsonMappingException, IOException {
+		
+		ObjectMapper mapper = new ObjectMapper();
+		Map map = mapper.readValue(TestValidation.class.getResourceAsStream("/bike.json"), Map.class);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		List<Geolocation> track = ((Collection<?>)map.get("geolocationEvents")).stream().map(o -> mapper.convertValue(o, Geolocation.class)).collect(Collectors.toList());
+		ValidationStatus validateFreeBus = TrackValidator.validateFreeBike(track, null);
 		System.err.println(validateFreeBus);
 		
 	}
