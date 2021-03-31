@@ -18,22 +18,12 @@ package eu.trentorise.smartcampus.mobility.validation;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import eu.trentorise.smartcampus.mobility.gamification.TrackValidator;
 import eu.trentorise.smartcampus.mobility.geolocation.model.Geolocation;
@@ -44,7 +34,7 @@ import eu.trentorise.smartcampus.mobility.util.GamificationHelper;
  * @author raman
  *
  */
-public class TestBusValidation {
+public class TestTTDescriptor {
 
 	public List<List<Geolocation>> TRAIN_SHAPES = new ArrayList<>();
 	public List<String> TRAIN_POLYLINES = new ArrayList<>();
@@ -52,7 +42,8 @@ public class TestBusValidation {
 
 	public static String shapeFolder = "src/main/resources/validation";
 	
-	private void initValidationData() throws Exception{
+	@Test
+	public void initValidationData() throws Exception{
 		final File[] trainFiles = (new File(shapeFolder+"/train")).listFiles();
 		if (trainFiles != null) {
 			for (File f : trainFiles) {
@@ -84,26 +75,5 @@ public class TestBusValidation {
 				BUS_DESCRIPTOR.load(stops, trips, stopTimes, shapes);
 			}
 		}
-	}
-	
-	@Before
-	public void tearUp() throws Exception {
-		initValidationData();
-	}
-	
-	@Test
-	public void testLoad() {
-		Assert.assertTrue(true);
-	}
-	
-	@Test
-	public void testBusTrip() throws JsonParseException, JsonMappingException, IOException {
-		
-		ObjectMapper mapper = new ObjectMapper();
-		Map map = mapper.readValue(TestBusValidation.class.getResourceAsStream("/bustrip.json"), Map.class);
-		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		List<Geolocation> track = ((Collection<?>)map.get("geolocationEvents")).stream().map(o -> mapper.convertValue(o, Geolocation.class)).collect(Collectors.toList());
-		Map<String, String> shapes = BUS_DESCRIPTOR.filteredPolylines(track);
-		System.err.println(shapes.keySet());
 	}
 }

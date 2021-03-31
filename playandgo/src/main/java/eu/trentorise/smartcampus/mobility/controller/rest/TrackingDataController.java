@@ -24,7 +24,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -71,7 +70,7 @@ public class TrackingDataController {
 		AppInfo app = appSetup.findAppById(appId);
 		if (app == null) return Collections.emptyList();
 		
-		Criteria criteria = new Criteria("appId").is(appId).and("scoreStatus").is("ASSIGNED");
+		Criteria criteria = new Criteria("appId").is(appId).and("scoreStatus").in("ASSIGNED", "COMPUTED");
 		List<Criteria> criterias = Lists.newArrayList();
 		String fFrom = LocalDate.parse(dto.getFrom()).format(DATE_FORMAT);
 		String fTo = LocalDate.parse(dto.getTo()).plusDays(1).format(DATE_FORMAT);

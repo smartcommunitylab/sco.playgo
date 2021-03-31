@@ -1,5 +1,12 @@
 package eu.trentorise.smartcampus.mobility.config;
 
+import java.io.IOException;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -15,7 +22,10 @@ import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHand
 import org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.preauth.RequestHeaderAuthenticationFilter;
+import org.springframework.web.filter.OncePerRequestFilter;
 
+import eu.trentorise.smartcampus.mobility.security.AppInfo;
+import eu.trentorise.smartcampus.mobility.security.AppSetup;
 import eu.trentorise.smartcampus.mobility.security.CustomAuthenticationProvider;
 import eu.trentorise.smartcampus.mobility.security.CustomResourceAuthenticationProvider;
 import eu.trentorise.smartcampus.mobility.security.CustomTokenExtractor;
@@ -23,6 +33,9 @@ import eu.trentorise.smartcampus.mobility.security.CustomTokenExtractor;
 @Configuration
 @ComponentScan("eu.trentorise.smartcampus.resourceprovider")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+	@Autowired
+	private AppSetup appSetup;
 
 	@Autowired
 	@Order(1)
@@ -33,6 +46,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	    .authenticationProvider(getCustomResourceAuthenticationProvider());
 
 	}	
+	
+	@Bean
+	public OncePerRequestFilter noContentFilter() {
+		return new CheckHeaderFilter();
+	}		
+	
+	private class CheckHeaderFilter extends OncePerRequestFilter {
+
+		@Override
+		protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+
+			String appId = request.getHeader("appId");
+			if (appId != null && !appId.isEmpty()) {
+				AppInfo app = appSetup.findAppById(appId);
+				if (app == null) {
+					response.sendError(HttpServletResponse.SC_FORBIDDEN);
+				}
+			}
+
+			filterChain.doFilter(request, response);
+		}
+	}
 	
 	@Bean
 	@Override
@@ -287,7 +322,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/swagger**").permitAll()
 				.antMatchers("/v2/**").permitAll()
     			.antMatchers("/announcements/**").permitAll()
-    			.antMatchers("/policies/console/**","/web/notification/**","/gamification/console/**").hasAnyAuthority("ROLE_CONSOLE")
+    			.antMatchers("/profile/**", "/waypoints/**", "/policies/console/**","/web/notification/**","/gamification/console/**").hasAnyAuthority("ROLE_CONSOLE")
     			.and()
     		.formLogin().loginPage("/login").permitAll().and().logout().permitAll();	    		
     	}    	
