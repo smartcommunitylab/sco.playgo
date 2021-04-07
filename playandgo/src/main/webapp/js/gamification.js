@@ -153,6 +153,15 @@ gamificationConsole.controller('GameCtrl', function($scope, $timeout, $http) {
       });
     }
   }
+  $scope.toggleSend = function() {
+    if (confirm('Are you sure')) {
+      $http.put("console/" + ($scope.state.send ? "deactivatesend" : "activatesend")).then(function() {
+        $http.get("console/state").then(function(state) {
+          $scope.state = state.data;
+        });      
+      });
+    }
+  }
 
 	$scope.selectUser = function(user) {
 		if ($scope.selectedUser == user)

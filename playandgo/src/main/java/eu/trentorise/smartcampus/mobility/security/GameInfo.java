@@ -12,6 +12,7 @@ public class GameInfo implements Serializable {
 	private String start;
 	private List<Shape> areas;
 	private Boolean send;
+	private Boolean active;
 
 	private List<Initiative> initiatives;
 	
@@ -70,6 +71,15 @@ public class GameInfo implements Serializable {
 	public void setInitiatives(List<Initiative> initiatives) {
 		this.initiatives = initiatives;
 	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
 
 
 

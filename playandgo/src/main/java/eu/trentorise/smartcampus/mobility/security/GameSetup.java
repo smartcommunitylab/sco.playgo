@@ -54,9 +54,11 @@ public class GameSetup {
 					gameState = new GameState();
 					gameState.setId(game.getId());
 					gameState.setActive(Boolean.TRUE.equals(game.getSend()));
+					gameState.setSendMail(gameState.getActive());
 					gameState = gameStateRepo.save(gameState);
 				}
-				game.setSend(Boolean.TRUE.equals(gameState.getActive()));
+				game.setSend(Boolean.TRUE.equals(gameState.getSendMail()));
+				game.setActive(gameState.getActive());
 				
 				gamesMap.put(game.getId(), game);
 			}
@@ -107,13 +109,28 @@ public class GameSetup {
 		if (game == null) {
 			throw new IllegalArgumentException();
 		}
-		game.setSend(state);
+		game.setActive(state);
+		if (!state) game.setSend(false);
+		
 		gameStateRepo.findById(gameId).ifPresent(g -> {
 			g.setActive(state);
+			if (!state) g.setSendMail(false);
 			gameStateRepo.save(g);
 		});
 	}	
 	
+	public void changeSendMail(String gameId, boolean state) {
+		GameInfo game = findGameById(gameId);
+		if (game == null) {
+			throw new IllegalArgumentException();
+		}
+		game.setSend(state);
+		
+		gameStateRepo.findById(gameId).ifPresent(g -> {
+			g.setSendMail(state);
+			gameStateRepo.save(g);
+		});
+	}	
 	
 	
 }
