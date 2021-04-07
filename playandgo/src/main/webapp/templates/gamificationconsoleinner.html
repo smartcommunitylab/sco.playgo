@@ -1,9 +1,9 @@
 	<div id="console" class="console" ng-controller="GameCtrl">
 	  <div class="row padding">
-	   <div class="col xpadding text-right">
+	   <div class="col-md-10 xpadding text-right">
          <b>Send mails / messages: {{state.send ? 'YES' : 'NO'}}</b> <button class="btn btn-sm btn-primary" ng-click="toggleSend()">{{state.send ? 'Disable' : 'Enable'}}
      </div>
-     <div class="col xpadding text-right">
+     <div class="col-md-2 xpadding text-right">
          <b>Status: {{state.active ? 'Active' : 'Inactive'}}</b> <button class="btn btn-sm btn-primary" ng-click="toggleStatus()">{{state.active ? 'Deactivate' : 'Activate'}}
      </div>
 	  </div>
