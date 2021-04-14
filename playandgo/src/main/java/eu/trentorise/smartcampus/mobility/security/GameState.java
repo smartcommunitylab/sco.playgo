@@ -27,6 +27,8 @@ public class GameState {
 	private String id;
 
 	private Boolean active;
+	
+	private Boolean sendMail;
 
 	public String getId() {
 		return id;
@@ -43,4 +45,13 @@ public class GameState {
 	public void setActive(Boolean active) {
 		this.active = active;
 	}
+
+	public Boolean getSendMail() {
+		return sendMail;
+	}
+
+	public void setSendMail(Boolean sendMail) {
+		this.sendMail = sendMail;
+	}
+	
 }

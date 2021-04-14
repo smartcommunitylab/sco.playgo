@@ -1289,6 +1289,36 @@ public class GamificationController {
 
 		return null;
 	}
+	@PutMapping("/gamification/console/activatesend")
+	public @ResponseBody ResponseEntity<Void> activateSend() throws Exception {
+		String appId = ((AppDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getApp().getAppId();
+		AppInfo ai = appSetup.findAppById(appId);
+		if (ai == null) {
+			return ResponseEntity.badRequest().build();
+		}
+		try {
+			gameSetup.changeSendMail(ai.getGameId(), true);
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().build();
+		}
+
+		return null;
+	}
+	@PutMapping("/gamification/console/deactivatesend")
+	public @ResponseBody ResponseEntity<Void> deactivateSend() throws Exception {
+		String appId = ((AppDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getApp().getAppId();
+		AppInfo ai = appSetup.findAppById(appId);
+		if (ai == null) {
+			return ResponseEntity.badRequest().build();
+		}
+		try {
+			gameSetup.changeSendMail(ai.getGameId(), false);
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().build();
+		}
+
+		return null;
+	}
 	@GetMapping("/gamification/console/state")
 	public @ResponseBody ResponseEntity<GameInfo> getState() throws Exception {
 		String appId = ((AppDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getApp().getAppId();
@@ -1302,6 +1332,7 @@ public class GamificationController {
 			copy.setAreas(info.getAreas());
 			copy.setStart(info.getStart());
 			copy.setSend(info.getSend());
+			copy.setActive(info.getActive());
 			return ResponseEntity.ok(copy);
 		} catch (Exception e) {
 			return ResponseEntity.badRequest().build();

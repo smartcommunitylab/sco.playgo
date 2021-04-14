@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
@@ -123,6 +124,8 @@ public class GamificationWebController {
 			PlayerIdentity identity = linkUtils.decryptIdentity(playerId);
 			String sId = identity.playerId;
 			String gameId = identity.gameId;
+//			String sId = "4";
+//			String gameId = "5edf5f7d4149dd117cc7f17d";
 			if(!StringUtils.isEmpty(sId)){	// case of incorrect encrypted string
 				logger.info("Survey data. Found player : " + sId);
 				Player p = playerRepositoryDao.findByPlayerIdAndGameId(sId, gameId);
@@ -130,6 +133,14 @@ public class GamificationWebController {
 					model = new ModelAndView("web/survey_complete");
 					model.addObject("surveyComplete", true);
 					return model;
+				}
+				GameInfo gameInfo = gameSetup.findGameById(gameId);
+				if (gameInfo.getSurveys() != null && gameInfo.getSurveys().containsKey(survey)) {
+					String url = gameInfo.getSurveys().get(survey);
+					if (!StringUtils.isEmpty(url)) {
+						url = url.replace("{playerId}", playerId);
+						return new ModelAndView("redirect:"+url);
+					}
 				}
 				model = new ModelAndView("web/survey/"+survey);
 				model.addObject("language", lang);
@@ -192,6 +203,42 @@ public class GamificationWebController {
 		model.addObject("surveyComplete", complete);
 		return model;
 	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/gamificationweb/surveyext/{lang}/{survey:.*}")
+	public @ResponseBody Boolean sendSurveyWebhook(
+			@RequestBody MultiValueMap<String,String> formData, 
+			@PathVariable String lang, 
+			@PathVariable String survey, 
+			@RequestParam(required=false, defaultValue = "survey_complete") String completeTemplate,
+			@RequestParam(required=false, defaultValue = "false") Boolean multi
+			) throws Exception {
+		boolean complete = false;
+		try {
+			String playerId = formData.getFirst("playerId");
+			PlayerIdentity identity = linkUtils.decryptIdentity(playerId);
+			String sId = identity.playerId;
+			String gameId = identity.gameId;
+			if(!StringUtils.isEmpty(sId)){	// case of incorrect encrypted string
+				logger.info("Survey data. Found player : " + sId);
+				Player p = playerRepositoryDao.findByPlayerIdAndGameId(sId, gameId);
+				if (!p.getSurveys().containsKey(survey)) {
+					Map<String, Object> data = toSurveyData(formData, multi);
+					data.remove("multi");
+					data.remove("playerId");
+					data.remove("completeTemplate");
+					p.addSurvey(survey, data);
+					sendSurveyToGamification(sId, gameId, survey);
+					playerRepositoryDao.save(p);
+				}
+				complete = true;
+			}
+			
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
+		return complete;
+	}
+	
 	
 	//Method used to send the survey call to gamification engine (if user complete the survey the engine need to be updated with this call)
 		private void sendSurveyToGamification(String playerId, String gameId, String survey) throws Exception{

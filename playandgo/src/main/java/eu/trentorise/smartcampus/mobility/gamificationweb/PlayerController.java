@@ -385,7 +385,7 @@ public class PlayerController {
 				
 				AppInfo app = appSetup.findAppById(appId);
 				GameInfo game = gameSetup.findGameById(app.getGameId());
-				if (game.getSend() != null && game.getSend()) {
+				if (game.getActive() != null && game.getActive()) {
 					logger.info("Assigning survey challenge");
 					assignSurveyChallenge(id, gameId, appId);
 					logger.info("Assigning boat challenge");

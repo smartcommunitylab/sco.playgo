@@ -577,7 +577,7 @@ var plannerControllers = angular.module('plannerControllers', [])
 						var data = planner.getRequest($scope.fromMarker.getPosition(), $scope.toMarker.getPosition(), convertMeans(), $scope.mode,
 								$scope.mydate, $scope.mytime, $scope.currentPolicy.name, $scope.wheelchair);
 						var dataTxt = JSON.stringify(data);
-						cordova.InAppBrowser.open("mailto:" + MAIL + "?subject=Web Planner: segnalazione problemi&body=" + dataTxt);
+						window.open("mailto:" + MAIL + "?subject=Web Planner: segnalazione problemi&body=" + dataTxt);
 					};
 
 					$scope.recenter = function(lat, lon) {

@@ -140,7 +140,7 @@ public class GamificationManager {
 			return false;
 		}
 
-		if (!game.getSend()) {
+		if (!game.getActive()) {
 			logger.warn("Not sending for disabled game " + game.getId());
 			return false;
 		}
@@ -293,7 +293,7 @@ public class GamificationManager {
 				logger.warn("Not sending for banned player " + userId);
 				return false;
 			}		
-			if (!Boolean.TRUE.equals(game.getSend())) {
+			if (!Boolean.TRUE.equals(game.getActive())) {
 				logger.warn("Not sending for disabled game " + game.getId());
 				return true;
 			}
