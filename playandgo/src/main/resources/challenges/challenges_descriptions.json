@@ -513,14 +513,6 @@
 	},
 	{
 		"modelName": "survey",
-		"filter": "last",
-		"description": {
-			"it": "Per vincere la sfida compila questo breve questionario al seguente \\<a href='<surveylink>' target='_system'>indirizzo\\</a>.",
-			"en": "To win this challenge, complete the short survey that you can access \\<a href='<surveylink>' target='_system'>here\\</a>."
-		}
-	},
-	{
-		"modelName": "survey",
 		"filter": "start",
 		"description": {
 			"it": "Per vincere la sfida compila il questionario di inizio gioco che visualizzi al seguente \\<a href='<surveylink>' target='_system'>indirizzo\\</a>.",
@@ -535,38 +527,6 @@
 			"en": "To win this challenge, complete the multiplayer challenge questionnaire that you can access \\<a href='<surveylink>' target='_system'>here\\</a>."
 		}
 	},	
-  {
-    "modelName": "survey",
-    "filter": "prediction",
-    "description": {
-      "it": "Per vincere la sfida compila il breve questionario che visualizzi al seguente \\<a href='<surveylink>' target='_system'>indirizzo\\</a>.",
-      "en": "To win this challenge, complete a short questionnaire that you can access \\<a href='<surveylink>' target='_system'>here\\</a>."
-    }
-  },  
-  {
-    "modelName": "survey",
-    "filter": "evaluation",
-    "description": {
-      "it": "Per vincere la sfida compila il breve questionario che visualizzi al seguente \\<a href='<surveylink>' target='_system'>indirizzo\\</a>.",
-      "en": "To win this challenge, complete a short questionnaire that you can access \\<a href='<surveylink>' target='_system'>here\\</a>."
-    }
-  },  
-  {
-    "modelName": "survey",
-    "filter": "boat",
-    "description": {
-      "it": "Per vincere la sfida compila il breve questionario che visualizzi al seguente \\<a href='<surveylink>' target='_system'>indirizzo\\</a>  dopo aver fatto un giro in battello.",
-      "en": "To win this challenge, complete a short questionnaire that you can access \\<a href='<surveylink>' target='_system'>here\\</a> once you have complete a boat trip."
-    }
-  },  
-  {
-    "modelName": "survey",
-    "filter": "bellaCoincidenza",
-    "description": {
-      "it": "Per vincere la sfida compila questo breve questionario al seguente \\<a href='<surveylink>' target='_system'>indirizzo\\</a>.",
-      "en": "To win this challenge, complete the short survey that you can access \\<a href='<surveylink>' target='_system'>here\\</a>."
-    }
-  },  
   {
     "modelName": "survey",
     "description": {

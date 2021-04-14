@@ -2,6 +2,7 @@ package eu.trentorise.smartcampus.mobility.gamificationweb;
 
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -125,13 +126,24 @@ public class ChallengesUtils {
 		for (Object o : list) {
 			ChallengeLongDescrStructure challenge = mapper.convertValue(o, ChallengeLongDescrStructure.class);
 
-			String key = challenge.getModelName() + "#" + challenge.getFilter();
+			String key = challenge.getModelName() + (challenge.getFilter() != null ? ("#" + challenge.getFilter()) : "");
 			challengeLongStructureMap.put(key, challenge);
 //			template.save(challenge);
 		}
 
 		challengeDictionaryMap = mapper.readValue(Resources.getResource("challenges/challenges_dictionary.json"), Map.class);
 		challengeReplacements = mapper.readValue(Resources.getResource("challenges/challenges_replacements.json"), Map.class);
+		
+		
+		ChallengeConcept challenge = new ChallengeConcept();
+		challenge.setModelName("survey");
+		challenge.setFields(new HashMap<>());
+		challenge.getFields().put("bonusPointType", "green leaves");
+		challenge.getFields().put("bonusScore", "100");
+		challenge.getFields().put("surveyType", "example");
+		
+		
+		fillLongDescription(challenge, getFilterByType(challenge.getModelName()), "en");
 	}
 
 	public List<ChallengeConcept> parse(String data) throws Exception {
@@ -681,7 +693,7 @@ public class ChallengesUtils {
 		String name = challenge.getModelName();
 		String counterName = filterField != null ? (String) challenge.getFields().get(filterField) : null;
 
-		ChallengeLongDescrStructure challengeStructure = challengeLongStructureMap.getOrDefault(name + "#" + counterName, null);
+		ChallengeLongDescrStructure challengeStructure = challengeLongStructureMap.getOrDefault(name + "#" + counterName, challengeLongStructureMap.getOrDefault(name, null));
 
 		if (challengeStructure != null) {
 			description = fillLongDescription(challengeStructure, counterName, challenge, lang);

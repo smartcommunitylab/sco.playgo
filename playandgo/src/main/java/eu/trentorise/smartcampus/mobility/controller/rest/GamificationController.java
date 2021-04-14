@@ -881,7 +881,7 @@ public class GamificationController {
 			playerIds = playerRepo.findAllIdsByGameId(gameId).stream().map(Player::getPlayerId).collect(Collectors.toList());
 		}
 		for (String playerId: playerIds) {
-			challenge.setInstanceName("start_survey-" + Long.toHexString(System.currentTimeMillis()) + "-" + Integer.toHexString((playerId + gameId).hashCode()));
+			challenge.setInstanceName(survey+ "_survey-" + Long.toHexString(System.currentTimeMillis()) + "-" + Integer.toHexString((playerId + gameId).hashCode()));
 			String partialUrl = "game/" + gameId + "/player/" + playerId + "/challenges";
 			restTemplate.exchange(gamificationUrl + "data/" + partialUrl, HttpMethod.POST, new HttpEntity<Object>(challenge, appSetup.createAuthHeaders(appId)), String.class);
 			logger.info("Sent survey assignment to " + playerId);
