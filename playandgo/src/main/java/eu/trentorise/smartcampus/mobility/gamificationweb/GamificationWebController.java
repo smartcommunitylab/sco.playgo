@@ -206,14 +206,12 @@ public class GamificationWebController {
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/gamificationweb/surveyext/{survey:.*}")
 	public @ResponseBody Boolean sendSurveyWebhook(
-			@RequestBody MultiValueMap<String,String> formData, 
-			@PathVariable String survey, 
-			@RequestParam(required=false, defaultValue = "survey_complete") String completeTemplate,
-			@RequestParam(required=false, defaultValue = "false") Boolean multi
+			@RequestBody Map<String,String> formData, 
+			@PathVariable String survey
 			) throws Exception {
 		boolean complete = false;
 		try {
-			String playerId = formData.getFirst("playerId");
+			String playerId = formData.get("playerId");
 			PlayerIdentity identity = linkUtils.decryptIdentity(playerId);
 			String sId = identity.playerId;
 			String gameId = identity.gameId;
@@ -221,10 +219,8 @@ public class GamificationWebController {
 				logger.info("Survey data. Found player : " + sId);
 				Player p = playerRepositoryDao.findByPlayerIdAndGameId(sId, gameId);
 				if (!p.getSurveys().containsKey(survey)) {
-					Map<String, Object> data = toSurveyData(formData, multi);
-					data.remove("multi");
+					Map<String, Object> data = new HashMap<>(formData);
 					data.remove("playerId");
-					data.remove("completeTemplate");
 					p.addSurvey(survey, data);
 					sendSurveyToGamification(sId, gameId, survey);
 					playerRepositoryDao.save(p);
