@@ -2,6 +2,7 @@ package eu.trentorise.smartcampus.mobility.security;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 public class GameInfo implements Serializable {
 	private static final long serialVersionUID = -6374757914730418649L;
@@ -13,6 +14,7 @@ public class GameInfo implements Serializable {
 	private List<Shape> areas;
 	private Boolean send;
 	private Boolean active;
+	private Map<String, String> surveys;
 
 	private List<Initiative> initiatives;
 	
@@ -79,6 +81,15 @@ public class GameInfo implements Serializable {
 	public void setActive(Boolean active) {
 		this.active = active;
 	}
+
+	public Map<String, String> getSurveys() {
+		return surveys;
+	}
+
+	public void setSurveys(Map<String, String> surveys) {
+		this.surveys = surveys;
+	}
+
 
 
 
