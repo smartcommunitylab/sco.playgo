@@ -204,10 +204,9 @@ public class GamificationWebController {
 		return model;
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/gamificationweb/surveyext/{lang}/{survey:.*}")
+	@RequestMapping(method = RequestMethod.POST, value = "/gamificationweb/surveyext/{survey:.*}")
 	public @ResponseBody Boolean sendSurveyWebhook(
 			@RequestBody MultiValueMap<String,String> formData, 
-			@PathVariable String lang, 
 			@PathVariable String survey, 
 			@RequestParam(required=false, defaultValue = "survey_complete") String completeTemplate,
 			@RequestParam(required=false, defaultValue = "false") Boolean multi

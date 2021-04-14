@@ -2,6 +2,12 @@ package eu.trentorise.smartcampus.mobility.controller.rest;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.temporal.ChronoField;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -29,6 +35,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -46,6 +54,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.google.common.collect.Lists;
 
@@ -53,6 +62,8 @@ import eu.trentorise.smartcampus.mobility.gamification.GamificationManager;
 import eu.trentorise.smartcampus.mobility.gamification.GamificationValidator;
 import eu.trentorise.smartcampus.mobility.gamification.GeolocationsProcessor;
 import eu.trentorise.smartcampus.mobility.gamification.TrackValidator;
+import eu.trentorise.smartcampus.mobility.gamification.model.ChallengeAssignmentDTO;
+import eu.trentorise.smartcampus.mobility.gamification.model.ChallengeRequestDTO;
 import eu.trentorise.smartcampus.mobility.gamification.model.ItineraryDescriptor;
 import eu.trentorise.smartcampus.mobility.gamification.model.TrackedInstance;
 import eu.trentorise.smartcampus.mobility.gamification.model.TrackedInstance.ScoreStatus;
@@ -141,6 +152,11 @@ public class GamificationController {
 	private static FastDateFormat fullSdf = FastDateFormat.getInstance("yyyy/MM/dd HH:mm");
 
 	private ObjectMapper mapper = new ObjectMapper();
+	
+	@Autowired
+	@Value("${gamification.url}")
+	private String gamificationUrl;
+
 	
 //	@PostMapping("/gamification/geolocations/compressed")
 //	public @ResponseBody String storeGeolocationEventCompressed(@RequestBody(required = false) GeolocationsEvent geolocationsEvent, @RequestHeader(required = false, value = "appId") String appId,
@@ -836,7 +852,57 @@ public class GamificationController {
 		return p;	
 	}
 	
+	@PutMapping("/gamification/console/surveys/{survey}/assign")
+	public @ResponseBody void assignSurveyChallenges(@PathVariable String survey, @RequestParam(required=false) List<String> playerIds, @RequestBody ChallengeRequestDTO requestDTO) {
+		
+		String appId = ((AppDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getApp().getAppId();
+		AppInfo ai = appSetup.findAppById(appId);
+		String gameId = ai.getGameId();
+
+		RestTemplate restTemplate = new RestTemplate();
+		Map<String, Object> data = new HashMap<String, Object>(requestDTO.getData());
+		
+		data.put("surveyType", survey);
+		data.put("link", "");
+		
+		ChallengeAssignmentDTO challenge = new ChallengeAssignmentDTO();
+		Date start = requestDTO.getStart() != null ? Date.from(LocalDate.parse(requestDTO.getStart()).atStartOfDay(ZoneId.systemDefault()).toInstant()) : new Date();
+		challenge.setStart(start);
+		
+		LocalDateTime ldt = requestDTO.getEnd() != null ? LocalDate.parse(requestDTO.getEnd()).atStartOfDay() : LocalDateTime.now().plusDays(10).with(ChronoField.DAY_OF_WEEK, 6).truncatedTo(ChronoUnit.DAYS).minusSeconds(1);
+		Date end = new Date(ldt.atZone(ZoneOffset.systemDefault()).toInstant().toEpochMilli());
+		
+		challenge.setEnd(end);
+
+		challenge.setModelName("survey");
+		challenge.setData(data);
+
+		if (playerIds == null || playerIds.size() == 0) {
+			playerIds = playerRepo.findAllIdsByGameId(gameId).stream().map(Player::getPlayerId).collect(Collectors.toList());
+		}
+		for (String playerId: playerIds) {
+			challenge.setInstanceName("start_survey-" + Long.toHexString(System.currentTimeMillis()) + "-" + Integer.toHexString((playerId + gameId).hashCode()));
+			String partialUrl = "game/" + gameId + "/player/" + playerId + "/challenges";
+			restTemplate.exchange(gamificationUrl + "data/" + partialUrl, HttpMethod.POST, new HttpEntity<Object>(challenge, appSetup.createAuthHeaders(appId)), String.class);
+			logger.info("Sent survey assignment to " + playerId);
+		}
+
+	}
 	
+	@PutMapping("/gamification/console/surveys")
+	public @ResponseBody ResponseEntity<Map<String, String>> updateSurveys(@RequestBody Map<String, String> surveys) {
+		
+		String appId = ((AppDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getApp().getAppId();
+		AppInfo ai = appSetup.findAppById(appId);
+		try {
+			gameSetup.updateSurveys(ai.getGameId(), surveys);
+			return ResponseEntity.ok(gameSetup.updateSurveys(ai.getGameId(), surveys));
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().build();
+		}
+
+		
+	}	
 	@GetMapping("/gamification/console/email/template")
 	public @ResponseBody Map<String, String> getEmailTemplate(HttpServletResponse response) throws IOException {
 		return Collections.singletonMap("template", config.getGenericEmailTemplate());
@@ -1328,12 +1394,7 @@ public class GamificationController {
 		}
 		try {
 			GameInfo info = gameSetup.findGameById(ai.getGameId());
-			GameInfo copy = new GameInfo();
-			copy.setAreas(info.getAreas());
-			copy.setStart(info.getStart());
-			copy.setSend(info.getSend());
-			copy.setActive(info.getActive());
-			return ResponseEntity.ok(copy);
+			return ResponseEntity.ok(info);
 		} catch (Exception e) {
 			return ResponseEntity.badRequest().build();
 		}

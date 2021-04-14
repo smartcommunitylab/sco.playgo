@@ -1,0 +1,79 @@
+  <div id="console" class="console" >
+     <div class="container">
+      <h3>External surveys</h3>
+      <table class="table">
+       <thead>
+         <tr>
+           <th>Survey ID</th>
+           <th>Survey link</th>
+           <th></th>
+         </tr>
+       </thead>
+       <tbody>
+         <tr ng-repeat="(s,l) in state.surveys">
+           <td>{{s}}</td>
+           <td><a href="{{l}}" target="_blank">{{l}}</a></td>
+           <td style="white-space: nowrap">
+            <button class="btn btn-danger btn-sm" ng-click="deleteSurvey(s)">Delete</button>
+            <button class="btn btn-success btn-sm" ng-click="assignSurveyDlg(s)">Assign</button>
+           </td>
+         </tr>
+       </tbody>
+      </table> 
+      
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+           <input class="form-control" type="text" id="surveyId" ng-model="surveyId" placeholder="Survey ID"/>
+          </div>      
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+           <input class="form-control" type="text" id="surveyLink" ng-model="surveyLink" placeholder="Survey Link"/>
+          </div>      
+        </div>
+        <div class="col-md-2">
+          <button class="btn btn-primary" ng-disabled="!surveyId || !surveyLink" ng-click="addSurvey(surveyId,surveyLink)">Add</button>
+        </div>
+      </div>
+      
+     </div>
+  </div>
+    <div id="confirmModalAssign" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Survey challenge assignment</h4>
+            <br>
+            <div class="form-group">
+             <label>Player IDs</label>
+             <input class="form-control" type="text" id="playerId" ng-model="playerIds" placeholder="Comma-separated player IDs"/>
+             <br>
+             <b class="text-danger">ATTENTION! If player IDs are not specified, the challenge will be assigned to ALL the users!</b> 
+            </div>      
+            <div class="form-group">
+             <label>Challenge definition</label>
+             <textarea rows="9" class="form-control" type="text" id="playerId" ng-model="assignData"></textarea>
+            </div>      
+          </div>
+          
+          <div class="modal-body">
+            <form id="notification-form">
+              <div class="form-group" ng-if="!confirming">
+                <button class="btn btn-primary" type="button" ng-click="requestConfirm()" ng-disabled="!assignData">Assign</button>
+                <button class="btn btn-primary right" type="button" data-dismiss="modal">Cancel</button>
+              </div>
+              <div class="form-group" ng-if="confirming">
+                 <div class="text-center">
+                 <b class="text-danger">ATTENTION! Confirm the assignment to the {{playerIds ? 'specified': 'all'}} players ?</b>
+                 <br>
+                 </div> 
+                <button class="btn btn-primary" type="button" ng-click="assignSurvey()" data-dismiss="modal" ng-disabled="!assignData">YES</button>
+                <button class="btn btn-primary right" type="button" ng-click="undoConfirm()">NO</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  

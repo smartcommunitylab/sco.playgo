@@ -1086,6 +1086,67 @@ gamificationConsole.controller('EmailCtrl', function($scope, $timeout, $http) {
 })
 
 
+gamificationConsole.controller('SurveyCtrl', function($scope, $timeout, $http) {
+    $http.get("console/state").then(function(state) {
+      $scope.state = state.data;
+    });
+    
+    $scope.deleteSurvey = function(s) {
+      delete $scope.state.surveys[s];
+      $http.put("console/surveys", $scope.state.surveys).then(function(res) {
+        $scope.state.surveys = res.data;
+      }); 
+    }
+    
+    $scope.addSurvey = function(id, link) {
+      if (id && link) {
+        $scope.state.surveys[id] = link;
+        $http.put("console/surveys", $scope.state.surveys).then(function(res) {
+          $scope.state.surveys = res.data;
+          $scope.surveyId = null;
+          $scope.surveyLink = null;
+        }); 
+      }
+    }
+    
+    $scope.assignSurveyDlg = function(surveyId) {
+      $scope.selectedSurveyId = surveyId;
+      var s = new Date().toISOString().substring(0, 10);
+      var e = new Date();
+      e.setDate(e.getDate() + 7);
+      e = e.toISOString().substring(0, 10);
+      $scope.assignData = JSON.stringify({
+        start: s,
+        end: e,
+        data: {
+          bonusPointType: 'green leaves',
+          bonusScore: 100.0
+        }
+      }, null, 2);
+      $('#confirmModalAssign').modal();
+    }
+    
+    $scope.assignSurvey = function() {
+        var url  = "console/surveys/"+$scope.selectedSurveyId+"/assign";
+        if ($scope.playerIds) url += '?playerIds=' + $scope.playerIds;
+        $http.put(url, JSON.parse($scope.assignData)).then(function(res) {
+          $scope.confirming = false;
+          alert('Assignment successful!');
+        })
+        .catch(function() {
+          $scope.confirming = false;
+          alert('Assignment failed!');
+        }); 
+    }
+    $scope.requestConfirm = function() {
+      $scope.confirming = true;
+    }
+    $scope.undoConfirm = function() {
+      $scope.confirming = false;
+    }
+})
+
+
 .directive('toggle', function() {
 	return {
 		span : function(scope, element, attrs) {

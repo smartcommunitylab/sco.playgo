@@ -20,7 +20,10 @@ public interface PlayerRepositoryDao extends CrudRepository<Player, String>{
 	
 	@Query("{'nickName': { '$regex': ?0, $options:'i'}}")
 	public Player findByNickIgnoreCase(String nickname);*/
-	
+
+	@Query(value="{'gameId' : ?0}", fields="{playerId: 1}")
+	List<Player> findAllIdsByGameId(String gameId);
+
 	List<Player> findAllByGameId(String gameId);
 
 	Player findByGameIdAndMail(String gameId, String mail);

@@ -21,6 +21,10 @@ gamificationConsole.config(['$routeProvider',
                        when('/email', {
                            templateUrl: '../templates/gamificationconsoleemail.html',
                            controller: 'EmailCtrl'
+                         }).
+                       when('/surveys', {
+                           templateUrl: '../templates/gamificationconsolesurveys.html',
+                           controller: 'SurveyCtrl'
                          });
                      }]);
 

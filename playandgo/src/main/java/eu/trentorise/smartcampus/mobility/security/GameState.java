@@ -16,6 +16,8 @@
 
 package eu.trentorise.smartcampus.mobility.security;
 
+import java.util.Map;
+
 import org.springframework.data.annotation.Id;
 
 /**
@@ -27,8 +29,8 @@ public class GameState {
 	private String id;
 
 	private Boolean active;
-	
 	private Boolean sendMail;
+	private Map<String, String> surveys;
 
 	public String getId() {
 		return id;
@@ -53,5 +55,12 @@ public class GameState {
 	public void setSendMail(Boolean sendMail) {
 		this.sendMail = sendMail;
 	}
-	
+
+	public Map<String, String> getSurveys() {
+		return surveys;
+	}
+
+	public void setSurveys(Map<String, String> surveys) {
+		this.surveys = surveys;
+	}
 }

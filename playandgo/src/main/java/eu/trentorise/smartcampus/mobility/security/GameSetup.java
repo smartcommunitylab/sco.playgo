@@ -1,5 +1,6 @@
 package eu.trentorise.smartcampus.mobility.security;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,13 +50,18 @@ public class GameSetup {
 		if (gamesMap == null) {
 			gamesMap = Maps.newTreeMap();
 			for (GameInfo game : games) {
+				if (game.getSurveys() == null) game.setSurveys(new HashMap<>());
 				GameState gameState = gameStateRepo.findById(game.getId()).orElse(null);
 				if (gameState == null) {
 					gameState = new GameState();
 					gameState.setId(game.getId());
 					gameState.setActive(Boolean.TRUE.equals(game.getSend()));
 					gameState.setSendMail(gameState.getActive());
+					gameState.setSurveys(game.getSurveys());
 					gameState = gameStateRepo.save(gameState);
+					// merge survey data
+				} else if (gameState.getSurveys() != null){
+					game.getSurveys().putAll(gameState.getSurveys());
 				}
 				game.setSend(Boolean.TRUE.equals(gameState.getSendMail()));
 				game.setActive(gameState.getActive());
@@ -130,6 +136,25 @@ public class GameSetup {
 			g.setSendMail(state);
 			gameStateRepo.save(g);
 		});
+	}
+
+	/**
+	 * @param gameId
+	 * @param surveys
+	 * @return 
+	 */
+	public Map<String, String> updateSurveys(String gameId, Map<String, String> surveys) {
+		GameInfo game = findGameById(gameId);
+		if (game == null) {
+			throw new IllegalArgumentException();
+		}
+		game.setSurveys(surveys);
+		
+		gameStateRepo.findById(gameId).ifPresent(g -> {
+			g.setSurveys(surveys);
+			gameStateRepo.save(g);
+		});
+		return game.getSurveys();
 	}	
 	
 	
