@@ -221,6 +221,7 @@ public class GamificationWebController {
 				if (!p.getSurveys().containsKey(survey)) {
 					Map<String, Object> data = new HashMap<>(formData);
 					data.remove("playerId");
+					data = correctData(data);
 					p.addSurvey(survey, data);
 					sendSurveyToGamification(sId, gameId, survey);
 					playerRepositoryDao.save(p);
@@ -235,7 +236,20 @@ public class GamificationWebController {
 	}
 	
 	
-	//Method used to send the survey call to gamification engine (if user complete the survey the engine need to be updated with this call)
+	/**
+	 * @param data
+	 * @return
+	 */
+	private Map<String, Object> correctData(Map<String, Object> data) {
+		Map<String, Object> res = new HashMap<>();
+		data.keySet().forEach(k -> {
+			String nk = k.replace('.', ' ');
+			res.put(nk, data.getOrDefault(k, ""));
+		});
+		return res;
+	}
+
+		//Method used to send the survey call to gamification engine (if user complete the survey the engine need to be updated with this call)
 		private void sendSurveyToGamification(String playerId, String gameId, String survey) throws Exception{
 
 			ExecutionDataDTO ed = new ExecutionDataDTO();
