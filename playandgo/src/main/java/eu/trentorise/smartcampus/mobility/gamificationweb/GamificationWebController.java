@@ -206,12 +206,12 @@ public class GamificationWebController {
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/gamificationweb/surveyext/{survey:.*}")
 	public @ResponseBody Boolean sendSurveyWebhook(
-			@RequestBody Map<String,String> formData, 
+			@RequestBody Map<String,Object> formData, 
 			@PathVariable String survey
 			) throws Exception {
 		boolean complete = false;
 		try {
-			String playerId = formData.get("playerId");
+			String playerId = (String)formData.get("playerId");
 			PlayerIdentity identity = linkUtils.decryptIdentity(playerId);
 			String sId = identity.playerId;
 			String gameId = identity.gameId;
