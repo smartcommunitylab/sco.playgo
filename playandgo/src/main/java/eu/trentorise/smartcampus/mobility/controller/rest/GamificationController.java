@@ -864,6 +864,10 @@ public class GamificationController {
 		
 		data.put("surveyType", survey);
 		data.put("link", "");
+		// Force double for bonus score
+		if (data.containsKey("bonusScore")) {
+			data.put("bonusScore", Double.parseDouble(data.get("bonusScore").toString()));
+		}
 		
 		ChallengeAssignmentDTO challenge = new ChallengeAssignmentDTO();
 		Date start = requestDTO.getStart() != null ? Date.from(LocalDate.parse(requestDTO.getStart()).atStartOfDay(ZoneId.systemDefault()).toInstant()) : new Date();
