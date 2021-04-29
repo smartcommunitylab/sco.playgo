@@ -241,8 +241,8 @@ public class GamificationWebController {
 			ExecutionDataDTO ed = new ExecutionDataDTO();
 			ed.setGameId(gameId);
 			ed.setPlayerId(playerId);
-			ed.setActionId(survey+"_survey_complete");
-			ed.setData(Collections.singletonMap("type", survey));
+			ed.setActionId("survey_complete");
+			ed.setData(Collections.singletonMap("surveyType", survey));
 
 			String content = JsonUtils.toJSON(ed);
 			GameInfo game = gameSetup.findGameById(gameId);
