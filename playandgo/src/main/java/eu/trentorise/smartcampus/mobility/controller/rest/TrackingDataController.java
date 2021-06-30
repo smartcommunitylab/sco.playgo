@@ -70,7 +70,7 @@ public class TrackingDataController {
 		AppInfo app = appSetup.findAppById(appId);
 		if (app == null) return Collections.emptyList();
 		
-		Criteria criteria = new Criteria("appId").is(appId).and("scoreStatus").in("ASSIGNED", "COMPUTED");
+		Criteria criteria = new Criteria("appId").is(appId).and("scoreStatus").in("ASSIGNED", "COMPUTED", "SENT");
 		List<Criteria> criterias = Lists.newArrayList();
 		String fFrom = LocalDate.parse(dto.getFrom()).format(DATE_FORMAT);
 		String fTo = LocalDate.parse(dto.getTo()).plusDays(1).format(DATE_FORMAT);
