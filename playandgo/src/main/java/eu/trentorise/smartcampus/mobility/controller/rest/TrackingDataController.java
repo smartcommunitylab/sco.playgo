@@ -81,6 +81,7 @@ public class TrackingDataController {
 			String fTo = LocalDate.parse(dto.getTo()).plusDays(1).format(DATE_FORMAT);
 			
 			criterias.add(new Criteria("day").gte(fFrom).lt(fTo));
+			criterias.add(new Criteria("validationResult.validationStatus.effectiveDistances").exists(true));
 			if (Boolean.FALSE.equals(dto.getMultimodal())) {
 				criterias.add(new Criteria("freeTrackingTransport").in(dto.getMeans()));
 			}
