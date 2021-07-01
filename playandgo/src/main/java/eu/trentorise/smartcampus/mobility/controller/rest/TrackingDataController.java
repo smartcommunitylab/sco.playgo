@@ -24,6 +24,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -54,6 +56,8 @@ import eu.trentorise.smartcampus.mobility.util.GamificationHelper;
  */
 @RestController
 public class TrackingDataController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(TrackingDataController.class);
 
 	@Autowired
 	private AppSetup appSetup;
@@ -66,58 +70,64 @@ public class TrackingDataController {
 
 	@PostMapping("/gamification/trackingdata")
 	public List<TrackingDataDTO> getTrackingData(@RequestBody TrackingDataRequestDTO dto) {
-		String appId = ((AppDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getApp().getAppId();
-		AppInfo app = appSetup.findAppById(appId);
-		if (app == null) return Collections.emptyList();
-		
-		Criteria criteria = new Criteria("appId").is(appId).and("scoreStatus").in("ASSIGNED", "COMPUTED", "SENT");
-		List<Criteria> criterias = Lists.newArrayList();
-		String fFrom = LocalDate.parse(dto.getFrom()).format(DATE_FORMAT);
-		String fTo = LocalDate.parse(dto.getTo()).plusDays(1).format(DATE_FORMAT);
-		
-		criterias.add(new Criteria("day").gte(fFrom).lt(fTo));
-		if (Boolean.FALSE.equals(dto.getMultimodal())) {
-			criterias.add(new Criteria("freeTrackingTransport").in(dto.getMeans()));
-		}
-		if (dto.getPlayerId() != null && dto.getPlayerId().size() > 0) {
-			criterias.add(new Criteria("userId").in(dto.getPlayerId()));
-		}
-		if (!criterias.isEmpty()) {
-			Criteria[] cs = criterias.toArray(new Criteria[criterias.size()]);
-			criteria = criteria.andOperator(cs);
-		}
-		Query query = Query.query(criteria);
-		query.fields()
-			.include("userId")
-			.include("day")
-			.include("time")
-			.include("freeTrackingTransport")
-			.include("geolocationEvents")
-			.include("validationResult.validationStatus.distance")
-			.include("validationResult.validationStatus.effectiveDistances");
-		List<TrackedInstance> list = template.find(query, TrackedInstance.class);
-	
-		List<TrackingDataDTO> result = new LinkedList<>();
-		List<Shape> areas = dto.getLocations().stream().map(l -> toShape(l)).collect(Collectors.toList());
-		
-		// whether should consider also the multimodals
-		if (Boolean.FALSE.equals(dto.getMultimodal())) {
-			list.forEach(ti -> {
-				if (matchLocations(ti, areas)) {
-					result.add(toTrackingDataDTO(ti));
+		try {
+			String appId = ((AppDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getApp().getAppId();
+			AppInfo app = appSetup.findAppById(appId);
+			if (app == null) return Collections.emptyList();
+			
+			Criteria criteria = new Criteria("appId").is(appId).and("scoreStatus").in("ASSIGNED", "COMPUTED", "SENT");
+			List<Criteria> criterias = Lists.newArrayList();
+			String fFrom = LocalDate.parse(dto.getFrom()).format(DATE_FORMAT);
+			String fTo = LocalDate.parse(dto.getTo()).plusDays(1).format(DATE_FORMAT);
+			
+			criterias.add(new Criteria("day").gte(fFrom).lt(fTo));
+			if (Boolean.FALSE.equals(dto.getMultimodal())) {
+				criterias.add(new Criteria("freeTrackingTransport").in(dto.getMeans()));
+			}
+			if (dto.getPlayerId() != null && dto.getPlayerId().size() > 0) {
+				criterias.add(new Criteria("userId").in(dto.getPlayerId()));
+			}
+			if (!criterias.isEmpty()) {
+				Criteria[] cs = criterias.toArray(new Criteria[criterias.size()]);
+				criteria = criteria.andOperator(cs);
+			}
+			Query query = Query.query(criteria);
+			query.fields()
+				.include("userId")
+				.include("day")
+				.include("time")
+				.include("freeTrackingTransport")
+				.include("geolocationEvents")
+				.include("validationResult.validationStatus.distance")
+				.include("validationResult.validationStatus.effectiveDistances");
+			
+			List<TrackedInstance> list = template.find(query, TrackedInstance.class);
+
+			List<TrackingDataDTO> result = new LinkedList<>();
+			List<Shape> areas = dto.getLocations().stream().map(l -> toShape(l)).collect(Collectors.toList());
+			
+			// whether should consider also the multimodals
+			if (Boolean.FALSE.equals(dto.getMultimodal())) {
+				for (TrackedInstance ti : list) {
+					if (matchLocations(ti, areas)) {
+						result.add(toTrackingDataDTO(ti));
+					}
 				}
-			});
-		} else {
-			ListMultimap<String, TrackedInstance> index = Multimaps.index(list, ti -> ti.getMultimodalId() == null ? ti.getId() : ti.getMultimodalId());
-			index.keySet().forEach(key -> {
-				List<TrackedInstance> group = index.get(key);
-				if (group.stream().anyMatch(ti -> matchLocations(ti, areas))) {
-					group.stream().filter(ti -> dto.getMeans().contains(ti.getFreeTrackingTransport())).forEach(ti -> result.add(toTrackingDataDTO(ti)));
+			} else {
+				ListMultimap<String, TrackedInstance> index = Multimaps.index(list, ti -> ti.getMultimodalId() == null ? ti.getId() : ti.getMultimodalId());
+				for (String key : index.keySet()) {
+					List<TrackedInstance> group = index.get(key);
+					if (group.stream().anyMatch(ti -> matchLocations(ti, areas))) {
+						group.stream().filter(ti -> dto.getMeans().contains(ti.getFreeTrackingTransport())).forEach(ti -> result.add(toTrackingDataDTO(ti)));
+					}
 				}
-			});
+			}
+			
+			return result;
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			throw e;
 		}
-		
-		return result;
 	} 
 	
 	/**
