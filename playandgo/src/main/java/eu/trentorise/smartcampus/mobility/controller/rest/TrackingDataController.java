@@ -172,10 +172,18 @@ public class TrackingDataController {
 	private boolean matchLocations(TrackedInstance ti, List<Shape> areas) {
 		Object[] arr = ti.getGeolocationEvents().toArray(); 
 		if (GamificationHelper.inAreas(areas, (Geolocation)arr[0])) return true;
-		if (GamificationHelper.inAreas(areas, (Geolocation)arr[arr.length -1])) return true;
+		if (GamificationHelper.inAreas(areas, (Geolocation)arr[arr.length-1])) return true;
 		if (arr.length > 3) {
 			if (GamificationHelper.inAreas(areas, (Geolocation)arr[1])) return true;
-			if (GamificationHelper.inAreas(areas, (Geolocation)arr[arr.length -2])) return true;
+			if (GamificationHelper.inAreas(areas, (Geolocation)arr[arr.length-2])) return true;
+		}
+		if (arr.length > 5) {
+			if (GamificationHelper.inAreas(areas, (Geolocation)arr[2])) return true;
+			if (GamificationHelper.inAreas(areas, (Geolocation)arr[arr.length-3])) return true;
+		}
+		if (arr.length > 7) {
+			if (GamificationHelper.inAreas(areas, (Geolocation)arr[3])) return true;
+			if (GamificationHelper.inAreas(areas, (Geolocation)arr[arr.length-4])) return true;
 		}
 
 		return false;
