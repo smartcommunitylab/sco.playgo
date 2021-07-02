@@ -19,6 +19,7 @@ package eu.trentorise.smartcampus.mobility.controller.rest;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -170,7 +171,11 @@ public class TrackingDataController {
 	 * @return
 	 */
 	private boolean matchLocations(TrackedInstance ti, List<Shape> areas) {
-		Object[] arr = ti.getGeolocationEvents().toArray(); 
+		Object[] arr = ti.getGeolocationEvents().toArray();
+		Arrays.sort(arr, (a,b) -> {
+			return ((Geolocation)a).getRecorded_at().compareTo(((Geolocation)b).getRecorded_at()); 
+		});
+		
 		if (GamificationHelper.inAreas(areas, (Geolocation)arr[0])) return true;
 		if (GamificationHelper.inAreas(areas, (Geolocation)arr[arr.length-1])) return true;
 		if (arr.length > 3) {
@@ -181,10 +186,10 @@ public class TrackingDataController {
 			if (GamificationHelper.inAreas(areas, (Geolocation)arr[2])) return true;
 			if (GamificationHelper.inAreas(areas, (Geolocation)arr[arr.length-3])) return true;
 		}
-		if (arr.length > 7) {
-			if (GamificationHelper.inAreas(areas, (Geolocation)arr[3])) return true;
-			if (GamificationHelper.inAreas(areas, (Geolocation)arr[arr.length-4])) return true;
-		}
+//		if (arr.length > 7) {
+//			if (GamificationHelper.inAreas(areas, (Geolocation)arr[3])) return true;
+//			if (GamificationHelper.inAreas(areas, (Geolocation)arr[arr.length-4])) return true;
+//		}
 
 		return false;
 	}
@@ -312,4 +317,5 @@ public class TrackingDataController {
 			this.playerId = playerId;
 		}
 	}
+
 }
